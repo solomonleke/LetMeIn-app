@@ -15,7 +15,7 @@ export default function Home() {
       nav("/sign-up")
     }
     const sign_in = ()=>{
-
+      nav("/sign-in")
     }
   return (
         <MainLayout>

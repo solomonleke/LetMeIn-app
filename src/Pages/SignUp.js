@@ -1,4 +1,4 @@
-import { Box, Center, Select, Stack, Text } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
@@ -8,6 +8,7 @@ import Seo from '../Utils/Seo';
 
 export default function SignUp() {
     const [view, setView] = useState(false);
+     const [Success, setSuccess] = useState(false);
     const [Match, setMatch] = useState(false);
     
     const nav = useNavigate()
@@ -45,7 +46,7 @@ export default function SignUp() {
         }
 
     }else{
-        alert("please fill in required fields")
+        setSuccess(true)
     }
 
         
@@ -54,7 +55,18 @@ export default function SignUp() {
     <MainLayout>
     <Seo title='Sign-up' description='Sign-up for LetMeIn'/>
 
-    <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#575757" mt="32px" textAlign={"center"}>Sign up</Text>
+    <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#575757" mt="32px" textAlign={"center"}>Sign Up</Text>
+    {
+        Success && (
+            <Center>
+            <Alert status='error' mt="15px" mx={["10%","40%"]} color="#00000" >
+            <AlertIcon />
+            <AlertTitle mr={2}>Please fill in required fields!</AlertTitle>
+            <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
+            </Alert>
+        </Center>
+        )
+    }
     <Center>
 
         {

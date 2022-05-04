@@ -52,7 +52,8 @@ export default function Button({
       type={isSubmit ? 'submit' : 'button'}
       disabled={isLoading || disabled}
       w={'100%'}
-      px="32px"
+      px="85px"
+      py="8px"
       leftIcon={leftIcon}
       rightIcon={rightIcon}
       mt={mt}

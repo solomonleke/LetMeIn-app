@@ -69,6 +69,7 @@ import {
               fontWeight={'300'}
               rounded="0px"
               bg="#E8DBDB"
+              w="250px"
               onFocus={() => setActive(true)}
               onBlur={() => {
                 if (!rest.value) {
