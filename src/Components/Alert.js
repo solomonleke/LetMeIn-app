@@ -1,7 +1,7 @@
 import { AlertIcon, Alert, Center, AlertTitle, CloseButton } from '@chakra-ui/react';
 import React from 'react';
 
-export default function AlertMe({title, status, onclick}) {
+export default function AlertMe({title, status, onclick,  }) {
   return (
     <Center>
             <Alert status={status} mt="15px" mx={["10%","39%"]} color="#00000" >
