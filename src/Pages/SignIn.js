@@ -25,15 +25,11 @@ export default function SignIn() {
    }
 
     
-    const proceed =()=>{
-        
-        console.log("type", Payload.userType);
-        setView(true)
-    }
+  
     const Sign_in =()=>{
         
        if(Payload.email !=="" &&  Payload.password !=="" ){
-        nav("/")
+        nav("/resident")
     }else{
         
         setSuccess(true)

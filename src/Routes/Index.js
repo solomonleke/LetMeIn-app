@@ -5,6 +5,7 @@ import Page2 from '../Pages/Page2'
 import Index from '../Pages/Residents/Index'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
+import VisitorsAccess from '../Pages/VisitorsAccess'
 import Sample from '../Redux/Reducers/Sample'
 
 export default function IndexRoutes() {
@@ -15,6 +16,7 @@ export default function IndexRoutes() {
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/resident' element={<Index/>}/>
+            <Route path='/visitors-access' element={<VisitorsAccess/>}/>
             <Route path='/page' element={<Page2/>}/>
             <Route path='/sample' element={<Sample/>}/>
         </Routes>

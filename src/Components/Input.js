@@ -44,10 +44,10 @@ import {
           transform={`translateY(${active || val ? '-19px' : '7px'}) translateX(15px)`}
           bottom={'3'}
           zIndex="10"
-          fontSize={active ? 'xs' : 'sm'}
-          fontWeight="300"
+          fontSize={active ? 'xs' : '12px'}
+          fontWeight="400"
           color={"#939393"}
-          bg={"#E8DBDB"}
+          bg={"#fff"}
           px="4px"
         >
           {label}
@@ -61,14 +61,15 @@ import {
               {...rest}
               placeholder={active || !label ? placeholder : ''}
               type={inputType}
-              focusBorderColor={'#E8DBDB'}
-              _focus={{ borderColor: "#E8DBDB" }}
+              focusBorderColor={'#E02828'}
+              _focus={{ borderColor: "#E02828" }}
               size={size}
               color="#939393"
               fontSize="sm"
+              _autofill={{bgColor: "#fff !important"}} 
               fontWeight={'300'}
               rounded="0px"
-              bg="#E8DBDB"
+              bg="#fff"
               w="250px"
               onFocus={() => setActive(true)}
               onBlur={() => {

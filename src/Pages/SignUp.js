@@ -74,7 +74,7 @@ export default function SignUp() {
                 <Box>
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="80px">Please who are you ?</Text>
     
-                <Select onChange={handleSignUp} id="userType" rounded="0" variant='filled' fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='I am a...................' bg={"#E8DBDB"} _hover={{bg: "#E8DBDB"}} w="250px" size={"lg"} mt="12px">
+                <Select onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
                 <option value='Resident'>Resident</option>
                 <option value='LandLord'>LandLord</option>
                 <option value='Estate Manager'>Estate Manager</option>
@@ -88,7 +88,7 @@ export default function SignUp() {
                 <form onSubmit={Sign_up}>
                 <Stack mt="44px" spacing="15px">
                 
-                    <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0" variant='filled' fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#E8DBDB"} _hover={{bg: "#E8DBDB"}} w="250px" size={"lg"} mt="12px">
+                    <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
                     <option value='Mr'>Mr</option>
                     <option value='Mrs'>Mrs</option>
                     </Select>

@@ -19,7 +19,9 @@ export default function Button({
   rightIcon,
   href,
   mt,
-  mb
+  mb, 
+   px="85px",
+  py="8px"
 }) {
 
   const history = useNavigate();
@@ -52,8 +54,8 @@ export default function Button({
       type={isSubmit ? 'submit' : 'button'}
       disabled={isLoading || disabled}
       w={'100%'}
-      px="85px"
-      py="8px"
+      px={px}
+      py={py}
       leftIcon={leftIcon}
       rightIcon={rightIcon}
       mt={mt}
