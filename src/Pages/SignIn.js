@@ -1,5 +1,6 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
@@ -11,6 +12,8 @@ export default function SignIn() {
     const [Success, setSuccess] = useState(false);
     const [view, setView] = useState(false);
     const [Match, setMatch] = useState(false);
+    const isLogged = useSelector((state) => state.isLogged);
+    const dispatch = useDispatch();
     
     const nav = useNavigate()
    const [Payload, setPayload] = useState({
@@ -30,6 +33,10 @@ export default function SignIn() {
         
        if(Payload.email !=="" &&  Payload.password !=="" ){
         nav("/resident")
+        dispatch(
+
+            { type: "SIGN_IN", payload: { isLogged: true } }
+          )
     }else{
         
         setSuccess(true)

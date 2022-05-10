@@ -23,14 +23,14 @@ export default function VisitorsAccess() {
         firstName: "",
         lastName: "",
         gender: "",
-        phone: "",
+      
     });
     const handleChange = (e) => {
         setPayload({ ...Payload, [e.target.id]: e.target.value })
     }
 
     const access = () => {
-        if (Payload.firstName !== "" && Payload.lastName !== "" && Payload.phone !== "" && Payload.gender !== "") {
+        if (Payload.firstName !== ""  && Payload.gender !== "") {
             console.log("Payload", Payload);
             onOpen()
 
@@ -74,8 +74,7 @@ export default function VisitorsAccess() {
                     <Stack mt="44px" spacing="15px">
 
                         <Input val={Payload.firstName && true} isRequired label="First Name" value={Payload.firstName} id='firstName' type='text' onChange={handleChange} />
-                        <Input val={Payload.lastName && true} isRequired label="Last Name" value={Payload.lastName} id='lastName' type='text' onChange={handleChange} />
-                        <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} id='phone' type='number' onChange={handleChange} />
+                        <Input val={Payload.lastName && true}  label="Last Name" value={Payload.lastName} id='lastName' type='text' onChange={handleChange} />
 
                         <Select isRequired onChange={handleChange} id="gender" color="#939393" rounded="0" _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"} placeholder='Gender' bg={"#fff"} _hover={{ bg: "#fff" }} w="250px" size={"lg"}>
                             <option value='Male'>Male</option>
