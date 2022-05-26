@@ -1,9 +1,10 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
+import Request from '../Utils/Request';
 import Seo from '../Utils/Seo';
 
 export default function SignUp() {
@@ -34,13 +35,20 @@ export default function SignUp() {
         console.log("type", Payload.userType);
         setView(true)
     }
-    const Sign_up =()=>{
+    const Sign_up = async ()=>{
         
        if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
         
         if(Payload.password == Payload.re_enter_password){
             console.log("payload", Payload);
-            nav("/")
+            const res = await new Request().post({url:"http://localhost:4000/user/signup", data: Payload})
+            console.log("res" , res)
+            if(res){
+
+                nav("/sign-in")
+            }else{
+                alert("error occurred while trying to signup")
+            }
         }else{
             setMatch(true)
         }
@@ -51,6 +59,91 @@ export default function SignUp() {
 
         
     }
+
+
+    //   const getApi = async ()=>{
+    //    const res = await new Request().get({url:"http://localhost:4000/api/user/hello"})
+    //     console.log(res)
+    // }
+//     const test = {
+//         "title": "mr",
+//         "fname": "Moyinoluwa",
+//         "lname": "Adeleke",
+//         "email": "moyinadeleke@yahoo.com",
+//         "pNumber": "08160888922",
+//         "address": "n0 1",
+//         "Password": 123456789
+   
+//
+    const payload = {
+
+        method: "POST",
+        headers: { "Content-Type": "application/JSON"},
+        body: JSON.stringify({
+            "prefix" :"Mr",
+            "firstName" : "Tayo",
+            "lastName" : "paul",
+            "password": "obinna121",
+            "email" : "lordsoliz@gmail.com",
+            "userType" : "Landlord",
+            "phone" : "08181878447"
+        }),
+        
+    }
+
+    // const check = ()=> {
+
+    //     fetch("http://localhost:4000/user/signup", payload)
+
+    //     .then(res => res.json())
+    //     .then(json => {
+    //       console.log( "API-CHECK" , json)
+    //       if(json){
+
+    //         nav("/sign-in")
+    //     }else{
+    //         alert("Obinna don cook beans")
+    //     }
+    //    })
+    //     .catch(error => {
+    //       console.log("error", error);
+    //   })
+    // }
+    const check = ()=> {
+
+        fetch("http://localhost:4000/user/signup",{
+            method: "POST",
+            headers: {
+                "Content-Type":  "application/JSON"
+            },
+            body: JSON.stringify({
+                "prefix" :"Mr",
+                "firstName" : "James",
+                "lastName" : "Edmund",
+                "password": "obinna121",
+                "email" : "devmanuel01@gmail.com",
+                "userType" : "Landlord",
+                "phone" : "08181878447"
+            })
+            
+        })
+
+        .then(res => {
+          return  res.json();
+        })
+        .then(data => {
+            console.log(`Success: `, data)
+        })
+        .catch(error => console.log(`Error: `, error))
+        
+    }
+
+
+    useEffect(() => {
+        // getApi()
+        }, []);
+
+
   return (
     <MainLayout>
     <Seo title='Sign-up' description='Sign-up for LetMeIn'/>
@@ -105,7 +198,7 @@ export default function SignUp() {
                     <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
                 </Stack>
 
-                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up}>Enter</Button>
+                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={check}>Enter</Button>
                 </form>
                 </Box>
             )

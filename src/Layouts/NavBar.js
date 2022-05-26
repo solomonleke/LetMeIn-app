@@ -20,6 +20,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
+  Flex,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { AiOutlineMenu } from "react-icons/ai";
@@ -55,13 +56,13 @@ export default function NavBar() {
   return (
     <Box mx={["6%", "10%"]} mt='32px'>
 
-      <Stack direction="row" cursor={"pointer"}>
+      <Stack direction="row" cursor={"pointer"} display={["none", "flex"]}>
         <Image src='/logo.png' onClick={home} />
         <Spacer />
         {
           isLogged.isLogged && (
 
-            <HStack spacing="20px" display={["none", "flex"]}>
+            <HStack spacing="20px" >
               <Popover
                 initialFocusRef={initialFocusRef}
                 placement='bottom'
@@ -104,13 +105,24 @@ export default function NavBar() {
           )
         }
 
-        {
-          isLogged.isLogged && (
-
-            <Box display={["flex", "none"]} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} > <AiOutlineMenu /></Box>
-          )
-        }
+       
       </Stack>
+
+      <Flex justifyContent={"space-between"} display={["flex", "none"]}>
+      {
+        isLogged.isLogged && (
+
+          <Box display={["flex", "none"]} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} > <AiOutlineMenu /></Box>
+        )
+      }
+      <Box pos={"relative"}>
+          <Image src='/logo.png' onClick={home} />
+          <Text fontSize={"14px"} fontWeight="400" color={"#939393"} fontFamily={"body"} pos={"absolute"} left={"50px"} top={"35px"}>Resident</Text>
+      </Box>
+
+      <Avatar name='Henry Solomon' src='' />
+
+      </Flex>
 
       <Drawer
         isOpen={isOpen}
