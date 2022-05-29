@@ -26,6 +26,7 @@ export default function SignUp() {
    });
 
    const handleSignUp =(e)=>{
+    
     setPayload({...Payload, [e.target.id]: e.target.value})
    }
 
@@ -43,11 +44,11 @@ export default function SignUp() {
             console.log("payload", Payload);
             const res = await new Request().post({url:"http://localhost:4000/user/signup", data: Payload})
             console.log("res" , res)
-            if(res){
+            if(res.status === 200){
 
                 nav("/sign-in")
             }else{
-                alert("error occurred while trying to signup")
+                alert(res.message)
             }
         }else{
             setMatch(true)
@@ -78,7 +79,11 @@ export default function SignUp() {
     const payload = {
 
         method: "POST",
-        headers: { "Content-Type": "application/JSON"},
+
+        headers: { 
+            "Content-Type": "application/JSON"
+        },
+
         body: JSON.stringify(Payload),
         
     }
@@ -101,6 +106,36 @@ export default function SignUp() {
           console.log("error", error);
       })
     }
+
+    // const check = ()=> {
+
+    //     fetch("http://localhost:4000/user/signup",{
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type":  "application/JSON"
+    //         },
+    //         body: JSON.stringify({
+    //             "prefix" :"Mr",
+    //             "firstName" : "James",
+    //             "lastName" : "Edmund",
+    //             "password": "obinna121",
+    //             "email" : "devmanuel01@gmail.com",
+    //             "userType" : "Landlord",
+    //             "phone" : "08181878447"
+    //         })
+            
+    //     })
+
+    //     .then(res => {
+    //       return  res.json();
+    //     })
+    //     .then(data => {
+    //         console.log(`Success: `, data)
+    //     })
+    //     .catch(error => console.log(`Error: `, error))
+        
+    // }
+
 
 
 
@@ -163,7 +198,7 @@ export default function SignUp() {
                     <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
                 </Stack>
 
-                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={check}>Enter</Button>
+                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up}>Enter</Button>
                 </form>
                 </Box>
             )
