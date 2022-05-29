@@ -79,64 +79,29 @@ export default function SignUp() {
 
         method: "POST",
         headers: { "Content-Type": "application/JSON"},
-        body: JSON.stringify({
-            "prefix" :"Mr",
-            "firstName" : "Tayo",
-            "lastName" : "paul",
-            "password": "obinna121",
-            "email" : "lordsoliz@gmail.com",
-            "userType" : "Landlord",
-            "phone" : "08181878447"
-        }),
+        body: JSON.stringify(Payload),
         
     }
 
-    // const check = ()=> {
-
-    //     fetch("http://localhost:4000/user/signup", payload)
-
-    //     .then(res => res.json())
-    //     .then(json => {
-    //       console.log( "API-CHECK" , json)
-    //       if(json){
-
-    //         nav("/sign-in")
-    //     }else{
-    //         alert("Obinna don cook beans")
-    //     }
-    //    })
-    //     .catch(error => {
-    //       console.log("error", error);
-    //   })
-    // }
     const check = ()=> {
 
-        fetch("http://localhost:4000/user/signup",{
-            method: "POST",
-            headers: {
-                "Content-Type":  "application/JSON"
-            },
-            body: JSON.stringify({
-                "prefix" :"Mr",
-                "firstName" : "James",
-                "lastName" : "Edmund",
-                "password": "obinna121",
-                "email" : "devmanuel01@gmail.com",
-                "userType" : "Landlord",
-                "phone" : "08181878447"
-            })
-            
-        })
+        fetch("http://localhost:4000/user/signup", payload)
 
-        .then(res => {
-          return  res.json();
-        })
-        .then(data => {
-            console.log(`Success: `, data)
-        })
-        .catch(error => console.log(`Error: `, error))
-        
+        .then(res => res.json())
+        .then(json => {
+          console.log( "API-CHECK" , json)
+          if(json){
+
+            nav("/sign-in")
+        }else{
+            alert("Obinna don cook beans")
+        }
+       })
+        .catch(error => {
+          console.log("error", error);
+      })
     }
+
 
 
     useEffect(() => {
