@@ -79,9 +79,11 @@ export default function SignUp() {
     const payload = {
 
         method: "POST",
+
         headers: { 
             "Content-Type": "application/JSON"
         },
+
         body: JSON.stringify(Payload),
         
     }
@@ -104,6 +106,7 @@ export default function SignUp() {
           console.log("error", error);
       })
     }
+
     // const check = ()=> {
 
     //     fetch("http://localhost:4000/user/signup",{
@@ -132,6 +135,8 @@ export default function SignUp() {
     //     .catch(error => console.log(`Error: `, error))
         
     // }
+
+
 
 
     useEffect(() => {
