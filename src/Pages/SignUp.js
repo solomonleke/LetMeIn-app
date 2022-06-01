@@ -36,46 +36,10 @@ export default function SignUp() {
         console.log("type", Payload.userType);
         setView(true)
     }
-    const Sign_up = async ()=>{
-        
-       if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
-        
-        if(Payload.password == Payload.re_enter_password){
-            console.log("payload", Payload);
-            const res = await new Request().post({url:"http://localhost:4000/user/signup", data: Payload})
-            console.log("res" , res)
-            if(res.status === 200){
 
-                nav("/sign-in")
-            }else{
-                alert(res.message)
-            }
-        }else{
-            setMatch(true)
-        }
-
-    }else{
-        setSuccess(true)
-    }
-
-        
-    }
+    
 
 
-    //   const getApi = async ()=>{
-    //    const res = await new Request().get({url:"http://localhost:4000/api/user/hello"})
-    //     console.log(res)
-    // }
-//     const test = {
-//         "title": "mr",
-//         "fname": "Moyinoluwa",
-//         "lname": "Adeleke",
-//         "email": "moyinadeleke@yahoo.com",
-//         "pNumber": "08160888922",
-//         "address": "n0 1",
-//         "Password": 123456789
-   
-//
     const payload = {
 
         method: "POST",
@@ -88,23 +52,38 @@ export default function SignUp() {
         
     }
 
-    const check = ()=> {
+    const Sign_up  = ()=> {
 
-        fetch("http://localhost:4000/user/signup", payload)
+        if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
 
-        .then(res => res.json())
-        .then(json => {
-          console.log( "API-CHECK" , json)
-          if(json){
+            if(Payload.password == Payload.re_enter_password){
 
-            nav("/sign-in")
+                fetch("https://api.solomonleke.com.ng/user/signup", payload)
+
+                .then(res => res.json())
+                .then(json => {
+                  console.log( "API-CHECK" , json)
+                  if(json.status == 200){
+        
+                    nav("/sign-in")
+                }else{
+                    alert(json.message)
+                }
+               })
+                .catch(error => {
+                  console.log("error", error);
+              })
+
+            }else{
+                setMatch(true)
+            }
+
+
         }else{
-            alert("Obinna don cook beans")
+            setSuccess(true)
         }
-       })
-        .catch(error => {
-          console.log("error", error);
-      })
+
+      
     }
 
     // const check = ()=> {
@@ -198,7 +177,7 @@ export default function SignUp() {
                     <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
                 </Stack>
 
-                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up}>Enter</Button>
+                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
                 </form>
                 </Box>
             )
