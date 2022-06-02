@@ -64,8 +64,8 @@ export default function SignUp() {
                 .then(json => {
                   console.log( "API-CHECK" , json)
                   if(json.status == 200){
-        
-                    nav("/sign-in")
+                    localStorage.setItem("newUserEmail", JSON.stringify(Payload.email) )
+                    nav("/verification")
                 }else{
                     alert(json.message)
                 }
@@ -86,34 +86,6 @@ export default function SignUp() {
       
     }
 
-    // const check = ()=> {
-
-    //     fetch("http://localhost:4000/user/signup",{
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type":  "application/JSON"
-    //         },
-    //         body: JSON.stringify({
-    //             "prefix" :"Mr",
-    //             "firstName" : "James",
-    //             "lastName" : "Edmund",
-    //             "password": "obinna121",
-    //             "email" : "devmanuel01@gmail.com",
-    //             "userType" : "Landlord",
-    //             "phone" : "08181878447"
-    //         })
-            
-    //     })
-
-    //     .then(res => {
-    //       return  res.json();
-    //     })
-    //     .then(data => {
-    //         console.log(`Success: `, data)
-    //     })
-    //     .catch(error => console.log(`Error: `, error))
-        
-    // }
 
 
 
