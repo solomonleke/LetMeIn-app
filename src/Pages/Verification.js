@@ -6,10 +6,53 @@ import { MdEmail } from "react-icons/md";
 
 export default function Verification() {
     const [NewUser, setNewUser] = useState("");
+    const [Loading, setLoading] = useState(false);
 
+    let newUser = localStorage.getItem('newUserEmail')
     const getEmail = () => {
-       setNewUser( localStorage.getItem('newUserEmail'))
+        
+        let arrUser = newUser.split("") 
+        arrUser.shift()
+        arrUser.pop()
+        let length = arrUser.length
+        arrUser[2] = "*"
+        arrUser[3] = "*"
+        arrUser[4] = "*"
+        arrUser[5] = "*"
+        arrUser[length-2] = "*"
+        arrUser[length-3] = "*"
+        arrUser[length-4] = "*"
+        let latest=arrUser.join("")
+
+       setNewUser( arrUser)
     }
+
+    const payload = {
+
+        method: "POST",
+
+        headers: { 
+            "Content-Type": "application/JSON"
+        },
+
+        body: JSON.stringify(newUser),
+        
+    }
+    
+    const Resend = ()=> {
+        setLoading(true)
+        fetch("https://api.solomonleke.com.ng/user/resend", payload)
+        .then(res => res.json())
+        .then(json => {
+          console.log( "Resend API-CHECK" , json)
+          setLoading(false)
+       })
+        .catch(error => {
+          console.log("error", error);
+          setLoading(false)
+      })
+    }
+
 
     useEffect(() => {
         getEmail()
@@ -26,7 +69,7 @@ export default function Verification() {
                     You need to verify you email address to log into LetMeIn App
                     
                 </Text>
-                    <Button mt={"32px"}>Resend Mail</Button>
+                    <Button isLoading={Loading} mt={"32px"} onClick={Resend}>Resend Mail</Button>
             </Box>
 
         </Center>

@@ -9,6 +9,8 @@ import Seo from '../Utils/Seo';
 
 export default function SignUp() {
     const [view, setView] = useState(false);
+    const [Loading, setLoading] = useState(false);
+
      const [Success, setSuccess] = useState(false);
     const [Match, setMatch] = useState(false);
     
@@ -53,7 +55,7 @@ export default function SignUp() {
     }
 
     const Sign_up  = ()=> {
-
+        setLoading(true)
         if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
 
             if(Payload.password == Payload.re_enter_password){
@@ -65,6 +67,7 @@ export default function SignUp() {
                   console.log( "API-CHECK" , json)
                   if(json.status == 200){
                     localStorage.setItem("newUserEmail", JSON.stringify(Payload.email) )
+                    setLoading(false)
                     nav("/verification")
                 }else{
                     alert(json.message)
@@ -149,7 +152,7 @@ export default function SignUp() {
                     <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
                 </Stack>
 
-                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
+                <Button isLoading= {Loading} mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
                 </form>
                 </Box>
             )
