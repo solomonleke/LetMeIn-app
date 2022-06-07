@@ -66,7 +66,7 @@ export default function SignUp() {
                 .then(json => {
                   console.log( "API-CHECK" , json)
                   if(json.status == 200){
-                    localStorage.setItem("newUserEmail", JSON.stringify(Payload.email) )
+                    localStorage.setItem("newUserEmail", Payload.email )
                     setLoading(false)
                     nav("/verification")
                 }else{

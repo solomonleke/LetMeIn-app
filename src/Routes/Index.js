@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import EstateAdmin from '../Pages/Estate-admin/Index'
 import Home from '../Pages/Home'
 import Page2 from '../Pages/Page2'
 import Index from '../Pages/Residents/Index'
@@ -17,6 +18,7 @@ export default function IndexRoutes() {
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/resident' element={<Index/>}/>
+            <Route path='/estate-admin' element={<EstateAdmin/>}/>
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
             <Route path='/verification' element={<Verification/>}/>
             <Route path='/page' element={<Page2/>}/>
