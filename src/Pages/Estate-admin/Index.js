@@ -34,7 +34,7 @@ export default function EstateAdmin() {
 
     return (
         <MainLayout>
-            <Seo title='Resident' description='Resident for LetMeIn' />
+            <Seo title='Estate-Manager' description='Estate for LetMeIn' />
 
 
             <Center mt={["100px", "171px"]}>

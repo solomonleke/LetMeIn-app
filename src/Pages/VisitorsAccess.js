@@ -45,10 +45,11 @@ export default function VisitorsAccess() {
         
     }
 
+    const [AccessCode, setAccessCode] = useState("");
+
 
     const access = () => {
         if (Payload.firstName !== ""  && Payload.gender !== "") {
-            console.log("Payload", Payload);
             
             fetch("https://api.solomonleke.com.ng/user/visitor", payload)
 
@@ -56,13 +57,18 @@ export default function VisitorsAccess() {
             .then(json => {
             
               console.log("Access", json);
+              if(json.status == 201){
+
+                setAccessCode(json.visitor_1.randomNumber)
+                onOpen()
+
+              }
            })
             .catch(error => {
               console.log("error", error);
           })
           
-            onOpen()
-
+           
         } else {
             setSuccess(true)
         }
@@ -82,7 +88,7 @@ export default function VisitorsAccess() {
 
     }
 
-    const accessCode = (Math.floor(Math.random() * 128) + 12061);
+    // const accessCode = (Math.floor(Math.random() * 128) + 12061);
     const isLogged = useSelector((state) => state.isLogged);
     const nav = useNavigate()
 
@@ -142,7 +148,7 @@ export default function VisitorsAccess() {
                             <Stack direction={"row"} mt="27px" spacing={"22px"} fontFamily={"body"}>
                                 <Image src="/check.png" />
                                 <Box textAlign={"center"} pos="relative" top="12px">
-                                    <Text fontSize="24px" fontWeight={"700"}>{accessCode}</Text>
+                                    <Text fontSize="24px" fontWeight={"700"}>{AccessCode}</Text>
                                     <Text fontSize="14px" fontWeight={"300"}>Access Code</Text>
                                 </Box>
                             </Stack>
@@ -152,7 +158,7 @@ export default function VisitorsAccess() {
                             <Text fontWeight={"700"}> {Payload.firstName} {Payload.lastName}</Text>
                         </Box>
 
-                        <input type="text" value={accessCode} hidden id="myInput" />
+                        <input type="text" value={AccessCode} hidden id="myInput" />
 
 
                         <Center> <Button mb="5px" mt="32px" px='0px' onClick={copyAccess}>Copy Access Code</Button></Center>
