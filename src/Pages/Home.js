@@ -1,5 +1,6 @@
 import { Box, Button, Center, Stack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import MainLayout from '../Layouts/Index'
 import Request from '../Utils/Request'
@@ -10,6 +11,9 @@ export default function Home() {
     //    const res = await new Request().get({url:"https://jsonplaceholder.typicode.com/posts"})
     //     console.log(res)
     // }
+
+    const isLogged = useSelector((state) => state.isLogged);
+    const onlineUser = useSelector((state) => state.onlineUser);
     const nav= useNavigate()
     const sign_up = ()=>{
       nav("/sign-up")
@@ -17,6 +21,26 @@ export default function Home() {
     const sign_in = ()=>{
       nav("/sign-in")
     }
+
+    const middleWare = ()=>{
+      if(isLogged.isLogged == true){
+        if (onlineUser.user.userType == "Resident") {
+
+          nav("/resident")
+      } else if (onlineUser.user.userType == "Landlord") {
+          nav("/landlord")
+      } else if (onlineUser.user.userType == "Estate Manager") {
+          nav("/estate-admin")
+      } else {
+          nav("/security-ops")
+      }
+      }else{
+        nav("/")
+      }
+    }
+    useEffect(() => {
+      middleWare()
+    }, []);
   return (
         <MainLayout>
             <Seo title='Home' description='HomePage'/>

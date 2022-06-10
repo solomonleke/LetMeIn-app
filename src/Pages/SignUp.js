@@ -9,6 +9,8 @@ import Seo from '../Utils/Seo';
 
 export default function SignUp() {
     const [view, setView] = useState(false);
+    const [Loading, setLoading] = useState(false);
+
      const [Success, setSuccess] = useState(false);
     const [Match, setMatch] = useState(false);
     
@@ -36,102 +38,59 @@ export default function SignUp() {
         console.log("type", Payload.userType);
         setView(true)
     }
-    const Sign_up = async ()=>{
-        
-       if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
-        
-        if(Payload.password == Payload.re_enter_password){
-            console.log("payload", Payload);
-            const res = await new Request().post({url:"https://api.solomonleke.com.ng/user/signup", data: Payload})
-            console.log("res" , res)
-            if(res.json.status === 200){
 
-                nav("/sign-in")
-            }else{
-                alert(res.json.message)
-            }
-        }else{
-            setMatch(true)
-        }
-
-    }else{
-        setSuccess(true)
-    }
-
-        
-    }
+    
 
 
-    //   const getApi = async ()=>{
-    //    const res = await new Request().get({url:"http://localhost:4000/api/user/hello"})
-    //     console.log(res)
-    // }
-//     const test = {
-//         "title": "mr",
-//         "fname": "Moyinoluwa",
-//         "lname": "Adeleke",
-//         "email": "moyinadeleke@yahoo.com",
-//         "pNumber": "08160888922",
-//         "address": "n0 1",
-//         "Password": 123456789
-   
-//
     const payload = {
 
         method: "POST",
+
         headers: { 
             "Content-Type": "application/JSON"
         },
+
         body: JSON.stringify(Payload),
         
     }
 
-    const check = ()=> {
+    const Sign_up  = ()=> {
+        setLoading(true)
+        if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
 
-        fetch("https://api.solomonleke.com.ng/user/signup", payload)
+            if(Payload.password == Payload.re_enter_password){
 
-        .then(res => res.json())
-        .then(json => {
-          console.log( "API-CHECK" , json)
-          if(json){
+                fetch("https://api.solomonleke.com.ng/user/signup", payload)
 
-            nav("/sign-in")
+                .then(res => res.json())
+                .then(json => {
+                  console.log( "API-CHECK" , json)
+                  if(json.status == 200){
+                    localStorage.setItem("newUserEmail", Payload.email )
+                    setLoading(false)
+                    nav("/verification")
+                }else{
+                    alert(json.message)
+                }
+               })
+                .catch(error => {
+                  console.log("error", error);
+              })
+
+            }else{
+                setMatch(true)
+            }
+
+
         }else{
-            alert("Obinna don cook beans")
+            setSuccess(true)
         }
-       })
-        .catch(error => {
-          console.log("error", error);
-      })
+
+      
     }
-    // const check = ()=> {
 
-    //     fetch("http://localhost:4000/user/signup",{
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type":  "application/JSON"
-    //         },
-    //         body: JSON.stringify({
-    //             "prefix" :"Mr",
-    //             "firstName" : "James",
-    //             "lastName" : "Edmund",
-    //             "password": "obinna121",
-    //             "email" : "devmanuel01@gmail.com",
-    //             "userType" : "Landlord",
-    //             "phone" : "08181878447"
-    //         })
-            
-    //     })
 
-    //     .then(res => {
-    //       return  res.json();
-    //     })
-    //     .then(data => {
-    //         console.log(`Success: `, data)
-    //     })
-    //     .catch(error => console.log(`Error: `, error))
-        
-    // }
+
 
 
     useEffect(() => {
@@ -193,7 +152,7 @@ export default function SignUp() {
                     <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
                 </Stack>
 
-                <Button mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up}>Enter</Button>
+                <Button isLoading= {Loading} mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
                 </form>
                 </Box>
             )

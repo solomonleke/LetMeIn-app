@@ -1,5 +1,6 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
@@ -18,6 +19,17 @@ export default function Index() {
     const taxi_access = () => {
         nav("/taxi-access")
     } 
+
+    const isLogged = useSelector((state) => state.isLogged);
+   
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+    }
+    useEffect(() => {
+        middleWare()
+    }, []);
   return (
     <MainLayout>
     <Seo title='Resident' description='Resident for LetMeIn'/>

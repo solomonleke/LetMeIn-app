@@ -8,7 +8,9 @@ import {
     ModalCloseButton,
     Image, AlertIcon, Alert, AlertTitle, CloseButton
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AlertMe from '../Components/Alert';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
@@ -19,19 +21,46 @@ export default function VisitorsAccess() {
     const [Success, setSuccess] = useState(false);
     const [Copied, setCopied] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const onlineUser = useSelector((state) => state.onlineUser);
     const [Payload, setPayload] = useState({
         firstName: "",
         lastName: "",
         gender: "",
+        _id: onlineUser.user._id,
       
     });
     const handleChange = (e) => {
         setPayload({ ...Payload, [e.target.id]: e.target.value })
     }
 
+    const payload = {
+
+        method: "POST",
+
+        headers: { 
+            "Content-Type": "application/JSON"
+        },
+
+        body: JSON.stringify(Payload),
+        
+    }
+
+
     const access = () => {
         if (Payload.firstName !== ""  && Payload.gender !== "") {
             console.log("Payload", Payload);
+            
+            fetch("https://api.solomonleke.com.ng/user/visitor", payload)
+
+            .then(res => res.json())
+            .then(json => {
+            
+              console.log("Access", json);
+           })
+            .catch(error => {
+              console.log("error", error);
+          })
+          
             onOpen()
 
         } else {
@@ -54,9 +83,21 @@ export default function VisitorsAccess() {
     }
 
     const accessCode = (Math.floor(Math.random() * 128) + 12061);
+    const isLogged = useSelector((state) => state.isLogged);
+    const nav = useNavigate()
 
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+    }
+    useEffect(() => {
+        middleWare()
+    }, []);
+  
     return (
         <MainLayout>
+       
             <Seo title="Visitors Access" description='Grant visitors Access' />
 
 
@@ -136,7 +177,9 @@ export default function VisitorsAccess() {
                   
                     </ModalFooter>
                 </ModalContent>
-            </Modal>
+            </Modal>          
+         
+            
 
         </MainLayout>
     );
