@@ -22,6 +22,8 @@ export default function VisitorsAccess() {
     const [Copied, setCopied] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const onlineUser = useSelector((state) => state.onlineUser);
+    const [Loading, setLoading] = useState(false);
+
     const [Payload, setPayload] = useState({
         firstName: "",
         lastName: "",
@@ -50,6 +52,7 @@ export default function VisitorsAccess() {
 
     const access = () => {
         if (Payload.firstName !== ""  && Payload.gender !== "") {
+            setLoading(true)
             
             fetch("https://api.solomonleke.com.ng/user/visitor", payload)
 
@@ -61,7 +64,7 @@ export default function VisitorsAccess() {
 
                 setAccessCode(json.visitor_1.randomNumber)
                 onOpen()
-
+                setLoading(false)
               }
            })
             .catch(error => {
@@ -130,7 +133,7 @@ export default function VisitorsAccess() {
 
                     </Stack>
 
-                    <Button mb="32px" mt="65px" px='60px' onClick={access}>Request Access</Button>
+                    <Button isLoading={Loading}  mb="32px" mt="65px" px='60px' onClick={access}>Request Access</Button>
 
 
                 </Box>

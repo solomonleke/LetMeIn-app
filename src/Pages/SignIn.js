@@ -1,7 +1,7 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
@@ -140,12 +140,18 @@ export default function SignIn() {
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />
 
                     </Stack>
-
-                    <Button isLoading={Loading} mb="32px" mt="65px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>
+                    <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="15px" color={"blue"}><Link to="#">Forget password</Link></Text>
+                    <Text mt="65px" fontFamily={"body"}>Don't have an account ? <Link to="/sign-up"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-Up</Box></Link> </Text>
+                   
 
                 </Box>
 
 
+            </Center>
+
+            <Center>
+                
+             <Button w={["55%","40%","35%","18%"]} isLoading={Loading} mb="32px" mt="15px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>
             </Center>
 
         </MainLayout>

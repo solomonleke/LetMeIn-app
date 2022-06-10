@@ -1,6 +1,6 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
@@ -114,10 +114,11 @@ export default function SignUp() {
         </Center>
         )
     }
-    <Center>
+    
 
         {
             view == false ? (
+                <Center>
                 <Box>
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="80px">Please who are you ?</Text>
     
@@ -129,36 +130,47 @@ export default function SignUp() {
                 </Select>
     
                 <Button mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={proceed}>Enter</Button>
-            </Box>
+               </Box>
+                </Center>
+              
             ):(
-                <Box>
-                <form onSubmit={Sign_up}>
-                <Stack mt="44px" spacing="15px">
-                
-                    <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
-                    <option value='Mr'>Mr</option>
-                    <option value='Mrs'>Mrs</option>
-                    </Select>
-           
-            
-            
-                    <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
-                    <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
-                    <Input val={Payload.email && true} isRequired label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
-                    <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
-                    <Input val={Payload.address && true} isRequired label="Address No." value={Payload.address} type="text" id='address' onChange={handleSignUp}/>
-                    <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
-                    <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
-                    <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
-                </Stack>
+               <>
 
-                <Button isLoading= {Loading} mb="32px" mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
-                </form>
-                </Box>
+               <Center>
+               <Box>
+               <form onSubmit={Sign_up}>
+               <Stack mt="44px" spacing="15px">
+               
+                   <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                   <option value='Mr'>Mr</option>
+                   <option value='Mrs'>Mrs</option>
+                   </Select>
+          
+           
+           
+                   <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
+                   <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
+                   <Input val={Payload.email && true} isRequired label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
+                   <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
+                   <Input val={Payload.address && true} isRequired label="Address No." value={Payload.address} type="text" id='address' onChange={handleSignUp}/>
+                   <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
+                   <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
+                   <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
+               </Stack>
+               <Text mt="65px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
+               
+               </form>
+               </Box>
+               </Center>
+              
+
+               <Center>
+                 <Button w={["55%","40%","35%","18%"]} isLoading= {Loading} mb="32px" mt="15px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
+               </Center>
+               </>
             )
         }
        
-    </Center>
     
     </MainLayout>
   );

@@ -15,6 +15,7 @@ export default function Button({
   background = '#E02828',
   color = '#fff',
   border,
+  w= "100%",
   leftIcon,
   rightIcon,
   href,
@@ -53,7 +54,7 @@ export default function Button({
       loadingText="Please wait . . ."
       type={isSubmit ? 'submit' : 'button'}
       disabled={isLoading || disabled}
-      w={'100%'}
+      w={w}
       px={px}
       py={py}
       leftIcon={leftIcon}
