@@ -119,7 +119,7 @@ export default function NavBar() {
       {
         isLogged.isLogged && (
 
-          <Box  fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} > <AiOutlineMenu /></Box>
+          <Box cursor={"pointer"}  fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} > <AiOutlineMenu /></Box>
         )
       }
       <Box pos={"relative"}>
