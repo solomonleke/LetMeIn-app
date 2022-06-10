@@ -42,13 +42,13 @@ export default function SignUp() {
         
         if(Payload.password == Payload.re_enter_password){
             console.log("payload", Payload);
-            const res = await new Request().post({url:"http://localhost:4000/user/signup", data: Payload})
+            const res = await new Request().post({url:"https://api.solomonleke.com.ng/user/signup", data: Payload})
             console.log("res" , res)
-            if(res.status === 200){
+            if(res.json.status === 200){
 
                 nav("/sign-in")
             }else{
-                alert(res.message)
+                alert(res.json.message)
             }
         }else{
             setMatch(true)
@@ -88,7 +88,7 @@ export default function SignUp() {
 
     const check = ()=> {
 
-        fetch("http://localhost:4000/user/signup", payload)
+        fetch("https://api.solomonleke.com.ng/user/signup", payload)
 
         .then(res => res.json())
         .then(json => {
