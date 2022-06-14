@@ -17,6 +17,10 @@ export default function EstateAdmin() {
 
         nav("/visitors-access")
     }
+    const verify_id = () => {
+
+        nav("/verify-id")
+    }
 
     const taxi_access = () => {
         nav("/taxi-access")
@@ -43,11 +47,11 @@ export default function EstateAdmin() {
                     <Button onClick={visitor_access}>Visitor Access</Button>
                     <Button onClick={taxi_access}>Taxi Access</Button>
                     <Box pos={"relative"}>
-                        <Button onClick={visitor_access} >Verify IDs</Button>
+                        <Button onClick={verify_id} >Verify IDs</Button>
                         <Text h={"18px"} w={"18px"}
                             rounded={"100%"} bg="#EDEDED"
                             boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                            pos="absolute" right="-8px" top="-8px" pl="2px" pt="1px"
+                            pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
                             fontFamily="body" fontWeight={"400"} color="#000000"
                             fontSize={"12"}>24</Text>
                     </Box>
