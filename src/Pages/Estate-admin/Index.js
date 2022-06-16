@@ -12,6 +12,9 @@ export default function EstateAdmin() {
 
     const [Verified, setVerified] = useState(true);
     const isLogged = useSelector((state) => state.isLogged);
+    
+    const verifiedLen = useSelector((state) => state.verifiedCount.count);
+
 
     const visitor_access = () => {
 
@@ -53,7 +56,7 @@ export default function EstateAdmin() {
                             boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
                             pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
                             fontFamily="body" fontWeight={"400"} color="#000000"
-                            fontSize={"12"}>24</Text>
+                            fontSize={"12"}>{verifiedLen}</Text>
                     </Box>
                 </Stack>
             </Center>

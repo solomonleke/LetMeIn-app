@@ -35,6 +35,8 @@ export default function NavBar() {
   const initialFocusRef = React.useRef()
   const isLogged = useSelector((state) => state.isLogged);
   const onlineUser = useSelector((state) => state.onlineUser);
+  const verifiedLen = useSelector((state) => state.verifiedCount.count);
+
   const dispatch = useDispatch();
   const nav = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -47,9 +49,11 @@ export default function NavBar() {
     )
 
     dispatch(
-  
+
       { type: "ADD_USER", payload: { data: "" } }
     );
+
+
 
     nav("/")
 
@@ -112,28 +116,36 @@ export default function NavBar() {
           )
         }
 
-       
+
       </Stack>
 
       <Flex justifyContent={"space-between"} display={["flex", "flex"]}>
-      {
-        isLogged.isLogged && (
+        {
+          isLogged.isLogged && (
 
-          <Box cursor={"pointer"}  fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} > <AiOutlineMenu /></Box>
-        )
-      }
-      <Box pos={"relative"}>
+            <Box cursor={"pointer"} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} >
+             <AiOutlineMenu />
+             {
+              verifiedLen >= 1  && (
+                <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
+              )
+             }
+          
+             </Box>
+          )
+        }
+        <Box pos={"relative"}>
           <Image src='/logo.png' onClick={home} />
           <Text fontSize={"14px"} fontWeight="400" w={"100px"} color={"#939393"} fontFamily={"body"} pos={"absolute"} left={"42px"} top={"35px"}>{onlineUser.user.userType}</Text>
-      </Box>
+        </Box>
 
 
-      {
-        isLogged.isLogged && (
-          <Avatar name={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`} src='' />
-        )
-      }
-      
+        {
+          isLogged.isLogged && (
+            <Avatar name={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`} src='' />
+          )
+        }
+
 
       </Flex>
 
@@ -149,61 +161,73 @@ export default function NavBar() {
           <DrawerHeader></DrawerHeader>
 
           <DrawerBody>
-          <Box display="flex" flexDirection={"column"} >
+            <Box display="flex" flexDirection={"column"} >
 
-          <Stack spacing={"19px"} mt="123px" cursor={"pointer"} flexGrow={1}>
+              <Stack spacing={"19px"} mt="123px" cursor={"pointer"} flexGrow={1}>
 
-          <Link to="/visitors-access">
-          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Request Access</Text>
-          </Link>
+                <Link to="/visitors-access">
+                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
+                </Link>
 
-          <Link to="/#">
-          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Request Access History</Text>
-          </Link>
+                <Link to="/#">
+                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
+                </Link>
 
-          <Link to="/#">
-          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
-          </Link>
+                <Link to="/#">
+                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
+                </Link>
 
-          <Link to="/#">
-          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
-          </Link>
+                <Link to="/#">
+                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
+                </Link>
 
-          {
-            onlineUser.user.userType == "Estate Manager" && (
-              <>
-              <Link to="/#">
-              <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Verify IDs</Text>
-              </Link>
-    
-              <Link to="/#">
-              <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
-              </Link>
-              </>
-            )
-          }
+                {
+                  onlineUser.user.userType == "Estate Manager" && (
+                    <>
+                      <Link to="/verify-id">
+                        <Box pos={"relative"}>
+                          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
+                          {
+                            verifiedLen >= 1 && (
+                              <Text h={"18px"} w={"18px"}
+                                rounded={"100%"} bg="#E02828"
+                                boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
+                                fontFamily="body" fontWeight={"400"} color="#FFFFFF"
+                                fontSize={"12"}>{verifiedLen}</Text>
+                            )
+                          }
+                        </Box>
+                      </Link>
 
-        
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
+                      </Link>
+                    </>
+                  )
+                }
 
-        
-          
-          </Stack>
 
-          
 
-       
-          <Stack spacing={"19px"} mt={"200px"}>
-          
-          <Link to="/#">
-          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'}>Customer Support</Text>
-          </Link>
 
-          <Text onClick={logout} cursor={"pointer"} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={ '0.5px solid #A7A5A5'} >Log out</Text>
-          </Stack>
-         
-           
-               
-             
+
+              </Stack>
+
+
+
+
+              <Stack spacing={"19px"} mt={"200px"}>
+
+                <Link to="/#">
+                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                </Link>
+
+                <Text onClick={logout} cursor={"pointer"} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'} >Log out</Text>
+              </Stack>
+
+
+
+
             </Box>
           </DrawerBody>
 

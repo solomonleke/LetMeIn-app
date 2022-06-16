@@ -1,6 +1,6 @@
 import { Box, Button, Center, Stack } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import MainLayout from '../Layouts/Index'
 import Request from '../Utils/Request'
@@ -15,6 +15,33 @@ export default function Home() {
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
     const nav= useNavigate()
+    const dispatch = useDispatch();
+    const [TotalLen, setTotalLen] = useState("");
+
+
+
+    const checkLength = ()=>{
+
+        fetch('https://api.solomonleke.com.ng/user/endUser')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 200) {
+  
+                setTotalLen(data.resident?.length + data.landlord?.length + data.security_OPs?.length)
+
+                dispatch(
+                  // collect two parameters (type and payload)
+          
+                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
+                );
+            }
+          console.log("TotalLen", TotalLen)
+        })
+
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
     const sign_up = ()=>{
       nav("/sign-up")
     }
@@ -40,6 +67,7 @@ export default function Home() {
     }
     useEffect(() => {
       middleWare()
+      checkLength()
     }, []);
   return (
         <MainLayout>
