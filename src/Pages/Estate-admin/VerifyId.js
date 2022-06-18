@@ -45,8 +45,32 @@ export default function VerifyId() {
        
     }
 
+    
+
     const update_status = (id)=> {
 
+        fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+
+            method: "POST",
+    
+            headers: {
+                "Content-Type": "application/JSON"
+            },
+    
+            body: JSON.stringify(id),
+    
+        })
+
+        .then(response => response.json())
+        .then(data => {
+
+           console.log("data", data)
+          
+        })
+
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
         if(Checked){
             console.log("checked", id);
