@@ -67,57 +67,7 @@ export default function NavBar() {
   return (
     <Box mx={["6%", "10%"]} mt='32px'>
 
-      <Stack direction="row" cursor={"pointer"} display={["none", "none"]}>
-        <Image src='/logo.png' onClick={home} />
-        <Spacer />
-        {
-          isLogged.isLogged && (
-
-            <HStack spacing="20px" >
-              <Popover
-                initialFocusRef={initialFocusRef}
-                placement='bottom'
-                closeOnBlur={false}
-              >
-                <PopoverTrigger>
-                  <Center fontSize={"25px"} color="#E02828" pos="relative" cursor={"pointer"} bg="#F4C6BC" p="5px" borderRadius={"100%"}>
-                    <MdNotificationsActive />
-                    <Text pos="absolute" right="5px" top="-10px" fontSize={"15px"} fontWeight="600" color="#252525">3</Text>
-                  </Center>
-
-                </PopoverTrigger>
-                <PopoverContent color='white' bg='blue.800' borderColor='blue.800'>
-                  <PopoverHeader pt={4} fontWeight='bold' border='0'>
-                    3 New Notification
-                  </PopoverHeader>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverBody>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore.
-                  </PopoverBody>
-                  <PopoverFooter>
-                  </PopoverFooter>
-                </PopoverContent>
-              </Popover>
-
-              <Box borderLeft="2px solid #E8E8E8" pl="20px">
-                <Text fontSize="18px" fontWeight={"600"} color="#00000" textTransform={"capitalize"} fontFamily={"body"}>{onlineUser.user.firstName} {onlineUser.user.lastName}</Text>
-                <Text fontSize="12px" fontWeight={"400"} textAlign="right" color="#00000" fontFamily={"body"}>{onlineUser.user.userType}</Text>
-              </Box>
-              <Avatar name={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`} src='' />
-              <HStack onClick={logout} spacing="4px">
-                <Box fontSize="20px"><BiLogOut /></Box>
-                <Text fontSize="17px" fontWeight={"500"} color="#363232" textTransform={"capitalize"} fontFamily={"body"} >Sign Out</Text>
-              </HStack>
-            </HStack>
-
-
-          )
-        }
-
-
-      </Stack>
+    
 
       <Flex justifyContent={"space-between"} display={["flex", "flex"]}>
         {
@@ -126,7 +76,7 @@ export default function NavBar() {
             <Box cursor={"pointer"} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} >
              <AiOutlineMenu />
              {
-              verifiedLen >= 1  && (
+              verifiedLen >= 1 &&  onlineUser.user.userType == "Estate Manager"  && (
                 <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
               )
              }
@@ -136,7 +86,7 @@ export default function NavBar() {
         }
         <Box pos={"relative"}>
           <Image src='/logo.png' onClick={home} />
-          <Text fontSize={"14px"} fontWeight="400" w={"100px"} color={"#939393"} fontFamily={"body"} pos={"absolute"} left={"42px"} top={"35px"}>{onlineUser.user.userType}</Text>
+          <Text fontSize={"14px"} fontWeight="400" w={"120px"} color={"#939393"} fontFamily={"body"} pos={"absolute"} left={"42px"} top={"35px"}>{onlineUser.user.userType}</Text>
         </Box>
 
 
