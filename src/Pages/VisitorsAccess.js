@@ -62,7 +62,7 @@ export default function VisitorsAccess() {
               console.log("Access", json);
               if(json.status == 201){
 
-                setAccessCode(json.visitor_1.accessCode)
+                setAccessCode(json.visitor_1.randomNumber)
                 onOpen()
                 setLoading(false)
               }

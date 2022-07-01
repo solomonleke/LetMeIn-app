@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EstateAdmin from '../Pages/Estate-admin/Index'
+import ManageVerified from '../Pages/Estate-admin/ManageVerified'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
 import Home from '../Pages/Home'
 import Page2 from '../Pages/Page2'
@@ -24,6 +25,7 @@ export default function IndexRoutes() {
             <Route path='/security-ops' element={<SecurityOps/>}/>
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
             <Route path='/verify-id' element={<VerifyId/>}/>
+            <Route path='/manage-verify-id' element={<ManageVerified/>}/>
             <Route path='/verification' element={<Verification/>}/>
             <Route path='/page' element={<Page2/>}/>
             <Route path='/sample' element={<Sample/>}/>

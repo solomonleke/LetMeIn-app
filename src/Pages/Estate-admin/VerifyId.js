@@ -10,7 +10,7 @@ export default function VerifyId() {
     const [Data, setData] = useState([]);
     const [Security, setSecurity] = useState(false);
     const [Show, setShow] = useState(true);
-    const [Checked, setChecked] = useState("");
+    const [Checked, setChecked] = useState(false);
 
     const [ResidentLen, setResidentLen] = useState("");
     const [LandlordLen, setLandlordLen] = useState("");
@@ -39,6 +39,8 @@ export default function VerifyId() {
 
 
     const handleChange = (e) => {
+
+
         setChecked(e.target.checked)
        
 
@@ -49,33 +51,61 @@ export default function VerifyId() {
 
     const update_status = (id)=> {
 
-        fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+ 
 
-            method: "POST",
-    
-            headers: {
-                "Content-Type": "application/JSON"
-            },
-    
-            body: JSON.stringify(id),
-    
-        })
 
-        .then(response => response.json())
-        .then(data => {
 
-           console.log("data", data)
+        if(Checked == false){
+
+            fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+
+                method: "POST",
+        
+                headers: {
+                    "Content-Type": "application/JSON"
+                },
+        
+                body: JSON.stringify({_id: id}),
+        
+            })
+    
+            .then(response => response.json())
+            .then(data => {
+    
+               console.log("data", data)
+              
+            })
+    
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
           
-        })
-
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-
-        if(Checked){
-            console.log("checked", id);
         }else{
-            console.log("Not checked" );
+
+
+            fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+
+                method: "POST",
+        
+                headers: {
+                    "Content-Type": "application/JSON"
+                },
+        
+                body: JSON.stringify({_id: id}),
+        
+            })
+    
+            .then(response => response.json())
+            .then(data => {
+    
+               console.log("data", data)
+              
+            })
+    
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
 
 
@@ -99,7 +129,7 @@ export default function VerifyId() {
                 setSecurity(false)
 
 
-                console.log("object", Data);
+             
             })
 
             
@@ -122,7 +152,7 @@ export default function VerifyId() {
                 setResident(true)
                 setSecurity(false)
 
-                console.log("object", Data);
+               
             })
 
             .catch((error) => {
@@ -146,7 +176,7 @@ export default function VerifyId() {
                 setResident(false)
                 setSecurity(true)
 
-                console.log("object", Data);
+               
             })
 
             .catch((error) => {
@@ -170,7 +200,7 @@ export default function VerifyId() {
 
         checkLength()
 
-    }, []);
+    }, [Checked]);
     return (
         <MainLayout>
             <Seo title="Verify IDs" description='Verify IDs' />
@@ -238,7 +268,7 @@ export default function VerifyId() {
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack spacing="39px" bg={Checked ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={()=>update_status(item._id)}>
+                                                    <HStack spacing="39px" bg={item.Verified == true? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={()=>update_status(item._id)}>
                                                         <Box>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.address} | 0{item.phone}</Text>

@@ -150,7 +150,7 @@ export default function NavBar() {
                         </Box>
                       </Link>
 
-                      <Link to="/#">
+                      <Link to="/manage-verify-id">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
                       </Link>
                     </>
