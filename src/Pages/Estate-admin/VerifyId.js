@@ -1,5 +1,6 @@
 import { Box, Center, CircularProgress, Flex, HStack, Spacer, Stack, Switch, Text } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
@@ -15,9 +16,13 @@ export default function VerifyId() {
     const [ResidentLen, setResidentLen] = useState("");
     const [LandlordLen, setLandlordLen] = useState("");
     const [SecurityLen, setSecurityLen] = useState("");
-    
-    const [isLoading, setIsLoading] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [SuccessMsg, setSuccessMsg] = useState("");
+
+    const [Success, setSuccess] = useState(true);
+
+    const dispatch = useDispatch();
 
     const checkLength = () => {
 
@@ -50,9 +55,10 @@ export default function VerifyId() {
 
 
 
-    const update_status = (id,firstName) => {
+    const update_status = (id, firstName, lastName) => {
 
-        alert(firstName)
+      
+        setSuccessMsg(`${firstName} ${lastName}`)
 
         fetch('https://api.solomonleke.com.ng/user/toggleUser', {
 
@@ -70,7 +76,12 @@ export default function VerifyId() {
             .then(data => {
 
                 console.log("data", data)
-                window.location.reload(false);
+
+                setSuccess(true)
+                setTimeout(() => {
+                    window.location.reload(false);
+                }, 2000);
+               
 
             })
 
@@ -168,11 +179,35 @@ export default function VerifyId() {
         setChecked(true)
     }
 
+    
+    const checkLengthRedux = ()=>{
+
+        fetch('https://api.solomonleke.com.ng/user/endUser')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 200) {
+
+                dispatch(
+                  // collect two parameters (type and payload)
+          
+                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
+                );
+            }
+         
+        })
+
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    
+
 
     useEffect(() => {
 
         checkLength()
-
+        checkLengthRedux()
     }, [Checked]);
     return (
         <MainLayout>
@@ -186,52 +221,70 @@ export default function VerifyId() {
 
                             <Text fontFamily={"body"} fontSize="24px" fontWeight={"700"} color="#575757" textAlign={"center"}>Verify IDs</Text>
 
-                         
 
-                                    {
-                                        isLoading ? (
-                                            <Center mt="20vh">
-                                            <CircularProgress isIndeterminate={true} value={49} size='150px' thickness='4px' />
-                                        </Center>
-                                        ):(
-                                            <Stack spacing={'15px'} cursor="pointer" mt="39px">
 
-                                            <Text color={"#939393"}>Select ID Category you intend to Verify</Text>
+                            {
+                                isLoading ? (
+                                    <Center mt="20vh">
+                                        <CircularProgress isIndeterminate={true} value={49} size='150px' thickness='4px' />
+                                    </Center>
+                                ) : (
+                                    <Stack spacing={'15px'} cursor="pointer" mt="39px">
+
+                                        <Text color={"#939393"}>Select ID Category you intend to Verify</Text>
+
+
+
+                                        <Box pos={"relative"}>
+                                            <Button onClick={handleLandlord}>LandLord</Button>
+                                            {
+                                                LandlordLen >=1 && (
+                                                    <Text h={"18px"} w={"18px"}
+                                                    rounded={"100%"} bg="#EDEDED"
+                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                                    fontSize={"12"}>{LandlordLen} </Text>
+                                                )
+                                            }
+                                           
+
+                                        </Box>
+                                        <Box pos={"relative"}>
+                                            <Button onClick={handleResident}>Resident</Button>
+
+                                            {
+                                                ResidentLen >=1 && (
+
+                                                    <Text h={"18px"} w={"18px"}
+                                                    rounded={"100%"} bg="#EDEDED"
+                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                                    fontSize={"12"}>{ResidentLen}</Text>
+                                                ) 
+                                            }
+                                         
+                                        </Box>
+                                        <Box pos={"relative"}>
+                                            <Button onClick={handleSecurity}>Security</Button>
+
+                                            {
+                                                SecurityLen >=1 && (
+                                                    <Text h={"18px"} w={"18px"}
+                                                    rounded={"100%"} bg="#EDEDED"
+                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                    pos="absolute" right="-8px" top="-8px" pt="1px" textAlign={"center"}
+                                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                                    fontSize={"12"}>{SecurityLen}</Text>
+                                                )
+                                            }
                                           
-                
-                
-                                                <Box pos={"relative"}>
-                                                    <Button onClick={handleLandlord}>LandLord</Button>
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{LandlordLen} </Text>
-                
-                                                </Box>
-                                                <Box pos={"relative"}>
-                                                    <Button onClick={handleResident}>Resident</Button>
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{ResidentLen}</Text>
-                                                </Box>
-                                                <Box pos={"relative"}>
-                                                    <Button onClick={handleSecurity}>Security</Button>
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" pt="1px" textAlign={"center"}
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{SecurityLen}</Text>
-                                                </Box>
-                                            </Stack>
-                                        )
-                                    }
-                           
+                                        </Box>
+                                    </Stack>
+                                )
+                            }
+
                         </Box>
                     </Center>
                 ) : (
@@ -256,7 +309,7 @@ export default function VerifyId() {
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => update_status(item._id,item.firstName)}>
+                                                    <HStack spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => update_status(item._id, item.firstName, item.lastName)}>
                                                         <Box>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.address} | 0{item.phone}</Text>
@@ -272,10 +325,16 @@ export default function VerifyId() {
                                             }
 
                                         </Stack>
-                                        <Button mb="32px" mt="65px" onClick={VerifyAll} >Verify All</Button>
+                                        <Button mb="18px" mt="65px" onClick={VerifyAll} >Verify All</Button>
 
 
-                                        <Text textAlign={"center"}>Adebola  Adeniran verified successfully</Text>
+
+                                        {
+                                            Success && (
+
+                                                <Text textAlign={"center"} fontFamily="body" fontWeight={400} fontSize="14px" color="#939393">{SuccessMsg} verified successfully</Text>
+                                            )
+                                        }
 
                                     </Box>
 

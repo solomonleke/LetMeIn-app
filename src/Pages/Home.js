@@ -42,6 +42,8 @@ export default function Home() {
             console.error('Error:', error);
         });
     }
+
+    
     const sign_up = ()=>{
       nav("/sign-up")
     }
