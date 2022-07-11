@@ -4,6 +4,7 @@ import EstateAdmin from '../Pages/Estate-admin/Index'
 import ManageVerified from '../Pages/Estate-admin/ManageVerified'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
 import Home from '../Pages/Home'
+import IndexHome from '../Pages/Index'
 import Page2 from '../Pages/Page2'
 import Index from '../Pages/Residents/Index'
 import SecurityOps from '../Pages/Security/Index'
@@ -17,7 +18,8 @@ export default function IndexRoutes() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<Home/>}/>
+            <Route path='/' element={<IndexHome/>}/>
+            <Route path='/home' element={<Home/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/resident' element={<Index/>}/>

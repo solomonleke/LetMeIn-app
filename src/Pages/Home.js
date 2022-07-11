@@ -64,7 +64,7 @@ export default function Home() {
           nav("/security-ops")
       }
       }else{
-        nav("/")
+        nav("/home")
       }
     }
     useEffect(() => {
@@ -82,7 +82,7 @@ export default function Home() {
               </Stack>
             </Center>
 
-            <Box bgImage="url(/bg-img.png)" bgSize={'cover'}
+            <Box bgImage="url(/bg-img.png)"bgSize ={'cover'}
             bgRepeat={'repeat'}
             height="60vh" mt="121" display={["block", "none"]}>
             

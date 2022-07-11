@@ -1,9 +1,18 @@
-import { Box, Center, CircularProgress, Flex, HStack, Spacer, Stack, Switch, Text } from '@chakra-ui/react';
+import {
+    Box, Center, CircularProgress, Flex, HStack, Spacer, Stack, Switch, Text, Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton, useDisclosure
+} from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
+import $ from 'jquery';
 
 export default function VerifyId() {
     const [Resident, setResident] = useState(false);
@@ -20,10 +29,12 @@ export default function VerifyId() {
     const [isLoading, setIsLoading] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
 
-    const [Success, setSuccess] = useState(true);
+
+
+    const [Success, setSuccess] = useState(false);
 
     const dispatch = useDispatch();
-
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const checkLength = () => {
 
         fetch('https://api.solomonleke.com.ng/user/endUser')
@@ -57,7 +68,20 @@ export default function VerifyId() {
 
     const update_status = (id, firstName, lastName) => {
 
-      
+
+        $("#verify").click(function () {
+
+            $("#verify").children(".toggle").children(".toggle-btn").addClass("on").removeClass("off")
+
+            // if( $(this).children(".toggle").children(".toggle-btn").hasClass("on")){
+            //     $(this).children(".toggle").children(".toggle-btn").removeClass("on").addClass("off")
+            // }else{
+            //     $(this).children(".toggle").children(".toggle-btn").addClass("on").removeClass("off")
+            // }
+
+
+        });
+
         setSuccessMsg(`${firstName} ${lastName}`)
 
         fetch('https://api.solomonleke.com.ng/user/toggleUser', {
@@ -76,12 +100,15 @@ export default function VerifyId() {
             .then(data => {
 
                 console.log("data", data)
-
+                onClose()
                 setSuccess(true)
+
                 setTimeout(() => {
                     window.location.reload(false);
-                }, 2000);
-               
+                    setSuccess(false)
+
+                }, 3000);
+
 
             })
 
@@ -179,29 +206,28 @@ export default function VerifyId() {
         setChecked(true)
     }
 
-    
-    const checkLengthRedux = ()=>{
+
+    const checkLengthRedux = () => {
 
         fetch('https://api.solomonleke.com.ng/user/endUser')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status == 200) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 200) {
 
-                dispatch(
-                  // collect two parameters (type and payload)
-          
-                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
-                );
-            }
-         
-        })
+                    dispatch(
+                        // collect two parameters (type and payload)
 
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+                        { type: "VERIFIED_COUNT", payload: { data: data.resident?.length + data.landlord?.length + data.security_OPs?.length } }
+                    );
+                }
+
+            })
+
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
-    
 
 
     useEffect(() => {
@@ -238,48 +264,48 @@ export default function VerifyId() {
                                         <Box pos={"relative"}>
                                             <Button onClick={handleLandlord}>LandLord</Button>
                                             {
-                                                LandlordLen >=1 && (
+                                                LandlordLen >= 1 && (
                                                     <Text h={"18px"} w={"18px"}
-                                                    rounded={"100%"} bg="#EDEDED"
-                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                    fontFamily="body" fontWeight={"400"} color="#000000"
-                                                    fontSize={"12"}>{LandlordLen} </Text>
+                                                        rounded={"100%"} bg="#EDEDED"
+                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                        fontFamily="body" fontWeight={"400"} color="#000000"
+                                                        fontSize={"12"}>{LandlordLen} </Text>
                                                 )
                                             }
-                                           
+
 
                                         </Box>
                                         <Box pos={"relative"}>
                                             <Button onClick={handleResident}>Resident</Button>
 
                                             {
-                                                ResidentLen >=1 && (
+                                                ResidentLen >= 1 && (
 
                                                     <Text h={"18px"} w={"18px"}
-                                                    rounded={"100%"} bg="#EDEDED"
-                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                    fontFamily="body" fontWeight={"400"} color="#000000"
-                                                    fontSize={"12"}>{ResidentLen}</Text>
-                                                ) 
+                                                        rounded={"100%"} bg="#EDEDED"
+                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                        fontFamily="body" fontWeight={"400"} color="#000000"
+                                                        fontSize={"12"}>{ResidentLen}</Text>
+                                                )
                                             }
-                                         
+
                                         </Box>
                                         <Box pos={"relative"}>
                                             <Button onClick={handleSecurity}>Security</Button>
 
                                             {
-                                                SecurityLen >=1 && (
+                                                SecurityLen >= 1 && (
                                                     <Text h={"18px"} w={"18px"}
-                                                    rounded={"100%"} bg="#EDEDED"
-                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                    pos="absolute" right="-8px" top="-8px" pt="1px" textAlign={"center"}
-                                                    fontFamily="body" fontWeight={"400"} color="#000000"
-                                                    fontSize={"12"}>{SecurityLen}</Text>
+                                                        rounded={"100%"} bg="#EDEDED"
+                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                        pos="absolute" right="-8px" top="-8px" pt="1px" textAlign={"center"}
+                                                        fontFamily="body" fontWeight={"400"} color="#000000"
+                                                        fontSize={"12"}>{SecurityLen}</Text>
                                                 )
                                             }
-                                          
+
                                         </Box>
                                     </Stack>
                                 )
@@ -309,7 +335,7 @@ export default function VerifyId() {
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => update_status(item._id, item.firstName, item.lastName)}>
+                                                    <HStack id="verify" spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={onOpen}>
                                                         <Box>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.address} | 0{item.phone}</Text>
@@ -317,7 +343,44 @@ export default function VerifyId() {
                                                         </Box>
                                                         <Spacer />
 
-                                                        <Switch onChange={handleChange} colorScheme='teal' size='lg' />
+
+
+
+                                                        <div className='toggle'>
+
+                                                            <div className='toggle-btn off'>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <Modal motionPreset='slideInBottom' size={"md"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
+                                                            <ModalOverlay />
+                                                            <ModalContent>
+                                                                <ModalHeader></ModalHeader>
+                                                                <ModalCloseButton />
+                                                                <ModalBody pb={6}>
+                                                                    <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> Verify <br/> {item.firstName} {item.lastName}</Text>
+                                                                    <Center>
+                                                                    <Flex mt="33px" px="10%" justifyContent={"space-between"}>
+
+                                                                    <Button w='20%' onClick={() => update_status(item._id, item.firstName, item.lastName)}>Yes </Button>
+                                                                   
+                                                                    <Button w='20%' onClick={onClose}>No</Button>
+                                                                    
+                                                                    </Flex>
+                                                                    </Center>
+
+                                                    
+                                                                  
+                                                                </ModalBody>
+
+                                                                <ModalFooter>
+                                                                   
+                                                                </ModalFooter>
+                                                            </ModalContent>
+                                                        </Modal>
+
                                                     </HStack>
 
 
