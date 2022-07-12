@@ -98,7 +98,8 @@ export default function NavBar() {
 
         {
           isLogged.isLogged && (
-            <Avatar name={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`} src='' />
+            <Avatar name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src='' />
+          
           )
         }
 
@@ -139,7 +140,7 @@ export default function NavBar() {
                 }
 
                 {
-                  onlineUser.user.userType == "Resident" || onlineUser.user.userType == "Landlord" || onlineUser.user.userType == "Estate manager" && (
+                  onlineUser.user.userType == "Resident"  && (
 
                     <Stack spacing={"19px"}>
 
@@ -166,8 +167,24 @@ export default function NavBar() {
 
 
                 {
-                  onlineUser.user.userType == "Estate manager" && (
+                   onlineUser.user.userType == "Landlord" && (
                     <>
+                      <Link to="/visitors-access">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
+                      </Link>
+
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
                           <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
@@ -190,6 +207,51 @@ export default function NavBar() {
                     </>
                   )
                 }
+
+{
+                  onlineUser.user.userType == "Estate manager"  && (
+                    <>
+                      <Link to="/visitors-access">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
+                      </Link>
+
+                      <Link to="/verify-id">
+                        <Box pos={"relative"}>
+                          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
+                          {
+                            verifiedLen >= 1 && (
+                              <Text h={"18px"} w={"18px"}
+                                rounded={"100%"} bg="#E02828"
+                                boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
+                                fontFamily="body" fontWeight={"400"} color="#FFFFFF"
+                                fontSize={"12"}>{verifiedLen}</Text>
+                            )
+                          }
+                        </Box>
+                      </Link>
+
+                      <Link to="/manage-verify-id">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
+                      </Link>
+                    </>
+                  )
+                }
+
+
+
 
 
 
