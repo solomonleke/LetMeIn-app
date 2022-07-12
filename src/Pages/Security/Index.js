@@ -1,5 +1,6 @@
 import { Box, Center, Flex, HStack, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import Input from '../../Components/Input';
 import MainLayout from '../../Layouts/Index';
@@ -8,6 +9,7 @@ import Seo from '../../Utils/Seo';
 export default function SecurityOps() {
 
   const [Loading, setLoading] = useState(false);
+  const [User, setUser] = useState({});
   const [CheckIn, setCheckIn] = useState(true);
   const [CheckOut, setCheckOut] = useState(false);
   const [Grant, setGrant] = useState(false);
@@ -19,6 +21,8 @@ export default function SecurityOps() {
     setCheckIn(true)
     setCheckOut(false)
   }
+
+  const nav = useNavigate();
   const handleCheckOut = () => {
 
     setCheckIn(false)
@@ -30,15 +34,47 @@ export default function SecurityOps() {
     setAccessCode(e.target.value)
 
   }
+
+  const payload = {
+
+    method: "POST",
+
+    headers: {
+        "Content-Type": "application/JSON"
+    },
+
+    body: JSON.stringify(
+      {accessCode: AccessCode }
+    ),
+
+}
   const VerifyCode = () => {
-    setGrant(true)
+
+    setLoading(true)
+  
+
+    fetch('https://api.solomonleke.com.ng/user/verifyAccess',payload)
+    .then(response => response.json())
+    .then(data => {
+        if (data.status == 200) {
+          setLoading(false)
+          setUser(data.user)
+          setGrant(true)
+          console.log("data", data)
+        }
+
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    
 
   }
 
 
   const grantAccess = () => {
 
-
+    nav("/security-ops/grant-access")
   }
 
 
@@ -84,25 +120,25 @@ export default function SecurityOps() {
             <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
             <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Visitor Name </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">Opeyemi Adeleke</Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.firstName} {User.lastName}</Text>
             </HStack>
 
             <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
             <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Visitor  Gender </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">Male</Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.gender}</Text>
             </HStack>
 
             <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
             <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Resident Name </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">Sunday O. Onasanya</Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.user_fName} {User.user_lName}</Text>
             </HStack>
 
             <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
             <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Resident address </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">3T5,  Adetokunbo str., Evergreen Est. </Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.user_houseNo},  {User.user_streetName},  {User.user_estateName} </Text>
             </HStack>
              
             </Stack>

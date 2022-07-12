@@ -70,9 +70,6 @@ export default function VerifyId() {
         lastName: ""
     });
 
-<<<<<<< HEAD
-    const update_status = (_id)=> {
-=======
      const openModal = (id, firstName, lastName, userType)=>{
      
         setModalObj({
@@ -90,7 +87,6 @@ export default function VerifyId() {
       
 
         setSuccessMsg(`${firstName} ${lastName}`)
->>>>>>> a31cbdcd960927ab2ee4c566e3b653a07f870deb
 
         fetch('https://api.solomonleke.com.ng/user/toggleUser', {
 
@@ -99,15 +95,9 @@ export default function VerifyId() {
             headers: {
                 "Content-Type": "application/JSON"
             },
-<<<<<<< HEAD
-    
-            body: JSON.stringify(_id)
-    
-=======
 
             body: JSON.stringify({ _id: id }),
 
->>>>>>> a31cbdcd960927ab2ee4c566e3b653a07f870deb
         })
 
             .then(response => response.json())
