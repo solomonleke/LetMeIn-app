@@ -7,6 +7,7 @@ import Home from '../Pages/Home'
 import IndexHome from '../Pages/Index'
 import Page2 from '../Pages/Page2'
 import Index from '../Pages/Residents/Index'
+import GrantAccess from '../Pages/Security/GrantAccess'
 import SecurityOps from '../Pages/Security/Index'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
@@ -25,6 +26,7 @@ export default function IndexRoutes() {
             <Route path='/resident' element={<Index/>}/>
             <Route path='/estate-admin' element={<EstateAdmin/>}/>
             <Route path='/security-ops' element={<SecurityOps/>}/>
+            <Route path='/security-ops/grant-access' element={<GrantAccess/>}/>
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
             <Route path='/verify-id' element={<VerifyId/>}/>
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>

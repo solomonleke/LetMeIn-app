@@ -64,23 +64,27 @@ export default function VerifyId() {
 
     }
 
+    const [ModalObj, setModalObj] = useState({
+        id: "",
+        firstName: "",
+        lastName: ""
+    });
 
+     const openModal = (id, firstName, lastName, userType)=>{
+     
+        setModalObj({
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            userType: userType,
+        })
 
-    const update_status = (id, firstName, lastName) => {
+        onOpen();
+     }
 
+    const update_status = (id, firstName, lastName, userType) => {
 
-        $("#verify").click(function () {
-
-            $("#verify").children(".toggle").children(".toggle-btn").addClass("on").removeClass("off")
-
-            // if( $(this).children(".toggle").children(".toggle-btn").hasClass("on")){
-            //     $(this).children(".toggle").children(".toggle-btn").removeClass("on").addClass("off")
-            // }else{
-            //     $(this).children(".toggle").children(".toggle-btn").addClass("on").removeClass("off")
-            // }
-
-
-        });
+      
 
         setSuccessMsg(`${firstName} ${lastName}`)
 
@@ -101,13 +105,22 @@ export default function VerifyId() {
 
                 console.log("data", data)
                 onClose()
+
+
+                if(userType == "Security operative"){
+                    handleSecurity()
+                }else if(userType == "Resident"){
+                    handleResident()
+                }else if(userType == "Landlord"){
+                    handleLandlord()
+                }
                 setSuccess(true)
 
                 setTimeout(() => {
-                    window.location.reload(false);
+                   
                     setSuccess(false)
 
-                }, 3000);
+                }, 5000);
 
 
             })
@@ -123,9 +136,9 @@ export default function VerifyId() {
 
     const handleLandlord = () => {
 
-        setData([])
+        // setData([])
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/endUser')
+        fetch('https://api.solomonleke.com.ng/user/vUser')
             .then(response => response.json())
             .then(data => {
                 if (data.status == 200) {
@@ -148,9 +161,9 @@ export default function VerifyId() {
 
     }
     const handleResident = () => {
-        setData([])
+        // setData([])
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/endUser')
+        fetch('https://api.solomonleke.com.ng/user/vUser')
             .then(response => response.json())
             .then(data => {
                 if (data.status == 200) {
@@ -173,9 +186,9 @@ export default function VerifyId() {
     }
     const handleSecurity = () => {
 
-        setData([])
+        // setData([])
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/endUser')
+        fetch('https://api.solomonleke.com.ng/user/vUser')
             .then(response => response.json())
             .then(data => {
                 if (data.status == 200) {
@@ -335,51 +348,53 @@ export default function VerifyId() {
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack id="verify" spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={onOpen}>
+                                                    <HStack id="verify" spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType)}>
                                                         <Box>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
-                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.address} | 0{item.phone}</Text>
+                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.houseNo}, {item.streetName} | 0{item.phone}</Text>
 
                                                         </Box>
+
+                                                       
                                                         <Spacer />
 
 
 
 
-                                                        <div className='toggle'>
+                                                        <div className={`toggle ${item.Verified && "toggle-on" } `}>
 
-                                                            <div className='toggle-btn off'>
+                                                            <div className={`toggle-btn ${item.Verified ? "on":"off"}`}>
 
                                                             </div>
 
                                                         </div>
 
                                                         <Modal motionPreset='slideInBottom' size={"md"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
-                                                            <ModalOverlay />
-                                                            <ModalContent>
-                                                                <ModalHeader></ModalHeader>
-                                                                <ModalCloseButton />
-                                                                <ModalBody pb={6}>
-                                                                    <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> Verify <br/> {item.firstName} {item.lastName}</Text>
-                                                                    <Center>
-                                                                    <Flex mt="33px" px="10%" justifyContent={"space-between"}>
+                                                        <ModalOverlay />
+                                                        <ModalContent>
+                                                            <ModalHeader></ModalHeader>
+                                                            <ModalCloseButton />
+                                                            <ModalBody pb={6}>
+                                                                <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> Verify <br/> {ModalObj.firstName} {ModalObj.lastName}</Text>
+                                                                <Center>
+                                                                <Flex mt="33px" px="10%" justifyContent={"space-between"}>
 
-                                                                    <Button w='20%' onClick={() => update_status(item._id, item.firstName, item.lastName)}>Yes </Button>
-                                                                   
-                                                                    <Button w='20%' onClick={onClose}>No</Button>
-                                                                    
-                                                                    </Flex>
-                                                                    </Center>
+                                                                <Button w='20%' onClick={() => update_status(ModalObj.id, ModalObj.firstName, ModalObj.lastName, ModalObj.userType)}>Yes </Button>
+                                                               
+                                                                <Button w='20%' onClick={onClose}>No</Button>
+                                                                
+                                                                </Flex>
+                                                                </Center>
 
-                                                    
-                                                                  
-                                                                </ModalBody>
+                                                
+                                                              
+                                                            </ModalBody>
 
-                                                                <ModalFooter>
-                                                                   
-                                                                </ModalFooter>
-                                                            </ModalContent>
-                                                        </Modal>
+                                                            <ModalFooter>
+                                                               
+                                                            </ModalFooter>
+                                                        </ModalContent>
+                                                    </Modal>
 
                                                     </HStack>
 

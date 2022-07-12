@@ -8,7 +8,7 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
   import React, { useState } from 'react';
-  import { FaEye } from 'react-icons/fa';
+  import { FaEye, FaEyeSlash } from 'react-icons/fa';
   
   export default function Input({
     id = '',
@@ -24,6 +24,7 @@ import {
     placeholder = `Enter ${label.toLowerCase()}`,
     pl = 0,
     rightIcon = null,
+    w = "250px",
     ...rest
   }) {
     const [active, setActive] = useState(rest.value);
@@ -70,7 +71,7 @@ import {
               fontWeight={'300'}
               rounded="0px"
               bg="#fff"
-              w="250px"
+              w={w}
               onFocus={() => setActive(true)}
               onBlur={() => {
                 if (!rest.value) {
@@ -83,7 +84,7 @@ import {
           </InputGroup>
           {type === 'password' && (
             <InputRightElement
-              children={<FaEye color="green.500" />}
+              children={inputType  === "password" ? <FaEyeSlash color="green.500" /> : <FaEye color="green.500" />}
               cursor={'pointer'}
               onClick={() => {
                 if (inputType === 'password') {

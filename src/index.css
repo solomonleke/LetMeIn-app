@@ -23,6 +23,9 @@ code {
   padding: 3px;
 
 }
+.toggle-on{
+  background-color: #CCF9F0;
+}
 
 .toggle-btn{
   /* h="16px" float={item.Verified == true ? "right" : "left"} width={"16px"} rounded="100%" bg="#50BFA9" boxShadow={"0px 0px 3px 3px rgba(0, 0, 0, 0.08)"} */
@@ -30,7 +33,7 @@ code {
   height: 16px;
   width: 16px;
   border-radius: 100%;
-  background-color: #50BFA9;
+  background-color: #A3A3A3;
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.08);
 }
 
