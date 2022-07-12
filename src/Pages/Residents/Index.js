@@ -9,7 +9,7 @@ import Seo from '../../Utils/Seo';
 export default function Index() {
     const nav = useNavigate()
 
-    const [Verified, setVerified] = useState(true);
+    const [Verified, setVerified] = useState(false);
 
     const visitor_access = () => {
 

@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Flex, HStack, Select, Spacer, Stack, Text, } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
@@ -9,6 +9,7 @@ import Seo from '../Utils/Seo';
 
 export default function SignUp() {
     const [view, setView] = useState(false);
+    const [view2, setView2] = useState(false);
     const [Loading, setLoading] = useState(false);
 
      const [Success, setSuccess] = useState(false);
@@ -18,11 +19,13 @@ export default function SignUp() {
    const [Payload, setPayload] = useState({
        prefix: "",
        userType: "",
+       estateName: "",
        firstName: "",
        lastName: "",
        email: "",
        phone: "",
-       address: "",
+       streetName: "",
+       houseNo: "",
        password: "",
        re_enter_password: ""
    });
@@ -35,10 +38,14 @@ export default function SignUp() {
     
     const proceed =()=>{
         
-        console.log("type", Payload.userType);
         setView(true)
     }
-
+    
+    const proceed2 =()=>{
+        
+       
+        setView2(true)
+    }
     
 
 
@@ -56,7 +63,8 @@ export default function SignUp() {
 
     const Sign_up  = ()=> {
         setLoading(true)
-        if(Payload.prefix !=="" && Payload.userType !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !=="" && Payload.address !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
+        if(Payload.prefix !=="" && Payload.userType !=="" && Payload.estateName !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !==""
+         && Payload.phone !=="" && Payload.streetName !=="" && Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
 
             if(Payload.password == Payload.re_enter_password){
 
@@ -71,6 +79,7 @@ export default function SignUp() {
                     nav("/verification")
                 }else{
                     alert(json.message)
+                    setLoading(false)
                 }
                })
                 .catch(error => {
@@ -102,7 +111,17 @@ export default function SignUp() {
     <MainLayout>
     <Seo title='Sign-up' description='Sign-up for LetMeIn'/>
 
-    <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#575757" mt="32px" textAlign={"center"}>Sign Up</Text>
+    <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#000000" mt="32px" textAlign={"center"}>Sign Up</Text>
+
+    <Center>
+        <HStack spacing="15px" mt="31px">
+            <Box bg={"#5BE3C9"} width={["70px", "90px"]} h="5px"></Box>
+           
+            <Box bg={view ? "#5BE3C9" : "#A3A3A3"} width={["70px", "90px"]} h="5px"></Box>
+           
+            <Box bg={view2 ? "#5BE3C9" : "#A3A3A3"} width={["70px", "90px"]} h="5px"></Box>
+        </HStack>
+    </Center>
     {
         Success && (
             <Center>
@@ -120,7 +139,18 @@ export default function SignUp() {
             view == false ? (
                 <Center>
                 <Box>
-                <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="80px">Please who are you ?</Text>
+                <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="42px">Enter Estate Name</Text>
+    
+                <Select onChange={handleSignUp}  id="estateName" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Search' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                <option value='Lake view'>Lake view Estate</option>
+                <option value='Banana Estate'>Banana Estate</option>
+                <option value='Canal Estate'>Canal Estate</option>
+                <option value='Amen Estate'>Amen Estate</option>
+               
+                </Select>
+
+
+                <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="35px">Please who are you ?</Text>
     
                 <Select onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
                 <option value='Resident'>Resident</option>
@@ -129,45 +159,80 @@ export default function SignUp() {
                 <option value='Security Operative'>Security Operative</option>
                 </Select>
     
-                <Button mt="65px" disabled={Payload.userType !=="" ? false: true} onClick={proceed}>Enter</Button>
+                <Button mt="65px" disabled={Payload.userType !=="" && Payload.estateName !=="" ? false: true} onClick={proceed}>Confirm</Button>
                </Box>
                 </Center>
               
             ):(
-               <>
 
-               <Center>
-               <Box>
-               <form onSubmit={Sign_up}>
-               <Stack mt="44px" spacing="15px">
-               
-                   <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
-                   <option value='Mr'>Mr</option>
-                   <option value='Mrs'>Mrs</option>
-                   </Select>
-          
-           
-           
-                   <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
-                   <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
-                   <Input val={Payload.email && true} isRequired label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
-                   <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
-                   <Input val={Payload.address && true} isRequired label="Address No." value={Payload.address} type="text" id='address' onChange={handleSignUp}/>
-                   <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
-                   <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
-                   <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
-               </Stack>
-               <Text mt="65px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
-               
-               </form>
-               </Box>
-               </Center>
-              
+                view2 == false ? (
+                    <div>
 
-               <Center>
-                 <Button w={["55%","40%","35%","18%"]} isLoading= {Loading} mb="32px" mt="15px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Enter</Button>
-               </Center>
-               </>
+                    <Center>
+                    <Box>
+                  
+                    <Stack mt="44px" spacing="15px">
+                    
+                        <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                        <option value='Mr'>Mr</option>
+                        <option value='Mrs'>Mrs</option>
+                        </Select>
+            
+                        <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
+                        <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
+                        <Input val={Payload.email && true} isRequired label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
+                        <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
+                       
+                    </Stack>
+
+
+                     <Button mt="65px" disabled={Payload.prefix !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !==""  ? false: true} onClick={proceed2}>Confirm</Button>
+
+
+                  
+                    </Box>
+                    </Center>
+                   
+     
+                    </div>
+                        
+                ):(
+
+                    <>
+
+                    <Center>
+                    <Box>
+                    <form onSubmit={Sign_up}>
+                    <Stack mt="44px" spacing="15px">
+                    
+                     
+                        <Select isRequired  onChange={handleSignUp} id="streetName" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                        <option value='Obidu close'>Obidu close</option>
+                        <option value='Rice Street'>Rice Street</option>
+                        <option value='Brown Street'>Brown Street</option>
+                        <option value='Ajoke Street'>Ajoke Street</option>
+                        <option value='Peace Street'>Peace Street</option>
+                        </Select>
+                        <Input val={Payload.houseNo && true} isRequired label="House No." value={Payload.houseNo} type="number" id='houseNo' onChange={handleSignUp}/>
+                        <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
+                        <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
+                        <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
+                    </Stack>
+                    <Text mt="65px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
+                    
+                    </form>
+                    </Box>
+                    </Center>
+                   
+     
+                    <Center>
+                      <Button w={["55%","40%","35%","18%"]} isLoading= {Loading} mb="32px" mt="15px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Register</Button>
+                    </Center>
+                    </>
+
+                )
+
+            
             )
         }
        

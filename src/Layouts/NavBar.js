@@ -21,6 +21,7 @@ import {
   DrawerCloseButton,
   useDisclosure,
   Flex,
+  Img,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { AiOutlineMenu } from "react-icons/ai";
@@ -55,39 +56,44 @@ export default function NavBar() {
 
 
 
-    nav("/")
+    nav("/home")
 
 
   }
 
 
   const home = () => {
-    nav("/")
+    nav("/home")
   }
   return (
-    <Box mx={["6%", "10%"]} mt='32px'>
+    <Box >
 
-    
+      <Box bgImage="url(/nav_bg.png)" bgSize={'cover'} bgRepeat={'repeat'} height="">
 
-      <Flex justifyContent={"space-between"} display={["flex", "flex"]}>
+        <Center>
+          <Box pos={"relative"} mt="10px" pb="20px" onClick={home} cursor="pointer">
+            <Img src="/logo.png" />
+            <Text fontSize={"14.5px"} color="#fff" fontWeight="400" w={"100%"} letterSpacing="1px" fontFamily={"body"} pos={"absolute"} left={"34px"} top={"36px"}>{onlineUser.user.userType} </Text>
+          </Box>
+        </Center>
+      </Box>
+
+      <Flex justifyContent={"space-between"} display={["flex", "flex"]} mx={["6%", "10%"]} mt='20px'>
         {
           isLogged.isLogged && (
 
             <Box cursor={"pointer"} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} >
-             <AiOutlineMenu />
-             {
-              verifiedLen >= 1 &&  onlineUser.user.userType == "Estate Manager"  && (
-                <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
-              )
-             }
-          
-             </Box>
+              <AiOutlineMenu />
+              {
+                verifiedLen >= 1 && onlineUser.user.userType == "Estate Manager" && (
+                  <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
+                )
+              }
+
+            </Box>
           )
         }
-        <Box pos={"relative"}>
-          <Image src='/logo.png' onClick={home} />
-          <Text fontSize={"14px"} fontWeight="400" w={"120px"} color={"#939393"} fontFamily={"body"} pos={"absolute"} left={"42px"} top={"35px"}>{onlineUser.user.userType}</Text>
-        </Box>
+
 
 
         {
@@ -115,24 +121,52 @@ export default function NavBar() {
 
               <Stack spacing={"19px"} mt="123px" cursor={"pointer"} flexGrow={1}>
 
-                <Link to="/visitors-access">
-                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
-                </Link>
+                {
+                  onlineUser.user.userType == "Security operative" && (
+                    <Stack spacing={"19px"}>
+                      <Link to="/check-in">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Check-in History</Text>
+                      </Link>
+                      <Link to="/check-out">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Check-out History</Text>
+                      </Link>
+                      <Link to="/uncheck-out">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Uncheck-Out</Text>
+                      </Link>
 
-                <Link to="/#">
-                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
-                </Link>
-
-                <Link to="/#">
-                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
-                </Link>
-
-                <Link to="/#">
-                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
-                </Link>
+                    </Stack>
+                  )
+                }
 
                 {
-                  onlineUser.user.userType == "Estate Manager" && (
+                  onlineUser.user.userType == "Resident" || onlineUser.user.userType == "Landlord" || onlineUser.user.userType == "Estate manager" && (
+
+                    <Stack spacing={"19px"}>
+
+                      <Link to="/visitors-access">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
+                      </Link>
+
+                      <Link to="/#">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
+                      </Link>
+
+                    </Stack>
+                  )
+                }
+
+
+
+                {
+                  onlineUser.user.userType == "Estate manager" && (
                     <>
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
@@ -150,7 +184,7 @@ export default function NavBar() {
                         </Box>
                       </Link>
 
-                      <Link to="/#">
+                      <Link to="/manage-verify-id">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
                       </Link>
                     </>

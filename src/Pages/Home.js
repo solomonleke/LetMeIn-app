@@ -42,6 +42,8 @@ export default function Home() {
             console.error('Error:', error);
         });
     }
+
+    
     const sign_up = ()=>{
       nav("/sign-up")
     }
@@ -62,21 +64,22 @@ export default function Home() {
           nav("/security-ops")
       }
       }else{
-        nav("/")
+        nav("/home")
       }
     }
     useEffect(() => {
       middleWare()
       checkLength()
     }, []);
+
   return (
         <MainLayout>
             <Seo title='Home' description='HomePage'/>
         
             <Center mt="171px">
-              <Stack spacing={'15px'} cursor="pointer">
-                  <Button bg="#E02828" color={"#fff"} _hover={{bg: "#E02828"}}  _active={{bg: "#E02828"}} borderRadius="0" px="85px" py="8px" fontFamily={"body"} fontSize="16px" fontWeight={"700"} onClick={sign_up}>Sign Up</Button>
-                  <Button bg="#E02828" color={"#fff"} _hover={{bg: "#E02828"}}  _active={{bg: "#E02828"}} borderRadius="0" px="85px" py="8px" fontFamily={"body"} fontSize="16px" fontWeight={"700"} onClick={sign_in}>Sign In</Button>
+              <Stack spacing={'24px'} cursor="pointer">
+                  <Button bg="#E02828" color={"#fff"} _hover={{bg: "#E02828"}}  _active={{bg: "#E02828"}} borderRadius="0" px="85px" py="8px" fontFamily={"body"} fontSize="16px" fontWeight={"700"} onClick={sign_up}>Register</Button>
+                  <Button bg="rgba(224, 40, 40, 0.07)" border={"1px solid #E02828"} _hover={{bg: "rgba(224, 40, 40, 0.07)"}}  _active={{bg: "rgba(224, 40, 40, 0.07)"}} borderRadius="0" px="85px" py="8px" fontFamily={"body"} color="#E02828" fontSize="16px" fontWeight={"700"} onClick={sign_in}>Login</Button>
               </Stack>
             </Center>
 

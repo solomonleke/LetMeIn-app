@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Select, Stack, Text, useToast } from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, HStack, Select, Stack, Text, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -69,7 +69,7 @@ export default function SignIn() {
                             nav("/resident")
                         } else if (json.people.userType == "Landlord") {
                             nav("/landlord")
-                        } else if (json.people.userType == "Estate Manager") {
+                        } else if (json.people.userType == "Estate manager") {
                             nav("/estate-admin")
                         } else {
                             nav("/security-ops")
@@ -103,7 +103,9 @@ export default function SignIn() {
         <MainLayout>
             <Seo title='Sign-in' description='Sign-in for LetMeIn' />
 
-            <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"} color="#575757" mt="32px" textAlign={"center"}>Sign In</Text>
+            <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#000000" mt="32px" textAlign={"center"}>Sign in</Text>
+
+      
             {
                 Success && (
                     <Center>
@@ -134,7 +136,7 @@ export default function SignIn() {
                 <Box>
 
 
-                    <Stack mt="44px" spacing="15px">
+                    <Stack mt="66px" spacing="15px">
 
                         <Input val={Payload.email && true} isRequired label="Email" value={Payload.email} id='email' type='email' onChange={handleSignUp} />
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />

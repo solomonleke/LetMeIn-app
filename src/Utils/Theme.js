@@ -48,7 +48,8 @@ const theme = extendTheme({
          
           bg: "rgba(255,255,255,.95)",
           boxShadow: "1px 2px 7px 5px #6D6D6D",
-          rounded: "5px"
+          rounded: "5px",
+          margin: "13px"
         }
       })
     }
