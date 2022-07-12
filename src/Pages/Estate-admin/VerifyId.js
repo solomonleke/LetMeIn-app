@@ -29,6 +29,10 @@ export default function VerifyId() {
     const [isLoading, setIsLoading] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
 
+    const [verifyAll, setVerifyAll] = useState(false);
+
+
+
 
 
     const [Success, setSuccess] = useState(false);
@@ -70,13 +74,15 @@ export default function VerifyId() {
         lastName: ""
     });
 
-     const openModal = (id, firstName, lastName, userType)=>{
-     
+     const openModal = (id, firstName, lastName, userType, verify)=>{
+        setVerifyAll(false)
+
         setModalObj({
             id: id,
             firstName: firstName,
             lastName: lastName,
             userType: userType,
+            verify: verify
         })
 
         onOpen();
@@ -216,7 +222,64 @@ export default function VerifyId() {
     }
 
     const VerifyAll = () => {
-        setChecked(true)
+
+        // alert(JSON.stringify(Data))
+
+        Data.map((item, i)=>{
+
+            if(item.Verified == false){
+
+                fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+
+                    method: "POST",
+        
+                    headers: {
+                        "Content-Type": "application/JSON"
+                    },
+        
+                    body: JSON.stringify({ _id: item._id }),
+        
+                })
+        
+                    .then(response => response.json())
+                    .then(data => {
+        
+                        console.log("data", data)
+                        setSuccessMsg(`All Users`)
+                        onClose()
+
+
+                        if(item.userType == "Security operative"){
+                            handleSecurity()
+                        }else if(item.userType == "Resident"){
+                            handleResident()
+                        }else if(item.userType == "Landlord"){
+                            handleLandlord()
+                        }
+                        setSuccess(true)
+                       
+                        setTimeout(() => {
+                   
+                            setSuccess(false)
+        
+                        }, 5000);
+                    })
+        
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            
+
+            }
+            
+                        })
+       
+    }
+
+    const verify = ()=>{
+        setVerifyAll(true)
+
+        onOpen()
     }
 
 
@@ -348,7 +411,7 @@ export default function VerifyId() {
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack id="verify" spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType)}>
+                                                    <HStack id="verify" spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType,item.Verified)}>
                                                         <Box>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.houseNo}, {item.streetName} | 0{item.phone}</Text>
@@ -375,11 +438,26 @@ export default function VerifyId() {
                                                             <ModalHeader></ModalHeader>
                                                             <ModalCloseButton />
                                                             <ModalBody pb={6}>
-                                                                <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> Verify <br/> {ModalObj.firstName} {ModalObj.lastName}</Text>
+                                                                {
+                                                                    verifyAll ? (
+                                                                        <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> Verify  <br/> all Users?</Text>
+
+                                                                    ):(
+                                                                        <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> { ModalObj.verify ? "Unverify": "Verify"}  <br/> {ModalObj.firstName} {ModalObj.lastName}?</Text>
+
+                                                                    )
+                                                                }
                                                                 <Center>
                                                                 <Flex mt="33px" px="10%" justifyContent={"space-between"}>
+                                                                {
+                                                                      verifyAll ? (
+                                                                        <Button w='20%' onClick={VerifyAll}>Yes </Button>
 
-                                                                <Button w='20%' onClick={() => update_status(ModalObj.id, ModalObj.firstName, ModalObj.lastName, ModalObj.userType)}>Yes </Button>
+                                                                      ):(
+                                                                        <Button w='20%' onClick={() => update_status(ModalObj.id, ModalObj.firstName, ModalObj.lastName, ModalObj.userType)}>Yes </Button>
+
+                                                                      )
+                                                                }
                                                                
                                                                 <Button w='20%' onClick={onClose}>No</Button>
                                                                 
@@ -403,14 +481,14 @@ export default function VerifyId() {
                                             }
 
                                         </Stack>
-                                        <Button mb="18px" mt="65px" onClick={VerifyAll} >Verify All</Button>
+                                        <Button mb="18px" mt="65px" onClick={verify} >Verify All</Button>
 
 
 
                                         {
                                             Success && (
 
-                                                <Text textAlign={"center"} fontFamily="body" fontWeight={400} fontSize="14px" color="#939393">{SuccessMsg} verified successfully</Text>
+                                                <Text textAlign={"center"} fontFamily="body" fontWeight={400} fontSize="14px" color="#939393">{SuccessMsg} { ModalObj.verify ? "unverified successfully": "verified successfully"} </Text>
                                             )
                                         }
 

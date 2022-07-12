@@ -1,5 +1,6 @@
 import { Box, Center, Flex, HStack, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import Input from '../../Components/Input';
@@ -15,7 +16,11 @@ export default function SecurityOps() {
   const [Grant, setGrant] = useState(false);
   const [AccessCode, setAccessCode] = useState("");
 
-  const [Verified, setVerified] = useState(true);
+
+  const onlineUser = useSelector((state) => state.onlineUser);
+  const [Verified, setVerified] = useState(onlineUser.user.Verified);
+
+  console.log("Verified" , Verified)
 
   const handleCheckIn = () => {
     setCheckIn(true)
@@ -91,7 +96,7 @@ export default function SecurityOps() {
   
             <Box>
               <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} fontStyle="italic" color="#000000">Hello,</Text>
-              <Text fontSize={"24px"} fontFamily="body" fontWeight={"700"} color="#000000">Officer. John</Text>
+              <Text fontSize={"24px"} fontFamily="body" fontWeight={"700"} color="#000000">Officer. {onlineUser.user.lastName}</Text>
             </Box>
   
             <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="25px">
