@@ -47,7 +47,7 @@ export default function VerifyId() {
 
     
 
-    const update_status = (id)=> {
+    const update_status = (_id)=> {
 
         fetch('https://api.solomonleke.com.ng/user/toggleUser', {
 
@@ -57,7 +57,7 @@ export default function VerifyId() {
                 "Content-Type": "application/JSON"
             },
     
-            body: JSON.stringify(id),
+            body: JSON.stringify(_id)
     
         })
 
