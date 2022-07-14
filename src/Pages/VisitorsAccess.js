@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AlertMe from '../Components/Alert';
 import Button from '../Components/Button';
+import Headers from '../Components/Headers';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
@@ -111,7 +112,10 @@ export default function VisitorsAccess() {
             <Seo title="Visitors Access" description='Grant visitors Access' />
 
 
-            <Text mt="40px" fontFamily={"body"} fontSize="25px" fontWeight={"700"} color="#575757" textAlign={"center"}>Grant Visitor Access</Text>
+           
+            <Box mt="40px">
+                <Headers text="Grant Visitor Access"/>
+            </Box>
             {
                 Success && (
 
@@ -120,14 +124,14 @@ export default function VisitorsAccess() {
             }
 
             <Center>
-                <Box>
+                <Box  w={["80%", "310px"]}>
 
                     <Stack mt="44px" spacing="15px">
 
                         <Input val={Payload.firstName && true} isRequired label="First Name" value={Payload.firstName} id='firstName' type='text' onChange={handleChange} />
                         <Input val={Payload.lastName && true}  label="Last Name" value={Payload.lastName} id='lastName' type='text' onChange={handleChange} />
 
-                        <Select isRequired onChange={handleChange} id="gender" color="#939393" rounded="0" _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"} placeholder='Gender' bg={"#fff"} _hover={{ bg: "#fff" }} w="250px" size={"lg"}>
+                        <Select isRequired onChange={handleChange} id="gender" color="#939393" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"} placeholder='Gender' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"}>
                             <option value='Male'>Male</option>
                             <option value='Female'>Female</option>
                         </Select>

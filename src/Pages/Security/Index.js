@@ -20,7 +20,7 @@ export default function SecurityOps() {
   const onlineUser = useSelector((state) => state.onlineUser);
   const [Verified, setVerified] = useState(onlineUser.user.Verified);
 
-  console.log("Verified" , Verified)
+
 
   const handleCheckIn = () => {
     setCheckIn(true)
@@ -66,6 +66,9 @@ export default function SecurityOps() {
           setUser(data.user)
           setGrant(true)
           console.log("data", data)
+        }else{
+          console.log("not working " , data)
+          setLoading(false)
         }
 
     })
@@ -79,7 +82,30 @@ export default function SecurityOps() {
 
   const grantAccess = () => {
 
-    nav("/security-ops/grant-access")
+    fetch('https://api.solomonleke.com.ng/user/CheckedIn',{
+
+      method: "POST",
+  
+      headers: {
+          "Content-Type": "application/JSON"
+      },
+  
+      body: JSON.stringify(
+        {_id: User._id }
+      ),
+  
+  })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        nav("/security-ops/grant-access")
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    
+
+   
   }
 
 
