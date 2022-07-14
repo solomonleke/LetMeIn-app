@@ -24,7 +24,7 @@ import {
     placeholder = `Enter ${label.toLowerCase()}`,
     pl = 0,
     rightIcon = null,
-    w = "250px",
+    w = "100%",
     ...rest
   }) {
     const [active, setActive] = useState(rest.value);
@@ -62,13 +62,14 @@ import {
               {...rest}
               placeholder={active || !label ? placeholder : ''}
               type={inputType}
-              focusBorderColor={'#E02828'}
-              _focus={{ borderColor: "#E02828" }}
+              focusBorderColor={'#6AF3D8'}
+              _focus={{ borderColor: "#6AF3D8" }}
               size={size}
               color="#939393"
-              fontSize="sm"
               _autofill={{bgColor: "#fff !important"}} 
-              fontWeight={'300'}
+              fontWeight={'400'}
+              fontSize="16px"
+              fontFamily={"body"}
               rounded="0px"
               bg="#fff"
               w={w}

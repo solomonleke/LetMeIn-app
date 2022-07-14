@@ -85,7 +85,7 @@ export default function NavBar() {
             <Box cursor={"pointer"} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} >
               <AiOutlineMenu />
               {
-                verifiedLen >= 1 && onlineUser.user.userType == "Estate Manager" && (
+                verifiedLen >= 1 && onlineUser.user.userType == "Estate manager" && (
                   <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
                 )
               }

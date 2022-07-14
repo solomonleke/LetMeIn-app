@@ -5,6 +5,7 @@ import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 import { useSelector } from 'react-redux';
+import GreetingText from '../../Components/GreetingText';
 
 export default function EstateAdmin() {
 
@@ -15,6 +16,7 @@ export default function EstateAdmin() {
     
     const verifiedLen = useSelector((state) => state.verifiedCount.count);
 
+    const onlineUser = useSelector((state) => state.onlineUser);
 
     const visitor_access = () => {
 
@@ -46,17 +48,23 @@ export default function EstateAdmin() {
 
             <Center mt={["100px", "171px"]}>
                 <Stack spacing={'15px'} cursor="pointer">
+                   <GreetingText name={onlineUser.user.lastName}/>
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
                     <Button onClick={visitor_access}>Visitor Access</Button>
                     <Button onClick={taxi_access}>Taxi Access</Button>
                     <Box pos={"relative"}>
                         <Button onClick={verify_id} >Verify IDs</Button>
-                        <Text h={"18px"} w={"18px"}
-                            rounded={"100%"} bg="#EDEDED"
-                            boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                            pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                            fontFamily="body" fontWeight={"400"} color="#000000"
-                            fontSize={"12"}>{verifiedLen}</Text>
+                        {
+                            verifiedLen >=1 && (
+                                <Text h={"18px"} w={"18px"}
+                                rounded={"100%"} bg="#EDEDED"
+                                boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                fontFamily="body" fontWeight={"400"} color="#000000"
+                                fontSize={"12"}>{verifiedLen}</Text>
+                            )
+                        }
+                       
                     </Box>
                 </Stack>
             </Center>

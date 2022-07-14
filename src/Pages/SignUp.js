@@ -1,7 +1,9 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Flex, HStack, Select, Spacer, Stack, Text, } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import BackBtn from '../Components/BackBtn';
 import Button from '../Components/Button';
+import Headers from '../Components/Headers';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Request from '../Utils/Request';
@@ -99,7 +101,14 @@ export default function SignUp() {
     }
 
 
+    const back = ()=>{
+        setView(false)
+    }
+    const back2 = ()=>{
 
+        setView2(false)
+       
+    }
 
 
     useEffect(() => {
@@ -111,8 +120,10 @@ export default function SignUp() {
     <MainLayout>
     <Seo title='Sign-up' description='Sign-up for LetMeIn'/>
 
-    <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#000000" mt="32px" textAlign={"center"}>Sign Up</Text>
-
+    <Box mt="54px">
+    
+    <Headers text={"Sign Up"}/>
+    </Box>
     <Center>
         <HStack spacing="15px" mt="31px">
             <Box bg={"#5BE3C9"} width={["70px", "90px"]} h="5px"></Box>
@@ -138,10 +149,10 @@ export default function SignUp() {
         {
             view == false ? (
                 <Center>
-                <Box>
+                <Box  w={["80%", "310px"]}>
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="42px">Enter Estate Name</Text>
     
-                <Select onChange={handleSignUp}  id="estateName" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Search' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                <Select onChange={handleSignUp}  id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Search' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Lake view'>Lake view Estate</option>
                 <option value='Banana Estate'>Banana Estate</option>
                 <option value='Canal Estate'>Canal Estate</option>
@@ -152,7 +163,7 @@ export default function SignUp() {
 
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="35px">Please who are you ?</Text>
     
-                <Select onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                <Select onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Resident'>Resident</option>
                 <option value='LandLord'>LandLord</option>
                 <option value='Estate Manager'>Estate Manager</option>
@@ -166,14 +177,14 @@ export default function SignUp() {
             ):(
 
                 view2 == false ? (
-                    <div>
+                    <Box mx={["6%", "10%"]}>
 
                     <Center>
-                    <Box>
+                    <Box w={["80%", "310px"]}>
                   
                     <Stack mt="44px" spacing="15px">
                     
-                        <Select isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                        <Select w="100%" isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}}  size={"lg"} mt="12px">
                         <option value='Mr'>Mr</option>
                         <option value='Mrs'>Mrs</option>
                         </Select>
@@ -193,20 +204,20 @@ export default function SignUp() {
                     </Box>
                     </Center>
                    
-     
-                    </div>
+                    <BackBtn onclick={back}/>
+                    </Box>
                         
                 ):(
 
-                    <>
+                    <Box mx={["6%", "10%"]}>
 
                     <Center>
-                    <Box>
+                    <Box  w={["80%", "310px"]}>
                     <form onSubmit={Sign_up}>
                     <Stack mt="44px" spacing="15px">
                     
                      
-                        <Select isRequired  onChange={handleSignUp} id="streetName" color="#939393" rounded="0"  _focus={{ borderColor: "#E02828" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="250px" size={"lg"} mt="12px">
+                        <Select isRequired  onChange={handleSignUp} id="streetName" color="#939393" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                         <option value='Obidu close'>Obidu close</option>
                         <option value='Rice Street'>Rice Street</option>
                         <option value='Brown Street'>Brown Street</option>
@@ -218,17 +229,18 @@ export default function SignUp() {
                         <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
                         <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
                     </Stack>
-                    <Text mt="65px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
-                    
+                    <Text mt="2px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #6AF3D8" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
+
+                    <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Register</Button>
+
                     </form>
                     </Box>
                     </Center>
                    
      
-                    <Center>
-                      <Button w={["55%","40%","35%","18%"]} isLoading= {Loading} mb="32px" mt="15px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Register</Button>
-                    </Center>
-                    </>
+
+                    <BackBtn onclick={back2}/>
+                    </Box>
 
                 )
 

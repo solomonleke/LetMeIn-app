@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
+import Headers from '../Components/Headers';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
@@ -103,9 +104,7 @@ export default function SignIn() {
         <MainLayout>
             <Seo title='Sign-in' description='Sign-in for LetMeIn' />
 
-            <Text fontFamily={"body"} fontSize="25px" fontWeight={"700"}  color="#000000" mt="32px" textAlign={"center"}>Sign in</Text>
-
-      
+             <Box mt="54px"> <Headers text="Sign In" />  </Box>
             {
                 Success && (
                     <Center>
@@ -133,7 +132,7 @@ export default function SignIn() {
             <Center>
 
 
-                <Box>
+                <Box w={["80%", "310px"]}>
 
 
                     <Stack mt="66px" spacing="15px">
@@ -142,19 +141,16 @@ export default function SignIn() {
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />
 
                     </Stack>
-                    <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="15px" color={"blue"}><Link to="#">Forget password</Link></Text>
-                    <Text mt="65px" fontFamily={"body"}>Don't have an account ? <Link to="/sign-up"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-Up</Box></Link> </Text>
+                    <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="5px" color={"blue"}><Link to="#">Forget password</Link></Text>
+                    <Text mt="30px" fontFamily={"body"}>Don't have an account ? <Link to="/sign-up"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-Up</Box></Link> </Text>
                    
-
+                    <Button w={"100%"} isLoading={Loading} mb="32px" mt="25px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>
                 </Box>
 
 
             </Center>
 
-            <Center>
-                
-             <Button w={["55%","40%","35%","18%"]} isLoading={Loading} mb="32px" mt="15px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>
-            </Center>
+           
 
         </MainLayout>
     );

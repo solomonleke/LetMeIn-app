@@ -5,7 +5,15 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton, useDisclosure
+    ModalCloseButton, useDisclosure, Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+    IconButton,
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,6 +21,10 @@ import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 import $ from 'jquery';
+import BackBtn from '../../Components/BackBtn';
+import { useNavigate } from 'react-router-dom';
+import Headers from '../../Components/Headers';
+import { BsThreeDots } from 'react-icons/bs';
 
 export default function VerifyId() {
     const [Resident, setResident] = useState(false);
@@ -36,21 +48,22 @@ export default function VerifyId() {
 
 
     const [Success, setSuccess] = useState(false);
+    const nav = useNavigate()
 
     const dispatch = useDispatch();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const checkLength = () => {
-
+        setIsLoading(true)
         fetch('https://api.solomonleke.com.ng/user/endUser')
             .then(response => response.json())
             .then(data => {
-                if (data.status == 200) {
+                if (data.status === 200) {
 
                     setResidentLen(data.resident?.length)
                     setLandlordLen(data.landlord?.length)
                     setSecurityLen(data.security_OPs?.length)
                 }
-
+                setIsLoading(false)
             })
 
             .catch((error) => {
@@ -59,14 +72,7 @@ export default function VerifyId() {
     }
 
 
-    const handleChange = (e) => {
-
-
-        setChecked(e.target.checked)
-
-
-
-    }
+    
 
     const [ModalObj, setModalObj] = useState({
         id: "",
@@ -113,11 +119,11 @@ export default function VerifyId() {
                 onClose()
 
 
-                if(userType == "Security operative"){
+                if(userType === "Security operative"){
                     handleSecurity()
-                }else if(userType == "Resident"){
+                }else if(userType === "Resident"){
                     handleResident()
-                }else if(userType == "Landlord"){
+                }else if(userType === "Landlord"){
                     handleLandlord()
                 }
                 setSuccess(true)
@@ -127,6 +133,8 @@ export default function VerifyId() {
                     setSuccess(false)
 
                 }, 5000);
+
+                checkLengthRedux();
 
 
             })
@@ -172,7 +180,7 @@ export default function VerifyId() {
         fetch('https://api.solomonleke.com.ng/user/vUser')
             .then(response => response.json())
             .then(data => {
-                if (data.status == 200) {
+                if (data.status === 200) {
                     setData(data.resident)
                 }
                 setShow(false)
@@ -197,7 +205,7 @@ export default function VerifyId() {
         fetch('https://api.solomonleke.com.ng/user/vUser')
             .then(response => response.json())
             .then(data => {
-                if (data.status == 200) {
+                if (data.status === 200) {
                     setData(data.security_OPs)
                 }
                 setShow(false)
@@ -219,6 +227,7 @@ export default function VerifyId() {
 
     const back = () => {
         setShow(true)
+        checkLength();
     }
 
     const VerifyAll = () => {
@@ -227,7 +236,7 @@ export default function VerifyId() {
 
         Data.map((item, i)=>{
 
-            if(item.Verified == false){
+            if(item.Verified === false){
 
                 fetch('https://api.solomonleke.com.ng/user/toggleUser', {
 
@@ -249,11 +258,11 @@ export default function VerifyId() {
                         onClose()
 
 
-                        if(item.userType == "Security operative"){
+                        if(item.userType === "Security operative"){
                             handleSecurity()
-                        }else if(item.userType == "Resident"){
+                        }else if(item.userType === "Resident"){
                             handleResident()
-                        }else if(item.userType == "Landlord"){
+                        }else if(item.userType === "Landlord"){
                             handleLandlord()
                         }
                         setSuccess(true)
@@ -263,6 +272,7 @@ export default function VerifyId() {
                             setSuccess(false)
         
                         }, 5000);
+                        checkLengthRedux()
                     })
         
                     .catch((error) => {
@@ -270,6 +280,14 @@ export default function VerifyId() {
                     });
             
 
+            }else{
+                onClose()
+                 
+                setTimeout(() => {
+                   
+                    alert("All user are verified")
+
+                }, 1000);
             }
             
                         })
@@ -288,7 +306,7 @@ export default function VerifyId() {
         fetch('https://api.solomonleke.com.ng/user/endUser')
             .then(response => response.json())
             .then(data => {
-                if (data.status == 200) {
+                if (data.status === 200) {
 
                     dispatch(
                         // collect two parameters (type and payload)
@@ -304,7 +322,11 @@ export default function VerifyId() {
             });
     }
 
+    const GoBack = ()=>{
+        nav("/home")
+    }
 
+  
 
     useEffect(() => {
 
@@ -318,86 +340,114 @@ export default function VerifyId() {
 
             {
                 Show ? (
+                    <Box mx={["6%", "10%"]}>
                     <Center mt={["100px", "131px"]}>
-                        <Box>
+                    <Box w={["80%", "310px"]}>
 
-                            <Text fontFamily={"body"} fontSize="24px" fontWeight={"700"} color="#575757" textAlign={"center"}>Verify IDs</Text>
+                       
 
+                        <Headers text={"Verify User Identification"}/>
 
+                        {
+                            isLoading ? (
+                                <Center mt="20vh">
+                                    <CircularProgress isIndeterminate={true} value={49} size='150px' thickness='4px' />
+                                </Center>
+                            ) : (
+                                <Stack spacing={'15px'} cursor="pointer" mt="39px">
 
-                            {
-                                isLoading ? (
-                                    <Center mt="20vh">
-                                        <CircularProgress isIndeterminate={true} value={49} size='150px' thickness='4px' />
-                                    </Center>
-                                ) : (
-                                    <Stack spacing={'15px'} cursor="pointer" mt="39px">
+                                    <Box pos={"relative"}>
+                                    <Button onClick={handleResident}> Verify Resident</Button>
 
-                                        <Text color={"#939393"}>Select ID Category you intend to Verify</Text>
-
-
-
-                                        <Box pos={"relative"}>
-                                            <Button onClick={handleLandlord}>LandLord</Button>
-                                            {
-                                                LandlordLen >= 1 && (
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{LandlordLen} </Text>
-                                                )
-                                            }
-
-
-                                        </Box>
-                                        <Box pos={"relative"}>
-                                            <Button onClick={handleResident}>Resident</Button>
-
-                                            {
+                                    {
                                                 ResidentLen >= 1 && (
 
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{ResidentLen}</Text>
-                                                )
-                                            }
+                                                <Text h={"18px"} w={"18px"}
+                                                    rounded={"100%"} bg="#EDEDED"
+                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                                    fontSize={"12"}>{ResidentLen}</Text>
+                                            )
+                                        }
 
-                                        </Box>
-                                        <Box pos={"relative"}>
-                                            <Button onClick={handleSecurity}>Security</Button>
+                                    </Box>
 
-                                            {
-                                                SecurityLen >= 1 && (
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" pt="1px" textAlign={"center"}
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{SecurityLen}</Text>
-                                                )
-                                            }
+                                    <Box pos={"relative"}>
+                                        <Button onClick={handleLandlord}>Verify LandLord</Button>
+                                        {
+                                            LandlordLen >= 1 && (
+                                                <Text h={"18px"} w={"18px"}
+                                                    rounded={"100%"} bg="#EDEDED"
+                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                                    fontSize={"12"}>{LandlordLen} </Text>
+                                            )
+                                        }
 
-                                        </Box>
-                                    </Stack>
-                                )
-                            }
 
-                        </Box>
-                    </Center>
+                                    </Box>
+                                   
+                                    <Box pos={"relative"}>
+                                        <Button onClick={handleSecurity}>Verify Security Operative</Button>
+
+                                        {
+                                            SecurityLen >= 1 && (
+                                                <Text h={"18px"} w={"18px"}
+                                                    rounded={"100%"} bg="#EDEDED"
+                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                    pos="absolute" right="-8px" top="-8px" pt="1px" textAlign={"center"}
+                                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                                    fontSize={"12"}>{SecurityLen}</Text>
+                                            )
+                                        }
+
+                                    </Box>
+
+
+                                  
+                                </Stack>
+                            )
+                        }
+
+                    </Box>
+                </Center>
+
+                <BackBtn onclick={GoBack} />
+                    </Box>
+                   
                 ) : (
-                    <Center mt={["100px", "131px"]} >
+                    <Center mt={["60px", "61px"]} >
 
                         <Box>
-                            <Text fontFamily={"body"} fontSize="24px" fontWeight={"700"} color="#575757" textAlign={"center"}>Verify IDs</Text>
-                            <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#575757" mt="-8px" textAlign={"center"}>
-                                {Resident ? "Resident" : Landlord ? "Landlord" : Security && "Security"}</Text>
 
+                            <Headers text={Resident ? "Verify Residents" : Landlord ? "Verify Landlords" : Security && " Verify Security Operatives"}/>
 
+                            <Menu>
+                            {
+                                ({isOpen}) => (
+                                    <>
+                                    <MenuButton as={Box}  aria-label='Options' cursor={"pointer"} >
+                                    <Box fontSize={"30px"} color={isOpen ? "#E02828": "#9D9D9D"} mt={"32px"} _focus={{color: "#E02828"}}>
+                                    <BsThreeDots/>
+                                    
+                                    </Box>
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem>Display First 5</MenuItem>
+                                        <MenuItem>Display First 10</MenuItem>
+                                        <MenuItem>Display First 15</MenuItem>
+                                        <MenuItem>Display All</MenuItem>
+                                       
+                                    </MenuList>
+                                    </>
+                                   
+                                    )
+                                }
+                                
+                                </Menu>
+                           
                             {
                                 Data.length <= 0 ? (
 
@@ -406,12 +456,12 @@ export default function VerifyId() {
                                 ) : (
 
                                     <Box px={["1%", "5%", "5%", "0%"]}>
-                                        <Stack spacing={'14px'} cursor="pointer" mt="18px" >
+                                        <Stack spacing={'14px'} cursor="pointer" mt="10px" >
 
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack id="verify" spacing="39px" bg={item.Verified == true ? ("#96F4E2") : ("#D6D6D6")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType,item.Verified)}>
+                                                    <HStack id="verify" spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType,item.Verified)}>
                                                         <Box>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.houseNo}, {item.streetName} | 0{item.phone}</Text>
@@ -436,14 +486,14 @@ export default function VerifyId() {
                                                         <ModalOverlay />
                                                         <ModalContent>
                                                             <ModalHeader></ModalHeader>
-                                                            <ModalCloseButton />
+                                                           
                                                             <ModalBody pb={6}>
                                                                 {
                                                                     verifyAll ? (
                                                                         <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> Verify  <br/> all Users?</Text>
 
                                                                     ):(
-                                                                        <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> { ModalObj.verify ? "Unverify": "Verify"}  <br/> {ModalObj.firstName} {ModalObj.lastName}?</Text>
+                                                                        <Text textAlign={"center"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Are you sure you want to <br/> { ModalObj.verify ? "Unverify": "Verify"}  <br/> <Box as="span" fontWeight={"700"}>{ModalObj.firstName} {ModalObj.lastName}?</Box></Text>
 
                                                                     )
                                                                 }
@@ -451,15 +501,15 @@ export default function VerifyId() {
                                                                 <Flex mt="33px" px="10%" justifyContent={"space-between"}>
                                                                 {
                                                                       verifyAll ? (
-                                                                        <Button w='20%' onClick={VerifyAll}>Yes </Button>
+                                                                        <Button w='2%' onClick={VerifyAll}>Yes </Button>
 
                                                                       ):(
-                                                                        <Button w='20%' onClick={() => update_status(ModalObj.id, ModalObj.firstName, ModalObj.lastName, ModalObj.userType)}>Yes </Button>
+                                                                        <Button w='2%' onClick={() => update_status(ModalObj.id, ModalObj.firstName, ModalObj.lastName, ModalObj.userType)}>Yes </Button>
 
                                                                       )
                                                                 }
-                                                               
-                                                                <Button w='20%' onClick={onClose}>No</Button>
+                                                             
+                                                                <Button w='2%' onClick={onClose}>No</Button>
                                                                 
                                                                 </Flex>
                                                                 </Center>
@@ -487,8 +537,13 @@ export default function VerifyId() {
 
                                         {
                                             Success && (
+                                                verifyAll ? (
+                                                    <Text textAlign={"center"} fontFamily="body" fontWeight={400} fontSize="14px" color="#939393">{SuccessMsg} verified successfully </Text>
 
-                                                <Text textAlign={"center"} fontFamily="body" fontWeight={400} fontSize="14px" color="#939393">{SuccessMsg} { ModalObj.verify ? "unverified successfully": "verified successfully"} </Text>
+                                                ):(
+                                                    <Text textAlign={"center"} fontFamily="body" fontWeight={400} fontSize="14px" color="#939393">{SuccessMsg} { ModalObj.verify ? "unverified successfully": "verified successfully"} </Text>
+
+                                                )
                                             )
                                         }
 
@@ -513,9 +568,10 @@ export default function VerifyId() {
 
 
             {
-                Show == false && (
-                    <Box mx={["6%", "10%"]} mt='32px' mb="20px">
-                        <Text cursor={"pointer"} fontFamily={"body"} fontSize="16px" fontWeight={"700"} color="#ffffff" bg="#E02828" p="5px" textAlign={"center"} w={["20%", "15%", "8%"]} onClick={back}>Back</Text>
+                Show === false && (
+                   
+                    <Box mx={["6%", "10%"]} >
+                    <BackBtn onclick={back}/>    
                     </Box>
                 )
             }
