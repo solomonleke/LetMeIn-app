@@ -3,23 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import MainLayout from '../Layouts/Index'
-import Request from '../Utils/Request'
 import Seo from '../Utils/Seo'
 
 export default function Home() {
-    // const getApi = async ()=>{
-    //    const res = await new Request().get({url:"https://jsonplaceholder.typicode.com/posts"})
-    //     console.log(res)
-    // }
-
+  
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
     const nav= useNavigate()
     const dispatch = useDispatch();
-    const [TotalLen, setTotalLen] = useState("");
-
-
-
     const checkLength = ()=>{
 
         fetch('https://api.solomonleke.com.ng/user/endUser')
@@ -27,15 +18,19 @@ export default function Home() {
         .then(data => {
             if (data.status == 200) {
   
-                setTotalLen(data.resident?.length + data.landlord?.length + data.security_OPs?.length)
-
                 dispatch(
                   // collect two parameters (type and payload)
           
                   { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
                 );
+
+                dispatch(
+          
+                  { type: "VERIFIED_COUNT_LAN", payload: { data:  data.resident?.length } }
+                );
+
             }
-          console.log("TotalLen", TotalLen)
+          
         })
 
         .catch((error) => {

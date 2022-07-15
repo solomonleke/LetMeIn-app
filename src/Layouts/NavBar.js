@@ -37,6 +37,7 @@ export default function NavBar() {
   const isLogged = useSelector((state) => state.isLogged);
   const onlineUser = useSelector((state) => state.onlineUser);
   const verifiedLen = useSelector((state) => state.verifiedCount.count);
+  const verifiedLan = useSelector((state) => state.verifiedCountLan.count);
 
   const dispatch = useDispatch();
   const nav = useNavigate()
@@ -86,6 +87,11 @@ export default function NavBar() {
               <AiOutlineMenu />
               {
                 verifiedLen >= 1 && onlineUser.user.userType == "Estate manager" && (
+                  <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
+                )
+              }
+              {
+                verifiedLan >= 1 && onlineUser.user.userType == "Landlord" && (
                   <Box w="8px" h="8px" bg="#E02828" rounded="100%" pos="absolute" top="0" right="0"></Box>
                 )
               }
@@ -189,13 +195,13 @@ export default function NavBar() {
                         <Box pos={"relative"}>
                           <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
                           {
-                            verifiedLen >= 1 && (
+                            verifiedLan >= 1 && (
                               <Text h={"18px"} w={"18px"}
                                 rounded={"100%"} bg="#E02828"
                                 boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
                                 pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
                                 fontFamily="body" fontWeight={"400"} color="#FFFFFF"
-                                fontSize={"12"}>{verifiedLen}</Text>
+                                fontSize={"12"}>{verifiedLan}</Text>
                             )
                           }
                         </Box>

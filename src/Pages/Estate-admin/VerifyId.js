@@ -16,7 +16,7 @@ import {
     IconButton,
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
@@ -25,7 +25,11 @@ import BackBtn from '../../Components/BackBtn';
 import { useNavigate } from 'react-router-dom';
 import Headers from '../../Components/Headers';
 import { BsThreeDots } from 'react-icons/bs';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
+import moment from 'moment';
+import Pagination from '../../Components/Pagination';
+import Divider from '../../Components/Divider';
 export default function VerifyId() {
     const [Resident, setResident] = useState(false);
     const [Landlord, setLandlord] = useState(false);
@@ -45,7 +49,7 @@ export default function VerifyId() {
 
 
 
-
+    const onlineUser = useSelector((state) => state.onlineUser);
 
     const [Success, setSuccess] = useState(false);
     const nav = useNavigate()
@@ -283,11 +287,11 @@ export default function VerifyId() {
             }else{
                 onClose()
                  
-                setTimeout(() => {
+                // setTimeout(() => {
                    
-                    alert("All user are verified")
+                //     alert("All user are verified")
 
-                }, 1000);
+                // }, 1000);
             }
             
                         })
@@ -309,9 +313,12 @@ export default function VerifyId() {
                 if (data.status === 200) {
 
                     dispatch(
-                        // collect two parameters (type and payload)
-
+                        
                         { type: "VERIFIED_COUNT", payload: { data: data.resident?.length + data.landlord?.length + data.security_OPs?.length } }
+                    );
+                    dispatch(
+                    
+                        { type: "VERIFIED_COUNT_LAN", payload: { data: data.resident?.length  } }
                     );
                 }
 
@@ -373,23 +380,32 @@ export default function VerifyId() {
 
                                     </Box>
 
-                                    <Box pos={"relative"}>
-                                        <Button onClick={handleLandlord}>Verify LandLord</Button>
-                                        {
-                                            LandlordLen >= 1 && (
-                                                <Text h={"18px"} w={"18px"}
-                                                    rounded={"100%"} bg="#EDEDED"
-                                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                    fontFamily="body" fontWeight={"400"} color="#000000"
-                                                    fontSize={"12"}>{LandlordLen} </Text>
-                                            )
-                                        }
+                                    {
+                                        onlineUser.user.userType === "Estate manager" && (
 
+                                            <Box pos={"relative"}>
+                                            <Button onClick={handleLandlord}>Verify LandLord</Button>
+                                            {
+                                                LandlordLen >= 1 && (
+                                                    <Text h={"18px"} w={"18px"}
+                                                        rounded={"100%"} bg="#EDEDED"
+                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                                        fontFamily="body" fontWeight={"400"} color="#000000"
+                                                        fontSize={"12"}>{LandlordLen} </Text>
+                                                )
+                                            }
+    
+    
+                                        </Box>
+                                        )
+                                    }
 
-                                    </Box>
-                                   
-                                    <Box pos={"relative"}>
+                                  
+                                  {
+                                    onlineUser.user.userType === "Estate manager" && (
+                                        
+                                        <Box pos={"relative"}>
                                         <Button onClick={handleSecurity}>Verify Security Operative</Button>
 
                                         {
@@ -404,6 +420,9 @@ export default function VerifyId() {
                                         }
 
                                     </Box>
+                                    )
+                                  } 
+                                  
 
 
                                   
@@ -455,16 +474,16 @@ export default function VerifyId() {
 
                                 ) : (
 
-                                    <Box px={["1%", "5%", "5%", "0%"]}>
+                                    <Box  mb="32px">
                                         <Stack spacing={'14px'} cursor="pointer" mt="10px" >
 
                                             {
                                                 Data?.map((item, i) => (
 
                                                     <HStack id="verify" spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType,item.Verified)}>
-                                                        <Box>
+                                                        <Box w={["50%","70%"]}>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
-                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.houseNo}, {item.streetName} | 0{item.phone}</Text>
+                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo}, {item.streetName} <Divider/> 0{item.phone} <Divider/> {moment(item.time).format("MMM Do ")}</Text>
 
                                                         </Box>
 
@@ -529,7 +548,7 @@ export default function VerifyId() {
 
                                                 ))
                                             }
-
+                                          <Pagination/>
                                         </Stack>
                                         <Button mb="18px" mt="65px" onClick={verify} >Verify All</Button>
 

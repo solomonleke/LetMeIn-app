@@ -5,7 +5,7 @@ import ManageVerified from '../Pages/Estate-admin/ManageVerified'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
 import Home from '../Pages/Home'
 import IndexHome from '../Pages/Index'
-import Page2 from '../Pages/Page2'
+import LandLord from '../Pages/Landlord/Index'
 import Index from '../Pages/Residents/Index'
 import GrantAccess from '../Pages/Security/GrantAccess'
 import SecurityOps from '../Pages/Security/Index'
@@ -13,7 +13,7 @@ import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
 import Verification from '../Pages/Verification'
 import VisitorsAccess from '../Pages/VisitorsAccess'
-import Sample from '../Redux/Reducers/Sample'
+
 
 export default function IndexRoutes() {
   return (
@@ -25,14 +25,14 @@ export default function IndexRoutes() {
             <Route path='/sign-in' element={<SignIn/>}/>
             <Route path='/resident' element={<Index/>}/>
             <Route path='/estate-admin' element={<EstateAdmin/>}/>
+            <Route path='/landlord' element={<LandLord/>}/>
             <Route path='/security-ops' element={<SecurityOps/>}/>
             <Route path='/security-ops/grant-access' element={<GrantAccess/>}/>
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
             <Route path='/verify-id' element={<VerifyId/>}/>
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>
             <Route path='/verification' element={<Verification/>}/>
-            <Route path='/page' element={<Page2/>}/>
-            <Route path='/sample' element={<Sample/>}/>
+           
         </Routes>
     </BrowserRouter>
   )

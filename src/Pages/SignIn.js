@@ -1,6 +1,6 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, HStack, Select, Stack, Text, useToast } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton,  Stack, Text} from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
@@ -14,7 +14,6 @@ export default function SignIn() {
     const [AlertMessage, setAlertMessage] = useState("");
     const [Loading, setLoading] = useState(false);
 
-    const isLogged = useSelector((state) => state.isLogged);
     const dispatch = useDispatch();
 
     const nav = useNavigate()

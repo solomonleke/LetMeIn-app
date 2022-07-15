@@ -13,7 +13,7 @@ import allReducers from "./Redux/Reducers/Index";
 const persistConfig = {
   key: "Todo",
   storage,
-  whitelist: ["myTodo", "isLogged", "onlineUser", "verifiedCount"], // only navigation will be persisted
+  whitelist: ["myTodo", "isLogged", "onlineUser", "verifiedCount", "verifiedCountLan"], // only navigation will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, allReducers);

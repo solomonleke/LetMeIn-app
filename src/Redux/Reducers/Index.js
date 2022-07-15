@@ -4,6 +4,7 @@ import loggedReducer from "./IsLoggedIn";
 import { userReducers } from "./OnlineUser";
 import { todoReducers } from "./Todo";
 import { verifiedReducers } from "./VerifiedCount.";
+import { verifiedReducersLan } from "./VerifiedLan";
 
 
 
@@ -12,7 +13,8 @@ const allReducers = combineReducers({
     isLogged: loggedReducer,
     myTodo: todoReducers,
     onlineUser: userReducers,
-    verifiedCount: verifiedReducers
+    verifiedCount: verifiedReducers,
+    verifiedCountLan: verifiedReducersLan,
 })
 
 export default allReducers;
