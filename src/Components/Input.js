@@ -47,7 +47,7 @@ import {
           zIndex="10"
           fontSize={active ? 'xs' : '12px'}
           fontWeight="400"
-          color={"#939393"}
+          color={"#00000"}
           bg={"#fff"}
           px="4px"
         >
@@ -65,7 +65,7 @@ import {
               focusBorderColor={'#6AF3D8'}
               _focus={{ borderColor: "#6AF3D8" }}
               size={size}
-              color="#939393"
+              color="#00000"
               _autofill={{bgColor: "#fff !important"}} 
               fontWeight={'400'}
               fontSize="16px"

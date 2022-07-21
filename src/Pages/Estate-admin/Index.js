@@ -46,7 +46,7 @@ export default function EstateAdmin() {
             <Seo title='Estate-Manager' description='Estate for LetMeIn' />
 
 
-            <Center mt={["100px", "171px"]}>
+            <Center mt={["100px", "131px"]}>
                 <Stack spacing={'15px'} cursor="pointer" w={["80%", "310px"]}>
                    <GreetingText name={onlineUser.user.lastName}/>
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>

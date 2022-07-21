@@ -152,7 +152,7 @@ export default function SignUp() {
                 <Box  w={["80%", "310px"]}>
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="42px">Enter Estate Name</Text>
     
-                <Select onChange={handleSignUp}  id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Search' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                <Select onChange={handleSignUp}  id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Select Estate Name' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Lake view'>Lake view Estate</option>
                 <option value='Banana Estate'>Banana Estate</option>
                 <option value='Canal Estate'>Canal Estate</option>
@@ -248,7 +248,11 @@ export default function SignUp() {
             )
         }
        
-    
+        <Box bgImage="url(/bg-img.png)" bgSize={'cover'}
+        bgRepeat={'repeat'}
+        height="30vh" mt="121" display={["block", "none"]}>
+        
+        </Box>
     </MainLayout>
   );
 }

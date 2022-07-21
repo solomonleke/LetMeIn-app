@@ -97,13 +97,13 @@ export default function VisitorsAccess() {
     const isLogged = useSelector((state) => state.isLogged);
     const nav = useNavigate()
 
-    const middleWare = ()=>{
-        if(isLogged.isLogged !== true){
-            nav("/sign-in")
-        }
-    }
+    // const middleWare = ()=>{
+    //     if(isLogged.isLogged !== true){
+    //         nav("/sign-in")
+    //     }
+    // }
     useEffect(() => {
-        middleWare()
+        // middleWare()
     }, []);
   
     return (

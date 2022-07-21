@@ -18,7 +18,7 @@ const nav = useNavigate()
 
 
       <Center>
-        <Box w={["80%", "35%"]}>
+        <Box w={["80%", "35%"]} my="32px">
           <Box  boxShadow={"2px 2px 10px 2px rgba(84, 0, 0, 0.25)"} bg="rgba(255, 255, 255, 0.85)" rounded="3px" py="35px" textAlign={"center"}>
             <Text>Visitor Access Granted Successfully</Text>
 

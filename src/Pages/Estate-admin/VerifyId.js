@@ -439,16 +439,16 @@ export default function VerifyId() {
                 ) : (
                     <Center mt={["60px", "61px"]} >
 
-                        <Box>
+                        <Box px={["3%","0%"]}>
 
                             <Headers text={Resident ? "Verify Residents" : Landlord ? "Verify Landlords" : Security && " Verify Security Operatives"}/>
 
-                            <Menu>
+                            <Menu >
                             {
                                 ({isOpen}) => (
                                     <>
                                     <MenuButton as={Box}  aria-label='Options' cursor={"pointer"} >
-                                    <Box fontSize={"30px"} color={isOpen ? "#E02828": "#9D9D9D"} mt={"32px"} _focus={{color: "#E02828"}}>
+                                    <Box fontSize={"30px"} color={isOpen ? "#E02828": "#9D9D9D"} mt={"32px"} _focus={{color: "#E02828"}} px={["3%","0%"]}>
                                     <BsThreeDots/>
                                     
                                     </Box>
@@ -474,7 +474,7 @@ export default function VerifyId() {
 
                                 ) : (
 
-                                    <Box  mb="32px">
+                                    <Box  mb="32px" px={["3%","0%"]}>
                                         <Stack spacing={'14px'} cursor="pointer" mt="10px" >
 
                                             {

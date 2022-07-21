@@ -72,9 +72,9 @@ export default function NavBar() {
       <Box bgImage="url(/nav_bg.png)" bgSize={'cover'} bgRepeat={'repeat'} height="">
 
         <Center>
-          <Box pos={"relative"} mt="10px" pb="20px" onClick={home} cursor="pointer">
-            <Img src="/logo.png" />
-            <Text fontSize={"14.5px"} color="#fff" fontWeight="400" w={"100%"} letterSpacing="1px" fontFamily={"body"} pos={"absolute"} left={"34px"} top={"36px"}>{onlineUser.user.userType} </Text>
+          <Box pos={"relative"} mt="10px"  pb="25px" onClick={home} cursor="pointer">
+            <Img src="/logo.png" width={"152px"}/>
+            <Text fontSize={"14.5px"} color="#fff" fontWeight="400" w={"100%"} letterSpacing="1px" fontFamily={"body"} pos={"absolute"} left={"34px"} top={"32px"}>{onlineUser.user.userType} </Text>
           </Box>
         </Center>
       </Box>
