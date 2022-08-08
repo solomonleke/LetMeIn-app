@@ -45,3 +45,21 @@ code {
 .off{
   float: left;
 }
+
+.progress{
+  width: 100%;
+  background: #F1F1F1;
+  height: 7px;
+  margin-top: 3px;
+  border-radius: 4px;
+}
+.progress-bar{
+  border-radius: 4px;
+
+}
+
+.label{
+  text-transform: capitalize;
+  float: right;
+  font-weight: 400;
+}

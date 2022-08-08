@@ -5,6 +5,7 @@ import BackBtn from '../Components/BackBtn';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
 import Input from '../Components/Input';
+import ProgressBar from '../Components/ProgressBar';
 import MainLayout from '../Layouts/Index';
 import Request from '../Utils/Request';
 import Seo from '../Utils/Seo';
@@ -64,11 +65,12 @@ export default function SignUp() {
     }
 
     const Sign_up  = ()=> {
-        setLoading(true)
+      
         if(Payload.prefix !=="" && Payload.userType !=="" && Payload.estateName !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !==""
          && Payload.phone !=="" && Payload.streetName !=="" && Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
 
             if(Payload.password == Payload.re_enter_password){
+                setLoading(true)
 
                 fetch("https://api.solomonleke.com.ng/user/signup", payload)
 
@@ -79,6 +81,44 @@ export default function SignUp() {
                     localStorage.setItem("newUserEmail", Payload.email )
                     setLoading(false)
                     nav("/verification")
+                }else{
+                    alert(json.message)
+                    setLoading(false)
+                }
+               })
+                .catch(error => {
+                  console.log("error", error);
+              })
+
+            }else{
+                setMatch(true)
+            }
+
+
+        }else{
+            setSuccess(true)
+        }
+
+      
+    }
+
+    const Sign_up_Security  = ()=> {
+      
+        if(Payload.prefix !=="" && Payload.userType !=="" && Payload.estateName !=="" && Payload.firstName !=="" && Payload.lastName !=="" 
+         && Payload.phone !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
+
+            if(Payload.password == Payload.re_enter_password){
+                setLoading(true)
+
+                fetch("https://api.solomonleke.com.ng/user/signup", payload)
+
+                .then(res => res.json())
+                .then(json => {
+                  console.log( "API-CHECK" , json)
+                  if(json.status == 200){
+                   
+                    setLoading(false)
+                    nav("/sign-in")
                 }else{
                     alert(json.message)
                     setLoading(false)
@@ -152,7 +192,7 @@ export default function SignUp() {
                 <Box  w={["80%", "310px"]}>
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="42px">Enter Estate Name</Text>
     
-                <Select onChange={handleSignUp}  id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Select Estate Name' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                <Select onChange={handleSignUp} color={"00000"} id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.estateName ? "16px":"12px"} fontWeight={"400"}    placeholder='Select Estate Name' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Lake view'>Lake view Estate</option>
                 <option value='Banana Estate'>Banana Estate</option>
                 <option value='Canal Estate'>Canal Estate</option>
@@ -163,7 +203,7 @@ export default function SignUp() {
 
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="35px">Please who are you ?</Text>
     
-                <Select onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                <Select color={"00000"} onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.userType ? "16px":"12px"} fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Resident'>Resident</option>
                 <option value='LandLord'>LandLord</option>
                 <option value='Estate Manager'>Estate Manager</option>
@@ -184,20 +224,27 @@ export default function SignUp() {
                   
                     <Stack mt="44px" spacing="15px">
                     
-                        <Select w="100%" isRequired  onChange={handleSignUp} id="prefix" color="#939393" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}}  size={"lg"} mt="12px">
+                        <Select w="100%" isRequired  onChange={handleSignUp} id="prefix" color="#000000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.prefix ? "16px":"12px"} fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}}  size={"lg"} mt="12px">
                         <option value='Mr'>Mr</option>
                         <option value='Mrs'>Mrs</option>
                         </Select>
             
                         <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
                         <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
-                        <Input val={Payload.email && true} isRequired label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
+                        <Input val={Payload.email && true} isRequired = {Payload.userType == "Security Operative" ? false: true} label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
                         <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
                        
                     </Stack>
 
+                    {
+                        Payload.userType == "Security Operative" ?     
 
-                     <Button mt="65px" disabled={Payload.prefix !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !==""  ? false: true} onClick={proceed2}>Confirm</Button>
+                        <Button mt="65px" disabled={Payload.prefix !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.phone !==""  ? false: true} onClick={proceed2}>Confirm</Button>:
+
+                        <Button mt="65px" disabled={Payload.prefix !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !=="" && Payload.phone !==""  ? false: true} onClick={proceed2}>Confirm</Button>
+
+  
+                    }
 
 
                   
@@ -216,22 +263,40 @@ export default function SignUp() {
                     <form onSubmit={Sign_up}>
                     <Stack mt="44px" spacing="15px">
                     
+                    {
+                        Payload.userType == "Security Operative" ?     "":
+                        (
+                            <Stack spacing="15px">
+                            
+                            <Select isRequired  onChange={handleSignUp} id="streetName" color="#00000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.streetName ? "16px":"12px"} fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                            <option value='Obidu close'>Obidu close</option>
+                            <option value='Rice Street'>Rice Street</option>
+                            <option value='Brown Street'>Brown Street</option>
+                            <option value='Ajoke Street'>Ajoke Street</option>
+                            <option value='Peace Street'>Peace Street</option>
+                            </Select>
+                            <Input val={Payload.houseNo && true} isRequired label="House No." value={Payload.houseNo} type="number" id='houseNo' onChange={handleSignUp}/>
+                            </Stack>
+                        )
+                    }
                      
-                        <Select isRequired  onChange={handleSignUp} id="streetName" color="#939393" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
-                        <option value='Obidu close'>Obidu close</option>
-                        <option value='Rice Street'>Rice Street</option>
-                        <option value='Brown Street'>Brown Street</option>
-                        <option value='Ajoke Street'>Ajoke Street</option>
-                        <option value='Peace Street'>Peace Street</option>
-                        </Select>
-                        <Input val={Payload.houseNo && true} isRequired label="House No." value={Payload.houseNo} type="number" id='houseNo' onChange={handleSignUp}/>
+                       
+                        <div>
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
+                        <ProgressBar password={Payload.password}/>
+                        </div>
                         <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
-                        <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*password does not match*"}</Text>
+                        <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*Password does not match*"}</Text>
                     </Stack>
                     <Text mt="2px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #6AF3D8" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
 
-                    <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={Payload.userType !=="" ? false: true} onClick={Sign_up }>Register</Button>
+                    {
+                        Payload.userType == "Security Operative" ? 
+                        <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={ Payload.password !=="" && Payload.re_enter_password !=="" ? false: true} onClick={Sign_up_Security  }>Register</Button>:
+                        <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={Payload.streetName !=="" && Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !=="" ? false: true} onClick={Sign_up}>Register</Button>
+
+
+                    }
 
                     </form>
                     </Box>

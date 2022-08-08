@@ -15,7 +15,7 @@ import {
     val = false,
     label = '',
     isRequired = false,
-    type = 'email',
+    type= "email",
     readOnly = false,
     helper = null,
     onChange = null,
@@ -70,7 +70,7 @@ import {
               fontWeight={'400'}
               fontSize="16px"
               fontFamily={"body"}
-              rounded="0px"
+              rounded="0px" 
               bg="#fff"
               w={w}
               onFocus={() => setActive(true)}
