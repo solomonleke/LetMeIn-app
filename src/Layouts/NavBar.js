@@ -116,18 +116,21 @@ export default function NavBar() {
               {
                 OpenAvater && (
                   <div className='drop-down'>
-                    <Box float={"right"} color={"#000000"} fontSize={"22px"} onClick={AvatarOpen}>
+                    <Box display={"flex"} justifyContent="flex-end" color={"#000000"} fontSize={"22px"} onClick={AvatarOpen}>
                       <AiOutlineClose />
                     </Box>
                     <Link to={"/my-profile"}>
-                      <Text mt="26px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>My Profile</Text>
+                      <Text mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>My Profile</Text>
                     </Link>
                     <Link to={"/change-password"}>
                       <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Change Password</Text>
                     </Link>
                     <Link to={"/customer-support"}>
-                      <Text mt={"12px"} pl={"15px"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Customer Support</Text>
+                      <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Customer Support</Text>
                     </Link>
+                   
+                      <Text onClick={logout} mt={"12px"} pl={"15px"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Logout</Text>
+                   
 
                   </div>
                 )
@@ -198,6 +201,10 @@ export default function NavBar() {
                       <Link to="/#">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
                       </Link>
+                      
+                     <Link to="/customer-support">
+                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                    </Link>
 
                     </Stack>
                   )
@@ -243,6 +250,10 @@ export default function NavBar() {
                       <Link to="/manage-verify-id">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
                       </Link>
+                      
+                     <Link to="/customer-support">
+                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                    </Link>
                     </>
                   )
                 }
@@ -285,6 +296,13 @@ export default function NavBar() {
                       <Link to="/manage-verify-id">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
                       </Link>
+
+                      <Link to="/full-report">
+                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Full Report</Text>
+                    </Link>
+                      <Link to="/customer-support">
+                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                    </Link>
                     </>
                   )
                 }
@@ -301,14 +319,7 @@ export default function NavBar() {
 
 
 
-              <Stack spacing={"19px"} mt={"200px"}>
-
-                <Link to="/#">
-                  <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                </Link>
-
-                <Text onClick={logout} cursor={"pointer"} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'} >Log out</Text>
-              </Stack>
+         
 
 
 
