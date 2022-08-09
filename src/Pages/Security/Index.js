@@ -208,7 +208,7 @@ export default function SecurityOps() {
 
         ):(
             <Center>
-            <Box w={["80%", "30%"]} mb="20px">
+            <Box w={["80%","70%", "40%", "30%"]} mb="20px">
             <Box  bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"} rounded='7px' px="13px" py="30px" mt="50px">
             <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">Visitor Details</Text>
 
