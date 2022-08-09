@@ -24,7 +24,7 @@ import {
   Img,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsSearch } from "react-icons/bs";
@@ -83,7 +83,7 @@ export default function NavBar() {
         {
           isLogged.isLogged && (
 
-            <Box cursor={"pointer"} fontSize="30px" color="#080707" pos="relative" top="12px" onClick={onOpen} >
+            <Box cursor={"pointer"} fontSize="30px" color="#A7A7A7" pos="relative" top="12px" onClick={onOpen} >
               <AiOutlineMenu />
               {
                 verifiedLen >= 1 && onlineUser.user.userType == "Estate manager" && (
@@ -104,7 +104,22 @@ export default function NavBar() {
 
         {
           isLogged.isLogged && (
+            <Box pos={"relative"}>
+            
             <Avatar name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src='' />
+
+            <div className='drop-down'>
+              <Box float={"right"}>
+              <AiOutlineClose/>
+              </Box>
+              <Text>My Profile</Text>
+              <Text>Change Password</Text>
+              <Text>Customer Support</Text>
+              
+            </div>
+
+
+            </Box>
           
           )
         }

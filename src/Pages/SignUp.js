@@ -151,9 +151,18 @@ export default function SignUp() {
     }
 
 
+    const checkPassword = ()=> {
+        if(Payload.password === Payload.re_enter_password){
+            setMatch(false)
+        }else{
+            setMatch(true)
+
+        }
+    }
+
     useEffect(() => {
-        // getApi()
-        }, []);
+        checkPassword()
+        }, [Payload.re_enter_password]);
 
 
   return (

@@ -63,3 +63,14 @@ code {
   float: right;
   font-weight: 400;
 }
+
+.drop-down{
+  position: absolute;
+  width: 232px;
+  background: rgba(244, 244, 244, 0.95);
+  border: 0.2px solid #939393;
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.01);
+  top: 60px;
+  left: -180px;
+  padding: 15px;
+}
