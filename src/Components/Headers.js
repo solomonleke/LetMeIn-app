@@ -3,6 +3,6 @@ import React from 'react';
 
 export default function Headers({text}) {
   return (
-    <Text fontFamily={"body"} fontSize="24px" fontWeight={"700"} color="#000000" textAlign={"center"}>{text}</Text>
+    <Text textTransform={"capitalize"} fontFamily={"body"} fontSize="24px" fontWeight={"700"} color="#000000" textAlign={"center"}>{text}</Text>
   );
 }
