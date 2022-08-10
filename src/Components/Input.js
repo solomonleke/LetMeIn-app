@@ -25,6 +25,7 @@ import {
     pl = 0,
     rightIcon = null,
     w = "100%",
+    borderColor = "#6AF3D8",
     ...rest
   }) {
     const [active, setActive] = useState(rest.value);
@@ -63,7 +64,7 @@ import {
               placeholder={active || !label ? placeholder : ''}
               type={inputType}
               focusBorderColor={'#6AF3D8'}
-              _focus={{ borderColor: "#6AF3D8" }}
+              _focus={{ borderColor: borderColor }}
               size={size}
               color="#00000"
               _autofill={{bgColor: "#fff !important"}} 

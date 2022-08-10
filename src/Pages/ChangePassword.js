@@ -85,7 +85,7 @@ export default function ChangePassword() {
         <Input val={Payload.newPassword && true} isRequired label="New Password" value={Payload.password} type="password" id='newPassword' onChange={handleChangePassword}/>
         <ProgressBar password={Payload.newPassword}/>
         </div>
-        <Input val={Payload.reTypePassword && true} isRequired label="Re-Type Password" value={Payload.reTypePassword} type="password" id='reTypePassword' onChange={handleChangePassword}/>
+        <Input borderColor={Match ? "#E02828": "#6AF3D8"} val={Payload.reTypePassword && true} isRequired label="Re-Type Password" value={Payload.reTypePassword} type="password" id='reTypePassword' onChange={handleChangePassword}/>
         <Text  color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*Password does not match*"}</Text>
         </Stack>
 

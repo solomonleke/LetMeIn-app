@@ -294,7 +294,7 @@ export default function SignUp() {
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
                         <ProgressBar password={Payload.password}/>
                         </div>
-                        <Input val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
+                        <Input borderColor={Match ? "#E02828": "#6AF3D8"} val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
                         <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*Password does not match*"}</Text>
                     </Stack>
                     <Text mt="2px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #6AF3D8" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
