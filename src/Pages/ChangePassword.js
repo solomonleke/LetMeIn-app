@@ -89,7 +89,7 @@ export default function ChangePassword() {
         <Text  color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*Password does not match*"}</Text>
         </Stack>
 
-        <Button isLoading={Loading} mb="22px" mt={"60px"} disabled={Payload.oldPassword == "" || Payload.newPassword =="" || Payload.reTypePassword == "" && true} onClick={SubmitPassword}>Confirm</Button>
+        <Button isLoading={Loading} mb="22px" mt={"60px"} disabled={Payload.oldPassword !== "" && Payload.newPassword !=="" && Payload.reTypePassword !== "" ? false:true} onClick={SubmitPassword}>Confirm</Button>
     </Box>
     </Center>
     </MainLayout>
