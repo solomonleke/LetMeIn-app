@@ -19,7 +19,7 @@ export default function SignIn() {
     const nav = useNavigate()
     const [Payload, setPayload] = useState({
 
-        email: "",
+        userName: "",
         password: "",
 
     });
@@ -136,7 +136,7 @@ export default function SignIn() {
 
                     <Stack mt="66px" spacing="15px">
 
-                        <Input val={Payload.email && true} isRequired label="Email" value={Payload.email} id='email' type='email' onChange={handleSignUp} />
+                        <Input val={Payload.userName && true} isRequired label="Email or Phone No" value={Payload.userName} id='userName' type='text' onChange={handleSignUp} />
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />
 
                     </Stack>
