@@ -47,6 +47,12 @@ const Profile = () => {
                         </HStack>
 
                         <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                        <Text fontSize={"14px"} w="20%" fontFamily="body" fontWeight={"400"} color="#424242">Phone No.</Text>
+
+                        <Text fontSize={"14px"} w="80%" fontFamily="body" fontWeight={"700"} color="#000000">{onlineUser.user.phone}</Text>
+                    </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
                             <Text fontSize={"14px"} w="20%" fontFamily="body" fontWeight={"400"} color="#424242">Estate </Text>
 
                             <Text fontSize={"14px"} w="80%" fontFamily="body" fontWeight={"700"} color="#000000">{onlineUser.user.estateName}</Text>

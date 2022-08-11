@@ -6,7 +6,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    Image, AlertIcon, Alert, AlertTitle, CloseButton
+    Image, AlertIcon, Alert, AlertTitle, CloseButton, HStack,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import Headers from '../Components/Headers';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default function VisitorsAccess() {
     const [Success, setSuccess] = useState(false);
@@ -24,98 +25,166 @@ export default function VisitorsAccess() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const onlineUser = useSelector((state) => state.onlineUser);
     const [Loading, setLoading] = useState(false);
+    const [Single, setSingle] = useState(true);
+    const [Multiple, setMultiple] = useState(false);
 
     const [Payload, setPayload] = useState({
         firstName: "",
         lastName: "",
         gender: "",
-        _id: onlineUser.user._id,
-      
+        id: onlineUser.user.id,
+
     });
+
     const handleChange = (e) => {
         setPayload({ ...Payload, [e.target.id]: e.target.value })
     }
+
+    const [MultiplePayload, setMultiplePayload] = useState({
+        numbers: "",
+        codeWord: "",
+        id: onlineUser.user.id,
+
+    });
+
+    const handleMultipleChange = (e) => {
+        setMultiplePayload({ ...MultiplePayload, [e.target.id]: e.target.value })
+    }
+
+
 
     const payload = {
 
         method: "POST",
 
-        headers: { 
+        headers: {
             "Content-Type": "application/JSON"
         },
 
         body: JSON.stringify(Payload),
-        
+
     }
 
     const [AccessCode, setAccessCode] = useState("");
 
 
     const access = () => {
-        if (Payload.firstName !== ""  && Payload.gender !== "") {
+       
             setLoading(true)
-            
+
             fetch("https://api.solomonleke.com.ng/user/visitor", payload)
 
-            .then(res => res.json())
-            .then(json => {
-            
-              console.log("Access", json);
-              if(json.status == 201){
+                .then(res => res.json())
+                .then(json => {
 
-                setAccessCode(json.visitor_1.accessCode)
-                onOpen()
-                setLoading(false)
-              }
-           })
-            .catch(error => {
-              console.log("error", error);
-              setLoading(false)
-          })
-          
-           
-        } else {
-            setSuccess(true)
-        }
+                    console.log("Access", json);
+                    if (json.status == 201) {
+
+                        setAccessCode(json.visitor_1.accessCode)
+                        onOpen()
+                        setLoading(false)
+                    }
+                })
+                .catch(error => {
+                    console.log("error", error);
+                    setLoading(false)
+                })
+
+
 
     }
 
     const copyAccess = () => {
-        let copyText = document.getElementById("myInput");
-
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-        /* Copy the text inside the text field */
-        navigator.clipboard.writeText(copyText.value);
-
+      
         setCopied(true)
 
+        setTimeout(() => {
+            setCopied(false)
+        }, 4000);
+
     }
 
-    // const accessCode = (Math.floor(Math.random() * 128) + 12061);
-    const isLogged = useSelector((state) => state.isLogged);
-    const nav = useNavigate()
-
-    const middleWare = ()=>{
-        if(isLogged.isLogged !== true){
-            nav("/sign-in")
-        }
-    }
-    useEffect(() => {
-        middleWare()
-    }, []);
   
+    const nav = useNavigate();
+    const isLogged = useSelector((state) => state.isLogged);
+
+
+    const handleSingle = () => {
+        setSingle(true)
+        setMultiple(false)
+    }
+
+    const handleMultiple = () => {
+
+        setSingle(false)
+        setMultiple(true)
+
+    }
+
+    const multiPayload = {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/JSON"
+        },
+
+        body: JSON.stringify(
+            {
+                numbers: MultiplePayload.numbers > 10 ? "10": MultiplePayload.numbers,
+                codeWord: MultiplePayload.codeWord,
+            }
+        ),
+
+    }
+
+    const multipleAccess = ()=>{
+        // setLoading(true)
+
+        onOpen()
+        
+
+        // fetch("https://api.solomonleke.com.ng/user/visitor", multiPayload)
+
+        //     .then(res => res.json())
+        //     .then(json => {
+
+        //         console.log("Access", json);
+        //         if (json.status == 201) {
+
+        //             setAccessCode(json.visitor_1.accessCode)
+        //             onOpen()
+        //             setLoading(false)
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.log("error", error);
+        //         setLoading(false)
+        //     })
+
+    }
+
+    // const middleWare = ()=>{
+    //     if(isLogged.isLogged !== true){
+    //         nav("/sign-in")
+    //     }
+    // }
+    // useEffect(() => {
+    //     middleWare()
+    // }, []);
+
     return (
         <MainLayout>
-       
+
             <Seo title="Visitors Access" description='Grant visitors Access' />
 
 
-           
+
             <Box mt="40px">
-                <Headers text="Grant Visitor Access"/>
+                <Headers text="Grant Visitor Access" />
             </Box>
+
+
             {
                 Success && (
 
@@ -124,23 +193,63 @@ export default function VisitorsAccess() {
             }
 
             <Center>
-                <Box  w={["80%", "310px"]}>
+                <Box w={["85%", "320px"]}>
 
-                    <Stack mt="44px" spacing="15px">
+                    <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="30px" cursor={"pointer"}>
+                        <Text w={"50%"} onClick={handleSingle} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={Single ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={Single ? "#424242" : "#939393"}>Single Visitor</Text>
+                        <Text w={"50%"} onClick={handleMultiple} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={Multiple ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={Multiple ? "#424242" : "#939393"}>Multiple Visitors</Text>
+                    </HStack>
 
-                        <Input val={Payload.firstName && true} isRequired label="First Name" value={Payload.firstName} id='firstName' type='text' onChange={handleChange} />
-                        <Input val={Payload.lastName && true}  label="Last Name" value={Payload.lastName} id='lastName' type='text' onChange={handleChange} />
+                    {
 
-                        <Select isRequired onChange={handleChange} id="gender" color="#939393" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize="12px" fontWeight={"400"} placeholder='Gender' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"}>
-                            <option value='Male'>Male</option>
-                            <option value='Female'>Female</option>
-                        </Select>
+                        Single ? (
+                            <Box>
+                            <Stack mt="44px" spacing="15px">
+    
+                            <Input val={Payload.lastName && true} isRequired label="Last Name" value={Payload.lastName} id='lastName' type='text' onChange={handleChange} />
+                            <Input val={Payload.firstName && true}  label="First Name" value={Payload.firstName} id='firstName' type='text' onChange={handleChange} />
+    
+                                <Select isRequired onChange={handleChange} id="gender" color="#000000" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"}  fontSize={Payload.gender ? "16px":"12px"} fontWeight={"400"}  placeholder='Gender' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"}>
+                                    <option value='Male'>Male</option>
+                                    <option value='Female'>Female</option>
+                                </Select>
+    
+                            </Stack>
+    
+                            <Button isLoading={Loading} disabled={Payload.lastName !=="" && Payload.gender !=="" ? false:true} mb="32px" mt="65px" px='60px' onClick={access}>Request Access</Button>
+                        </Box>
+                        ):(
+                            <Box>
+                            <Stack mt="44px" spacing="15px">
+                            <Box>
+                            
 
-                    </Stack>
+                          <Input val={MultiplePayload.numbers && true} label="No. of Visitors" value={MultiplePayload.numbers > 10 ? "10": MultiplePayload.numbers} id='numbers' type='number' onChange={handleMultipleChange} />
 
-                    <Button isLoading={Loading}  mb="32px" mt="65px" px='60px' onClick={access}>Request Access</Button>
+                          <Text fontFamily={"body"} mt="4px" textAlign="center" fontSize="10px" fontWeight={"400"} color="#939393">Maximum no. of visitors is 10. For more visitors make another  request.</Text>
 
+                            </Box>
+                           
+                           <Input val={MultiplePayload.codeWord && true} label="Code Word" value={MultiplePayload.codeWord} id='codeWord' type='text' onChange={handleMultipleChange} />
+    
+                               
+    
+                            </Stack>
+    
+                            <Button isLoading={Loading} disabled={MultiplePayload.codeWord !=="" && MultiplePayload.numbers !=="" ? false:true} mt="65px" px='60px' onClick={multipleAccess}>Request Access</Button>
+                            <Text mb="32px" textAlign="center" fontFamily={"body"} mt="4px" fontSize="10px" fontWeight={"400"} color="#939393">Your estate manager would be notified of this access request</Text>
 
+                        </Box>
+                        )
+                    }
+                   
+
+                    {
+                        Copied && (
+
+                            <Text fontSize={"12px"} textAlign="center" fontWeight="700" fontStyle={"italic"} fontFamily="body" color="#249421">Access Code has been copied to your clip board</Text>
+                        )
+                    }
                 </Box>
             </Center>
 
@@ -150,50 +259,61 @@ export default function VisitorsAccess() {
                     <ModalHeader></ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6} >
-                        <Text textAlign={"center"}>Visitor Access Requested <br /> Successfully</Text>
+                    {
+                        Single ?  <Text textAlign={"center"}>Visitor Access Requested <br /> Successfully</Text>:
+                        <Text textAlign={"center"}>Multiple Visitor Access Requested Successfully</Text>
+                    }
+                        
 
                         <Center>
                             <Stack direction={"row"} mt="27px" spacing={"22px"} fontFamily={"body"}>
                                 <Image src="/check.png" />
                                 <Box textAlign={"center"} pos="relative" top="12px">
-                                    <Text fontSize="24px" fontWeight={"700"}>{AccessCode}</Text>
+                                {
+                                    Single ? <Text fontSize="24px" fontWeight={"700"} color="#424242">{AccessCode}</Text>:
+                                    <Text fontSize="24px" fontWeight={"700"} color="#424242">12129</Text>
+
+                                }
                                     <Text fontSize="14px" fontWeight={"300"}>Access Code</Text>
                                 </Box>
                             </Stack>
                         </Center>
                         <Box mt="10px" fontSize="10px" textAlign={"center"} fontStyle="italic">
-                            <Text fontWeight={"400"}>Please copy the access code and only share with  </Text>
-                            <Text fontWeight={"700"}> {Payload.firstName} {Payload.lastName}</Text>
+                        {
+                            Single ? (
+                                <div>
+                                <Text fontWeight={"400"}>Please copy the access code and only share with  </Text>
+                                <Text fontWeight={"700"}> {Payload.firstName} {Payload.lastName}</Text>
+                                </div>
+                            ):
+                            <Text fontWeight={"400"}>This access code is only valid for 10 people.</Text>
+
+                        }
+                           
                         </Box>
 
-                        <input type="text" value={AccessCode} hidden id="myInput" />
 
 
-                        <Center> <Button mb="5px" mt="32px" px='0px' onClick={copyAccess}>Copy Access Code</Button></Center>
+                        <Center>
+                        <CopyToClipboard text={Single ? AccessCode: 1234567}>
+                        <Button mb="5px" mt="32px" px='0px' onClick={copyAccess}>Copy Access Code</Button>
+                        
+                        </CopyToClipboard>
+                         </Center>
 
-                      
+
 
                         <Text fontSize="10px" fontWeight={"300"} fontFamily="body" textAlign={"center"}>Access Code expires in 24hrs </Text>
-                        {
-                            Copied && (
-                                <Center>
-                                    <Alert status={"success"} mt="10px" color="#fff" >
-                                        <AlertIcon />
-                                        <AlertTitle mr={2} fontSize="14px" fontWeight={"400"}>{"Code Copied Successfully"}</AlertTitle>
-                                        <CloseButton onClick={() => setCopied(false)} position='absolute' right='8px' top='8px' />
-                                    </Alert>
-                                </Center>
-                            )
-                        }
+                      
                     </ModalBody>
 
                     <ModalFooter>
-                  
+
                     </ModalFooter>
                 </ModalContent>
-            </Modal>          
-         
-            
+            </Modal>
+
+
 
         </MainLayout>
     );

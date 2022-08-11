@@ -80,7 +80,7 @@ export default function NavBar() {
         <Center>
           <Box pos={"relative"} mt="10px" pb="25px" onClick={home} cursor="pointer">
             <Img src="/logo.png" width={"152px"} />
-            <Text fontSize={"14.5px"} color="#fff" fontWeight="400" w={"100%"} letterSpacing="1px" fontFamily={"body"} pos={"absolute"} left={"34px"} top={"32px"}>{onlineUser.user.userType} </Text>
+            <Text fontSize={"14.5px"} color="#fff" fontWeight="400" w={"100%"} letterSpacing="1px" fontFamily={"body"} pos={"absolute"} left={"34px"} top={"32px"}>{onlineUser.user.userType}</Text>
           </Box>
         </Center>
       </Box>

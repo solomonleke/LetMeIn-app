@@ -46,10 +46,11 @@ const theme = extendTheme({
       baseStyle: (props) => ({
         dialog: {
          
-          bg: "rgba(255,255,255,.95)",
-          boxShadow: "1px 2px 7px 5px #6D6D6D",
+          bg: "rgba(255,255,255,.90)",
+          boxShadow: "2px 2px 10px 5px rgba(13, 210, 163, 0.25);",
           rounded: "5px",
-          margin: "13px"
+          margin: "13px",
+          backdropFilter: "blur(14px)"
         }
       })
     }
