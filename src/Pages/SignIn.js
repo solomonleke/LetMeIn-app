@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton,  Stack, Text} from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
@@ -13,10 +13,13 @@ export default function SignIn() {
     const [Success, setSuccess] = useState(false);
     const [AlertMessage, setAlertMessage] = useState("");
     const [Loading, setLoading] = useState(false);
-
+    
+    const isLogged = useSelector((state) => state.isLogged);
+    const onlineUser = useSelector((state) => state.onlineUser);
     const dispatch = useDispatch();
 
     const nav = useNavigate()
+
     const [Payload, setPayload] = useState({
 
         userName: "",
@@ -52,17 +55,21 @@ export default function SignIn() {
 
                     if (json.status == 200) {
 
+                        if(json.people){
+                            dispatch(
 
-                        dispatch(
-
-                            { type: "SIGN_IN", payload: { isLogged: true } }
-                        );
-
-                        dispatch(
-                            // collect two parameters (type and payload)
-                    
-                            { type: "ADD_USER", payload: { data: json.people } }
-                          );
+                                { type: "SIGN_IN", payload: { isLogged: true } }
+                            );
+    
+                            dispatch(
+                                // collect two parameters (type and payload)
+                        
+                                { type: "ADD_USER", payload: { data: json.people } }
+                              );
+                        }else{
+                            nav("/sign-in")
+                        }
+                      
 
                         if (json.people.userType == "Resident") {
 
@@ -97,8 +104,33 @@ export default function SignIn() {
             }, 4000);
         }
 
-
+       
     }
+
+    const middleWare = ()=>{
+        if(isLogged.isLogged == true){
+          if (onlineUser.user.userType == "Resident") {
+  
+            nav("/resident")
+        } else if (onlineUser.user.userType == "Landlord") {
+            nav("/landlord")
+        } else if (onlineUser.user.userType == "Estate manager") {
+            nav("/estate-admin")
+        }else if (onlineUser.user.userType == "Security operative") {
+          nav("/security-ops")
+      } else {
+            nav("/sign-in")
+        }
+        }else{
+          nav("/sign-in")
+        }
+      }
+
+      useEffect(() => {
+
+        middleWare()
+    
+      }, []);
     return (
         <MainLayout>
             <Seo title='Sign-in' description='Sign-in for LetMeIn' />
@@ -140,7 +172,7 @@ export default function SignIn() {
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />
 
                     </Stack>
-                    <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="5px" color={"blue"}><Link to="#">Forget password</Link></Text>
+                    <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="5px" color={"blue"}><Link to="/sign-in/forget-password">Forget password</Link></Text>
                     <Text mt="30px" fontFamily={"body"}>Don't have an account ? <Link to="/sign-up"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-Up</Box></Link> </Text>
                    
                     <Button w={"100%"} isLoading={Loading} mb="32px" mt="25px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>

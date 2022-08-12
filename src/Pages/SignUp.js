@@ -1,5 +1,6 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, CloseButton, Flex, HStack, Select, Spacer, Stack, Text, } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import BackBtn from '../Components/BackBtn';
 import Button from '../Components/Button';
@@ -18,6 +19,8 @@ export default function SignUp() {
      const [Success, setSuccess] = useState(false);
     const [Match, setMatch] = useState(false);
     
+    const isLogged = useSelector((state) => state.isLogged);
+    const onlineUser = useSelector((state) => state.onlineUser);
     const nav = useNavigate()
    const [Payload, setPayload] = useState({
        prefix: "",
@@ -160,7 +163,29 @@ export default function SignUp() {
         }
     }
 
+    const middleWare = ()=>{
+        if(isLogged.isLogged == true){
+          if (onlineUser.user.userType == "Resident") {
+  
+            nav("/resident")
+        } else if (onlineUser.user.userType == "Landlord") {
+            nav("/landlord")
+        } else if (onlineUser.user.userType == "Estate manager") {
+            nav("/estate-admin")
+        }else if (onlineUser.user.userType == "Security operative") {
+          nav("/security-ops")
+      } else {
+            nav("/sign-in")
+        }
+        }else{
+          nav("/sign-up")
+        }
+      }
+
+    
+
     useEffect(() => {
+        middleWare()
         checkPassword()
         }, [Payload.re_enter_password]);
 

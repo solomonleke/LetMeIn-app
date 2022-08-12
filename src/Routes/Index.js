@@ -7,10 +7,12 @@ import CustomerSupport from '../Pages/CustomerSupport'
 import EstateAdmin from '../Pages/Estate-admin/Index'
 import ManageVerified from '../Pages/Estate-admin/ManageVerified'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
+import ForgetPassword from '../Pages/ForgetPassword'
 import Home from '../Pages/Home'
 import IndexHome from '../Pages/Index'
 import LandLord from '../Pages/Landlord/Index'
 import Profile from '../Pages/Profile'
+import ResetPassword from '../Pages/ResetPassword'
 import Index from '../Pages/Residents/Index'
 import CheckInHistory from '../Pages/Security/CheckInHistory'
 import GrantAccess from '../Pages/Security/GrantAccess'
@@ -45,6 +47,8 @@ export default function IndexRoutes() {
             <Route path='/my-profile' element={<Profile/>}/>
             <Route path='/customer-support' element={<CustomerSupport/>}/>
             <Route path='/change-password' element={<ChangePassword/>}/>
+            <Route path='/sign-in/forget-password' element={<ForgetPassword/>}/>
+            <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
 
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
             <Route path='/security-ops/check-in-history' element={<CheckInHistory/>}/>        

@@ -15,24 +15,24 @@ export default function IndexHome() {
     }, 5000);
  }, []);
 
-//  const logout = () => {
+ const logout = () => {
 
-//     dispatch(
+    dispatch(
 
-//       { type: "SIGN_IN", payload: { isLogged: false } }
-//     )
+      { type: "SIGN_IN", payload: { isLogged: false } }
+    )
 
-//     dispatch(
+    dispatch(
 
-//       { type: "ADD_USER", payload: { data: "" } }
-//     );
-
-
-
-//     nav("/home")
+      { type: "ADD_USER", payload: { data: "" } }
+    );
 
 
-//   }
+
+    nav("/home")
+
+
+  }
 
 
     return (
