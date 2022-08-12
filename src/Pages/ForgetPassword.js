@@ -22,7 +22,7 @@ export default function ForgetPassword() {
         },
 
         body: JSON.stringify({
-            email: "Email"
+            email: Email
         }),
         
     }

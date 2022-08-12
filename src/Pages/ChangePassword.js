@@ -1,5 +1,7 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
 import Input from '../Components/Input';
@@ -8,13 +10,22 @@ import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 
 export default function ChangePassword() {
+
+  
+  const isLogged = useSelector((state) => state.isLogged);
+  const onlineUser = useSelector((state) => state.onlineUser);
+
+
   const [Payload, setPayload] = useState({
     oldPassword: "",
     newPassword: "",
-    reTypePassword: ""
+    reTypePassword: "",
+    id: onlineUser.user.id
   })
+
   const [Match, setMatch] = useState(false)
   const [Loading, setLoading] = useState(false)
+  const nav = useNavigate()
 
   const handleChangePassword = (e)=>{
     setPayload({...Payload, [e.target.id]: e.target.value})
@@ -34,23 +45,23 @@ export default function ChangePassword() {
   const SubmitPassword = ()=> {
 
    setLoading(true)
-//    fetch("https://api.solomonleke.com.ng/user/signup", payload)
+   fetch("https://api.solomonleke.com.ng/user/updatePassword", payload)
 
-//    .then(res => res.json())
-//    .then(json => {
-//      console.log( "API-CHECK" , json)
-//      if(json.status == 200){
-     
-//        setLoading(false)
+   .then(res => res.json())
+   .then(json => {
+     console.log( "API-CHECK" , json)
+     if(json.status == 200){
+      alert("successful")
+       setLoading(false)
       
-//    }else{
-//        alert(json.message)
-//        setLoading(false)
-//    }
-//   })
-//    .catch(error => {
-//      console.log("error", error);
-//  })
+   }else{
+       alert(json.message)
+       setLoading(false)
+   }
+  })
+   .catch(error => {
+     console.log("error", error);
+ })
 
 
   }
@@ -64,8 +75,16 @@ export default function ChangePassword() {
     }
 
   }
+  const middleWare = ()=>{
+    if(isLogged.isLogged !== true){
+        nav("/sign-in")
+    }
+}
+
+
 
   useEffect(() => {
+    middleWare()
     checkRetypePassword()
   }, [Payload.reTypePassword])
 

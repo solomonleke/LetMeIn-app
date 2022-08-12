@@ -18,6 +18,7 @@ export default function SignUp() {
 
      const [Success, setSuccess] = useState(false);
     const [Match, setMatch] = useState(false);
+    const [ValidEmail, setValidEmail] = useState(true);
     
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
@@ -49,7 +50,18 @@ export default function SignUp() {
     
     const proceed2 =()=>{
         
-       
+       if(Payload.email !==""){
+
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Payload.email)){
+            setValidEmail(true)
+        }else{
+            return setValidEmail(false)
+        }
+       }
+
+      
+
+
         setView2(true)
     }
     
@@ -265,7 +277,10 @@ export default function SignUp() {
             
                         <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
                         <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
+                        <Box>
                         <Input val={Payload.email && true} isRequired = {Payload.userType == "Security Operative" ? false: true} label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
+                        <Text color="red" fontSize={"12px"} fontFamily="body" fontWeight={"400"} textAlign="center" mt="4px"> {ValidEmail == false && "You have entered an invalid email address"}</Text>
+                        </Box>
                         <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
                        
                     </Stack>
@@ -319,8 +334,10 @@ export default function SignUp() {
                         <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp}/>
                         <ProgressBar password={Payload.password}/>
                         </div>
+                        <Box>
                         <Input borderColor={Match ? "#E02828": "#6AF3D8"} val={Payload.re_enter_password && true} isRequired label="Re-enter Password" value={Payload.re_enter_password} type="password" id='re_enter_password' onChange={handleSignUp}/>
-                        <Text color="red" fontSize={"12px"} pos="relative" top="-10px">{Match && "*Password does not match*"}</Text>
+                        <Text color="red" fontSize={"12px"} fontFamily="body" fontWeight={"400"} textAlign="center" mt="4px">{Match && "Password does not match"}</Text>
+                        </Box>
                     </Stack>
                     <Text mt="2px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #6AF3D8" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
 

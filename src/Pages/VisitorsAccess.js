@@ -139,39 +139,39 @@ export default function VisitorsAccess() {
     }
 
     const multipleAccess = ()=>{
-        // setLoading(true)
+        setLoading(true)
 
         onOpen()
         
 
-        // fetch("https://api.solomonleke.com.ng/user/visitor", multiPayload)
+        fetch("https://api.solomonleke.com.ng/user/visitor", multiPayload)
 
-        //     .then(res => res.json())
-        //     .then(json => {
+            .then(res => res.json())
+            .then(json => {
 
-        //         console.log("Access", json);
-        //         if (json.status == 201) {
+                console.log("Access", json);
+                if (json.status == 201) {
 
-        //             setAccessCode(json.visitor_1.accessCode)
-        //             onOpen()
-        //             setLoading(false)
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.log("error", error);
-        //         setLoading(false)
-        //     })
+                    setAccessCode(json.visitor_1.accessCode)
+                    onOpen()
+                    setLoading(false)
+                }
+            })
+            .catch(error => {
+                console.log("error", error);
+                setLoading(false)
+            })
 
     }
 
-    // const middleWare = ()=>{
-    //     if(isLogged.isLogged !== true){
-    //         nav("/sign-in")
-    //     }
-    // }
-    // useEffect(() => {
-    //     middleWare()
-    // }, []);
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+    }
+    useEffect(() => {
+        middleWare()
+    }, []);
 
     return (
         <MainLayout>
