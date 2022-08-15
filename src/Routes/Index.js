@@ -9,6 +9,7 @@ import ManageVerified from '../Pages/Estate-admin/ManageVerified'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
 import ForgetPassword from '../Pages/ForgetPassword'
 import Home from '../Pages/Home'
+import Homepage from '../Pages/Homepage'
 import IndexHome from '../Pages/Index'
 import LandLord from '../Pages/Landlord/Index'
 import Profile from '../Pages/Profile'
@@ -19,6 +20,7 @@ import GrantAccess from '../Pages/Security/GrantAccess'
 import SecurityOps from '../Pages/Security/Index'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
+import TaxiAccess from '../Pages/TaxiAccess'
 import Verification from '../Pages/Verification'
 import VisitorsAccess from '../Pages/VisitorsAccess'
 import { ProtectedRoute } from './Protected'
@@ -35,6 +37,7 @@ export default function IndexRoutes() {
         <Routes>
             <Route path='/' element={<IndexHome/>}/>
             <Route path='/home' element={<Home/>}/>
+            <Route path='/homepage' element={<Homepage/>}/>
             <Route path='/confirmation' element={<Confirmation/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
@@ -51,6 +54,7 @@ export default function IndexRoutes() {
             <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
 
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
+            <Route path='/taxi-access' element={<TaxiAccess/>}/>
             <Route path='/security-ops/check-in-history' element={<CheckInHistory/>}/>        
             <Route path='/verify-id' element={<VerifyId/>}/>
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>

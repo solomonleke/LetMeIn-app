@@ -339,7 +339,6 @@ export default function SignUp() {
                         <Text color="red" fontSize={"12px"} fontFamily="body" fontWeight={"400"} textAlign="center" mt="4px">{Match && "Password does not match"}</Text>
                         </Box>
                     </Stack>
-                    <Text mt="2px">Already have an account ? <Link to="/sign-in"><Box as='span' borderBottom="1.5px solid #6AF3D8" pb="5px" cursor={"pointer"}>Sign-in</Box></Link> </Text>
 
                     {
                         Payload.userType == "Security Operative" ? 
