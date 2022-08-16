@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { ApiLinkReducer } from "./ApiLink";
 import counterReducer from "./Counter";
 import loggedReducer from "./IsLoggedIn";
 import { userReducers } from "./OnlineUser";
@@ -15,6 +16,7 @@ const allReducers = combineReducers({
     onlineUser: userReducers,
     verifiedCount: verifiedReducers,
     verifiedCountLan: verifiedReducersLan,
+    apiLink: ApiLinkReducer,
 })
 
 export default allReducers;

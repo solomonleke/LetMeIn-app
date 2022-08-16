@@ -11,7 +11,7 @@ export default function IndexHome() {
 
  useEffect(() => {
     setTimeout(() => {
-        nav("/home")
+        nav("/homepage")
     }, 5000);
  }, []);
 

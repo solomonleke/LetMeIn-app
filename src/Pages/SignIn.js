@@ -16,6 +16,9 @@ export default function SignIn() {
     
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
+
+    const apiLink = useSelector((state) => state.apiLink);
+   
     const dispatch = useDispatch();
 
     const nav = useNavigate()
@@ -47,7 +50,7 @@ export default function SignIn() {
 
         if (Payload.email !== "" && Payload.password !== "") {
             setLoading(true)
-            fetch("https://api.solomonleke.com.ng/user/login", payload)
+            fetch(`${apiLink.link}/user/login`, payload)
                 .then(res => res.json())
                 .then(json => {
 

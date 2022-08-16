@@ -19,7 +19,7 @@ export default function SignUp() {
      const [Success, setSuccess] = useState(false);
     const [Match, setMatch] = useState(false);
     const [ValidEmail, setValidEmail] = useState(true);
-    
+    const apiLink = useSelector((state) => state.apiLink);
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
     const nav = useNavigate()
@@ -87,7 +87,7 @@ export default function SignUp() {
             if(Payload.password == Payload.re_enter_password){
                 setLoading(true)
 
-                fetch("https://api.solomonleke.com.ng/user/signup", payload)
+                fetch(`${apiLink.link}/user/signup`, payload)
 
                 .then(res => res.json())
                 .then(json => {
@@ -125,7 +125,7 @@ export default function SignUp() {
             if(Payload.password == Payload.re_enter_password){
                 setLoading(true)
 
-                fetch("https://api.solomonleke.com.ng/user/signup", payload)
+                fetch(`${apiLink.link}/user/signup`, payload)
 
                 .then(res => res.json())
                 .then(json => {
@@ -273,6 +273,7 @@ export default function SignUp() {
                         <Select w="100%" isRequired  onChange={handleSignUp} id="prefix" color="#000000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.prefix ? "16px":"12px"} fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}}  size={"lg"} mt="12px">
                         <option value='Mr'>Mr</option>
                         <option value='Mrs'>Mrs</option>
+                        <option value='Miss'>Miss</option>
                         </Select>
             
                         <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>

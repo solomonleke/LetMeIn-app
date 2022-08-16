@@ -9,11 +9,13 @@ export default function Home() {
   
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
+    const apiLink = useSelector((state) => state.apiLink);
+
     const nav= useNavigate()
     const dispatch = useDispatch();
     const checkLength = ()=>{
 
-        fetch('https://api.solomonleke.com.ng/user/endUser')
+        fetch(`${apiLink.link}/user/endUser`)
         .then(response => response.json())
         .then(data => {
             if (data.status == 200) {

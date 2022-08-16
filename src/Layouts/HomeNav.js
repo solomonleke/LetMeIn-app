@@ -38,9 +38,9 @@ export default function HomeNav() {
                 <Flex justifyContent={"space-between"} spacing="30px" w={"50%"} cursor="pointer" display={["none", "none", "flex", "flex"]}>
                     {
                         navBar.map((item, i) => (
-                            <Link to={`${item.link}`}>
+                            <a href={`${item.link}`}>
                                 <Text textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#ffffff" pb="1px" _hover={{ borderBottom: "4px solid  #50FCDA" }}>{item.name} </Text>
-                            </Link>
+                            </a>
                         ))
                     }
 

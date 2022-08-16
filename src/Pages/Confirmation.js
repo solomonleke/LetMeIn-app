@@ -1,10 +1,13 @@
 import { Box, Button, Center, Flex, Img, Text } from '@chakra-ui/react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 
 export default function Confirmation() {
     const nav = useNavigate()
 
+
+    const lastName = useParams()
+    const prefix = useParams()
     const proceed = ()=>{
         nav("/sign-in")
     }
@@ -21,9 +24,9 @@ export default function Confirmation() {
         </Box>
     </Center>
     <Text textAlign={"center"} fontSize={"16.5px"} color="#fff" fontWeight="400" w={"100%"}  fontFamily={"body"} mt="32px">
-            Welcome to LetMeIn an Easy, Safe, and smart Solution for you</Text>
+    {prefix.prefix} {lastName.lastName}, welcome to LetMeIn an Easy, Safe, and smart Solution for you</Text>
     <Text textAlign={"center"} fontSize={"16.5px"} color="#fff" fontWeight="400" w={"100%"}  fontFamily={"body"} mt="12px">
-           Your Email has been verified  successfully</Text>
+           your email has been verified  successfully</Text>
 
         <Flex justifyContent={"center"}>
             <Button onClick={proceed} mt="32px">Proceed to Login</Button>

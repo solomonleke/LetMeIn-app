@@ -1,5 +1,6 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
@@ -22,6 +23,8 @@ export default function ResetPassword() {
       const [Match, setMatch] = useState(false)
       const [Loading, setLoading] = useState(false)
       const [Successful, setSuccessful] = useState(false)
+
+      const apiLink = useSelector((state) => state.apiLink);
     
       const handleChangePassword = (e)=>{
         setPayload({...Payload, [e.target.id]: e.target.value})
@@ -45,7 +48,7 @@ export default function ResetPassword() {
     
        setLoading(true)
 
-       fetch("https://api.solomonleke.com.ng/user/resetPassword", payload)
+       fetch(`${apiLink.link}/user/resetPassword`, payload)
     
        .then(res => res.json())
        .then(json => {

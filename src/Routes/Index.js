@@ -38,7 +38,7 @@ export default function IndexRoutes() {
             <Route path='/' element={<IndexHome/>}/>
             <Route path='/home' element={<Home/>}/>
             <Route path='/homepage' element={<Homepage/>}/>
-            <Route path='/confirmation' element={<Confirmation/>}/>
+            <Route path='/confirmation/:lastName/:prefix' element={<Confirmation/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
 

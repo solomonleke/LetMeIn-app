@@ -89,3 +89,7 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+html {
+  scroll-behavior: smooth;
+}

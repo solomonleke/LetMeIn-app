@@ -9,7 +9,7 @@ export default function ProductCard({icon,title,text}) {
         </Flex>
           <Text textAlign={"center"} textTransform="capitalize" fontSize="20px" color={"#E02828"} fontWeight={"700"} fontFamily="body">{title}</Text>
 
-          <Text px="17px" pt="17px" pb="42px" >
+          <Text textAlign={"center"} px="17px" pt="17px" pb="42px" >
          {text}
           </Text>
     </Box>

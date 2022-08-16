@@ -27,7 +27,7 @@ export default function VisitorsAccess() {
     const [Loading, setLoading] = useState(false);
     const [Single, setSingle] = useState(true);
     const [Multiple, setMultiple] = useState(false);
-
+    const apiLink = useSelector((state) => state.apiLink);
     const [Payload, setPayload] = useState({
         firstName: "",
         lastName: "",
@@ -66,22 +66,30 @@ export default function VisitorsAccess() {
     }
 
     const [AccessCode, setAccessCode] = useState("");
+    const [MultiAccessCode, setMultiAccessCode] = useState("");
 
 
     const access = () => {
        
             setLoading(true)
 
-            fetch("https://api.solomonleke.com.ng/user/visitor", payload)
+            fetch(`${apiLink.link}/user/visitorRequest`, payload)
 
                 .then(res => res.json())
                 .then(json => {
 
-                    console.log("Access", json);
-                    if (json.status == 201) {
+                  
+                    if (json.status == 200) {
 
-                        setAccessCode(json.visitor_1.accessCode)
+                        setAccessCode(json.msg.accessCode)
                         onOpen()
+                        // setPayload({
+                        //     firstName: "",
+                        //     lastName: "",
+                        //     gender: "",
+                        //     id: onlineUser.user.id,
+                    
+                        // })
                         setLoading(false)
                     }
                 })
@@ -133,6 +141,7 @@ export default function VisitorsAccess() {
             {
                 numbers: MultiplePayload.numbers > 10 ? "10": MultiplePayload.numbers,
                 codeWord: MultiplePayload.codeWord,
+                id: onlineUser.user.id,
             }
         ),
 
@@ -141,18 +150,15 @@ export default function VisitorsAccess() {
     const multipleAccess = ()=>{
         setLoading(true)
 
-        onOpen()
-        
-
-        fetch("https://api.solomonleke.com.ng/user/visitor", multiPayload)
+        fetch(`${apiLink.link}/user/multipleVisitor`, multiPayload)
 
             .then(res => res.json())
             .then(json => {
 
-                console.log("Access", json);
-                if (json.status == 201) {
+              
+                if (json.status == 200) {
 
-                    setAccessCode(json.visitor_1.accessCode)
+                    setMultiAccessCode(json.msg.accessCode)
                     onOpen()
                     setLoading(false)
                 }
@@ -271,7 +277,7 @@ export default function VisitorsAccess() {
                                 <Box textAlign={"center"} pos="relative" top="12px">
                                 {
                                     Single ? <Text fontSize="24px" fontWeight={"700"} color="#424242">{AccessCode}</Text>:
-                                    <Text fontSize="24px" fontWeight={"700"} color="#424242">12129</Text>
+                                    <Text fontSize="24px" fontWeight={"700"} color="#424242">{MultiAccessCode}</Text>
 
                                 }
                                     <Text fontSize="14px" fontWeight={"300"}>Access Code</Text>
@@ -283,10 +289,10 @@ export default function VisitorsAccess() {
                             Single ? (
                                 <div>
                                 <Text fontWeight={"400"}>Please copy the access code and only share with  </Text>
-                                <Text fontWeight={"700"}> {Payload.firstName} {Payload.lastName}</Text>
+                                <Text fontWeight={"700"}> {Payload.firstName||""} {Payload.lastName||""}</Text>
                                 </div>
                             ):
-                            <Text fontWeight={"400"}>This access code is only valid for 10 people.</Text>
+                            <Text fontWeight={"400"}>This access code is only valid for {MultiplePayload.numbers > 10 ? "10": MultiplePayload.numbers} people.</Text>
 
                         }
                            
@@ -295,7 +301,7 @@ export default function VisitorsAccess() {
 
 
                         <Center>
-                        <CopyToClipboard text={Single ? AccessCode: 1234567}>
+                        <CopyToClipboard text={Single ? AccessCode: MultiAccessCode}>
                         <Button mb="5px" mt="32px" px='0px' onClick={copyAccess}>Copy Access Code</Button>
                         
                         </CopyToClipboard>

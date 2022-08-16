@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '../Components/Button';
 import MainLayout from '../Layouts/Index';
 import { MdEmail } from "react-icons/md";
+import { useSelector } from 'react-redux';
 
 export default function Verification() {
     const [NewUser, setNewUser] = useState("");
@@ -10,6 +11,9 @@ export default function Verification() {
     const [Loading, setLoading] = useState(false);
 
     let newUser = localStorage.getItem('newUserEmail')
+
+    const apiLink = useSelector((state) => state.apiLink);
+
    
     const getEmail = () => {
 
@@ -43,19 +47,26 @@ export default function Verification() {
 
     const Resend = () => {
         setLoading(true)
-        fetch("https://api.solomonleke.com.ng/user/resend", payload)
+        fetch(`${apiLink.link}/user/resend`, payload)
             .then(res => res.json())
             .then(json => {
-                console.log("Resend API-CHECK", json)
-                setLoading(false)
-                if(json){
-                    setSuccess(true)
 
-                    setTimeout(() => {
-                        setSuccess(false)
-
-                    }, 4000);
+                if(json.status == 200){
+                    setLoading(false)
+                    if(json){
+                        setSuccess(true)
+    
+                        setTimeout(() => {
+                            setSuccess(false)
+    
+                        }, 4000);
+                    }
+                }else{
+                    console.log("error", json.message)
                 }
+
+              
+               
             })
             .catch(error => {
                 console.log("error", error);
@@ -75,7 +86,7 @@ export default function Verification() {
                 <Box>
                     {
                         Success && (
-                            <Alert status='success' my="15px" color="#fff" >
+                            <Alert status='success' my="15px" color="#fff" mb="22px">
                                 <AlertIcon />
                                 <AlertTitle mr={2} fontWeight={"400"}>A verification  email as been resent successfully </AlertTitle>
                                 <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />

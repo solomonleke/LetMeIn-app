@@ -7,30 +7,70 @@ import { Box, Center, Stack, useDisclosure, Modal,
     ModalCloseButton,
     Text,
     Image, } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { useSelector } from 'react-redux';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
 import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
+import { useNavigate } from 'react-router-dom';
 
 export default function TaxiAccess() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const onlineUser = useSelector((state) => state.onlineUser);
+    const apiLink = useSelector((state) => state.apiLink);
     const [Payload, setPayload] = useState({
         name: "",
-        plateNo: ""
+        plateNo: "",
+        id: onlineUser.user.id,
+
     })
     const [Loading, setLoading] = useState(false)
     const [Copied, setCopied] = useState(false)
+    const [AccessCode, setAccessCode] = useState("");
+    const nav = useNavigate();
+    const isLogged = useSelector((state) => state.isLogged);
 
     const handleChange = (e)=> {
         setPayload({...Payload, [e.target.id]: e.target.value })
     }
 
+    const payload = {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/JSON"
+        },
+
+        body: JSON.stringify(Payload),
+
+    }
+
+
     const requestAccess = ()=>{
-        // setLoading(true)
+        setLoading(true)
         onOpen()
+        
+        fetch(`${apiLink.link}/user/taxiAccess`, payload)
+
+            .then(res => res.json())
+            .then(json => {
+
+                console.log("Access", json);
+                if (json.status == 200) {
+
+                    setAccessCode(json.msg.accessCode)
+                    onOpen()
+                    setLoading(false)
+                }
+            })
+            .catch(error => {
+                console.log("error", error);
+                setLoading(false)
+            })
 
     }
 
@@ -43,6 +83,15 @@ export default function TaxiAccess() {
         }, 4000);
 
     }
+
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+    }
+    useEffect(() => {
+        middleWare()
+    }, []);
 
   return (
     <MainLayout>
@@ -64,11 +113,15 @@ export default function TaxiAccess() {
                 {
                     Copied && (
 
-                        <Text mt="10vh" fontSize={"12px"} textAlign="center" fontWeight="700" fontStyle={"italic"} fontFamily="body" color="#249421">Access Code has been copied to your clip board</Text>
+                        <Text mt="15vh" fontSize={"12px"} textAlign="center" fontWeight="700" fontStyle={"italic"} fontFamily="body" color="#249421">Access Code has been copied to your clip board</Text>
                     )
                 }   
 
-                <Modal motionPreset='slideInBottom' size={"xs"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
+                
+        </Box>
+        </Center>
+
+        <Modal motionPreset='slideInBottom' size={"xs"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent >
                     <ModalHeader></ModalHeader>
@@ -83,7 +136,7 @@ export default function TaxiAccess() {
                             <Stack direction={"row"} mt="27px" spacing={"22px"} fontFamily={"body"}>
                                 <Image src="/check.png" />
                                 <Box textAlign={"center"} pos="relative" top="12px">
-                                    <Text fontSize="24px" fontWeight={"700"} color="#424242">12129</Text>
+                                    <Text fontSize="24px" fontWeight={"700"} color="#424242">{AccessCode}</Text>
 
                                 
                                     <Text fontSize="14px" fontWeight={"300"}>Access Code</Text>
@@ -103,7 +156,7 @@ export default function TaxiAccess() {
 
 
                         <Center>
-                        <CopyToClipboard text={1234567}>
+                        <CopyToClipboard text={AccessCode}>
                         <Button mb="5px" mt="32px" px='0px' onClick={copyAccess}>Copy Access Code</Button>
                         
                         </CopyToClipboard>
@@ -124,10 +177,6 @@ export default function TaxiAccess() {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        </Box>
-        </Center>
-
-        
     </MainLayout>
   );
 }

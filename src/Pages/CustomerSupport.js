@@ -30,7 +30,7 @@ export default function CustomerSupport() {
                 <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Email </Text>
               </HStack>
               <a href="mailto:support@letmein.com.ng">
-                <Text borderBottom={"1px solid #7E90EF"} fontSize={"14px"} w="100%" fontFamily="body" fontWeight={"700"} color="#000000">support@letmein.com.ng</Text>
+                <Text borderBottom={"1px solid #7E90EF"} fontSize={"14px"} w="100%" fontFamily="body" fontWeight={"700"} color="#000000">support@letmein.ng</Text>
               </a>
 
             </HStack>

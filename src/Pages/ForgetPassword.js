@@ -1,5 +1,6 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Button from '../Components/Button';
 import Headers from '../Components/Headers';
 import Input from '../Components/Input';
@@ -12,6 +13,7 @@ export default function ForgetPassword() {
     const [Loading, setLoading] = useState(false)
     const [Success, setSuccess] = useState(false)
     const [ValidEmail, setValidEmail] = useState(true)
+    const apiLink = useSelector((state) => state.apiLink);
     
     const payload = {
 
@@ -40,7 +42,7 @@ export default function ForgetPassword() {
           
         setLoading(true)
         
-        fetch("https://api.solomonleke.com.ng/user/forgotPassword", payload)
+        fetch(`${apiLink.link}/user/forgotPassword`, payload)
 
         .then(res => res.json())
         .then(json => {
