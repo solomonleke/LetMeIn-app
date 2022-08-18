@@ -11,17 +11,22 @@ export default function SecurityOps() {
 
   const [Loading, setLoading] = useState(false);
   const [User, setUser] = useState({});
+  const [Users, setUsers] = useState({});
+  const [TypeOf, setTypeOf] = useState({});
   const [CheckIn, setCheckIn] = useState(true);
   const [CheckOut, setCheckOut] = useState(false);
   const [Grant, setGrant] = useState(false);
   const [AccessCode, setAccessCode] = useState("");
   const [Success, setSuccess] = useState(false);
+  const [Message, setMessage] = useState("");
   const [SuccessOut, setSuccessOut] = useState(false);
 
 
   const onlineUser = useSelector((state) => state.onlineUser);
-  const [Verified, setVerified] = useState(onlineUser.user.Verified);
-
+  // console.log("estatename", onlineUser.user.estateName)
+  const [Verified, setVerified] = useState(true);
+  // const [Verified, setVerified] = useState(onlineUser.user.Verified);
+  const apiLink = useSelector((state) => state.apiLink);
 
 
   const handleCheckIn = () => {
@@ -51,7 +56,11 @@ export default function SecurityOps() {
     },
 
     body: JSON.stringify(
-      {accessCode: AccessCode }
+      {  
+        accessCode: AccessCode,
+        estateName: onlineUser.user.estateName
+      
+      }
     ),
 
 }
@@ -60,16 +69,33 @@ export default function SecurityOps() {
     setLoading(true)
   
 
-    fetch('https://api.solomonleke.com.ng/user/verifyAccess',payload)
+    fetch(`${apiLink.link}/user/verifyVisitor`,payload)
     .then(response => response.json())
     .then(data => {
         if (data.status == 200) {
-          setLoading(false)
-          setUser(data.user)
-          setGrant(true)
+          setTypeOf(data.msg.type_Request)
+          if(data.msg.type_Request == "Single"){
+            setLoading(false)
+            setUser(data.msg)
+            setUsers(data.msg.users)
+            setGrant(true)
+          }else if(data.msg.type_Request == "Multiple"){
+            setLoading(false)
+            setUser(data.msg)
+            setUsers(data.msg.User_visitors)
+            setGrant(true)
+          }else if(data.msg.type_Request == "Taxi"){
+            setLoading(false)
+            setUser(data.msg)
+            setUsers(data.msg.User_taxis)
+            setGrant(true)
+          }
+         
+         
           console.log("data", data)
         }else{  
           setSuccess(true)
+          setMessage(data.msg)
           setLoading(false)
         }
 
@@ -84,7 +110,7 @@ export default function SecurityOps() {
 
   const grantAccess = () => {
     setLoading(true)
-    fetch('https://api.solomonleke.com.ng/user/userCheckedIn',{
+    fetch(`${apiLink.link}/user/visitorCheckedIn`,{
 
       method: "POST",
   
@@ -93,7 +119,7 @@ export default function SecurityOps() {
       },
   
       body: JSON.stringify(
-        {_id: User._id }
+        {id: User.id }
       ),
   
   })
@@ -108,7 +134,7 @@ export default function SecurityOps() {
       }else{
         setSuccess(true)
         setLoading(false)
-        console.log(data);
+       
       }
 
     })
@@ -123,7 +149,7 @@ export default function SecurityOps() {
   const CheckOutVisitor = () => {
     setLoading(true)
 
-    fetch('https://api.solomonleke.com.ng/user/userCheckedOut',{
+    fetch(`${apiLink.link}/user/visitorCheckedOut`,{
 
       method: "POST",
   
@@ -132,7 +158,7 @@ export default function SecurityOps() {
       },
   
       body: JSON.stringify(
-        {_id: User._id }
+        {id: User.id }
       ),
   
   })
@@ -191,7 +217,7 @@ export default function SecurityOps() {
               Success && (
                 <Alert status='error' mt="15px"  color="#00000" >
                 <AlertIcon/>
-                <AlertTitle mr={2}>This Access Code may have expired or incorrect, Please contact the Resident to generate a new Access code</AlertTitle>
+              <AlertTitle mr={2}>{Message}</AlertTitle>
                 <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
                  </Alert>
               )
@@ -210,32 +236,41 @@ export default function SecurityOps() {
             <Center>
             <Box w={["80%","70%", "40%", "30%"]} mb="20px">
             <Box  bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"} rounded='7px' px="13px" py="30px" mt="50px">
-            <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">Visitor Details</Text>
+            <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">
+            {TypeOf === "Single" ? "Visitor Details": TypeOf === "Multiple" ? "Multiple Visitor Details": "Taxi Details"}</Text>
 
             <Stack mt="27px" spacing={"14px"}>
 
             <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Visitor Name </Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+            {TypeOf === "Single" ? "Visitor Name": TypeOf === "Multiple" ? "No of User Access": "Taxi Name"}
+            </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.firstName} {User.lastName}</Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
+            {TypeOf === "Single" ? `${User.firstName||""}  ${User.lastName||""}`: TypeOf === "Multiple" ? `${User.number_Visitors}`: `${User.visitorName}`}</Text>
+            </HStack>
+
+            <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"} >
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+            {TypeOf === "Single" ? "Visitor  Gender": TypeOf === "Multiple" ? "Code Word": "Plate Number"}
+           </Text>
+           
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
+            {TypeOf === "Single" ? `${User.gender} `: TypeOf === "Multiple" ? `${User.codeName}`: `${User.plateNumber}`}</Text>
+            
+            
             </HStack>
 
             <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Visitor  Gender </Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident Name </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.gender}</Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.firstName} {Users.lastName}</Text>
             </HStack>
 
             <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Resident Name </Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident address </Text>
            
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.user_fName} {User.user_lName}</Text>
-            </HStack>
-
-            <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Resident address </Text>
-           
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.user_houseNo},  {User.user_streetName},  {User.user_estateName} </Text>
+            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.houseNo},  {Users.streetName},  {Users.estateName} </Text>
             </HStack>
              
             </Stack>

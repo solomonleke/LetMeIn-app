@@ -60,9 +60,9 @@ export default function HomeNav() {
                     <Stack mt='32px' spacing={"12px"} textAlign="center" display={["flex", "flex", "none", "none"]}>
                     {
                         navBar.map((item, i) => (
-                            <Link to={`${item.link}`}>
+                            <a href={`${item.link}`}>
                                 <Text textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#ffffff" pb="1px" _hover={{ borderBottom: "4px solid  #50FCDA" }}>{item.name} </Text>
-                            </Link>
+                            </a>
                         ))
                     }
                     </Stack>
