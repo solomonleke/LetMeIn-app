@@ -1,14 +1,20 @@
 import { Box, Button, Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
+import TeamCard from '../Components/TeamCard';
 import HomeNav from '../Layouts/HomeNav';
 
 export default function Homepage() {
+    const [Coming, setComing] = useState(false)
     const nav = useNavigate();
 
     const getStarted = () => {
         nav("/home")
+    }
+
+    const comingSoon = ()=>{
+        setComing(!Coming)
     }
     return (
         <Box w="100%">
@@ -111,11 +117,30 @@ export default function Homepage() {
 
                 <Flex justifyContent={"space-between"} flexDir={["column", "column", "column", "row"]} mt="40px">
                     <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-                        <Image src="/laptop-phone.png" w="400px" />
+                        <Flex onClick={comingSoon} w="400px" bg="#404040" h={["200px","253px"]} justifyContent={"center"} alignItems="center" cursor={"pointer"}>
+                            <Box>
+                            <Image src="/btn.png" w="100px" />
+
+                            {
+                                Coming && (
+
+                                    <Text color="#fff" mt="4px" fontFamily={'body'} fontSize="14px">Coming Soon</Text>
+
+                                )
+                            }
+                            </Box>
+                        </Flex>
+                       
                     </Flex>
-                    <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-                        <Image src="/laptop-phone.png" w="400px" />
+
+                    <Flex justifyContent={["center", "center", "center", "flex-start"]} >
+                        <Box pos={"relative"}>
+                        <Image src="/laptop-phone.png" w="400px"  />
+                        <Image src="/iphone2.png" w={["45px","70px"]} pos={"absolute"} right="20px" top={["85px","87px"]} />
+                        </Box>
+                      
                     </Flex>
+
                     <Flex justifyContent={["center", "center", "center", "flex-start"]}>
                         <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} fontSize={["18px", "20px", "20px", "20px"]} fontFamily="body" fontWeight={"800"} rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="89px" color="#000000" py="14px" px="37px">Get Started</Button>
 
@@ -125,6 +150,30 @@ export default function Homepage() {
 
                 </Flex>
 
+            </Box>
+
+            <Box bg="url(/product-bg.png)" w="100%" px={["6%", "10%"]} pt="34px" bgRepeat={"none"} bgSize="cover" pb="32px">
+            <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Our team</Text>
+
+                <SimpleGrid columns={["1", "1", "2", "3"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" px={["0%", "7%"]}>
+                
+                        <TeamCard
+                        img='ope'
+                        name="Opeyemi Adeleke"
+                        pos="Co-Founder"
+                        />
+                        <TeamCard
+                        img='moyin'
+                        name="Solomon Adeleke"
+                        pos="Co-Founder"
+                        />
+                        <TeamCard
+                        img='obinna'
+                        name="obinna edmund"
+                        pos="Co-Founder"
+                        />
+                        
+                </SimpleGrid>
             </Box>
 
 
