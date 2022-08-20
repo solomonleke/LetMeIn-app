@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Image, SimpleGrid, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Box, Button, Flex, Image, SimpleGrid, Spinner, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 import TeamCard from '../Components/TeamCard';
@@ -7,85 +7,122 @@ import HomeNav from '../Layouts/HomeNav';
 
 export default function Homepage() {
     const [Coming, setComing] = useState(false)
+    const [Loading, setLoading] = useState(true)
     const nav = useNavigate();
+
 
     const getStarted = () => {
         nav("/home")
     }
 
-    const comingSoon = ()=>{
+    const comingSoon = () => {
         setComing(!Coming)
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 5000);
+    }, [])
     return (
         <Box w="100%">
+            {
+                // preloader starts here
+            }
+
+            {
+                Loading && (
+                    <Box pt="40vh" w="100%" zIndex={10} h="100vh" bg="linear-gradient(269.11deg, #B72000  19.49%, #E02828 87.44%)" pos={"fixed"} top="0">
+
+
+
+                        <Flex justifyContent={"center"} >
+                            <Spinner label="coming up" thickness='6px' speed='0.55s' emptyColor='#50FCDA' color='#12CDA8' size='xl' />
+                        </Flex>
+                        <Text mt='32px' letterSpacing={"2px"} fontSize={"25px"} color="#fff" textAlign={"center"} fontFamily="body" fontWeight={"800"}>Loading ...</Text>
+
+
+                    </Box>
+                )
+            }
+
             <Box bg="url(/landing_bg.png)" w="100%" minH={"100vh"} h={["auto", "auto", "auto", "auto"]} bgRepeat={"none"} bgSize="cover" pb={"32px"} pt="34.5px" px={["6%", "10%"]}>
                 <HomeNav />
 
-                <Flex mt={["32px", "71px"]} justifyContent={"space-between"} flexDir={["column", "column", "column", "row"]} alignItems="flex-start">
+                <Flex mt={["32px", "71px"]} justifyContent={"space-between"} flexDir={["column", "column", "column", "row", "row"]} alignItems="flex-start">
                     <Box w={["100%", "100%", "100%", "50%"]}>
-                        <Text mt={["0", "20px"]} fontSize={["40px", "50px", "60px", "70px"]} fontFamily="body" fontWeight={"800"} lineHeight={"82.03px"} color="#ffffff">Control Access to your Home with our Reliable Digital Security </Text>
+                        <Text mt={["0", "20px"]} fontSize={["40px", "50px", "60px", "60px", "70px"]} fontFamily="body" fontWeight={"800"} lineHeight={"82.03px"} color="#ffffff">Control Access to your Home with our Reliable Digital Security </Text>
 
                         <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} fontSize={["18px", "23px", "25px", "30px"]} fontFamily="body" fontWeight={"800"} rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="69px" color="#000000" py="14px" px="37px">Get Started</Button>
                     </Box>
-                    <Flex w={["100%", "100%", "100%", "50%"]} justifyContent={["center", "center", "center", "flex-end"]}>
-                        <Image src="/iphone1.png" w={["100%", "70%"]} />
+                    <Flex w={["100%", "100%", "100%", "50%"]} justifyContent={["center", "center", "center", "flex-end", "flex-end"]}>
+                        <Image src="/iphone1.png" w={["100%", "70%", "70%", "90%", "70%",]} />
                     </Flex>
                 </Flex>
             </Box>
-
+            {
+                // Our product starts here
+            }
             <Box px={["6%", "10%"]} mt={["32px", "71px"]} pb="32px">
-                <div id="our-product">
+                <div id="our-product" >
                     <Text as={"span"} pb="4px" borderBottom={"3px solid #50FCDA"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">our product</Text>
+                    <Box px={["0%", "7%"]}>
 
-                    <Flex mt="68px" justifyContent={"space-between"} flexDir={["column", "column", "column", "row"]}>
 
-                        <Flex w={["100%", "100%", "100%", "35%"]} flexDir={"row"} justifyContent={["center", "center", "center", "flex-start"]}>
-                            <Box>
-                                <Text fontFamily="body" fontWeight={"700"} fontSize="20px" color="#B7B7B7" textAlign={"center"} pb="10px">Resident App</Text>
-                                <Image w="186.3px" src="/left-iphone.png" />
+                        <Flex mt="68px" justifyContent={"space-between"} flexDir={["column", "column", "column", "row"]}>
 
+                            <Flex w={["100%", "100%", "100%", "35%"]} flexDir={"row"} justifyContent={["center", "center", "center", "flex-start"]}>
                                 <Box>
-                                    <Text fontFamily="body" fontWeight={"700"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">LetMeIn Resident App  </Text>
-                                    <Text mt="-12px" fontFamily="body" fontWeight={"400"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">allows residents generate unique <br /> access codes for visiting Guests</Text>
+                                    <Text fontFamily="body" fontWeight={"700"} fontSize="20px" color="#B7B7B7" textAlign={"center"} pb="10px">Resident App</Text>
+                                    <Image w="186.3px" src="/left-iphone.png" />
+
+                                    <Box>
+                                        <Text fontFamily="body" fontWeight={"700"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">LetMeIn Resident App  </Text>
+                                        <Text mt="-12px" fontFamily="body" fontWeight={"400"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">allows residents generate unique <br /> access codes for visiting Guests</Text>
+
+                                    </Box>
 
                                 </Box>
+                            </Flex>
 
-                            </Box>
-                        </Flex>
+                            <Flex flexDir={"row"} justifyContent={["center", "center", "center", "flex-end"]}>
 
-                        <Flex flexDir={"row"} justifyContent={["center", "center", "center", "flex-end"]}>
+                                <Box pos={"relative"} mt="90px" >
+                                    <Box display={["none", "none", "none", "flex"]} pos="absolute" left={["-110%", "-110%", "-110%", "-24%", "-80%"]} top="35%" borderBottom="2px dashed #A4A4A4" w={["110%", "110%", "110%", "25%", "80%"]}>  </Box>
+                                    <Image w="250px" src="/red-glow.png" />
+                                    <Box display={["none", "none", "none", "flex"]} pos="absolute" borderBottom="2px dashed #A4A4A4" right={["-110%", "-110%", "-110%", "-16%", "-70%"]} top="35%" w={["110%", "110%", "110%", "18%", "70%"]}>  </Box>
+                                </Box>
+                            </Flex>
 
-                            <Box pos={"relative"} mt="90px" >
-                                <Box display={["none", "none", "none", "flex"]} pos="absolute" left={"-110%"} top="35%" borderBottom="2px dashed #A4A4A4" w="110%">  </Box>
-                                <Image w="250px" src="/red-glow.png" />
-                                <Box display={["none", "none", "none", "flex"]} pos="absolute" borderBottom="2px dashed #A4A4A4" right={"-106%"} top="35%" w="104%">  </Box>
-                            </Box>
-                        </Flex>
-
-                        <Flex w={["100%", "100%", "100%", "35%"]} flexDir={"row"} justifyContent={["center", "center", "center", "flex-end"]} mt={["90px", "90px", "90px", "0"]} alignItems="flex-start">
-                            <Box>
-                                <Text fontFamily="body" fontWeight={"700"} fontSize="20px" color="#B7B7B7" textAlign={"center"} pb="10px">Security Operative App</Text>
-
-                                <Image w="186.3px" src="/right-iphone.png" ml="16px" />
+                            <Flex w={["100%", "100%", "100%", "35%"]} flexDir={"row"} justifyContent={["center", "center", "center", "flex-end"]} mt={["90px", "90px", "90px", "0"]} alignItems="flex-start">
                                 <Box>
-                                    <Text fontFamily="body" fontWeight={"700"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">LetMeIn Security Operative App </Text>
-                                    <Text mt="-12px" fontFamily="body" fontWeight={"400"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">uses the unique access code provided by <br /> Guests to permit residents into an Estate</Text>
+                                    <Text fontFamily="body" fontWeight={"700"} fontSize="20px" color="#B7B7B7" textAlign={"center"} pb="10px">Security Operative App</Text>
+
+                                    <Image w="186.3px" src="/right-iphone.png" ml="16px" />
+                                    <Box>
+                                        <Text fontFamily="body" fontWeight={"700"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">LetMeIn Security Operative App </Text>
+                                        <Text mt="-12px" fontFamily="body" fontWeight={"400"} fontSize="12px" color="#B7B7B7" textAlign={"center"} pb="10px">uses the unique access code provided by <br /> Guests to permit residents into an Estate</Text>
+
+                                    </Box>
+
 
                                 </Box>
+                            </Flex>
 
-
-                            </Box>
                         </Flex>
 
-                    </Flex>
+                    </Box>
                 </div>
 
             </Box>
 
+            {
+                //  product offering starts here
+            }
             <Box bg="url(/product-bg.png)" w="100%" px={["6%", "10%"]} pt="34px" bgRepeat={"none"} bgSize="cover" pb="32px">
                 <Text as={"span"} pb="4px" textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Product Offering</Text>
 
-                <SimpleGrid columns={["1", "2", "2", "4"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" pb>
+                <SimpleGrid columns={["1", "2", "2", "3", "4"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" pb>
                     <ProductCard
                         icon="simple"
                         title="simple"
@@ -111,34 +148,37 @@ export default function Homepage() {
 
             </Box>
 
-
+            {
+                // Sign up starts here
+            }
             <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
                 <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Sign Up</Text>
 
-                <Flex justifyContent={"space-between"} flexDir={["column", "column", "column", "row"]} mt="40px">
-                    <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-                        <Flex onClick={comingSoon} w="400px" bg="#404040" h={["200px","253px"]} justifyContent={"center"} alignItems="center" cursor={"pointer"}>
+                <SimpleGrid columns={[1, 1, 1, 2, 3]} mt="40px" spacingX={"30px"} display={["block","block","block","flex","none"]}>
+
+                    <Flex justifyContent={["center", "center", "center", "flex-start", "flex-start"]}>
+                        <Flex onClick={comingSoon} w={["400px", "400px", "400px", "300px", "400px"]} bg="#404040" h={["200px", "253px"]} justifyContent={"center"} alignItems="center" cursor={"pointer"}>
                             <Box>
-                            <Image src="/btn.png" w="100px" />
+                                <Image src="/btn.png" w="100px" />
 
-                            {
-                                Coming && (
+                                {
+                                    Coming && (
 
-                                    <Text color="#fff" mt="4px" fontFamily={'body'} fontSize="14px">Coming Soon</Text>
+                                        <Text color="#fff" mt="4px" fontFamily={'body'} fontSize="14px">Coming Soon</Text>
 
-                                )
-                            }
+                                    )
+                                }
                             </Box>
                         </Flex>
-                       
+
                     </Flex>
 
                     <Flex justifyContent={["center", "center", "center", "flex-start"]} >
                         <Box pos={"relative"}>
-                        <Image src="/laptop-phone.png" w="400px"  />
-                        <Image src="/iphone2.png" w={["45px","70px"]} pos={"absolute"} right="20px" top={["85px","87px"]} />
+                            <Image src="/laptop-phone.png" w="400px" />
+                            <Image src="/iphone2.png" w={["50px","55px","59px","45px", "70px"]} pos={"absolute"} right={["25px","30px","25px","20px","20px"]} top={["88px","87px","105px","69px", "87px"]} />
                         </Box>
-                      
+
                     </Flex>
 
                     <Flex justifyContent={["center", "center", "center", "flex-start"]}>
@@ -148,31 +188,71 @@ export default function Homepage() {
 
 
 
+
+                </SimpleGrid>
+
+                <Flex justifyContent={"space-between"}  mt="40px" display={["none","none","none","none","flex"]}>
+
+                    <Flex justifyContent={["center", "center", "center", "flex-start", "flex-start"]}>
+                        <Flex onClick={comingSoon} w={["400px", "400px", "400px", "300px", "400px"]} bg="#404040" h={["200px", "253px"]} justifyContent={"center"} alignItems="center" cursor={"pointer"}>
+                            <Box>
+                                <Image src="/btn.png" w="100px" />
+
+                                {
+                                    Coming && (
+
+                                        <Text color="#fff" mt="4px" fontFamily={'body'} fontSize="14px">Coming Soon</Text>
+
+                                    )
+                                }
+                            </Box>
+                        </Flex>
+
+                    </Flex>
+
+                    <Flex justifyContent={["center", "center", "center", "flex-start"]} >
+                        <Box pos={"relative"}>
+                            <Image src="/laptop-phone.png" w="400px" />
+                            <Image src="/iphone2.png" w={["45px","45px","45px","45px", "70px"]} pos={"absolute"} right={["20px","20px","20px","20px","20px"]} top={["85px","87px","87px","87px", "87px"]}/>
+                        </Box>
+
+                    </Flex>
+
+                    <Flex justifyContent={["center", "center", "center", "flex-start"]}>
+                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} fontSize={["18px", "20px", "20px", "20px"]} fontFamily="body" fontWeight={"800"} rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="89px" color="#000000" py="14px" px="37px">Get Started</Button>
+
+                    </Flex>
+
+
+
+
                 </Flex>
 
             </Box>
 
             <Box bg="url(/product-bg.png)" w="100%" px={["6%", "10%"]} pt="34px" bgRepeat={"none"} bgSize="cover" pb="32px">
-            <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Our team</Text>
+                <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Our team</Text>
 
                 <SimpleGrid columns={["1", "1", "2", "3"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" px={["0%", "7%"]}>
-                
-                        <TeamCard
-                        img='ope'
+
+                    <TeamCard
+                        img="ope"
                         name="Opeyemi Adeleke"
                         pos="Co-Founder"
-                        />
-                        <TeamCard
-                        img='moyin'
+                    />
+                    <TeamCard
+                        img="moyin"
                         name="Solomon Adeleke"
                         pos="Co-Founder"
-                        />
-                        <TeamCard
-                        img='obinna'
+                    />
+
+
+                    <TeamCard
+                        img="obinna"
                         name="obinna edmund"
                         pos="Co-Founder"
-                        />
-                        
+                    />
+
                 </SimpleGrid>
             </Box>
 
