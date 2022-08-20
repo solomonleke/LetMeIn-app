@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import BackBtn from '../../Components/BackBtn';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
+import Headers from '../../Components/Headers';
 import HistoryCard from '../../Components/HistoryCard';
 import Input from '../../Components/Input';
 import Pagination from '../../Components/Pagination';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 
-export default function CheckInHistory() {
+export default function UnCheckOutHistory() {
 
   const [Loading, setLoading] = useState(false);
-  const [CheckIn, setCheckIn] = useState(true);
-  const [CheckOut, setCheckOut] = useState(false);
+ 
   const [Duration, setDuration] = useState('');
 
   const isLogged = useSelector((state) => state.isLogged);
@@ -27,22 +27,7 @@ export default function CheckInHistory() {
   }
   const nav = useNavigate();
 
-  const handleCheckIn = () => {
-    setCheckIn(true)
-    setCheckOut(false)
-    nav("/security-ops/check-in-history")
 
-  }
-
-
-  const handleCheckOut = () => {
-
-    setCheckIn(false)
-    setCheckOut(true)
-    nav("/security-ops/check-out-history")
-
-
-  }
   //   const payload = {
 
   //     method: "POST",
@@ -112,13 +97,12 @@ export default function CheckInHistory() {
 
           <Box w={["85%", "50%", "50%", "67%", "40%"]} mb="82px">
 
+        
+          <Box mt="41px">
+            <Headers text="Unchecked Out History" />
+          </Box>
 
-
-            <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="25px">
-              <Text w={"50%"} onClick={handleCheckIn} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={CheckIn ? "#5BE3C9" : "#EEEEEE"} color={CheckIn ? "#424242" : "#939393"}>Check in. History</Text>
-              <Text w={"50%"} onClick={handleCheckOut} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={CheckOut ? "#5BE3C9" : "#EEEEEE"} color={CheckOut ? "#424242" : "#939393"}>Check out. History</Text>
-            </HStack>
-
+           
 
             <Flex justifyContent={"space-between"} flexDir={["column-reverse", "column-reverse", "column-reverse", "row"]}>
 

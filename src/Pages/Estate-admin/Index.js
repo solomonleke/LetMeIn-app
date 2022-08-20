@@ -4,16 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GreetingText from '../../Components/GreetingText';
 
 export default function EstateAdmin() {
 
     const nav = useNavigate()
+    const dispatch = useDispatch();
 
     const [Verified, setVerified] = useState(true);
     const isLogged = useSelector((state) => state.isLogged);
-    
+    const apiLink = useSelector((state) => state.apiLink);
     const verifiedLen = useSelector((state) => state.verifiedCount.count);
 
     const onlineUser = useSelector((state) => state.onlineUser);
@@ -36,8 +37,39 @@ export default function EstateAdmin() {
             nav("/sign-in")
         }
     }
+
+    const checkLength = ()=>{
+
+        fetch(`${apiLink.link}/user/unVerified/${onlineUser.user.estateName}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 200) {
+                console.log("data len", data)
+                dispatch(
+                  // collect two parameters (type and payload)
+          
+                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
+                );
+
+                dispatch(
+          
+                  { type: "VERIFIED_COUNT_LAN", payload: { data:  data.resident?.length } }
+                );
+
+            }else{
+                console.log("error", data)
+            }
+          
+        })
+
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
     useEffect(() => {
         middleWare()
+        checkLength()
     }, []);
 
 

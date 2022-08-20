@@ -1,8 +1,9 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
+import DelayMsg from '../../Components/DelayMsg';
 import GreetingText from '../../Components/GreetingText';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
@@ -15,7 +16,8 @@ export default function LandLord() {
     const [Verified, setVerified] = useState(onlineUser.user.Verified);
     const isLogged = useSelector((state) => state.isLogged);
 
-
+    const dispatch = useDispatch();
+    const apiLink = useSelector((state) => state.apiLink);
     const verifiedLan = useSelector((state) => state.verifiedCountLan.count);
 
 
@@ -37,8 +39,39 @@ export default function LandLord() {
             nav("/sign-in")
         }
     }
+
+    const checkLength = ()=>{
+
+        fetch(`${apiLink.link}/user/unVerified/${onlineUser.user.estateName}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 200) {
+                console.log("data len", data)
+                dispatch(
+                  // collect two parameters (type and payload)
+          
+                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
+                );
+
+                dispatch(
+          
+                  { type: "VERIFIED_COUNT_LAN", payload: { data:  data.resident?.length } }
+                );
+
+            }else{
+                console.log("error", data)
+            }
+          
+        })
+
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
     useEffect(() => {
         middleWare()
+        checkLength()
     }, []);
 
     return (
@@ -72,17 +105,7 @@ export default function LandLord() {
             {
                 Verified == false && (
             <Center>
-            <Box> 
-               <Box textAlign={"center"} fontFamily="body" mt={["60px", "70px"]}>
-                <Text fontWeight={"700"}> Just a Moment...  </Text>
-                <Text> Your profile is going to be verified by your Estate Administrator.</Text>
-            </Box>
-            <Box textAlign={"center"} fontFamily="body" mt={["30px", "40px"]} mb="32px">
-                <Text fontWeight={"700"}>  Is this taking too long.... </Text>
-                <Text>You can contact Mr. Jubril - 08047589000 </Text>
-            </Box>
-        
-            </Box>
+            <DelayMsg/>
         
           </Center>
                 ) 

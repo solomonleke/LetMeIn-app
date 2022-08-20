@@ -48,6 +48,7 @@ export default function VerifyId() {
     const [verifyAll, setVerifyAll] = useState(false);
 
 
+    const apiLink = useSelector((state) => state.apiLink);
 
     const onlineUser = useSelector((state) => state.onlineUser);
 
@@ -58,7 +59,7 @@ export default function VerifyId() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const checkLength = () => {
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/endUser')
+        fetch(`${apiLink.link}/user/unVerified/${onlineUser.user.estateName}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
@@ -104,7 +105,7 @@ export default function VerifyId() {
 
         setSuccessMsg(`${firstName} ${lastName}`)
 
-        fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+        fetch(`${apiLink.link}/user/toggleUser`, {
 
             method: "POST",
 
@@ -112,7 +113,7 @@ export default function VerifyId() {
                 "Content-Type": "application/JSON"
             },
 
-            body: JSON.stringify({ _id: id }),
+            body: JSON.stringify({ id: id }),
 
         })
 
@@ -156,7 +157,7 @@ export default function VerifyId() {
 
         // setData([])
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/vUser')
+        fetch(`${apiLink.link}/user/vUser/${onlineUser.user.estateName}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status == 200) {
@@ -181,7 +182,7 @@ export default function VerifyId() {
     const handleResident = () => {
         // setData([])
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/vUser')
+        fetch(`${apiLink.link}/user/vUser/${onlineUser.user.estateName}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
@@ -206,7 +207,7 @@ export default function VerifyId() {
 
         // setData([])
         setIsLoading(true)
-        fetch('https://api.solomonleke.com.ng/user/vUser')
+        fetch(`${apiLink.link}/user/vUser/${onlineUser.user.estateName}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
@@ -242,7 +243,7 @@ export default function VerifyId() {
 
             if(item.Verified === false){
 
-                fetch('https://api.solomonleke.com.ng/user/toggleUser', {
+                fetch(`${apiLink.link}/user/toggleUser`, {
 
                     method: "POST",
         
@@ -250,7 +251,7 @@ export default function VerifyId() {
                         "Content-Type": "application/JSON"
                     },
         
-                    body: JSON.stringify({ _id: item._id }),
+                    body: JSON.stringify({ id: item.id }),
         
                 })
         
@@ -307,7 +308,7 @@ export default function VerifyId() {
 
     const checkLengthRedux = () => {
 
-        fetch('https://api.solomonleke.com.ng/user/endUser')
+        fetch(`${apiLink.link}/user/unVerified/${onlineUser.user.estateName}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {
@@ -340,6 +341,7 @@ export default function VerifyId() {
         checkLength()
         checkLengthRedux()
     }, [Checked]);
+    
     return (
         <MainLayout>
             <Seo title="Verify IDs" description='Verify IDs' />
@@ -480,7 +482,7 @@ export default function VerifyId() {
                                             {
                                                 Data?.map((item, i) => (
 
-                                                    <HStack id="verify" spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item._id, item.firstName, item.lastName, item.userType,item.Verified)}>
+                                                    <HStack id="verify" spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item.id, item.firstName, item.lastName, item.userType,item.Verified)}>
                                                         <Box w={["50%","70%"]}>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo}, {item.streetName} <Divider/> 0{item.phone} <Divider/> {moment(item.time).format("MMM Do ")}</Text>

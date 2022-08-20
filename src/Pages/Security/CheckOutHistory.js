@@ -11,20 +11,21 @@ import Pagination from '../../Components/Pagination';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 
-export default function CheckInHistory() {
+export default function CheckOutHistory() {
 
   const [Loading, setLoading] = useState(false);
-  const [CheckIn, setCheckIn] = useState(true);
-  const [CheckOut, setCheckOut] = useState(false);
+  const [CheckIn, setCheckIn] = useState(false);
+  const [CheckOut, setCheckOut] = useState(true);
   const [Duration, setDuration] = useState('');
 
   const isLogged = useSelector((state) => state.isLogged);
   const onlineUser = useSelector((state) => state.onlineUser);
   const [Verified, setVerified] = useState(onlineUser.user.Verified);
 
-  const handleDuration = (e) => {
+  const handleDuration = (e)=>{
     setDuration(e.target.value)
   }
+
   const nav = useNavigate();
 
   const handleCheckIn = () => {
@@ -34,7 +35,7 @@ export default function CheckInHistory() {
 
   }
 
-
+  
   const handleCheckOut = () => {
 
     setCheckIn(false)
@@ -43,19 +44,20 @@ export default function CheckInHistory() {
 
 
   }
-  //   const payload = {
 
-  //     method: "POST",
+//   const payload = {
 
-  //     headers: {
-  //         "Content-Type": "application/JSON"
-  //     },
+//     method: "POST",
 
-  //     body: JSON.stringify(
-  //       {accessCode: AccessCode }
-  //     ),
+//     headers: {
+//         "Content-Type": "application/JSON"
+//     },
 
-  // }
+//     body: JSON.stringify(
+//       {accessCode: AccessCode }
+//     ),
+
+// }
 
 
 
@@ -65,15 +67,15 @@ export default function CheckInHistory() {
   //   fetch('https://api.solomonleke.com.ng/user/CheckedIn',{
 
   //     method: "POST",
-
+  
   //     headers: {
   //         "Content-Type": "application/JSON"
   //     },
-
+  
   //     body: JSON.stringify(
   //       {_id: User._id }
   //     ),
-
+  
   // })
   //   .then(response => response.json())
   //   .then(data => {
@@ -83,22 +85,22 @@ export default function CheckInHistory() {
   //   .catch((error) => {
   //       console.error('Error:', error);
   //   });
+    
 
-
-
+   
   // }
 
-  const middleWare = () => {
-    if (isLogged.isLogged !== true) {
-      nav("/sign-in")
+  const middleWare = ()=>{
+    if(isLogged.isLogged !== true){
+        nav("/sign-in")
     }
 
-    if (onlineUser.user.userType !== "Security operative") {
+    if(onlineUser.user.userType !== "Security operative"){
       nav("/home")
     }
-  }
+}
   useEffect(() => {
-    middleWare()
+      middleWare()
   }, []);
 
   return (

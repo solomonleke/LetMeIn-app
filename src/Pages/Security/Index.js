@@ -1,8 +1,9 @@
 import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton, Flex, HStack, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
+import DelayMsg from '../../Components/DelayMsg';
 import Input from '../../Components/Input';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
@@ -23,9 +24,9 @@ export default function SecurityOps() {
 
 
   const onlineUser = useSelector((state) => state.onlineUser);
-  // console.log("estatename", onlineUser.user.estateName)
-  const [Verified, setVerified] = useState(true);
-  // const [Verified, setVerified] = useState(onlineUser.user.Verified);
+  const isLogged = useSelector((state) => state.isLogged);
+
+  const [Verified, setVerified] = useState(onlineUser.user.Verified);
   const apiLink = useSelector((state) => state.apiLink);
 
 
@@ -188,6 +189,19 @@ export default function SecurityOps() {
    
   }
 
+  const middleWare = ()=>{
+    if(isLogged.isLogged !== true){
+        nav("/sign-in")
+    }
+
+    if(onlineUser.user.userType !== "Security operative"){
+      nav("/home")
+    }
+}
+  useEffect(() => {
+      middleWare()
+  }, []);
+
 
 
   return (
@@ -196,7 +210,7 @@ export default function SecurityOps() {
 
       {
         Grant == false ? (
-          <Center mt={"70px"} cursor="pointer" opacity={Verified == false && "0.2"}>
+          <Center mt={"70px"} cursor="pointer" opacity={Verified == false && "0.07"}>
 
           <Box w={["80%", "35%"]}>
   
@@ -312,14 +326,7 @@ export default function SecurityOps() {
         Verified == false && (
 
           <Center mt="-100px">
-            <Box opacity={"1"} w={["80%", "35%"]} bg="#fff" px="22px" py="11px">
-              <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">Just One Last Step...</Text>
-              <Text pb="9px" fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">Your profile is going to be verified by your Estate Administrator.</Text>
-              <hr />
-              <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242" pt="9px">If this is taking too long...</Text>
-              <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242">You can contact Mr. Jubril - <Box as="span" color={"#162B96"} textDecor="underline">08047589000</Box></Text>
-
-            </Box>
+            <DelayMsg/>
           </Center>
         )
       }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Error404 from '../Pages/404'
 import ChangePassword from '../Pages/ChangePassword'
 import Confirmation from '../Pages/Confirmation'
 import CustomerSupport from '../Pages/CustomerSupport'
@@ -13,11 +14,14 @@ import Homepage from '../Pages/Homepage'
 import IndexHome from '../Pages/Index'
 import LandLord from '../Pages/Landlord/Index'
 import Profile from '../Pages/Profile'
+import RequestHistory from '../Pages/RequestHistory'
 import ResetPassword from '../Pages/ResetPassword'
 import Index from '../Pages/Residents/Index'
 import CheckInHistory from '../Pages/Security/CheckInHistory'
+import CheckOutHistory from '../Pages/Security/CheckOutHistory'
 import GrantAccess from '../Pages/Security/GrantAccess'
 import SecurityOps from '../Pages/Security/Index'
+import UnCheckOutHistory from '../Pages/Security/UncheckOut'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
 import TaxiAccess from '../Pages/TaxiAccess'
@@ -54,8 +58,12 @@ export default function IndexRoutes() {
             <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
 
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
+            <Route path='/request-access-history' element={<RequestHistory/>}/>
+            <Route path='/404' element={<Error404/>}/>
             <Route path='/taxi-access' element={<TaxiAccess/>}/>
             <Route path='/security-ops/check-in-history' element={<CheckInHistory/>}/>        
+            <Route path='/security-ops/check-out-history' element={<CheckOutHistory/>}/>        
+            <Route path='/security-ops/uncheck-out-history' element={<UnCheckOutHistory/>}/>        
             <Route path='/verify-id' element={<VerifyId/>}/>
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>
             <Route path='/verification' element={<Verification/>}/>

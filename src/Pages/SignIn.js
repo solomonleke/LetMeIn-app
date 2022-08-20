@@ -57,7 +57,7 @@ export default function SignIn() {
                     console.log("Login-CHECK", json)
 
                     if (json.status == 200) {
-
+                       
                         if(json.people){
                             dispatch(
 
@@ -69,6 +69,8 @@ export default function SignIn() {
                         
                                 { type: "ADD_USER", payload: { data: json.people } }
                               );
+
+                            
                         }else{
                             nav("/sign-in")
                         }
@@ -129,10 +131,12 @@ export default function SignIn() {
         }
       }
 
+    
+
       useEffect(() => {
 
         middleWare()
-    
+        
       }, []);
     return (
         <MainLayout>

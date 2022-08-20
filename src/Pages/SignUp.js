@@ -278,10 +278,15 @@ export default function SignUp() {
             
                         <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
                         <Input val={Payload.lastName && true} isRequired label="LastName" value={Payload.lastName} id='lastName' type='text' onChange={handleSignUp} />
-                        <Box>
-                        <Input val={Payload.email && true} isRequired = {Payload.userType == "Security Operative" ? false: true} label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
-                        <Text color="red" fontSize={"12px"} fontFamily="body" fontWeight={"400"} textAlign="center" mt="4px"> {ValidEmail == false && "You have entered an invalid email address"}</Text>
-                        </Box>
+                        {
+                            Payload.userType == "Security Operative" ? "":(
+                                <Box>
+                                <Input val={Payload.email && true} isRequired label="Email" value={Payload.email}  id='email' type='email' onChange={handleSignUp}/>
+                                <Text color="red" fontSize={"12px"} fontFamily="body" fontWeight={"400"} textAlign="center" mt="4px"> {ValidEmail == false && "You have entered an invalid email address"}</Text>
+                                </Box>
+                            )
+                        }
+                      
                         <Input val={Payload.phone && true} isRequired label="Phone Number" value={Payload.phone} type="number"  id='phone' onChange={handleSignUp}/>
                        
                     </Stack>

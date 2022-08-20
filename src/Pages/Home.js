@@ -13,32 +13,8 @@ export default function Home() {
 
     const nav= useNavigate()
     const dispatch = useDispatch();
-    const checkLength = ()=>{
 
-        fetch(`${apiLink.link}/user/endUser`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status == 200) {
   
-                dispatch(
-                  // collect two parameters (type and payload)
-          
-                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
-                );
-
-                dispatch(
-          
-                  { type: "VERIFIED_COUNT_LAN", payload: { data:  data.resident?.length } }
-                );
-
-            }
-          
-        })
-
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
 
     
     const sign_up = ()=>{
@@ -68,7 +44,7 @@ export default function Home() {
     }
     useEffect(() => {
       middleWare()
-      checkLength()
+     
     }, []);
 
   return (

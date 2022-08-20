@@ -167,14 +167,14 @@ export default function NavBar() {
                 {
                   onlineUser.user.userType == "Security operative" && (
                     <Stack spacing={"19px"}>
-                      <Link to="/check-in">
+                      <Link to="/security-ops/check-in-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Check-in History</Text>
                       </Link>
-                      <Link to="/check-out">
+                      <Link to="/security-ops/check-out-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Check-out History</Text>
                       </Link>
-                      <Link to="/uncheck-out">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Uncheck-Out</Text>
+                      <Link to="/security-ops/uncheck-out-history">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Uncheck-Out History</Text>
                       </Link>
 
                     </Stack>
@@ -190,17 +190,11 @@ export default function NavBar() {
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
                       </Link>
 
-                      <Link to="/#">
+                      <Link to="/request-access-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
                       </Link>
 
-                      <Link to="/#">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
-                      </Link>
-
-                      <Link to="/#">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
-                      </Link>
+                   
                       
                      <Link to="/customer-support">
                       <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
@@ -219,17 +213,11 @@ export default function NavBar() {
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
                       </Link>
 
-                      <Link to="/#">
+                      <Link to="/request-access-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
                       </Link>
 
-                      <Link to="/#">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
-                      </Link>
-
-                      <Link to="/#">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
-                      </Link>
+                   
 
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
@@ -265,17 +253,11 @@ export default function NavBar() {
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
                       </Link>
 
-                      <Link to="/#">
+                      <Link to="/request-access-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
                       </Link>
 
-                      <Link to="/#">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Create Temporary Pass</Text>
-                      </Link>
-
-                      <Link to="/#">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Temporary Pass</Text>
-                      </Link>
+                   
 
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
