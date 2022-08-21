@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Image, SimpleGrid, Spinner, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Image, Input, SimpleGrid, Spinner, Text, Textarea } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { FiPhoneCall } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 import TeamCard from '../Components/TeamCard';
@@ -8,6 +9,11 @@ import HomeNav from '../Layouts/HomeNav';
 export default function Homepage() {
     const [Coming, setComing] = useState(false)
     const [Loading, setLoading] = useState(true)
+    const [Payload, setPayload] = useState({
+        name: "",
+        email: "",
+        message: ""
+    })
     const nav = useNavigate();
 
 
@@ -19,10 +25,17 @@ export default function Homepage() {
         setComing(!Coming)
     }
 
+    const handleChange =(e)=>{
+        setPayload({...Payload, [e.target.id]: e.target.value})
+    }
+    const SendMessage = ()=>{
+        
+    }
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 5000);
+        }, 7000);
     }, [])
     return (
         <Box w="100%">
@@ -32,7 +45,7 @@ export default function Homepage() {
 
             {
                 Loading && (
-                    <Box pt="40vh" w="100%" zIndex={10} h="100vh" bg="linear-gradient(269.11deg, #B72000  19.49%, #E02828 87.44%)" pos={"fixed"} top="0">
+                    <Box  pt="40vh" w="100%" zIndex={10} h="100vh" bg="linear-gradient(269.11deg, #B72000  19.49%, #E02828 87.44%)" pos={"fixed"} top="0">
 
 
 
@@ -46,7 +59,7 @@ export default function Homepage() {
                 )
             }
 
-            <Box bg="url(/landing_bg.png)" w="100%" minH={"100vh"} h={["auto", "auto", "auto", "auto"]} bgRepeat={"none"} bgSize="cover" pb={"32px"} pt="34.5px" px={["6%", "10%"]}>
+            <Box bg="url(/landing2.png)" w="100%" minH={"100vh"} h={["auto", "auto", "auto", "auto"]} bgRepeat={"none"} bgSize="cover" pb={"32px"} pt="34.5px" px={["6%", "10%"]}>
                 <HomeNav />
 
                 <Flex mt={["32px", "71px"]} justifyContent={"space-between"} flexDir={["column", "column", "column", "row", "row"]} alignItems="flex-start">
@@ -229,8 +242,10 @@ export default function Homepage() {
                 </Flex>
 
             </Box>
-
-            <Box bg="url(/product-bg.png)" w="100%" px={["6%", "10%"]} pt="34px" bgRepeat={"none"} bgSize="cover" pb="32px">
+            {
+                // Team section start here
+            }
+            <Box bg="url(/product-bg.png)" bgRepeat={"none"} bgSize="cover" w="100%" px={["6%", "10%"]} py="35px" >
                 <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Our team</Text>
 
                 <SimpleGrid columns={["1", "1", "2", "3"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" px={["0%", "7%"]}>
@@ -243,17 +258,52 @@ export default function Homepage() {
                     <TeamCard
                         img="moyin"
                         name="Solomon Adeleke"
-                        pos="Co-Founder"
+                        pos="Co-Founder, Lead Developer"
                     />
 
 
                     <TeamCard
                         img="obinna"
                         name="obinna edmund"
-                        pos="Co-Founder"
+                        pos="Co-Founder, Backend Developer"
                     />
 
                 </SimpleGrid>
+            </Box>
+
+            {
+                // Footer starts here
+            }
+            <Box bg="url(/footer_bg.png)" bgRepeat={"none"} bgSize="cover" px={["6%", "10%"]} pt="34" pb={["150px","66px"]} mt="150px">
+            <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#ffffff">Contact us</Text>
+                <Flex  justifyContent={"space-between"} pt= "45px" flexDir={["column", "column", "row", "row", "row"]}>
+                <Box w={["100%","40%"]}>
+                    <HStack spacing={"17px"}>
+                       <Image src="/phone-icon.png" />
+
+                       <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">07023938420</Text>
+                    </HStack>
+                    <HStack spacing={"17px"} mt="26px">
+                       <Image src="/email-icon.png" />
+
+                       <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">Support@letmein.com</Text>
+                    </HStack>
+                </Box>
+
+                <Box w={["100%","50%"]}>
+                        <Flex justifyContent="space-between" flexDir={["column", "column", "column", "row", "row"]}>
+
+                            <Input id="name" onChange={handleChange} mt={["32px", "0px"]} placeholder='Name' w={["100%","100%","100%","45%","45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{border: "0"}} color={"#C9C9C9"}/>
+                            <Input id="email" onChange={handleChange} placeholder='Email' mt={["47px","47px","32px","0px","0px",]} w={["100%","100%","100%","45%","45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{border: "0"}} color={"#C9C9C9"}/>
+                            
+                            </Flex>
+                            <Textarea id="message" onChange={handleChange}  placeholder='Message' mt={"47px"}  rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{border: "0"}} color={"#C9C9C9"}/>
+
+                            <Button onClick={SendMessage} mt="32px" rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
+                             _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }}>Send Message</Button>
+                </Box>
+                
+                </Flex>
             </Box>
 
 

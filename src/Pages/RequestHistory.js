@@ -7,17 +7,24 @@ import Button from '../Components/Button';
 import CardList from '../Components/CardList';
 import Headers from '../Components/Headers';
 import HistoryCard from '../Components/HistoryCard';
+import MultipleCard from '../Components/MultipleCard';
 import Pagination from '../Components/Pagination';
+import TaxiCard from '../Components/TaxiCard';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
+import TaxiAccess from './TaxiAccess';
 
 export default function RequestHistory() {
     const nav = useNavigate();
     const isLogged = useSelector((state) => state.isLogged);
     const [Duration, setDuration] = useState("")
+    const [RequestType, setRequestType] = useState("")
 
     const handleDuration = (e)=>{
         setDuration(e.target.value)
+    }
+    const handleTypeof = (e)=>{
+        setRequestType(e.target.value)
     }
 
     const Continue = ()=>{
@@ -53,7 +60,14 @@ export default function RequestHistory() {
                                     fontSize='56px'
                                 />
                             </Flex>
-                            <Select onChange={handleDuration} color="#000000" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Duration ? "16px" : "12px"} fontWeight={"400"} placeholder='Duration' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="61px">
+                            <Select onChange={handleTypeof} color="#000000" rounded="0" value={RequestType} _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={RequestType ? "16px" : "12px"} fontWeight={"400"} placeholder='Request Type' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="61px">
+                                <option value='Single Access'>Single Access</option>
+                                <option value='Multiple Access'>Multiple Access</option>
+                                <option value='Taxi Access'>Taxi Access</option>
+                              
+
+                            </Select>
+                            <Select onChange={handleDuration} color="#000000" rounded="0" _focus={{ borderColor: "#6AF3D8" }} value={Duration} fontFamily={"body"} fontSize={Duration ? "16px" : "12px"} fontWeight={"400"} placeholder='Duration' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="20px">
                                 <option value='Last-5'>Last 5</option>
                                 <option value='Last-10'>Last 10</option>
                                 <option value='Last-20'>Last 20</option>
@@ -65,9 +79,32 @@ export default function RequestHistory() {
                                 <Text fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">Total - 10</Text>
 
                                 <Stack spacing={"15px"} mt="15px">
-                                    <CardList/>
-                                    <CardList/>
-                                    <CardList/>
+                                    <CardList
+
+                                    firstName ="Sub zero"
+                                    lastName={"8"}
+                                    gender="Male"
+                                    date="10-may-22"
+                                    houseNo={"32"}
+                                    streetName="Lake View"
+                                    />
+
+                                    <MultipleCard 
+                                    codeword ="Sub zero"
+                                    numberAccess={"8"}
+                                    date="10-may-22"
+                                    houseNo={"32"}
+                                    streetName="Lake View"
+                                    />
+
+
+                                    <TaxiCard
+                                    name ="Taxi name"
+                                    plateNo={"2AVf98"}
+                                    date="10-may-22"
+                                    houseNo={"32"}
+                                    streetName="Lake View"
+                                    />
                                 </Stack>
 
                                 <Box mt="20px">
