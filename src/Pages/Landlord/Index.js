@@ -34,6 +34,31 @@ export default function LandLord() {
         nav("/taxi-access")
     }
 
+    const checkVerification = ()=>{
+      
+        fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
+        .then(response => response.json())
+        .then(data => {
+          
+            if(data.status === 200){
+              console.log("userrrrs", data)
+              dispatch(
+              
+                { type: "ADD_USER", payload: { data: data.msg } }
+              );
+              
+              setVerified(data.msg.Verified)
+            }
+          
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        
+      
+       
+      }
+
     const middleWare = () => {
         if (isLogged.isLogged !== true) {
             nav("/sign-in")
@@ -71,6 +96,7 @@ export default function LandLord() {
 
     useEffect(() => {
         middleWare()
+        checkVerification()
         checkLength()
     }, []);
 

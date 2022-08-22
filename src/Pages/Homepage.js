@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Image, Input, SimpleGrid, Spinner, Text, Textarea } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Image, Input, SimpleGrid, Skeleton, Spinner, Text, Textarea } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { FiPhoneCall } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -25,17 +25,17 @@ export default function Homepage() {
         setComing(!Coming)
     }
 
-    const handleChange =(e)=>{
-        setPayload({...Payload, [e.target.id]: e.target.value})
+    const handleChange = (e) => {
+        setPayload({ ...Payload, [e.target.id]: e.target.value })
     }
-    const SendMessage = ()=>{
-        
+    const SendMessage = () => {
+
     }
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 7000);
+        }, 12000);
     }, [])
     return (
         <Box w="100%">
@@ -45,14 +45,17 @@ export default function Homepage() {
 
             {
                 Loading && (
-                    <Box  pt="40vh" w="100%" zIndex={10} h="100vh" bg="linear-gradient(269.11deg, #B72000  19.49%, #E02828 87.44%)" pos={"fixed"} top="0">
+                    <Box pt="35vh" w="100%" zIndex={10} h="100vh" bg="#fff" pos={"fixed"} top="0">
 
 
 
                         <Flex justifyContent={"center"} >
-                            <Spinner label="coming up" thickness='6px' speed='0.55s' emptyColor='#50FCDA' color='#12CDA8' size='xl' />
+                            <Image src='/favicon.png' w={"80px"} />
                         </Flex>
-                        <Text mt='32px' letterSpacing={"2px"} fontSize={"25px"} color="#fff" textAlign={"center"} fontFamily="body" fontWeight={"800"}>Loading ...</Text>
+
+                        <Flex justifyContent={"center"} mt="32px">
+                        <Skeleton rounded="2px"  w="20%" startColor='#9F0022' endColor='#50FCDA' height='15px' />
+                        </Flex>
 
 
                     </Box>
@@ -64,9 +67,12 @@ export default function Homepage() {
 
                 <Flex mt={["32px", "71px"]} justifyContent={"space-between"} flexDir={["column", "column", "column", "row", "row"]} alignItems="flex-start">
                     <Box w={["100%", "100%", "100%", "50%"]}>
-                        <Text mt={["0", "20px"]} fontSize={["40px", "50px", "60px", "60px", "70px"]} fontFamily="body" fontWeight={"800"} lineHeight={"82.03px"} color="#ffffff">Control Access to your Home with our Reliable Digital Security </Text>
+                        <Text mt={["0", "20px"]} fontSize={["40px", "50px", "60px", "60px", "70px"]} fontFamily="body" fontWeight={"800"} 
+                        lineHeight={"82.03px"} bg="linear-gradient(107.46deg, rgba(255, 255, 255, 0.0117) 6.95%, rgba(255, 255, 255, 0.0299) 95.17%)"
+                        boxShadow={"2px 4px 4px -1px rgba(0, 0, 0, 0.11)"} rounded="8px" pl="20px" pr="10px" pt="5px" pb="10px" borderTop={"0.5px solid #fff"} borderLeft="0.5px solid #fff" color="#ffffff">Control Access to your Home with our Reliable Digital Security </Text>
 
-                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} fontSize={["18px", "23px", "25px", "30px"]} fontFamily="body" fontWeight={"800"} rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="69px" color="#000000" py="14px" px="37px">Get Started</Button>
+                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} fontSize={["18px", "23px", "25px", "30px"]} fontFamily="body" fontWeight={"800"} w="233px" rounded={"5px"} _hover={{bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"}}
+                         bg="#ffffff" transition={"1.3s ease"} mt="69px" color="#000000" py="14px" px="37px">Get Started</Button>
                     </Box>
                     <Flex w={["100%", "100%", "100%", "50%"]} justifyContent={["center", "center", "center", "flex-end", "flex-end"]}>
                         <Image src="/iphone1.png" w={["100%", "70%", "70%", "90%", "70%",]} />
@@ -85,7 +91,7 @@ export default function Homepage() {
                         <Flex mt="68px" justifyContent={"space-between"} flexDir={["column", "column", "column", "row"]}>
 
                             <Flex w={["100%", "100%", "100%", "35%"]} flexDir={"row"} justifyContent={["center", "center", "center", "flex-start"]}>
-                                <Box>
+                                <Box zIndex={3} >
                                     <Text fontFamily="body" fontWeight={"700"} fontSize="20px" color="#B7B7B7" textAlign={"center"} pb="10px">Resident App</Text>
                                     <Image w="186.3px" src="/left-iphone.png" />
 
@@ -101,14 +107,18 @@ export default function Homepage() {
                             <Flex flexDir={"row"} justifyContent={["center", "center", "center", "flex-end"]}>
 
                                 <Box pos={"relative"} mt="90px" >
-                                    <Box display={["none", "none", "none", "flex"]} pos="absolute" left={["-110%", "-110%", "-110%", "-24%", "-80%"]} top="35%" borderBottom="2px dashed #A4A4A4" w={["110%", "110%", "110%", "25%", "80%"]}>  </Box>
-                                    <Image w="250px" src="/red-glow.png" />
-                                    <Box display={["none", "none", "none", "flex"]} pos="absolute" borderBottom="2px dashed #A4A4A4" right={["-110%", "-110%", "-110%", "-16%", "-70%"]} top="35%" w={["110%", "110%", "110%", "18%", "70%"]}>  </Box>
+
+                                    <Box display={["none", "none", "none", "flex"]} pos="absolute" left={["-110%", "-110%", "-110%", "-24%", "-100%"]} top="35%" borderBottom="1px dashed #A4A4A4" w={["110%", "110%", "110%", "25%", "110%"]}>  </Box>
+                                    <Box zIndex={5}>
+                                        <Image w="250px" src="/red-glow.jpg" />
+                                    </Box>
+
+                                    <Box display={["none", "none", "none", "flex"]} pos="absolute" borderBottom="1px dashed #A4A4A4" right={["-110%", "-110%", "-110%", "-16%", "-100%"]} top="35%" w={["110%", "110%", "110%", "18%", "110%"]}>  </Box>
                                 </Box>
                             </Flex>
 
                             <Flex w={["100%", "100%", "100%", "35%"]} flexDir={"row"} justifyContent={["center", "center", "center", "flex-end"]} mt={["90px", "90px", "90px", "0"]} alignItems="flex-start">
-                                <Box>
+                                <Box zIndex={3}>
                                     <Text fontFamily="body" fontWeight={"700"} fontSize="20px" color="#B7B7B7" textAlign={"center"} pb="10px">Security Operative App</Text>
 
                                     <Image w="186.3px" src="/right-iphone.png" ml="16px" />
@@ -167,7 +177,7 @@ export default function Homepage() {
             <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
                 <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Sign Up</Text>
 
-                <SimpleGrid columns={[1, 1, 1, 2, 3]} mt="40px" spacingX={"30px"} display={["block","block","block","flex","none"]}>
+                <SimpleGrid columns={[1, 1, 1, 2, 3]} mt="40px" spacingX={"30px"} display={["block", "block", "block", "flex", "none"]}>
 
                     <Flex justifyContent={["center", "center", "center", "flex-start", "flex-start"]}>
                         <Flex onClick={comingSoon} w={["400px", "400px", "400px", "300px", "400px"]} bg="#404040" h={["200px", "253px"]} justifyContent={"center"} alignItems="center" cursor={"pointer"}>
@@ -189,13 +199,13 @@ export default function Homepage() {
                     <Flex justifyContent={["center", "center", "center", "flex-start"]} >
                         <Box pos={"relative"}>
                             <Image src="/laptop-phone.png" w="400px" />
-                            <Image src="/iphone2.png" w={["50px","55px","59px","45px", "70px"]} pos={"absolute"} right={["25px","30px","25px","20px","20px"]} top={["88px","87px","105px","69px", "87px"]} />
+                            <Image src="/iphone2.png" w={["50px", "55px", "59px", "45px", "70px"]} pos={"absolute"} right={["25px", "30px", "25px", "20px", "20px"]} top={["88px", "87px", "105px", "69px", "87px"]} />
                         </Box>
 
                     </Flex>
 
                     <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} fontSize={["18px", "20px", "20px", "20px"]} fontFamily="body" fontWeight={"800"} rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="89px" color="#000000" py="14px" px="37px">Get Started</Button>
+                        <Button w="158px" onClick={getStarted} mb={["32px", "32px", "32px", "0"]} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)" rounded="5px" fontSize={["18px", "20px", "20px", "20px"]} fontFamily="body" fontWeight={"800"}  bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="89px" color="#000000" py="14px" px="37px">Get Started </Button>
 
                     </Flex>
 
@@ -204,7 +214,7 @@ export default function Homepage() {
 
                 </SimpleGrid>
 
-                <Flex justifyContent={"space-between"}  mt="40px" display={["none","none","none","none","flex"]}>
+                <Flex justifyContent={"space-between"} mt="40px" display={["none", "none", "none", "none", "flex"]}>
 
                     <Flex justifyContent={["center", "center", "center", "flex-start", "flex-start"]}>
                         <Flex onClick={comingSoon} w={["400px", "400px", "400px", "300px", "400px"]} bg="#404040" h={["200px", "253px"]} justifyContent={"center"} alignItems="center" cursor={"pointer"}>
@@ -226,13 +236,13 @@ export default function Homepage() {
                     <Flex justifyContent={["center", "center", "center", "flex-start"]} >
                         <Box pos={"relative"}>
                             <Image src="/laptop-phone.png" w="400px" />
-                            <Image src="/iphone2.png" w={["45px","45px","45px","45px", "70px"]} pos={"absolute"} right={["20px","20px","20px","20px","20px"]} top={["85px","87px","87px","87px", "87px"]}/>
+                            <Image src="/iphone2.png" w={["45px", "45px", "45px", "45px", "70px"]} pos={"absolute"} right={["20px", "20px", "20px", "20px", "20px"]} top={["85px", "87px", "87px", "87px", "87px"]} />
                         </Box>
 
                     </Flex>
 
                     <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} fontSize={["18px", "20px", "20px", "20px"]} fontFamily="body" fontWeight={"800"} rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="89px" color="#000000" py="14px" px="37px">Get Started</Button>
+                    <Button w="158px" onClick={getStarted} mb={["32px", "32px", "32px", "0"]} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)" rounded="5px" fontSize={["18px", "20px", "20px", "20px"]} fontFamily="body" fontWeight={"800"}  bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" mt="89px" color="#000000" py="14px" px="37px">Get Started </Button>
 
                     </Flex>
 
@@ -274,35 +284,35 @@ export default function Homepage() {
             {
                 // Footer starts here
             }
-            <Box bg="url(/footer_bg.png)" bgRepeat={"none"} bgSize="cover" px={["6%", "10%"]} pt="34" pb={["150px","66px"]} mt="150px">
-            <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#ffffff">Contact us</Text>
-                <Flex  justifyContent={"space-between"} pt= "45px" flexDir={["column", "column", "row", "row", "row"]}>
-                <Box w={["100%","40%"]}>
-                    <HStack spacing={"17px"}>
-                       <Image src="/phone-icon.png" />
+            <Box bg="url(/footer_bg.png)" bgRepeat={"none"} bgSize="cover" px={["6%", "10%"]} pt="34" pb={["150px", "66px"]} mt="150px">
+                <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#ffffff">Contact us</Text>
+                <Flex justifyContent={"space-between"} pt="45px" flexDir={["column", "column", "row", "row", "row"]}>
+                    <Box w={["100%", "40%"]}>
+                        <HStack spacing={"17px"}>
+                            <Image src="/phone-icon.png" />
 
-                       <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">07023938420</Text>
-                    </HStack>
-                    <HStack spacing={"17px"} mt="26px">
-                       <Image src="/email-icon.png" />
+                            <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">07023938420</Text>
+                        </HStack>
+                        <HStack spacing={"17px"} mt="26px">
+                            <Image src="/email-icon.png" />
 
-                       <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">Support@letmein.com</Text>
-                    </HStack>
-                </Box>
+                            <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">Support@letmein.com</Text>
+                        </HStack>
+                    </Box>
 
-                <Box w={["100%","50%"]}>
+                    <Box w={["100%", "50%"]}>
                         <Flex justifyContent="space-between" flexDir={["column", "column", "column", "row", "row"]}>
 
-                            <Input id="name" onChange={handleChange} mt={["32px", "0px"]} placeholder='Name' w={["100%","100%","100%","45%","45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{border: "0"}} color={"#C9C9C9"}/>
-                            <Input id="email" onChange={handleChange} placeholder='Email' mt={["47px","47px","32px","0px","0px",]} w={["100%","100%","100%","45%","45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{border: "0"}} color={"#C9C9C9"}/>
-                            
-                            </Flex>
-                            <Textarea id="message" onChange={handleChange}  placeholder='Message' mt={"47px"}  rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{border: "0"}} color={"#C9C9C9"}/>
+                            <Input id="name" onChange={handleChange} mt={["32px", "0px"]} placeholder='Name' w={["100%", "100%", "100%", "45%", "45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{ border: "0" }} color={"#C9C9C9"} />
+                            <Input id="email" onChange={handleChange} placeholder='Email' mt={["47px", "47px", "32px", "0px", "0px",]} w={["100%", "100%", "100%", "45%", "45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{ border: "0" }} color={"#C9C9C9"} />
 
-                            <Button onClick={SendMessage} mt="32px" rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
-                             _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }}>Send Message</Button>
-                </Box>
-                
+                        </Flex>
+                        <Textarea id="message" onChange={handleChange} placeholder='Message' mt={"47px"} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{ border: "0" }} color={"#C9C9C9"} />
+
+                        <Button onClick={SendMessage} mt="32px" rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
+                            _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }}>Send Message</Button>
+                    </Box>
+
                 </Flex>
             </Box>
 

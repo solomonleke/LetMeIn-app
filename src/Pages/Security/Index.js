@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton, Flex, HStack, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
@@ -24,10 +24,12 @@ export default function SecurityOps() {
 
 
   const onlineUser = useSelector((state) => state.onlineUser);
-  const isLogged = useSelector((state) => state.isLogged);
-
-  const [Verified, setVerified] = useState(onlineUser.user.Verified);
   const apiLink = useSelector((state) => state.apiLink);
+  const isLogged = useSelector((state) => state.isLogged);
+  const [Verified, setVerified] = useState(onlineUser.user.Verified);
+
+
+  const dispatch = useDispatch();
 
 
   const handleCheckIn = () => {
@@ -198,7 +200,39 @@ export default function SecurityOps() {
       nav("/home")
     }
 }
+
+const checkVerification = ()=>{
+  // window.location.reload()
+
+  fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
+  .then(response => response.json())
+  .then(data => {
+    
+      if(data.status === 200){
+        console.log("userrrrs", data)
+        dispatch(
+        
+          { type: "ADD_USER", payload: { data: data.msg } }
+        );
+
+        setVerified(data.msg.Verified)
+        
+      //  nav('/home')
+      }
+     
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+  });
+  
+
+ 
+}
+
+
+
   useEffect(() => {
+    checkVerification()
       middleWare()
   }, []);
 

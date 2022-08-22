@@ -125,7 +125,7 @@ export default function TaxiAccess() {
                 <ModalOverlay />
                 <ModalContent >
                     <ModalHeader></ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton onClick={()=>nav("/home")}/>
                     <ModalBody pb={6} >
                     <Text textAlign={"center"}>Taxi Access Requested Successfully</Text>:
                         

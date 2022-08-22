@@ -35,7 +35,7 @@ export default function HomeNav() {
 
                 <Image src="/logo.png" w="100.85px" />
 
-                <Flex justifyContent={"space-between"} spacing="30px" w={"50%"} cursor="pointer" display={["none", "none", "flex", "flex"]}>
+                <Flex justifyContent={"space-between"} spacing="30px" w={"50%"} cursor="pointer" display={["none", "none", "none", "flex"]}>
                     {
                         navBar.map((item, i) => (
                             <a href={`${item.link}`}>
@@ -46,7 +46,7 @@ export default function HomeNav() {
 
                 </Flex>
 
-                <Box color={"#fff"} fontSize="20px" pos="relative" top={"2.5px"} display={["flex", "flex", "none", "none"]} onClick={showMore}>
+                <Box color={"#fff"} fontSize="20px" pos="relative" top={"2.5px"} display={["flex", "flex", "flex", "none"]} onClick={showMore}>
 
                 {
                     ShowNav ? <AiOutlineClose/>: <AiOutlineMenu />
@@ -57,7 +57,7 @@ export default function HomeNav() {
             </Flex>
                 {
                     ShowNav && 
-                    <Stack mt='32px' spacing={"12px"} textAlign="center" display={["flex", "flex", "none", "none"]}>
+                    <Stack mt='32px' spacing={"12px"} textAlign="center" display={["flex", "flex", "flex", "none"]}>
                     {
                         navBar.map((item, i) => (
                             <a href={`${item.link}`}>

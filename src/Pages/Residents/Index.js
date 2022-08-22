@@ -1,6 +1,6 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
@@ -9,7 +9,8 @@ import Seo from '../../Utils/Seo';
 
 export default function Index() {
     const nav = useNavigate()
-
+    const dispatch = useDispatch();
+    const apiLink = useSelector((state) => state.apiLink);
 
     const visitor_access = () => {
 
@@ -29,7 +30,36 @@ export default function Index() {
             nav("/sign-in")
         }
     }
+
+    
+const checkVerification = ()=>{
+    // window.location.reload()
+  
+    fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
+    .then(response => response.json())
+    .then(data => {
+      
+        if(data.status === 200){
+          console.log("userrrrs", data)
+          dispatch(
+          
+            { type: "ADD_USER", payload: { data: data.msg } }
+          );
+          
+          setVerified(data.msg.Verified)
+        }
+      
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    
+  
+   
+  }
+  
     useEffect(() => {
+        checkVerification() 
         middleWare()
     }, []);
     return (

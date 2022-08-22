@@ -263,7 +263,8 @@ export default function VisitorsAccess() {
                 <ModalOverlay />
                 <ModalContent >
                     <ModalHeader></ModalHeader>
-                    <ModalCloseButton />
+
+                    <ModalCloseButton onClick={()=>nav("/home")}/>
                     <ModalBody pb={6} >
                     {
                         Single ?  <Text textAlign={"center"}>Visitor Access Requested <br /> Successfully</Text>:
