@@ -122,7 +122,10 @@ export default function SecurityOps() {
       },
   
       body: JSON.stringify(
-        {id: User.id }
+        {
+          id: User.id, 
+          type_Request: User.type_Request
+         }
       ),
   
   })
@@ -135,6 +138,7 @@ export default function SecurityOps() {
         setLoading(false)
 
       }else{
+        console.log("my error", data)
         setSuccess(true)
         setLoading(false)
        
@@ -161,7 +165,10 @@ export default function SecurityOps() {
       },
   
       body: JSON.stringify(
-        {id: User.id }
+        {
+          id: User.id,
+          type_Request: User.type_Request
+         }
       ),
   
   })

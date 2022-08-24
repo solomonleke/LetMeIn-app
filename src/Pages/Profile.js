@@ -2,6 +2,7 @@ import { Box, Center, HStack, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import BackBtn from '../Components/BackBtn';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 
@@ -27,8 +28,9 @@ const Profile = () => {
     return <MainLayout>
 
     <Seo title='My Profile' description='Profile of user' />
+        <Box px={["6%", "10%"]} pb="100px">
         <Center>
-            <Box w={["85%","70%", "40%", "30%"]} mb="20px">
+            <Box w={["90%","85%", "65%", "49%","35%"]} mb="20px">
                 <Box bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"} rounded='7px' px="13px" py="30px" mt="50px">
                     <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">Your Profile</Text>
 
@@ -74,6 +76,9 @@ const Profile = () => {
 
 
         </Center>
+        <BackBtn onclick={()=>nav("/home")}/>
+
+        </Box>
     </MainLayout>;
 }
 

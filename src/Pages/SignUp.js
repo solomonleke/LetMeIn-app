@@ -238,7 +238,7 @@ export default function SignUp() {
                 <Box  w={["80%", "310px"]}>
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="42px">Enter Estate Name</Text>
     
-                <Select onChange={handleSignUp} color={"00000"} id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.estateName ? "16px":"12px"} fontWeight={"400"}    placeholder='Select Estate Name' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                <Select onChange={handleSignUp} color={"00000"} id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.estateName} fontSize={Payload.estateName ? "16px":"12px"} fontWeight={"400"}    placeholder='Select Estate Name' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Lake view'>Lake view Estate</option>
                 <option value='Banana Estate'>Banana Estate</option>
                 <option value='Canal Estate'>Canal Estate</option>
@@ -249,7 +249,7 @@ export default function SignUp() {
 
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="35px">Please who are you ?</Text>
     
-                <Select color={"00000"} onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.userType ? "16px":"12px"} fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                <Select color={"00000"} onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.userType} fontSize={Payload.userType ? "16px":"12px"} fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Resident'>Resident</option>
                 <option value='LandLord'>LandLord</option>
                 <option value='Estate Manager'>Estate Manager</option>
@@ -270,7 +270,7 @@ export default function SignUp() {
                   
                     <Stack mt="44px" spacing="15px">
                     
-                        <Select w="100%" isRequired  onChange={handleSignUp} id="prefix" color="#000000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.prefix ? "16px":"12px"} fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}}  size={"lg"} mt="12px">
+                        <Select w="100%" isRequired  onChange={handleSignUp} id="prefix" color="#000000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.prefix} fontSize={Payload.prefix ? "16px":"12px"} fontWeight={"400"}   placeholder='Prefix' bg={"#fff"} _hover={{bg: "#fff"}}  size={"lg"} mt="12px">
                         <option value='Mr'>Mr</option>
                         <option value='Mrs'>Mrs</option>
                         <option value='Miss'>Miss</option>
@@ -323,7 +323,7 @@ export default function SignUp() {
                         (
                             <Stack spacing="15px">
                             
-                            <Select isRequired  onChange={handleSignUp} id="streetName" color="#00000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Payload.streetName ? "16px":"12px"} fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
+                            <Select isRequired  onChange={handleSignUp} id="streetName" color="#00000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.streetName} fontSize={Payload.streetName ? "16px":"12px"} fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                             <option value='Obidu close'>Obidu close</option>
                             <option value='Rice Street'>Rice Street</option>
                             <option value='Brown Street'>Brown Street</option>

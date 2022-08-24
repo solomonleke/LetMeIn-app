@@ -2,17 +2,20 @@ import { Box, Center, HStack, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BsTelephoneFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import BackBtn from '../Components/BackBtn';
 import Headers from '../Components/Headers';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 
 export default function CustomerSupport() {
+  const nav = useNavigate();
 
   return (
     <MainLayout>
       <Seo title='Customer Support' description='Letmein Customer Support' />
 
+      <Box px={["6%", "10%"]} >
       <Center>
         <Box w={["80%", "310px"]}>
           <Box mt="41px">
@@ -50,6 +53,10 @@ export default function CustomerSupport() {
           </Stack>
         </Box>
       </Center>
+
+      <BackBtn onclick={()=>nav("/home")}/>
+
+      </Box>
     </MainLayout>
   );
 }

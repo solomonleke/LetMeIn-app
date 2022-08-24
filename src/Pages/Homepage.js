@@ -62,13 +62,13 @@ export default function Homepage() {
                 )
             }
 
-            <Box bg="url(/landing2.png)" w="100%" minH={"100vh"} h={["auto", "auto", "auto", "auto"]} bgRepeat={"none"} bgSize="cover" pb={"32px"} pt="34.5px" px={["6%", "10%"]}>
+            <Box bg="url(/landing2.png)" w="100%"  h={["auto", "auto", "auto", "auto"]} bgRepeat={"none"} bgSize="cover" pb={"32px"} pt="34.5px" px={["6%", "10%"]}>
                 <HomeNav />
 
                 <Flex mt={["32px", "71px"]} justifyContent={"space-between"} flexDir={["column", "column", "column", "row", "row"]} alignItems="flex-start">
                     <Box w={["100%", "100%", "100%", "50%"]}>
-                        <Text mt={["0", "20px"]} fontSize={["40px", "50px", "60px", "60px", "70px"]} fontFamily="body" fontWeight={"800"} 
-                        lineHeight={"82.03px"} bg="linear-gradient(107.46deg, rgba(255, 255, 255, 0.0117) 6.95%, rgba(255, 255, 255, 0.0299) 95.17%)"
+                        <Text mt={["0", "20px"]} fontSize={["40px", "50px", "60px", "45px", "70px"]} fontFamily="body" fontWeight={"800"} 
+                        lineHeight={["62.03px","62.03px","72.03px","67.03px","82.03px",]} bg="linear-gradient(107.46deg, rgba(255, 255, 255, 0.0117) 6.95%, rgba(255, 255, 255, 0.0299) 95.17%)"
                         boxShadow={"2px 4px 4px -1px rgba(0, 0, 0, 0.11)"} rounded="8px" pl="20px" pr="10px" pt="5px" pb="10px" borderTop={"0.5px solid #fff"} borderLeft="0.5px solid #fff" color="#ffffff">Control Access to your Home with our Reliable Digital Security </Text>
 
                         <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} fontSize={["18px", "23px", "25px", "30px"]} fontFamily="body" fontWeight={"800"} w="233px" rounded={"5px"} _hover={{bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"}}
@@ -145,7 +145,7 @@ export default function Homepage() {
             <Box bg="url(/product-bg.png)" w="100%" px={["6%", "10%"]} pt="34px" bgRepeat={"none"} bgSize="cover" pb="32px">
                 <Text as={"span"} pb="4px" textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Product Offering</Text>
 
-                <SimpleGrid columns={["1", "2", "2", "3", "4"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" pb>
+                <SimpleGrid columns={["1", "2", "2", "3", "4"]} spacing={["30px", "60px", "70px", "60px","70px"]} mt="48px" pb>
                     <ProductCard
                         icon="simple"
                         title="simple"
@@ -255,10 +255,10 @@ export default function Homepage() {
             {
                 // Team section start here
             }
-            <Box bg="url(/product-bg.png)" bgRepeat={"none"} bgSize="cover" w="100%" px={["6%", "10%"]} py="35px" >
+            <Box id="our-team" bg="url(/product-bg.png)" bgRepeat={"none"} bgSize="cover" w="100%" px={["6%", "10%"]} py="35px" >
                 <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Our team</Text>
 
-                <SimpleGrid columns={["1", "1", "2", "3"]} spacing={["30px", "60px", "80px", "100px"]} mt="48px" px={["0%", "7%"]}>
+                <SimpleGrid columns={["1", "1", "2", "3"]} spacing={["30px", "60px", "80px","30px", "100px"]} mt="48px" px={["0%", "7%","7%","3%","7%",]}>
 
                     <TeamCard
                         img="ope"
@@ -284,7 +284,7 @@ export default function Homepage() {
             {
                 // Footer starts here
             }
-            <Box bg="url(/footer_bg.png)" bgRepeat={"none"} bgSize="cover" px={["6%", "10%"]} pt="34" pb={["150px", "66px"]} mt="150px">
+            <Box id='contact-us' bg="url(/footer_bg.png)" bgRepeat={"none"} bgSize="cover" px={["6%", "10%"]} pt="34" pb={["150px", "66px"]} mt="150px">
                 <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#ffffff">Contact us</Text>
                 <Flex justifyContent={"space-between"} pt="45px" flexDir={["column", "column", "row", "row", "row"]}>
                     <Box w={["100%", "40%"]}>
@@ -309,8 +309,10 @@ export default function Homepage() {
                         </Flex>
                         <Textarea id="message" onChange={handleChange} placeholder='Message' mt={"47px"} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{ border: "0" }} color={"#C9C9C9"} />
 
-                        <Button onClick={SendMessage} mt="32px" rounded={"0"} bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
-                            _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }}>Send Message</Button>
+                       <Flex justifyContent={"flex-end"}>
+                       <Button onClick={SendMessage} mt="32px" rounded={"0"} bg="#fff" border={"1px solid #C9C9C9"} color="#E02828" fontFamily="body" fontWeight={"900"} fontSize="18px" lineHeight={"21px"}
+                       _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" , color: "#000000"}} transition="1.3 ease-out" w="158px">Send</Button>
+                       </Flex>
                     </Box>
 
                 </Flex>

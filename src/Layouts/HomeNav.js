@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Spacer, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, LinkBox, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
@@ -16,13 +16,17 @@ export default function HomeNav() {
         },
         {
             name: "Our team",
-            link: "/homepage/our-team"
+            link: "/homepage/#our-team"
         },
         {
             name: "Contact us",
-            link: "/homepage/contact-us"
+            link: "/homepage/#contact-us"
         },
     ]
+
+    const navigate = (link)=>{
+        window.location.href = link
+    }
 
     const [ShowNav, setShowNav] = useState(false)
 
@@ -38,9 +42,9 @@ export default function HomeNav() {
                 <Flex justifyContent={"space-between"} spacing="30px" w={"50%"} cursor="pointer" display={["none", "none", "none", "flex"]}>
                     {
                         navBar.map((item, i) => (
-                            <a href={`${item.link}`}>
+                            <LinkBox  onClick={()=>navigate(item.link)}>
                                 <Text textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#ffffff" pb="1px" _hover={{ borderBottom: "4px solid  #50FCDA" }}>{item.name} </Text>
-                            </a>
+                            </LinkBox>
                         ))
                     }
 
@@ -60,9 +64,9 @@ export default function HomeNav() {
                     <Stack mt='32px' spacing={"12px"} textAlign="center" display={["flex", "flex", "flex", "none"]}>
                     {
                         navBar.map((item, i) => (
-                            <a href={`${item.link}`}>
+                            <LinkBox  onClick={()=>navigate(item.link)}>
                                 <Text textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#ffffff" pb="1px" _hover={{ borderBottom: "4px solid  #50FCDA" }}>{item.name} </Text>
-                            </a>
+                            </LinkBox>
                         ))
                     }
                     </Stack>

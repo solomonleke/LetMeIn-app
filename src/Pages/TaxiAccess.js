@@ -105,8 +105,8 @@ export default function TaxiAccess() {
                 <Headers text="Grant Taxi Access"/>
             </Box>
                 <Stack spacing={"43px"} mt="55px">
-                    <Input type='text' label='Name' isRequired  id="name" onChange={handleChange}/>
-                    <Input type='text' label='Plate Number' isRequired id="plateNo" onChange={handleChange} />
+                    <Input val={Payload.name ? true: false} value={Payload.name} type='text' label='Name' isRequired  id="name" onChange={handleChange}/>
+                    <Input val={Payload.plateNo ? true: false} value={Payload.plateNo} type='text' label='Plate Number' isRequired id="plateNo" onChange={handleChange} />
                 </Stack>
 
                 <Button mt={"72px"} disabled={Payload.name !="" && Payload.plateNo !="" ? false:true} onClick={requestAccess} isLoading={Loading}>Request Access</Button>

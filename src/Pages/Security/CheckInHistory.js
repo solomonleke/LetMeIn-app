@@ -4,12 +4,16 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BackBtn from '../../Components/BackBtn';
 import Button from '../../Components/Button';
+import CardList from '../../Components/CardList';
 import DelayMsg from '../../Components/DelayMsg';
 import HistoryCard from '../../Components/HistoryCard';
 import Input from '../../Components/Input';
+import MultipleCard from '../../Components/MultipleCard';
 import Pagination from '../../Components/Pagination';
+import TaxiCard from '../../Components/TaxiCard';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
+import moment from 'moment';
 
 export default function CheckInHistory() {
 
@@ -21,10 +25,28 @@ export default function CheckInHistory() {
   const isLogged = useSelector((state) => state.isLogged);
   const onlineUser = useSelector((state) => state.onlineUser);
   const [Verified, setVerified] = useState(onlineUser.user.Verified);
+  const [RequestType, setRequestType] = useState("")
+  const [SingleLen, setSingleLen] = useState("")
+  const [MultipleLen, setMultipleLen] = useState("")
+  const [TaxiLen, setTaxiLen] = useState("")
+  const [Data, setData] = useState("")
+
+ 
+  const apiLink = useSelector((state) => state.apiLink);
+
+  const [Show, setShow] = useState(false)
 
   const handleDuration = (e) => {
+    setShow(false)
     setDuration(e.target.value)
   }
+
+  const handleTypeof = (e) => {
+    setShow(false)
+    setRequestType(e.target.value)
+  }
+
+
   const nav = useNavigate();
 
   const handleCheckIn = () => {
@@ -41,52 +63,11 @@ export default function CheckInHistory() {
     setCheckOut(true)
     nav("/security-ops/check-out-history")
 
-
   }
-  //   const payload = {
-
-  //     method: "POST",
-
-  //     headers: {
-  //         "Content-Type": "application/JSON"
-  //     },
-
-  //     body: JSON.stringify(
-  //       {accessCode: AccessCode }
-  //     ),
-
-  // }
 
 
 
 
-  // const CheckOutVisitor = () => {
-
-  //   fetch('https://api.solomonleke.com.ng/user/CheckedIn',{
-
-  //     method: "POST",
-
-  //     headers: {
-  //         "Content-Type": "application/JSON"
-  //     },
-
-  //     body: JSON.stringify(
-  //       {_id: User._id }
-  //     ),
-
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //       console.log(data);
-  //       nav("/security-ops/grant-access")
-  //   })
-  //   .catch((error) => {
-  //       console.error('Error:', error);
-  //   });
-
-
-
-  // }
 
   const middleWare = () => {
     if (isLogged.isLogged !== true) {
@@ -97,7 +78,123 @@ export default function CheckInHistory() {
       nav("/home")
     }
   }
+
+  const Continue =()=>{
+    setLoading(true)
+
+    if(RequestType  == "Single Access"){
+
+      fetch(`${apiLink.link}/user/checkInHistory/${onlineUser.user.estateName}`)
+      .then(res => res.json())
+      .then(json => {
+        
+        console.log("checkHistory", json)
+        if (json.status == 200) {
+          setSingleLen(json.checkedIn_visitor.length)
+          setLoading(false)
+          setData(json.checkedIn_visitor)
+          setShow(true)
+        } else {
+          alert(json.message)
+          setLoading(false)
+        }
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
+
+    }else if(RequestType  == "Multiple Access"){
+
+      fetch(`${apiLink.link}/user/checkedInMultiple/${onlineUser.user.estateName}`)
+      .then(res => res.json())
+      .then(json => {
+        
+        console.log("checkHistory", json)
+        if (json.status == 200) {
+          setMultipleLen(json.checkedIn_Multiple.length)
+          setLoading(false)
+          setData(json.checkedIn_Multiple)
+          setShow(true)
+        } else {
+          alert(json.message)
+          setLoading(false)
+        }
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
+    } else if(RequestType  == "Taxi Access"){
+
+      fetch(`${apiLink.link}/user/checkInHistory_Taxi/${onlineUser.user.estateName}`)
+      .then(res => res.json())
+      .then(json => {
+        
+        console.log("checkHistory", json)
+        if (json.status == 200) {
+          setMultipleLen(json.checkedIn_Taxi.length)
+          setLoading(false)
+          setData(json.checkedIn_Taxi)
+          setShow(true)
+        } else {
+          alert(json.message)
+          setLoading(false)
+        }
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
+    }
+
+      
+
+
+  }
+
+  const checkLen = ()=>{
+    fetch(`${apiLink.link}/user/checkInHistory/${onlineUser.user.estateName}`)
+    .then(res => res.json())
+    .then(json => {
+      if (json.status == 200) {
+        setSingleLen(json.checkedIn_visitor.length)
+      } else {
+        alert(json.message)
+        setLoading(false)
+      }
+    })
+    .catch(error => {
+      console.log("error", error);
+    })
+    fetch(`${apiLink.link}/user/checkedInMultiple/${onlineUser.user.estateName}`)
+    .then(res => res.json())
+    .then(json => {
+      if (json.status == 200) {
+        setMultipleLen(json.checkedIn_Multiple.length)
+      } else {
+        alert(json.message)
+        setLoading(false)
+      }
+    })
+    .catch(error => {
+      console.log("error", error);
+    })
+    fetch(`${apiLink.link}/user/checkInHistory_Taxi/${onlineUser.user.estateName}`)
+    .then(res => res.json())
+    .then(json => {
+      if (json.status == 200) {
+        setTaxiLen(json.checkedIn_Taxi.length)
+      } else {
+        alert(json.message)
+        setLoading(false)
+      }
+    })
+    .catch(error => {
+      console.log("error", error);
+    })
+
+  }
+
   useEffect(() => {
+    checkLen()
     middleWare()
   }, []);
 
@@ -124,7 +221,7 @@ export default function CheckInHistory() {
 
               <HistoryCard
                 title="Total No of Access Request Granted"
-                text="22"
+                text={SingleLen + TaxiLen + MultipleLen}
               />
               <HistoryCard
                 title="Most Frequent Days "
@@ -134,10 +231,15 @@ export default function CheckInHistory() {
             </Flex>
 
 
+            <Select onChange={handleTypeof} color="#000000" rounded="0" value={RequestType} _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={RequestType ? "16px" : "12px"} fontWeight={"400"} placeholder='Request Type' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="61px">
+            <option value='Single Access'>Single Access</option>
+            <option value='Multiple Access'>Multiple Access</option>
+            <option value='Taxi Access'>Taxi Access</option>
+          
+           </Select>
 
 
-            <Select onChange={handleDuration} color="#000000" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Duration ? "16px" : "12px"} fontWeight={"400"} placeholder='Duration' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="61px">
-              <option value='Last-5'>Last 5</option>
+            <Select onChange={handleDuration} color="#000000" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Duration ? "16px" : "12px"} fontWeight={"400"} placeholder='Duration' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="20px">
               <option value='Last-10'>Last 10</option>
               <option value='Last-20'>Last 20</option>
               <option value='Last-30'>Last 30</option>
@@ -145,23 +247,73 @@ export default function CheckInHistory() {
             </Select>
             <Box>
 
-              <Stack spacing={"15px"} mt="32px">
-                <Text bg="#EEEEEE" color="#000000" fontWeight={'400'} fontSize={"14px"} fontFamily="body" p="8px" textAlign={"left"}  >
-                  Adebola Adeniran | Male | 08-May-22 | 5:45 pm
-                </Text>
-                <Text bg="#EEEEEE" color="#000000" fontWeight={'400'} fontSize={"14px"} fontFamily="body" p="8px" textAlign={"left"}  >
-                  Adebola Adeniran | Male | 08-May-22 | 5:45 pm
-                </Text>
-                <Text bg="#EEEEEE" color="#000000" fontWeight={'400'} fontSize={"14px"} fontFamily="body" p="8px" textAlign={"left"}  >
-                  Adebola Adeniran | Male | 08-May-22 | 5:45 pm
-                </Text>
-              </Stack>
+            {
+              Show && (
+                <Stack spacing={"15px"} mt="32px">
+            
+                {
+                  RequestType == "Single Access" && (
+
+                    Data?.map((item,i)=>(
+                      <CardList
+                      firstName ={item.firstName}
+                      lastName={item.lastName}
+                      gender={item.gender}
+                      date={moment(item.createdAt).format('ll')}
+                      houseNo={item.users.houseNo}
+                      streetName={item.users.streetName}
+                      />
+
+                    ))
+          
+                  )
+                }
+                   
+
+                {
+                  RequestType == "Multiple Access" && (
+
+                    Data?.map((item,i)=>(
+                      <MultipleCard 
+                      codeword ={item.codeName}
+                      numberAccess={item.number_Visitors}
+                      date={moment(item.createdAt).format('ll')}
+                      houseNo={item.User_visitors.houseNo}
+                      streetName={item.User_visitors.streetName}
+                      />
+                    ))
+
+                    
+                  )
+                }
+                  
+                    {
+                      RequestType == "Taxi Access" && (
+                        Data?.map((item,i)=>(
+                          <TaxiCard
+                          name ={item.visitorName}
+                          plateNo={item.plateNumber}
+                          date={moment(item.createdAt).format('ll')}
+                          houseNo={item.User_taxis.houseNo}
+                          streetName={item.User_taxis.streetName}
+                          />
+                        ))
+                      
+                      )
+                    }
+      
+                 
+                    
+                    </Stack>
+              )
+            }
+              
 
               <Box mt={"20px"}>
                 <Pagination />
               </Box>
 
-
+              <Button mt="60px" isLoading={Loading} onClick={Continue}>Continue</Button>
 
             </Box>
 
@@ -169,7 +321,7 @@ export default function CheckInHistory() {
 
         </Center>
 
-        <BackBtn/>
+        <BackBtn onclick={()=>nav("/home")}/>
 
       </Box>
 
