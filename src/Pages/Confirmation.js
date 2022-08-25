@@ -1,6 +1,8 @@
-import { Box, Button, Center, Flex, Img, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, Img, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useNavigate,useParams } from 'react-router-dom';
+import Button from '../Components/Button';
+import MainLayout from '../Layouts/Index';
 
 export default function Confirmation() {
     const nav = useNavigate()
@@ -12,25 +14,26 @@ export default function Confirmation() {
         nav("/sign-in")
     }
   return (
-    <Box bgImage="url(/bg_img.png)" bgSize={'cover'}
-    bgRepeat={'repeat'}
-    height="100vh">
 
-    <Center pt="30vh">
-        <Box pos={"relative"} >
-            <Img src="/full_logo.png" />
-            <Text fontSize={"18.5px"} color="#fff" fontWeight="500" w={"80%"} letterSpacing="1px" fontFamily={"body"} pos={"absolute"} left={"56px"} top={"58px"}>Easy . Safe . Smart </Text>
-          
-        </Box>
+    <MainLayout>
+    <Center pt="20vh" pb="100px">
+    <Box px={["18px","44px"]}  py="33px" boxShadow={"1px 1px 18px rgba(0, 0, 0, 0.25)"} color="#000" bg="#fff" rounded="6px" w={["80%", "75%", "55%", "45%", "35%"]}>
+
+       
+    <Text textAlign={"left"} fontSize={"28px"} textTransform="capitalize" color="#000000" fontWeight="800" w={"100%"}  fontFamily={"body"}>
+    {prefix.prefix} {lastName.lastName},</Text>
+    <Text textAlign={"left"} fontSize={"18px"} color="#000000" fontWeight="400" w={"100%"}  fontFamily={"body"} mt="12px">
+    Welcome to <Box fontWeight={"800"} as="span">LetMeIn</Box>, your reliable solution for smart access control of your residential space.
+   </Text>
+    <Text textAlign={"left"} fontSize={"18px"} color="#000000" fontWeight="400" w={"100%"}  fontFamily={"body"} mt="32px">
+    Your email has been verified successfully.
+   </Text>
+    
+ 
+    <Button onClick={proceed} mt="32px">Proceed to Login Page</Button>
+   
+    </Box>
     </Center>
-    <Text textAlign={"center"} fontSize={"16.5px"} color="#fff" fontWeight="400" w={"100%"}  fontFamily={"body"} mt="32px">
-    {prefix.prefix} {lastName.lastName}, welcome to LetMeIn an Easy, Safe, and smart Solution for you</Text>
-    <Text textAlign={"center"} fontSize={"16.5px"} color="#fff" fontWeight="400" w={"100%"}  fontFamily={"body"} mt="12px">
-           your email has been verified  successfully</Text>
-
-        <Flex justifyContent={"center"}>
-            <Button onClick={proceed} mt="32px">Proceed to Login</Button>
-        </Flex>
-</Box>
+    </MainLayout>
   );
 }

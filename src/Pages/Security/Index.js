@@ -251,7 +251,7 @@ const checkVerification = ()=>{
 
       {
         Grant == false ? (
-          <Center mt={"70px"} cursor="pointer" opacity={Verified == false && "0.07"}>
+          <Center mt={"70px"} cursor="pointer" opacity={Verified == false && "0.03"}>
 
           <Box w={["80%", "35%"]}>
   

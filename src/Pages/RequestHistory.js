@@ -164,7 +164,7 @@ export default function RequestHistory() {
                                         gender={item.gender}
                                         date={moment(item.createdAt).format('ll')}
                                         houseNo={User.houseNo}
-                                        streetName={User.streetName}
+                                        streetName={`${User.streetName} | Access Code ${item.accessCode}`}
                                         />
 
                                         ))
@@ -182,7 +182,7 @@ export default function RequestHistory() {
                                         numberAccess={item.number_Visitors}
                                         date={moment(item.createdAt).format('ll')}
                                         houseNo={User.houseNo}
-                                        streetName={User.streetName}
+                                        streetName={`${User.streetName} | Access Code ${item.accessCode}`}
                                         />
                                         ))
                                         
@@ -198,7 +198,7 @@ export default function RequestHistory() {
                                     plateNo={item.plateNumber}
                                     date={moment(item.createdAt).format('ll')}
                                     houseNo={User.houseNo}
-                                    streetName={User.streetName}
+                                    streetName={`${User.streetName} | Access Code ${item.accessCode}`}
                                     />
                                  ))
                                     

@@ -1,6 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Button from './Button';
 
 export default function DelayMsg() {
     const onlineUser = useSelector((state) => state.onlineUser);
@@ -14,8 +15,8 @@ export default function DelayMsg() {
         .then(data => {
           
             if(data.status === 200){
-                setData(data.estateManager[0])
-                // console.log("estate user ", data.estateManager[1])
+                setData(data.estateManager[data.estateManager.length > 1 ? data.estateManager.length - 1 : 0])
+               
             }
           
         })
@@ -29,17 +30,17 @@ export default function DelayMsg() {
         estateUser()
     }, [])
   return (
-    <Box opacity={"1"} w={["80%", "35%"]} bg="#fff" px="22px" py="11px">
-    <Text fontSize={"15px"} fontFamily="body" fontWeight={"700"} color="#424242">Just One Last Step...</Text>
-    <Text pb="9px" fontSize={"15px"} fontFamily="body" fontWeight={"500"} color="#424242">Your profile is going to be verified by your Estate Administrator.
-    <br/>
-    <br/>
-    Kindly reload your page after 20 minutes to check if you've been verified
+    <Box mt={["-200px","-200px","-120px","-100px","-80px"]} opacity={"1"} w={["80%", "75%", "55%", "45%", "35%"]} bg="#fff" px="22px" py="17px" boxShadow={"1px 1px 18px rgba(0, 0, 0, 0.25)"} rounded="6px">
+    <Text fontSize={"14px"} fontFamily="body" fontWeight={"600"} color="#424242">Just One Last Step...</Text>
+    <Text mt="16px" borderLeft={"7px solid #11C19E"} pl="8px" fontSize={"14px"} fontFamily="body" fontWeight={"300"} color="#000000">Your profile is going to be verified by your Estate Administrator. </Text>
+    <Text  mt="16px" borderLeft={"7px solid #11C19E"} pl="8px" fontSize={"14px"} fontFamily="body" fontWeight={"300"} color="#000000">
+    To clear this message, kindly <Box fontWeight={"700"} as="span">refresh</Box> this page after few minutes.
     </Text>
-    <hr />
-    <Text fontSize={"15px"} fontFamily="body" fontWeight={"700"} color="#424242" pt="9px">If this is taking too long...</Text>
-    <Text fontSize={"15px"} fontFamily="body" fontWeight={"500"} color="#424242">You can contact {Data?.prefix}. {Data?.lastName||"Support Team"} {Data?.firstName||""} <Box as="span" color={"#162B96"} textDecor="underline">{Data?.phone||"08068840125"}</Box></Text>
-
+    <Text  mt="16px" borderLeft={"7px solid #11C19E"} pl="8px" fontSize={"14px"} fontFamily="body" fontWeight={"300"} color="#000000">
+    If the verification process is taking too long, kindly contact <Box as="span" fontWeight={"700"}>{Data?.prefix}. {Data?.lastName||"Support Team"}</Box> - <Box as="span" fontWeight="700" color={"#1869E1"} textDecor="underline"> {Data?.phone||"08068840125"}</Box>
+    </Text>
+   
+    <Button mt="45px" onClick={()=>window.location.reload()} >Refresh</Button>
   </Box>
   );
 }
