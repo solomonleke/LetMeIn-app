@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton,  Stack, Text} from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton,  Select,  Stack, Text} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +13,8 @@ export default function SignIn() {
     const [Success, setSuccess] = useState(false);
     const [AlertMessage, setAlertMessage] = useState("");
     const [Loading, setLoading] = useState(false);
+    const [UserType, setUserType] = useState("");
+    const [Show, setShow] = useState(false);
     
     const isLogged = useSelector((state) => state.isLogged);
     const onlineUser = useSelector((state) => state.onlineUser);
@@ -32,6 +34,13 @@ export default function SignIn() {
 
     const handleSignUp = (e) => {
         setPayload({ ...Payload, [e.target.id]: e.target.value })
+    }
+
+    const handleUserType = (e)=>{
+
+        setUserType(e.target.value)
+
+        setShow(true)
     }
 
     const payload = {
@@ -167,26 +176,48 @@ export default function SignIn() {
             }
 
 
-            <Center>
+            {
+                Show == false ? (
+                    <Center>
+            
+                    <Box w={["80%", "310px"]}>
+        
+                    <Select color={"00000"} onChange={handleUserType} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={UserType} fontSize={UserType ? "16px":"12px"} fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="62px">
+                    <option value='Resident'>Resident</option>
+                    <option value='Estate Manager'>Estate Manager</option>
+                    <option value='Security Operative'>Security Operative</option>
+                    </Select>
+                    </Box>
+        
+                    </Center>
+        
+        
+                ):(
+                    <Center>
 
 
-                <Box w={["80%", "310px"]}>
+                    <Box w={["80%", "310px"]}>
+    
+    
+                        <Stack mt="66px" spacing="15px">
+    
+                            <Input val={Payload.userName && true} isRequired label={UserType =="Security Operative" ? "Phone No": "Email or Phone No"} value={Payload.userName} id='userName' type='text' onChange={handleSignUp} />
+                            <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />
+    
+                        </Stack>
+                        <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="5px" color={"blue"}><Link to="/sign-in/forget-password">Forget password</Link></Text>
+                        <Text mt="30px" fontFamily={"body"}>Don't have an account ? <Link to="/sign-up"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-Up</Box></Link> </Text>
+                       
+                        <Button w={"100%"} isLoading={Loading} mb="32px" mt="25px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>
+                    </Box>
+    
+    
+                </Center>
+                )
+            }
+           
 
-
-                    <Stack mt="66px" spacing="15px">
-
-                        <Input val={Payload.userName && true} isRequired label="Email or Phone No" value={Payload.userName} id='userName' type='text' onChange={handleSignUp} />
-                        <Input val={Payload.password && true} isRequired label="Password" value={Payload.password} type="password" id='password' onChange={handleSignUp} />
-
-                    </Stack>
-                    <Text cursor={"pointer"} float={"right"} fontSize="13px" mt="5px" color={"blue"}><Link to="/sign-in/forget-password">Forget password</Link></Text>
-                    <Text mt="30px" fontFamily={"body"}>Don't have an account ? <Link to="/sign-up"><Box as='span' borderBottom="1.5px solid #E02828" pb="5px" cursor={"pointer"}>Sign-Up</Box></Link> </Text>
-                   
-                    <Button w={"100%"} isLoading={Loading} mb="32px" mt="25px" disabled={Payload.userType !== "" ? false : true} onClick={Sign_in}>Enter</Button>
-                </Box>
-
-
-            </Center>
+          
 
            
 

@@ -32,6 +32,7 @@ export default function TaxiAccess() {
     const [AccessCode, setAccessCode] = useState("");
     const nav = useNavigate();
     const isLogged = useSelector((state) => state.isLogged);
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
 
     const handleChange = (e)=> {
         setPayload({...Payload, [e.target.id]: e.target.value })
@@ -87,6 +88,11 @@ export default function TaxiAccess() {
     const middleWare = ()=>{
         if(isLogged.isLogged !== true){
             nav("/sign-in")
+        }
+        if(onlineUser.user.userType !== "Estate manager"){
+            if(Verified == false){
+                nav("/home")
+            }
         }
     }
     useEffect(() => {

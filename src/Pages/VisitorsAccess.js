@@ -24,6 +24,7 @@ export default function VisitorsAccess() {
     const [Copied, setCopied] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const onlineUser = useSelector((state) => state.onlineUser);
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
     const [Loading, setLoading] = useState(false);
     const [Single, setSingle] = useState(true);
     const [Multiple, setMultiple] = useState(false);
@@ -174,6 +175,13 @@ export default function VisitorsAccess() {
         if(isLogged.isLogged !== true){
             nav("/sign-in")
         }
+
+        if(onlineUser.user.userType !== "Estate manager"){
+            if(Verified == false){
+                nav("/home")
+            }
+        }
+       
     }
     useEffect(() => {
         middleWare()

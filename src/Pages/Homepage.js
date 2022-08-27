@@ -9,11 +9,14 @@ import HomeNav from '../Layouts/HomeNav';
 export default function Homepage() {
     const [Coming, setComing] = useState(false)
     const [Loading, setLoading] = useState(true)
+    const [Show, setShow] = useState(false)
     const [Payload, setPayload] = useState({
         name: "",
         email: "",
         message: ""
     })
+
+    
     const nav = useNavigate();
 
 
@@ -29,7 +32,8 @@ export default function Homepage() {
         setPayload({ ...Payload, [e.target.id]: e.target.value })
     }
     const SendMessage = () => {
-
+       alert( JSON.stringify(Payload))
+       setShow(true)
     }
 
     useEffect(() => {
@@ -291,16 +295,24 @@ export default function Homepage() {
                         <HStack spacing={"17px"}>
                             <Image src="/phone-icon.png" />
 
-                            <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">07023938420</Text>
+                            <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">08068840125</Text>
                         </HStack>
                         <HStack spacing={"17px"} mt="26px">
                             <Image src="/email-icon.png" />
 
-                            <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">Support@letmein.com</Text>
+                            <Text fontFamily="body" fontWeight={"800"} fontSize="20px" color="#ffffff">Support@letmein.ng</Text>
                         </HStack>
                     </Box>
 
                     <Box w={["100%", "50%"]}>
+
+                   {
+                    Show && (
+                        <Text mt={"-40px"} mb="10px" color="#fff" fontFamily="body" fontWeight={"700"} fontSize="18px">
+                        Message Sent successfully
+                    </Text>
+                    )
+                   }
                         <Flex justifyContent="space-between" flexDir={["column", "column", "column", "row", "row"]}>
 
                             <Input id="name" onChange={handleChange} mt={["32px", "0px"]} placeholder='Name' w={["100%", "100%", "100%", "45%", "45%",]} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{ border: "0" }} color={"#C9C9C9"} />
@@ -309,8 +321,8 @@ export default function Homepage() {
                         </Flex>
                         <Textarea id="message" onChange={handleChange} placeholder='Message' mt={"47px"} rounded={"0"} bg="#fff" fontFamily="body" fontWeight={"400"} fontSize="14px" _focus={{ border: "0" }} color={"#C9C9C9"} />
 
-                       <Flex justifyContent={"flex-end"}>
-                       <Button onClick={SendMessage} mt="32px" rounded={"0"} bg="#fff" border={"1px solid #C9C9C9"} color="#E02828" fontFamily="body" fontWeight={"900"} fontSize="18px" lineHeight={"21px"}
+                       <Flex justifyContent={"flex-start"}>
+                       <Button onClick={SendMessage} disabled={Payload.name !== "" && Payload.email !=="" && Payload.message !=="" ? false: true} mt="32px" rounded={"0"} bg="#fff" border={"1px solid #C9C9C9"} color="#E02828" fontFamily="body" fontWeight={"900"} fontSize="18px" lineHeight={"21px"}
                        _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" , color: "#000000"}} transition="1.3 ease-out" w="158px">Send</Button>
                        </Flex>
                     </Box>

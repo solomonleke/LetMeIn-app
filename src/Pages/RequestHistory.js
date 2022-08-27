@@ -29,6 +29,8 @@ export default function RequestHistory() {
     const [Loading, setLoading] = useState(false)
     const apiLink = useSelector((state) => state.apiLink);
     const onlineUser = useSelector((state) => state.onlineUser);
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
+
 
 
     const handleDuration = (e)=>{
@@ -100,6 +102,12 @@ export default function RequestHistory() {
         if(isLogged.isLogged !== true){
             nav("/sign-in")
         }
+        if(onlineUser.user.userType !== "Estate manager"){
+            if(Verified == false){
+                nav("/home")
+            }
+        }
+       
     }
     useEffect(() => {
         checkLen()
@@ -164,7 +172,7 @@ export default function RequestHistory() {
                                         gender={item.gender}
                                         date={moment(item.createdAt).format('ll')}
                                         houseNo={User.houseNo}
-                                        streetName={`${User.streetName} | Access Code ${item.accessCode}`}
+                                        streetName={`Access Code ${item.accessCode}`}
                                         />
 
                                         ))
@@ -182,7 +190,7 @@ export default function RequestHistory() {
                                         numberAccess={item.number_Visitors}
                                         date={moment(item.createdAt).format('ll')}
                                         houseNo={User.houseNo}
-                                        streetName={`${User.streetName} | Access Code ${item.accessCode}`}
+                                        streetName={`Access Code ${item.accessCode}`}
                                         />
                                         ))
                                         
@@ -198,7 +206,7 @@ export default function RequestHistory() {
                                     plateNo={item.plateNumber}
                                     date={moment(item.createdAt).format('ll')}
                                     houseNo={User.houseNo}
-                                    streetName={`${User.streetName} | Access Code ${item.accessCode}`}
+                                    streetName={`Access Code ${item.accessCode}`}
                                     />
                                  ))
                                     

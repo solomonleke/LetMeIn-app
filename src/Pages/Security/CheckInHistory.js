@@ -261,7 +261,7 @@ export default function CheckInHistory() {
                       gender={item.gender}
                       date={moment(item.createdAt).format('ll')}
                       houseNo={item.users.houseNo}
-                      streetName={item.users.streetName}
+                      streetName={`Access Code ${item.accessCode}`}
                       />
 
                     ))
@@ -279,8 +279,7 @@ export default function CheckInHistory() {
                       numberAccess={item.number_Visitors}
                       date={moment(item.createdAt).format('ll')}
                       houseNo={item.User_visitors.houseNo}
-                      streetName={item.User_visitors.streetName}
-                      />
+                      streetName={`Access Code ${item.accessCode}`}                     />
                     ))
 
                     
@@ -295,7 +294,7 @@ export default function CheckInHistory() {
                           plateNo={item.plateNumber}
                           date={moment(item.createdAt).format('ll')}
                           houseNo={item.User_taxis.houseNo}
-                          streetName={item.User_taxis.streetName}
+                          streetName={`Access Code ${item.accessCode}`}
                           />
                         ))
                       

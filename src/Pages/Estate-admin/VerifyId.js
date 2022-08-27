@@ -41,6 +41,7 @@ export default function VerifyId() {
     const [ResidentLen, setResidentLen] = useState("");
     const [LandlordLen, setLandlordLen] = useState("");
     const [SecurityLen, setSecurityLen] = useState("");
+    const isLogged = useSelector((state) => state.isLogged);
 
     const [isLoading, setIsLoading] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
@@ -315,7 +316,7 @@ export default function VerifyId() {
 
                     dispatch(
                         
-                        { type: "VERIFIED_COUNT", payload: { data: data.resident?.length + data.landlord?.length + data.security_OPs?.length } }
+                        { type: "VERIFIED_COUNT", payload: { data: data.resident?.length  + data.security_OPs?.length } }
                     );
                     dispatch(
                     
@@ -335,6 +336,11 @@ export default function VerifyId() {
     }
 
   
+    const middleWare = () => {
+        if (isLogged.isLogged !== true) {
+            nav("/sign-in")
+        }
+    }
 
     useEffect(() => {
 
@@ -383,24 +389,24 @@ export default function VerifyId() {
                                     </Box>
 
                                     {
-                                        onlineUser.user.userType === "Estate manager" && (
+                                        // onlineUser.user.userType === "Estate manager" && (
 
-                                            <Box pos={"relative"}>
-                                            <Button onClick={handleLandlord}>Verify LandLord</Button>
-                                            {
-                                                LandlordLen >= 1 && (
-                                                    <Text h={"18px"} w={"18px"}
-                                                        rounded={"100%"} bg="#EDEDED"
-                                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                                        fontFamily="body" fontWeight={"400"} color="#000000"
-                                                        fontSize={"12"}>{LandlordLen} </Text>
-                                                )
-                                            }
+                                        //     <Box pos={"relative"}>
+                                        //     <Button onClick={handleLandlord}>Verify LandLord</Button>
+                                        //     {
+                                        //         LandlordLen >= 1 && (
+                                        //             <Text h={"18px"} w={"18px"}
+                                        //                 rounded={"100%"} bg="#EDEDED"
+                                        //                 boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                        //                 pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                        //                 fontFamily="body" fontWeight={"400"} color="#000000"
+                                        //                 fontSize={"12"}>{LandlordLen} </Text>
+                                        //         )
+                                        //     }
     
     
-                                        </Box>
-                                        )
+                                        // </Box>
+                                        // )
                                     }
 
                                   
@@ -485,7 +491,7 @@ export default function VerifyId() {
                                                     <HStack id="verify" spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item.id, item.firstName, item.lastName, item.userType,item.Verified)}>
                                                         <Box w={["50%","70%"]}>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
-                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo}, {item.streetName} <Divider/> 0{item.phone} <Divider/> {moment(item.time).format("MMM Do ")}</Text>
+                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo} <Divider/> 0{item.phone} <Divider/> {moment(item.time).format("MMM Do ")}</Text>
 
                                                         </Box>
 

@@ -93,3 +93,15 @@ code {
 html {
   scroll-behavior: smooth;
 }
+
+.progress-bar-2{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+
+
+}
+.progress-bar-2 span {
+  background: #A3A3A3;
+  
+}

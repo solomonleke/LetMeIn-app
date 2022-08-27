@@ -67,7 +67,7 @@ const checkVerification = ()=>{
             <Seo title='Resident' description='Resident for LetMeIn' />
 
 
-            <Center mt={["100px", "171px"]}>
+            <Center mt={["100px", "171px"]} opacity={Verified == false && "0.1"}>
                 <Stack spacing={'15px'} cursor="pointer">
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
                     <Button disabled={Verified ? false : true} onClick={visitor_access}>Visitor Access</Button>

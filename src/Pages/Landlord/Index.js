@@ -105,7 +105,7 @@ export default function LandLord() {
             <Seo title='LandLord' description='Landlord for LetMeIn' />
 
 
-            <Center mt={["100px", "171px"]}>
+            <Center mt={["100px", "171px"]} opacity={Verified == false && "0.04"}>
                 <Stack spacing={'15px'} cursor="pointer" w={["80%", "310px"]}>
                     <GreetingText name={onlineUser.user.lastName} />
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
@@ -130,7 +130,7 @@ export default function LandLord() {
 
             {
                 Verified == false && (
-            <Center>
+            <Center mt={["0px","-90px"]}>
             <DelayMsg/>
         
           </Center>

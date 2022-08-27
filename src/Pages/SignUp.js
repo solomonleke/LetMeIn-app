@@ -27,11 +27,11 @@ export default function SignUp() {
        prefix: "",
        userType: "",
        estateName: "",
-       firstName: "",
+       firstName: "", 
        lastName: "",
        email: "",
        phone: "",
-       streetName: "",
+       streetName: "nullable",
        houseNo: "",
        password: "",
        re_enter_password: ""
@@ -82,7 +82,7 @@ export default function SignUp() {
     const Sign_up  = ()=> {
       
         if(Payload.prefix !=="" && Payload.userType !=="" && Payload.estateName !=="" && Payload.firstName !=="" && Payload.lastName !=="" && Payload.email !==""
-         && Payload.phone !=="" && Payload.streetName !=="" && Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
+         && Payload.phone !==""  && Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !==""){
 
             if(Payload.password == Payload.re_enter_password){
                 setLoading(true)
@@ -251,8 +251,9 @@ export default function SignUp() {
     
                 <Select color={"00000"} onChange={handleSignUp} id="userType" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.userType} fontSize={Payload.userType ? "16px":"12px"} fontWeight={"400"}   placeholder='I am a...................' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
                 <option value='Resident'>Resident</option>
-                <option value='LandLord'>LandLord</option>
-                <option value='Estate Manager'>Estate Manager</option>
+{                
+    // <option value='LandLord'>LandLord</option>
+}                <option value='Estate Manager'>Estate Manager</option>
                 <option value='Security Operative'>Security Operative</option>
                 </Select>
     
@@ -274,6 +275,9 @@ export default function SignUp() {
                         <option value='Mr'>Mr</option>
                         <option value='Mrs'>Mrs</option>
                         <option value='Miss'>Miss</option>
+                        <option value='Hon.'>Hon.</option>
+                        <option value='Chief'>Chief</option>
+                        <option value='Dr.'>Dr.</option>
                         </Select>
             
                         <Input val={Payload.firstName && true} isRequired label="FirstName" value={Payload.firstName}  id='firstName' type='text'  onChange={handleSignUp}/>
@@ -323,13 +327,7 @@ export default function SignUp() {
                         (
                             <Stack spacing="15px">
                             
-                            <Select isRequired  onChange={handleSignUp} id="streetName" color="#00000" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.streetName} fontSize={Payload.streetName ? "16px":"12px"} fontWeight={"400"}   placeholder='Street' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
-                            <option value='Obidu close'>Obidu close</option>
-                            <option value='Rice Street'>Rice Street</option>
-                            <option value='Brown Street'>Brown Street</option>
-                            <option value='Ajoke Street'>Ajoke Street</option>
-                            <option value='Peace Street'>Peace Street</option>
-                            </Select>
+                           
                             <Input val={Payload.houseNo && true} isRequired label="House No." value={Payload.houseNo} type="number" id='houseNo' onChange={handleSignUp}/>
                             </Stack>
                         )
@@ -349,7 +347,7 @@ export default function SignUp() {
                     {
                         Payload.userType == "Security Operative" ? 
                         <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={ Payload.password !=="" && Payload.re_enter_password !=="" ? false: true} onClick={Sign_up_Security  }>Register</Button>:
-                        <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={Payload.streetName !=="" && Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !=="" ? false: true} onClick={Sign_up}>Register</Button>
+                        <Button w={"100%"} isLoading= {Loading} mb="32px" mt="35px" disabled={Payload.houseNo !=="" && Payload.password !=="" && Payload.re_enter_password !=="" ? false: true} onClick={Sign_up}>Register</Button>
 
 
                     }

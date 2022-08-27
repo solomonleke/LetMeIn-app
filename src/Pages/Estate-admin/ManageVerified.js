@@ -154,7 +154,6 @@ export default function ManageVerified() {
 
                         <Select onChange={handleCategory} color="#000000" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} fontSize={Category ? "16px" : "12px"} fontWeight={"400"} placeholder='Category' bg={"#F1FCFA"} _hover={{ bg: "#F1FCFA" }} size={"lg"} mt="61px">
                             <option value='Security'>Security Operative</option>
-                            <option value='LandLord'>LandLord</option>
                             <option value='Resident'>Resident</option>
                         </Select>
 
@@ -181,7 +180,7 @@ export default function ManageVerified() {
                                     <HStack  spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item.id, item.firstName, item.lastName, item.userType, item.Verified)}>
                                         <Box w={["50%", "70%"]}>
                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
-                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo}, {item.streetName} <Divider /> 0{item.phone} <Divider /> {moment(item.time).format("MMM Do ")}</Text>
+                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo} <Divider /> 0{item.phone} <Divider /> {moment(item.time).format("MMM Do ")}</Text>
 
                                         </Box>
 
