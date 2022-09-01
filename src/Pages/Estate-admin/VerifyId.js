@@ -556,7 +556,11 @@ export default function VerifyId() {
 
                                                 ))
                                             }
-                                          <Pagination/>
+                                            {
+
+                                                //  <Pagination />
+                                  
+                                               }
                                         </Stack>
                                         <Button mb="18px" mt="65px" onClick={verify} >Verify All</Button>
 

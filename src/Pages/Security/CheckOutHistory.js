@@ -311,8 +311,12 @@ export default function CheckOutHistory() {
               
 
               <Box mt={"20px"}>
-                <Pagination />
-              </Box>
+              {
+
+                //  <Pagination />
+  
+               }
+               </Box>
 
               <Button mt="60px" isLoading={Loading} onClick={Continue}>Continue</Button>
 

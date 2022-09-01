@@ -9,6 +9,7 @@ import EstateAdmin from '../Pages/Estate-admin/Index'
 import ManageVerified from '../Pages/Estate-admin/ManageVerified'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
 import ForgetPassword from '../Pages/ForgetPassword'
+import FullReport from '../Pages/FullReport'
 import Home from '../Pages/Home'
 import Homepage from '../Pages/Homepage'
 import IndexHome from '../Pages/Index'
@@ -39,9 +40,9 @@ export default function IndexRoutes() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<IndexHome/>}/>
+          
             <Route path='/home' element={<Home/>}/>
-            <Route path='/homepage' element={<Homepage/>}/>
+            <Route path='/' element={<Homepage/>}/>
             <Route path='/confirmation/:lastName/:prefix' element={<Confirmation/>}/>
             <Route path='/sign-up' element={<SignUp/>}/>
             <Route path='/sign-in' element={<SignIn/>}/>
@@ -67,6 +68,7 @@ export default function IndexRoutes() {
             <Route path='/verify-id' element={<VerifyId/>}/>
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>
             <Route path='/verification' element={<Verification/>}/>
+            <Route path='/full-report' element={<FullReport/>}/>
            
         </Routes>
     </BrowserRouter>

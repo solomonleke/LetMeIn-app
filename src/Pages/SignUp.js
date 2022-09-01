@@ -31,7 +31,7 @@ export default function SignUp() {
        lastName: "",
        email: "",
        phone: "",
-       streetName: "nullable",
+       streetName: "",
        houseNo: "",
        password: "",
        re_enter_password: ""
@@ -239,10 +239,9 @@ export default function SignUp() {
                 <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"}  color="#939393" mt="42px">Enter Estate Name</Text>
     
                 <Select onChange={handleSignUp} color={"00000"} id="estateName" rounded="0"  _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.estateName} fontSize={Payload.estateName ? "16px":"12px"} fontWeight={"400"}    placeholder='Select Estate Name' bg={"#fff"} _hover={{bg: "#fff"}} w="100%" size={"lg"} mt="12px">
-                <option value='Lake view'>Lake view Estate</option>
-                <option value='Banana Estate'>Banana Estate</option>
                 <option value='Canal Estate'>Canal Estate</option>
-                <option value='Amen Estate'>Amen Estate</option>
+                <option value='Evergreen Estate'>Evergreen Estate</option>
+                
                
                 </Select>
 
@@ -328,7 +327,7 @@ export default function SignUp() {
                             <Stack spacing="15px">
                             
                            
-                            <Input val={Payload.houseNo && true} isRequired label="House No." value={Payload.houseNo} type="number" id='houseNo' onChange={handleSignUp}/>
+                            <Input val={Payload.houseNo && true} isRequired label="House No." value={Payload.houseNo} type="text" id='houseNo' onChange={handleSignUp}/>
                             </Stack>
                         )
                     }

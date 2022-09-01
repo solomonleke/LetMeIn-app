@@ -309,7 +309,11 @@ export default function CheckInHistory() {
               
 
               <Box mt={"20px"}>
-                <Pagination />
+             {
+
+              //  <Pagination />
+
+             }
               </Box>
 
               <Button mt="60px" isLoading={Loading} onClick={Continue}>Continue</Button>

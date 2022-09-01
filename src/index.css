@@ -105,3 +105,57 @@ html {
   background: #A3A3A3;
   
 }
+.preloader{
+  display: flex;
+  justify-content: center;
+}
+
+.preloader::after{
+  content: "";
+  width: 120px;
+  height: 120px;
+  border: 10px solid #01896e;
+  border-top-color: #00FFCD;
+  border-bottom-color: #00FFCD;
+  border-radius: 100%;
+  animation: loading 1s linear infinite ;
+
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.glow, .glow2, .glow3 {
+  display: flex;
+  justify-content: center;
+}
+
+.glow {
+  width: 200px;
+  height: 200px;
+  border: 15px solid #EB7B62;
+  border-radius: 100%;
+  animation: glow 1s linear infinite;
+}
+.glow2 {
+  width: 230px;
+  height: 230px;
+  border: 15px solid #FFD1C7;
+  transform: scale();
+  border-radius: 100%;
+}
+
+
+/* @keyframes glow {
+  from {
+    width: 350px;
+    height: 350px;
+  }
+  to {
+    width: 0px;
+    height: 0px;
+  }
+} */

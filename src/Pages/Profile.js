@@ -63,7 +63,7 @@ const Profile = () => {
                         <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
                             <Text fontSize={"14px"} w="20%" fontFamily="body" fontWeight={"400"} color="#424242">Address </Text>
 
-                            <Text fontSize={"14px"} w="80%" fontFamily="body" fontWeight={"700"} color="#000000">{onlineUser.user.houseNo||""}, {onlineUser.user.streetName||""}, {onlineUser.user.estateName}</Text>
+                            <Text fontSize={"14px"} w="80%" fontFamily="body" fontWeight={"700"} color="#000000">{onlineUser.user.houseNo||""}, {onlineUser.user.estateName}</Text>
                         </HStack>
 
                     </Stack>

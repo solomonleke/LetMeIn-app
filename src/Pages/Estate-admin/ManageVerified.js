@@ -243,7 +243,13 @@ export default function ManageVerified() {
 
 
                         </Stack>
-                       <Box mt="10px"> <Pagination/></Box>
+                       <Box mt="10px"> 
+                       {
+
+                        //  <Pagination />
+          
+                       }
+                       </Box>
                         <Button mt="60px" onClick={Continue}>Continue</Button>
                     </Box>
                 </Center>
