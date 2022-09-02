@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
+import GreetingText from '../../Components/GreetingText';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 
@@ -69,6 +70,8 @@ const checkVerification = ()=>{
 
             <Center mt={["100px", "171px"]} opacity={Verified == false && "0.1"}>
                 <Stack spacing={'15px'} cursor="pointer">
+                <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`}/>
+
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
                     <Button disabled={Verified ? false : true} onClick={visitor_access}>Visitor Access</Button>
                     <Button disabled={Verified ? false : true} onClick={taxi_access}>Taxi Access</Button>

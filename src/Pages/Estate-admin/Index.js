@@ -80,7 +80,7 @@ export default function EstateAdmin() {
 
             <Center mt={["100px", "131px"]}>
                 <Stack spacing={'15px'} cursor="pointer" w={["80%", "310px"]}>
-                   <GreetingText name={onlineUser.user.lastName}/>
+                   <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`}/>
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
                     <Button onClick={visitor_access}>Visitor Access</Button>
                     <Button onClick={taxi_access}>Taxi Access</Button>
