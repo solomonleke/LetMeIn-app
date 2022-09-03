@@ -19,6 +19,7 @@ export default function SecurityOps() {
   const [Grant, setGrant] = useState(false);
   const [AccessCode, setAccessCode] = useState("");
   const [Success, setSuccess] = useState(false);
+  const [FailedCheckout, setFailedCheckout] = useState(false);
   const [Message, setMessage] = useState("");
   const [SuccessOut, setSuccessOut] = useState(false);
 
@@ -176,6 +177,7 @@ export default function SecurityOps() {
     .then(data => {
       
         if(data.status === 200){
+
           setTimeout(() => {
            nav("/security-ops")
            setGrant(false)
@@ -183,9 +185,14 @@ export default function SecurityOps() {
 
           setLoading(false)
           setSuccessOut(true)
-   
+          
         }else{
+          setFailedCheckout(true)
           setLoading(false)
+          setTimeout(() => {
+            setFailedCheckout(false)
+            
+          }, 3000);
           console.log(data);
         }
       
@@ -342,6 +349,16 @@ const checkVerification = ()=>{
               )
             }
 
+            {
+              FailedCheckout && (
+                <Alert status='info' mt="15px"  color="#00000" >
+                <AlertIcon/>
+                <AlertTitle mr={2}>User already Checked out</AlertTitle>
+                <CloseButton onC lick={() => setFailedCheckout(false)} position='absolute' right='8px' top='8px' />
+                 </Alert>
+              )
+            }
+            
             {
               SuccessOut && (
                 <Alert status='success' mt="15px"  color="#fff" >

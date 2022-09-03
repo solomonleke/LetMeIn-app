@@ -155,7 +155,7 @@ export default function CheckOutHistory() {
       if (json.status == 200) {
         setSingleLen(json.checkedOut_visitor.length)
       } else {
-        alert(json.message)
+       console.log("json error", json)
         setLoading(false)
       }
     })
@@ -168,7 +168,7 @@ export default function CheckOutHistory() {
       if (json.status == 200) {
         setMultipleLen(json.checkedOut_Multiple.length)
       } else {
-        alert(json.message)
+       console.log("json error", json)
         setLoading(false)
       }
     })
@@ -181,7 +181,7 @@ export default function CheckOutHistory() {
       if (json.status == 200) {
         setTaxiLen(json.checkedOut_Taxi.length)
       } else {
-        alert(json.message)
+       console.log("json error", json)
         setLoading(false)
       }
     })

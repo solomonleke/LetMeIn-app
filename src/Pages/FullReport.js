@@ -1,9 +1,10 @@
-import { Box, Center, Stack, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, Image, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BackBtn from '../Components/BackBtn';
 import Headers from '../Components/Headers';
+import Preloader from '../Components/Preloader';
 import ReportCard from '../Components/ReportCard';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
@@ -12,7 +13,8 @@ export default function FullReport() {
     const onlineUser = useSelector((state) => state.onlineUser);
     const nav = useNavigate();
     const apiLink = useSelector((state) => state.apiLink);
-    const [FullData, setFullData] = useState({})
+    const [FullData, setFullData] = useState("")
+    const [Loading, setLoading] = useState(true)
 
     const fullReport= ()=>{
 
@@ -25,6 +27,7 @@ export default function FullReport() {
 
             if (json.status == 200) {
                 setFullData(json)
+                setLoading(false)
             }
         })
 
@@ -41,7 +44,15 @@ export default function FullReport() {
   return (
     <MainLayout>
       <Seo title="Full report" description='Letmein Full Report' />
-        <Headers mt="41px" text={`${onlineUser.user.estateName} Full report`} />
+
+      {
+        Loading && (
+
+            <Preloader/>
+        )
+      }
+
+            <Headers mt="41px" text={`${onlineUser.user.estateName} Full report`} />
 
         <Box mx={["6%","10%"]}>
 
@@ -53,12 +64,12 @@ export default function FullReport() {
                         // <ReportCard title="No. of Landlords" text="8"/>
                     }
                     
-                    <ReportCard title="Total no of verified user" text={`${FullData?.verifiedUsers.length}`}/>
-                    <ReportCard title="No. of Estate Managers" text={`${FullData?.estateManagers.length}`}/>
-                    <ReportCard title="Total No. of Subscribed Users" text={`${FullData?.subscribedUsers.length}`}/>
-                    <ReportCard title="Total No of Access Request Granted " text="4000"/>
-                    <ReportCard title="Most frequent User " text="Mr Komolafe" fontSize='20px'/>
-                    <ReportCard title="Most Frequent Visiting Days" text="Sat"/>
+                    <ReportCard title="Total no of verified user" text={`${FullData.verifiedUsers?.length}`}/>
+                    <ReportCard title="No. of Estate Managers" text={`${FullData.estateManagers?.length}`}/>
+                    <ReportCard title="Total No. of Subscribed Users" text={`${FullData.subscribedUsers?.length}`}/>
+                    <ReportCard title="Total No of Access Request Granted " fontSize="18px" text="coming soon"/>
+                    <ReportCard title="Most frequent User " text="coming soon" fontSize='18px'/>
+                    <ReportCard title="Most Frequent Visiting Days" fontSize='18px' text="coming soon "/>
                     </Stack>
 
                 </Box>
