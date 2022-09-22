@@ -170,7 +170,7 @@ export default function TaxiAccess() {
 
 
 
-                        <Text fontSize="10px" fontWeight={"300"} fontFamily="body" textAlign={"center"}>Access Code expires in 24hrs </Text>
+                        <Text fontSize="10px" fontWeight={"300"} fontFamily="body" textAlign={"center"}>Access Code expires at 11pm </Text>
 
 
                         

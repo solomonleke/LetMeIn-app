@@ -227,7 +227,7 @@ export default function RequestHistory() {
                                 
 
                                 <Box mt="20px">
-                                    <Pagination/>
+                                  `
                                 </Box>
                             </Box>
 

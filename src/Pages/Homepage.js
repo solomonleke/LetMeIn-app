@@ -1,6 +1,7 @@
 import { Box, Button, Flex, HStack, Image, Input, SimpleGrid, Skeleton, Spinner, Text, Textarea } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { FiPhoneCall } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 import TeamCard from '../Components/TeamCard';
@@ -15,6 +16,16 @@ export default function Homepage() {
         email: "",
         message: ""
     })
+
+    const dispatch = useDispatch();
+
+    const updateApiLink = ()=>{
+        
+    dispatch(
+
+        { type: "API-LINK", payload: { data: "https://testapi.letmein.ng" } }
+      );
+    }
 
 
     const nav = useNavigate();
@@ -37,6 +48,7 @@ export default function Homepage() {
     }
 
     useEffect(() => {
+        updateApiLink()
         setTimeout(() => {
             setLoading(false)
         }, 12000);

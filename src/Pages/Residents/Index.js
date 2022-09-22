@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
+import DelayMsgDisable from '../../Components/DelayMsgDisble';
 import GreetingText from '../../Components/GreetingText';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
@@ -68,7 +69,7 @@ const checkVerification = ()=>{
             <Seo title='Resident' description='Resident for LetMeIn' />
 
 
-            <Center mt={["100px", "171px"]} opacity={Verified == false && "0.1"}>
+            <Center mt={["100px", "171px"]} opacity={Verified == false || onlineUser.user.disable_user  === false  && "0.1"}>
                 <Stack spacing={'15px'} cursor="pointer">
                 <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`}/>
 
@@ -83,6 +84,14 @@ const checkVerification = ()=>{
                 Verified == false && (
                     <Center>
                         <DelayMsg />
+                    </Center>
+                )
+            }
+
+            {
+                onlineUser.user.disable_user == false && (
+                    <Center>
+                        <DelayMsgDisable />
                     </Center>
                 )
             }
