@@ -69,7 +69,7 @@ const checkVerification = ()=>{
             <Seo title='Resident' description='Resident for LetMeIn' />
 
 
-            <Center mt={["100px", "171px"]} opacity={Verified == false || onlineUser.user.disable_user  === false  && "0.1"}>
+            <Center mt={["100px", "171px"]} opacity={Verified == false || onlineUser.user.disable_user  === true  && "0.1"}>
                 <Stack spacing={'15px'} cursor="pointer">
                 <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`}/>
 
@@ -89,7 +89,7 @@ const checkVerification = ()=>{
             }
 
             {
-                onlineUser.user.disable_user == false && (
+                onlineUser.user.disable_user == true && (
                     <Center>
                         <DelayMsgDisable />
                     </Center>

@@ -112,7 +112,7 @@ export default function ManageVerified() {
                 if (data.status == 200) {
 
                     setVerifiedLen(data.landlord?.length + data.resident?.length + data.security_OPs?.length)
-
+ 
 
                 }
 
@@ -129,7 +129,7 @@ export default function ManageVerified() {
     const disableUSer = (id)=>{
         // alert(id)
             
-        fetch(`${apiLink.link}/user/toggleUser`, {
+        fetch(`${apiLink.link}/user/disableUser`, {
 
             method: "POST",
 
@@ -151,6 +151,7 @@ export default function ManageVerified() {
 
                 console.log("data", data)
                 onClose()
+                Continue()
 
 
             })
@@ -228,7 +229,7 @@ export default function ManageVerified() {
 
 
 
-                                        <div className={`toggle ${item.disable_user && "toggle-on"} `}>
+                                        <div className={`toggle ${item.disable_user && "toggle-disable"} `}>
 
                                             <div className={`toggle-btn ${item.disable_user ? "off" : "on"}`}>
 
@@ -244,18 +245,27 @@ export default function ManageVerified() {
                                                 <ModalBody pb={6}>
                                                    
                                                     <Text textAlign={"left"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">
-                                                        Disable -   <Box as="span" fontWeight={"700"}>{ModalObj.firstName} {ModalObj.lastName}</Box></Text>
+                                                       {item.disable_user ? "Are you Sure you want to Enable": "Disable"} -   <Box as="span" fontWeight={"700"}>{ModalObj.firstName} {ModalObj.lastName}</Box></Text>
+
+                                    {
+                                        item.disable_user === false && 
+
+                                        <Box>
+                                        <Text mt="20px" fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#424242">Kindly provide reasons</Text>
+
+                                        <Textarea mt="4px"  value={Reasons}  onChange={(e)=>setReasons(e.target.value)} placeholder='Type Reason Here' size='sm'/>
+
+                                          
+                                        <Checkbox mt="46px" fontFamily={"body"} fontSize="16px" fontWeight={"400"} onChange={(e)=>setCheckBox(e.target.checked)} color="#424242" >No Reasons</Checkbox>
 
 
-                                                    <Text mt="20px" fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#424242">Kindly provide reasons</Text>
-
-                                                    <Textarea mt="4px"  value={Reasons}  onChange={(e)=>setReasons(e.target.value)} placeholder='Type Reason Here' size='sm'/>
-
-                                                      
-                                                    <Checkbox mt="46px" fontFamily={"body"} fontSize="16px" fontWeight={"400"} onChange={(e)=>setCheckBox(e.target.checked)} color="#424242" >No Reasons</Checkbox>
-
-
-                                                    <Button mt="41px" onClick={()=>disableUSer(ModalObj.id)} disabled={Reasons !=="" || CheckBox !== false  ? false: true}>Confirm</Button>
+                                        </Box>
+                                    }
+                                                   
+                                                   {
+                                                       item.disable_user ? <Button mt="41px" onClick={()=>disableUSer(ModalObj.id)} >Confirm</Button>:
+                                                       <Button mt="41px" onClick={()=>disableUSer(ModalObj.id)} disabled={Reasons !=="" || CheckBox !== false  ? false: true}>Confirm</Button>
+                                                    } 
                                                 </ModalBody>
 
                                                 <ModalFooter>
