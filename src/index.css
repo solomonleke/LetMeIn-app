@@ -151,6 +151,20 @@ html {
   border-radius: 100%;
 }
 
+.label{
+  width: 35px;
+  height: 35px;
+  background-color: #56504F;
+  border: 2px solid #D7D2D1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FAFAFA;
+  font-size: 22px;
+  
+}
+
 
 /* @keyframes glow {
   from {

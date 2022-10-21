@@ -18,11 +18,14 @@ import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import EventModal from '../Components/EventModal';
 
 export default function VisitorsAccess() {
     const [Success, setSuccess] = useState(false);
     const [Copied, setCopied] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [isOpen2, setisOpen2] = useState(false)
+    // const { isOpen2, onOpen2, onClose2 } = useDisclosure()
     const onlineUser = useSelector((state) => state.onlineUser);
     const [Verified, setVerified] = useState(onlineUser.user.Verified);
     const [Loading, setLoading] = useState(false);
@@ -84,13 +87,7 @@ export default function VisitorsAccess() {
 
                         setAccessCode(json.msg.accessCode)
                         onOpen()
-                        // setPayload({
-                        //     firstName: "",
-                        //     lastName: "",
-                        //     gender: "",
-                        //     id: onlineUser.user.id,
-                    
-                        // })
+            
                         setLoading(false)
                     }
                 })
@@ -140,7 +137,7 @@ export default function VisitorsAccess() {
 
         body: JSON.stringify(
             {
-                numbers: MultiplePayload.numbers > 10 ? "10": MultiplePayload.numbers,
+                numbers: MultiplePayload.numbers > 20 ? "20": MultiplePayload.numbers,
                 codeWord: MultiplePayload.codeWord,
                 id: onlineUser.user.id,
             }
@@ -148,6 +145,9 @@ export default function VisitorsAccess() {
 
     }
 
+    const EventAccess = ()=>{
+        setisOpen2(true)
+    }
     const multipleAccess = ()=>{
         setLoading(true)
 
@@ -177,7 +177,7 @@ export default function VisitorsAccess() {
         }
 
         if(onlineUser.user.userType !== "Estate manager"){
-            if(Verified == false){
+            if(Verified == false || onlineUser.user.disable_user == true ){
                 nav("/home")
             }
         }
@@ -238,9 +238,9 @@ export default function VisitorsAccess() {
                             <Box>
                             
 
-                          <Input val={MultiplePayload.numbers && true} label="No. of Visitors" value={MultiplePayload.numbers > 10 ? "10": MultiplePayload.numbers} id='numbers' type='number' onChange={handleMultipleChange} />
+                          <Input val={MultiplePayload.numbers && true} label="No. of Visitors" value={MultiplePayload.numbers > 20 ? "20": MultiplePayload.numbers} id='numbers' type='number' onChange={handleMultipleChange} />
 
-                          <Text fontFamily={"body"} mt="4px" textAlign="center" fontSize="10px" fontWeight={"400"} color="#939393">Maximum no. of visitors is 10. For more visitors make another  request.</Text>
+                          <Text fontFamily={"body"} mt="4px" textAlign="center" fontSize="10px" fontWeight={"400"} color="#939393">Maximum no. of visitors is 20. For more visitors make another  request.</Text>
 
                             </Box>
                            
@@ -250,7 +250,7 @@ export default function VisitorsAccess() {
     
                             </Stack>
     
-                            <Button isLoading={Loading} disabled={MultiplePayload.codeWord !=="" && MultiplePayload.numbers !=="" ? false:true} mt="65px" px='60px' onClick={multipleAccess}>Request Access</Button>
+                            <Button isLoading={Loading} disabled={MultiplePayload.codeWord !=="" && MultiplePayload.numbers !=="" ? false:true} mt="65px" px='60px' onClick={EventAccess}>Request Access</Button>
                             <Text mb="32px" textAlign="center" fontFamily={"body"} mt="4px" fontSize="10px" fontWeight={"400"} color="#939393">Your estate manager would be notified of this access request</Text>
 
                         </Box>
@@ -328,7 +328,7 @@ export default function VisitorsAccess() {
                 </ModalContent>
             </Modal>
 
-
+            <EventModal isOpen={isOpen2} onClose={()=>setisOpen2(false)}/>
 
         </MainLayout>
     );

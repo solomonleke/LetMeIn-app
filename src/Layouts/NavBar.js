@@ -112,13 +112,24 @@ export default function NavBar() {
           isLogged.isLogged && (
             <Box pos={"relative"} cursor="pointer" >
 
+            
               <Avatar name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src='' onClick={AvatarOpen} />
+              <Box w="20px" h="20px" bg="#E02828" fontSize={"10px"} fontFamily="body" display={"flex"}
+              justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-8px" left="32px">2</Box>
+             
               {
                 OpenAvater && (
                   <div className='drop-down'>
                     <Box display={"flex"} justifyContent="flex-end" color={"#000000"} fontSize={"22px"} onClick={AvatarOpen}>
                       <AiOutlineClose />
                     </Box>
+                    <Link to={"/notification"} >
+                     <Box pos={"relative"}>
+                     <Text  mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Notifications</Text>
+                     <Box w="18px" h="18px" bg="#E02828" fontSize={"8px"} fontFamily="body" display={"flex"}
+                     justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-12px" left="90px">2</Box>
+                     </Box>
+                    </Link>
                     <Link to={"/my-profile"}>
                       <Text mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>My Profile</Text>
                     </Link>

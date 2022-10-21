@@ -53,7 +53,7 @@ export default function Home() {
         
             <Center mt="171px">
               <Stack spacing={'22px'} cursor="pointer"  w={["80%", "310px"]}>
-              <Text fontFamily={"body"} fontSize="20px" fontWeight={"400"}>Don’t Have an account ?</Text>
+              <Text fontFamily={"body"} fontSize="20px" fontWeight={"400"}>Don’t have an account?</Text>
                   <Button bg="#E02828" color={"#fff"} _hover={{bg: "#E02828"}}  _active={{bg: "#E02828"}} borderRadius="0" px="85px" py="8px" fontFamily={"body"} fontSize="16px" fontWeight={"700"} onClick={sign_up}>Register</Button>
                   <Button bg="rgba(224, 40, 40, 0.07)" border={"1px solid #E02828"} _hover={{bg: "rgba(224, 40, 40, 0.07)"}}  _active={{bg: "rgba(224, 40, 40, 0.07)"}} borderRadius="0" px="85px" py="8px" fontFamily={"body"} color="#E02828" fontSize="16px" fontWeight={"700"} onClick={sign_in}>Login</Button>
               </Stack>

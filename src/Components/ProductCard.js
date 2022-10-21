@@ -7,9 +7,9 @@ export default function ProductCard({icon,title,text}) {
         <Flex justifyContent={"center"} pt="15px"  h="74px">
           <Image src={`/${icon}.png`} w={"54px"} objectFit="contain"/>
         </Flex>
-          <Text textAlign={"center"} textTransform="capitalize" fontSize="20px" color={"#E02828"} fontWeight={"700"} fontFamily="body">{title}</Text>
+          <Text textAlign={"center"} textTransform="capitalize" fontSize="20px" color={"#E02828"} fontWeight={"700"} pt="15px" fontFamily="body">{title}</Text>
 
-          <Text textAlign={"left"} px="17px" pt="17px" pb="42px" >
+          <Text textAlign={"center"} px="17px" pt="17px" pb="42px" >
          {text}
           </Text>
     </Box>

@@ -32,19 +32,24 @@ export default function ManageVerified() {
     const [ModalObj, setModalObj] = useState({
         id: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
+        disable_user: false
     });
 
-    const openModal = (id, firstName, lastName, userType)=>{
+    const openModal = (id, firstName, lastName, userType,disable_user)=>{
     
+        // console.log("fun modal", disable_user)
 
         setModalObj({
             id: id,
             firstName: firstName,
             lastName: lastName,
             userType: userType,
+            disable_user: disable_user 
             
         })
+
+
 
         onOpen();
      }
@@ -85,7 +90,7 @@ export default function ManageVerified() {
                 }
             }
 
-            console.log("verifiedUser", data)
+            // console.log("verifiedUser", data)
 
 
         })
@@ -152,6 +157,7 @@ export default function ManageVerified() {
                 console.log("data", data)
                 onClose()
                 Continue()
+                setReasons("")
 
 
             })
@@ -216,7 +222,8 @@ export default function ManageVerified() {
                             {
                                 Data?.map((item, i) => ( 
 
-                                    <HStack  spacing="39px" border={item.disable_user === true ? "2px solid rgba(224, 40, 40, 0.4)": "2px solid #00FFCD"} bg={item.disable_user === true ? "#EEEEEE" : "#EAF7F5" } px={"15px"} py="5px" onClick={() => openModal(item.id, item.firstName, item.lastName, item.userType, item.Verified)}>
+                                    <HStack  spacing="39px" border={item.disable_user === true ? "2px solid rgba(224, 40, 40, 0.4)": "2px solid #00FFCD"} bg={item.disable_user === true ? "#EEEEEE" : "#EAF7F5" } px={"15px"} py="5px" onClick={() => openModal(item.id, item.firstName, item.lastName, item.userType, item.disable_user)}>
+                                    {console.log("outside modal" ,item.disable_user)}
                                         <Box w={["50%", "70%"]}>
                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
                                             <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo} <Divider /> 0{item.phone} <Divider /> {moment(item.time).format("MMM Do ")}</Text>
@@ -225,7 +232,6 @@ export default function ManageVerified() {
 
 
                                         <Spacer />
-
 
 
 
@@ -245,10 +251,13 @@ export default function ManageVerified() {
                                                 <ModalBody pb={6}>
                                                    
                                                     <Text textAlign={"left"} fontFamily={"body"} fontSize="16px" fontWeight={"400"} color="#424242">
-                                                       {item.disable_user ? "Are you Sure you want to Enable": "Disable"} -   <Box as="span" fontWeight={"700"}>{ModalObj.firstName} {ModalObj.lastName}</Box></Text>
+                                                    {
+                                                        // console.log(ModalObj.disable_user)
+                                                    }
+                                                       {ModalObj.disable_user == true ? "Are you Sure you want to Enable": "Disable"} -   <Box as="span" fontWeight={"700"}>{ModalObj.firstName} {ModalObj.lastName}</Box></Text>
 
                                     {
-                                        item.disable_user === false && 
+                                        ModalObj.disable_user === false && 
 
                                         <Box>
                                         <Text mt="20px" fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#424242">Kindly provide reasons</Text>
@@ -263,7 +272,7 @@ export default function ManageVerified() {
                                     }
                                                    
                                                    {
-                                                       item.disable_user ? <Button mt="41px" onClick={()=>disableUSer(ModalObj.id)} >Confirm</Button>:
+                                                    ModalObj.disable_user === true ? <Button mt="41px" onClick={()=>disableUSer(ModalObj.id)} >Confirm</Button>:
                                                        <Button mt="41px" onClick={()=>disableUSer(ModalObj.id)} disabled={Reasons !=="" || CheckBox !== false  ? false: true}>Confirm</Button>
                                                     } 
                                                 </ModalBody>

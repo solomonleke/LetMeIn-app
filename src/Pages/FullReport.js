@@ -57,7 +57,7 @@ export default function FullReport() {
         <Box mx={["6%","10%"]}>
 
             <Center my="60px">
-                <Box w={["80%", "310px"]}>
+                <Box w={["80%", "50%"]}>
                     <Stack spacing={"30px"}>
 
                     {

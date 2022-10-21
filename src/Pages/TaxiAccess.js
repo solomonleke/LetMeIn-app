@@ -90,7 +90,7 @@ export default function TaxiAccess() {
             nav("/sign-in")
         }
         if(onlineUser.user.userType !== "Estate manager"){
-            if(Verified == false){
+            if(Verified == false || onlineUser.user.disable_user == true){
                 nav("/home")
             }
         }

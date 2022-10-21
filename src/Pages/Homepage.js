@@ -90,8 +90,8 @@ export default function Homepage() {
                             lineHeight={["62.03px", "62.03px", "72.03px", "67.03px", "82.03px",]} bg="linear-gradient(107.46deg, rgba(255, 255, 255, 0.0117) 6.95%, rgba(255, 255, 255, 0.0299) 95.17%)"
                             boxShadow={"2px 4px 4px -1px rgba(0, 0, 0, 0.11)"} rounded="8px" pl="20px" pr="10px" pt="5px" pb="10px" borderTop={"0.5px solid #fff"} borderLeft="0.5px solid #fff" color="#ffffff">Control Access to your Home with our Reliable Digital Security </Text>
 
-                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} fontSize={["18px", "23px", "25px", "30px"]} fontFamily="body" fontWeight={"800"} w="233px" rounded={"5px"} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }}
-                            bg="#ffffff" transition={"1.3s ease"} mt="69px" color="#000000" py="14px" px="37px">Get Started</Button>
+                        <Button onClick={getStarted} mb={["32px", "32px", "32px", "0"]} fontSize={["18px", "23px", "25px", "18px"]} fontFamily="body" fontWeight={"800"} w="300px"  rounded={"5px"} _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }}
+                            bg="#ffffff" transition={"1.3s ease"} mt="69px" color="#000000" py="22px" px="45px">Get Started</Button>
                     </Box>
                     <Flex w={["100%", "100%", "100%", "50%"]} justifyContent={["center", "center", "center", "flex-end", "flex-end"]}>
                         <Image src="/iphone1.png" w={["100%", "70%", "70%", "90%", "70%",]} />
@@ -103,7 +103,7 @@ export default function Homepage() {
             }
             <Box px={["6%", "10%"]} mt={["32px", "71px"]} pb="32px">
                 <div id="our-product" >
-                    <Text as={"span"} pb="4px" borderBottom={"3px solid #50FCDA"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">our product</Text>
+                    <Text as={"span"} pb="4px"  textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">our product</Text>
                     <Box px={["0%", "7%"]}>
 
 
