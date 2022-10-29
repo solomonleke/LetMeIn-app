@@ -146,9 +146,7 @@ export default function VisitorsAccess() {
     }
 
     const EventAccess = ()=>{
-        setisOpen2(true)
-    }
-    const multipleAccess = ()=>{
+       
         setLoading(true)
 
         fetch(`${apiLink.link}/user/multipleVisitor`, multiPayload)
@@ -159,9 +157,10 @@ export default function VisitorsAccess() {
               
                 if (json.status == 200) {
 
-                    setMultiAccessCode(json.msg.accessCode)
-                    onOpen()
+                    // setMultiAccessCode(json.msg.accessCode)
+                    setisOpen2(true)
                     setLoading(false)
+                    console.log("json", json)
                 }
             })
             .catch(error => {
@@ -169,6 +168,9 @@ export default function VisitorsAccess() {
                 setLoading(false)
             })
 
+    }
+    const multipleAccess = ()=>{
+       
     }
 
     const middleWare = ()=>{

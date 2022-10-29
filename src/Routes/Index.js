@@ -14,6 +14,7 @@ import Home from '../Pages/Home'
 import Homepage from '../Pages/Homepage'
 import IndexHome from '../Pages/Index'
 import LandLord from '../Pages/Landlord/Index'
+import Notification from '../Pages/Notification'
 import Profile from '../Pages/Profile'
 import RequestHistory from '../Pages/RequestHistory'
 import ResetPassword from '../Pages/ResetPassword'
@@ -53,6 +54,7 @@ export default function IndexRoutes() {
             <Route path='/security-ops' element={<SecurityOps/>}/>
             <Route path='/security-ops/grant-access' element={<GrantAccess/>}/>
             <Route path='/my-profile' element={<Profile/>}/>
+            <Route path='/notification' element={<Notification/>}/>
             <Route path='/customer-support' element={<CustomerSupport/>}/>
             <Route path='/change-password' element={<ChangePassword/>}/>
             <Route path='/sign-in/forget-password' element={<ForgetPassword/>}/>

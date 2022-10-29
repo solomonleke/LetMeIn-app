@@ -30,6 +30,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BsSearch } from "react-icons/bs";
 import { MdNotificationsActive } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
+import { useEffect } from 'react';
 
 export default function NavBar() {
   const [LoggedIn, setLoggedIn] = useState(false);
@@ -43,6 +44,9 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const nav = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const apiLink = useSelector((state) => state.apiLink);
+
 
   const logout = () => {
 
@@ -63,6 +67,27 @@ export default function NavBar() {
 
   }
 
+  const notificationLen = ()=>{
+
+    fetch(`${apiLink.link}/user/getApprovedEvent/${onlineUser.user.id}`)
+
+    .then(res => res.json())
+    .then(json => {
+
+     
+        if (json.status == 200) {
+
+         
+            console.log("json nav", json)
+        }
+    })
+    .catch(error => {
+        console.log("error", error);
+       
+    })
+
+  }
+
   const AvatarOpen = () => {
 
     setOpenAvater(!OpenAvater)
@@ -72,6 +97,11 @@ export default function NavBar() {
   const home = () => {
     nav("/home")
   }
+
+  useEffect(() => {
+    notificationLen()
+  }, [])
+
   return (
     <Box >
 
@@ -113,7 +143,7 @@ export default function NavBar() {
             <Box pos={"relative"} cursor="pointer" >
 
             
-              <Avatar name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src='' onClick={AvatarOpen} />
+              <Avatar name={onlineUser.user.firstName + " " + onlineUser.user.lastName}  src={onlineUser.user.profileImage !="" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
               <Box w="20px" h="20px" bg="#E02828" fontSize={"10px"} fontFamily="body" display={"flex"}
               justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-8px" left="32px">2</Box>
              

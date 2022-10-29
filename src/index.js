@@ -8,7 +8,9 @@ import { Provider } from "react-redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { PersistGate } from "redux-persist/integration/react";
+import {QueryClient, QueryClientProvider} from 'react-query'
 import allReducers from "./Redux/Reducers/Index";
+const queryClient = new QueryClient();
 
 const persistConfig = {
   key: "Todo",
@@ -26,11 +28,13 @@ store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
   <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
