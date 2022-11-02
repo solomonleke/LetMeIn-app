@@ -7,6 +7,8 @@ import DelayMsg from '../../Components/DelayMsg';
 import Input from '../../Components/Input';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
+import { useQuery, useQueryClient } from 'react-query';
+
 
 export default function SecurityOps() {
 
@@ -24,10 +26,11 @@ export default function SecurityOps() {
   const [SuccessOut, setSuccessOut] = useState(false);
 
 
+
   const onlineUser = useSelector((state) => state.onlineUser);
   const apiLink = useSelector((state) => state.apiLink);
   const isLogged = useSelector((state) => state.isLogged);
-  const [Verified, setVerified] = useState(onlineUser.user.Verified);
+  // const [Verified, setVerified] = useState(onlineUser.user.Verified);
 
 
   const dispatch = useDispatch();
@@ -215,40 +218,60 @@ export default function SecurityOps() {
     }
 }
 
-const checkVerification = ()=>{
-  // window.location.reload()
+// const checkVerification = ()=>{
+//   // window.location.reload()
 
-  fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
-  .then(response => response.json())
-  .then(data => {
+//   fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
+//   .then(response => response.json())
+//   .then(data => {
     
-      if(data.status === 200){
-        console.log("userrrrs", data)
-        dispatch(
+//       if(data.status === 200){
+//         console.log("userrrrs", data)
+//         dispatch(
         
-          { type: "ADD_USER", payload: { data: data.msg } }
-        );
+//           { type: "ADD_USER", payload: { data: data.msg } }
+//         );
 
-        setVerified(data.msg.Verified)
+//         setVerified(data.msg.Verified)
         
-      //  nav('/home')
-      }
+//       //  nav('/home')
+//       }
      
-  })
-  .catch((error) => {
-      console.error('Error:', error);
-  });
+//   })
+//   .catch((error) => {
+//       console.error('Error:', error);
+//   });
   
 
  
+// }
+
+//useQuery to get updated data every 10 seconds
+
+const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+console.log('data', data, isLoading, isError);
+var Verified = onlineUser.user.Verified;
+
+if (!isLoading) {
+
+    var Verified = data?.msg.Verified;
+   
+
 }
+//alert modification 
+
+const [ShowAlert, setShowAlert] = useState(false)
 
 
 
-  useEffect(() => {
-    checkVerification()
+useEffect(() => {
+    Verified === true? setShowAlert(true):setShowAlert(false);
+        dispatch(
+        
+            { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
+          );
       middleWare()
-  }, []);
+  }, [Verified]);
 
 
 
@@ -388,6 +411,20 @@ const checkVerification = ()=>{
           </Center>
         )
       }
+
+      
+      {
+        ShowAlert && (
+            <Center mt="32px" >
+            <Alert status='success' mt="35px" color="#fff" w={["85%","83%","70%","57%","36%"]}>
+                <AlertIcon />
+                <AlertTitle mr={2} fontWeight="400" fontFamily={"body"} fontSize="16px">Congratulation, your account has been verified Successfully</AlertTitle>
+                <CloseButton onClick={() => setShowAlert(false)} position='absolute' right='8px' top='8px' />
+    
+            </Alert>
+        </Center>
+        )
+    }   
 
     </MainLayout>
   );

@@ -42,12 +42,12 @@ export default function Index() {
     console.log('data', data, isLoading, isError);
     var Verified = onlineUser.user.Verified;
 
-    // if (!isLoading) {
+    if (!isLoading) {
 
-    //     var Verified = data?.msg.Verified;
+        var Verified = data?.msg.Verified;
        
 
-    // }
+    }
 //alert modification 
 
     const [ShowAlert, setShowAlert] = useState(false)
