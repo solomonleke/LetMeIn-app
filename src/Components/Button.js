@@ -22,6 +22,7 @@ export default function Button({
   mt,
   mb, 
    px="85px",
+   loadingText="Please wait . . .",
   py="8px"
 }) {
 
@@ -51,7 +52,7 @@ export default function Button({
       }}
       
       isLoading={isLoading}
-      loadingText="Please wait . . ."
+      loadingText={loadingText}
       type={isSubmit ? 'submit' : 'button'}
       disabled={isLoading || disabled}
       w={w}

@@ -58,11 +58,10 @@ export default function EventModal({ isOpen, onClose }) {
                 Estate Admin -<Box as="span" color="#00000" fontWeight={"700"}>{Data?.prefix}. {Data?.lastName || "Support Team"}</Box> <br/>
                 Phone No - <Box as="span" fontWeight="700" color={"#1869E1"} textDecor="underline">{Data?.phone || "08068840125"}</Box>
               </Text>
-              <Box fontSize={"14px"} fontFamily="body" color="#424242" fontWeight={"300"} borderLeft={"7px solid #11C19E"} pl="8px">kindly use the button below to complete this request, after your estate manager approves the access request.</Box>
+              <Box fontSize={"14px"} fontFamily="body" color="#424242" fontWeight={"300"} borderLeft={"7px solid #11C19E"} pl="8px">You will get a notification once your request has been approved by your Estate Admin</Box>
             </Stack>
 
-            <Button mt="35px" disabled={true}>Request Access</Button>
-            <Text fontSize={"12px"} textAlign="center" mt="8px" fontFamily="body" color="#424242" fontWeight={"400"}>This access code is only valid for 20 people.
+            <Text fontSize={"12px"} textAlign="center" mt="12px" borderTop="0.5px solid black" pt="5px" fontFamily="body" color="#424242" fontWeight={"400"}>This access code is only valid for 20 people.
             </Text>
           </ModalBody>
 

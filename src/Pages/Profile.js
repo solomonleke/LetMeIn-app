@@ -17,6 +17,7 @@ const Profile = () => {
     const onlineUser = useSelector((state) => state.onlineUser);
     const apiLink = useSelector((state) => state.apiLink);
     const dispatch = useDispatch();
+    const [Loading, setLoading] = useState(false);
 
 
 
@@ -36,8 +37,8 @@ const Profile = () => {
     const upload = () => {
         const formData = new FormData();
 
-        setImg(Image)
-        setImage(null)
+      
+      
 
         formData.append("image", Image);
         formData.append("id", onlineUser.user.id,);
@@ -52,22 +53,25 @@ const Profile = () => {
 
         }
 
-
+        setLoading(true)
+        
         fetch(`${apiLink.link}/user/profilePhoto`, payload)
-
-            .then(res => res.json())
-            .then(json => {
+        
+        .then(res => res.json())
+        .then(json => {
 
                 console.log("img json ", json)
                 if(json.status === 200){
 
                     dispatch(
-        
+                        
                         { type: "ADD_USER", payload: { data: json.msg } }
-                      );
-              
+                        );
+                        
+                        setImage(null)
+                        setLoading(false)
+                           
                 }
-
 
             })
             .catch(error => {
@@ -108,7 +112,7 @@ const Profile = () => {
                         }
                         <Box display={"flex"} justifyContent="center" pos={"relative"} top="-40px">
                             <label for="upload">
-                                <Avatar pos={"relative"} border={"2px solid #D7D2D1"} src={`${apiLink.link}/${onlineUser.user.profileImage}` || Img?.name} size='2xl'>
+                                <Avatar pos={"relative"} border={"2px solid #D7D2D1"} src={ Image?.name||`${apiLink.link}/${onlineUser.user.profileImage}`} size='2xl'>
                                     <Box pos={"absolute"} left={"-18px"} top={"60px"}>
                                         <Input onChange={handleImg} type="file" id="upload" hidden />
                                         <label className='label2' for="upload"><BsFillCloudUploadFill /></label>
@@ -119,7 +123,7 @@ const Profile = () => {
 
                         {
                             Image != null &&
-                            <Button onClick={upload}>upload</Button>
+                            <Button isLoading={Loading} loadingText="Uploading..." onClick={upload}>upload</Button>
                         }
                         <Stack mt="18px" spacing={"14px"}>
 

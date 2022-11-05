@@ -7,6 +7,7 @@ import Confirmation from '../Pages/Confirmation'
 import CustomerSupport from '../Pages/CustomerSupport'
 import EstateAdmin from '../Pages/Estate-admin/Index'
 import ManageVerified from '../Pages/Estate-admin/ManageVerified'
+import ResidentRequest from '../Pages/Estate-admin/ResidentRequest'
 import VerifyId from '../Pages/Estate-admin/VerifyId'
 import ForgetPassword from '../Pages/ForgetPassword'
 import FullReport from '../Pages/FullReport'
@@ -61,6 +62,7 @@ export default function IndexRoutes() {
             <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
 
             <Route path='/visitors-access' element={<VisitorsAccess/>}/>
+            <Route path='/resident-request' element={<ResidentRequest/>}/>
             <Route path='/request-access-history' element={<RequestHistory/>}/>
             <Route path='/404' element={<Error404/>}/>
             <Route path='/taxi-access' element={<TaxiAccess/>}/>

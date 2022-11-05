@@ -1,10 +1,40 @@
 import { Box, Center, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import NotificationCard from '../Components/NotificationCard';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 
 export default function Notification() {
+
+  const apiLink = useSelector((state) => state.apiLink);
+  const onlineUser = useSelector((state) => state.onlineUser);
+
+
+
+  const [NewNotification, setNewNotification] = useState("");
+
+  const notificationLen = ()=>{
+
+    fetch(`${apiLink.link}/user/getEventHistory/${onlineUser.user.id}/${onlineUser.user.estateName}`)
+
+    .then(res => res.json())
+    .then(json => {
+
+     
+        if (json.status == 200) {
+
+         
+            console.log("notification", json)
+        }
+    })
+    .catch(error => {
+        console.log("error", error);
+       
+    })
+
+  }
+
   return (
     <MainLayout>
       <Seo title='Notification' description='LetmeIn Notification' />

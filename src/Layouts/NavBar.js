@@ -140,10 +140,20 @@ export default function NavBar() {
 
         {
           isLogged.isLogged && (
-            <Box pos={"relative"} cursor="pointer" >
+            <Flex>
+            {
+              onlineUser.user.profileImage != "" &&(
+                <Box mr="10px">
+            <Text textAlign={"right"} fontFamily="body" fontSize={"15px"} fontWeight="500">{onlineUser.user.firstName} </Text>            
+            <Text textAlign={"right"} fontFamily="body" fontSize={"15px"} fontWeight="500"> {onlineUser.user.lastName}</Text>            
+            </Box>
 
+              )
+            }
             
-              <Avatar name={onlineUser.user.firstName + " " + onlineUser.user.lastName}  src={onlineUser.user.profileImage !="" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
+            <Box pos={"relative"} cursor="pointer">
+
+              <Avatar pos={"relative"} name={onlineUser.user.firstName + " " + onlineUser.user.lastName}  src={onlineUser.user.profileImage !="" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
               <Box w="20px" h="20px" bg="#E02828" fontSize={"10px"} fontFamily="body" display={"flex"}
               justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-8px" left="32px">2</Box>
              
@@ -182,6 +192,7 @@ export default function NavBar() {
 
 
             </Box>
+            </Flex>
 
           )
         }
@@ -296,6 +307,9 @@ export default function NavBar() {
 
                       <Link to="/request-access-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
+                      </Link>
+                      <Link to="/resident-request">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Resident Request</Text>
                       </Link>
 
                    

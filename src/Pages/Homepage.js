@@ -274,7 +274,7 @@ export default function Homepage() {
             {
                 // Team section start here
             }
-            <Box id="our-team" bg="url(/product-bg.png)" bgRepeat={"none"} bgSize="cover" w="100%" px={["6%", "10%"]} py="35px" >
+            <Box display="none" id="our-team" bg="url(/product-bg.png)" bgRepeat={"none"} bgSize="cover" w="100%" px={["6%", "10%"]} py="35px" >
                 <Text as={"span"} textTransform={"capitalize"} fontFamily="body" fontWeight={"500"} fontSize="27px" color="#E02828">Our team</Text>
 
                 <SimpleGrid columns={["1", "1", "2", "3"]} spacing={["30px", "60px", "80px", "30px", "100px"]} mt="48px" px={["0%", "7%", "7%", "3%", "7%",]}>
