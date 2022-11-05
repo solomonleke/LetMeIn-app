@@ -16,7 +16,7 @@ import Button from './Button';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-export default function EventModal({ isOpen, onClose }) {
+export default function EventModal({ isOpen, onClose, number }) {
 
   const onlineUser = useSelector((state) => state.onlineUser);
   const apiLink = useSelector((state) => state.apiLink);
@@ -61,7 +61,7 @@ export default function EventModal({ isOpen, onClose }) {
               <Box fontSize={"14px"} fontFamily="body" color="#424242" fontWeight={"300"} borderLeft={"7px solid #11C19E"} pl="8px">You will get a notification once your request has been approved by your Estate Admin</Box>
             </Stack>
 
-            <Text fontSize={"12px"} textAlign="center" mt="12px" borderTop="0.5px solid black" pt="5px" fontFamily="body" color="#424242" fontWeight={"400"}>This access code is only valid for 20 people.
+            <Text fontSize={"12px"} textAlign="center" mt="12px" borderTop="0.5px solid black" pt="5px" fontFamily="body" color="#424242" fontWeight={"400"}>This access code is only valid for {number} people.
             </Text>
           </ModalBody>
 

@@ -31,6 +31,8 @@ import { BsSearch } from "react-icons/bs";
 import { MdNotificationsActive } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { useEffect } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+
 
 export default function NavBar() {
   const [LoggedIn, setLoggedIn] = useState(false);
@@ -67,26 +69,6 @@ export default function NavBar() {
 
   }
 
-  const notificationLen = ()=>{
-
-    fetch(`${apiLink.link}/user/getApprovedEvent/${onlineUser.user.id}`)
-
-    .then(res => res.json())
-    .then(json => {
-
-     
-        if (json.status == 200) {
-
-         
-            console.log("json nav", json)
-        }
-    })
-    .catch(error => {
-        console.log("error", error);
-       
-    })
-
-  }
 
   const AvatarOpen = () => {
 
@@ -98,8 +80,25 @@ export default function NavBar() {
     nav("/home")
   }
 
+  const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+  // console.log('data', data, isLoading, isError);
+  let Data = [];
+
+  if (!isLoading) {
+
+    //filter the unread data
+    Data = data?.msg;
+    let newData = Data.filter((item, i) =>
+      item.unread == false
+    )
+
+    Data = newData;
+
+
+  }
+
   useEffect(() => {
-    notificationLen()
+   
   }, [])
 
   return (
@@ -141,57 +140,67 @@ export default function NavBar() {
         {
           isLogged.isLogged && (
             <Flex>
-            {
-              onlineUser.user.profileImage != "" &&(
-                <Box mr="10px">
-            <Text textAlign={"right"} fontFamily="body" fontSize={"15px"} fontWeight="500">{onlineUser.user.firstName} </Text>            
-            <Text textAlign={"right"} fontFamily="body" fontSize={"15px"} fontWeight="500"> {onlineUser.user.lastName}</Text>            
-            </Box>
-
-              )
-            }
-            
-            <Box pos={"relative"} cursor="pointer">
-
-              <Avatar pos={"relative"} name={onlineUser.user.firstName + " " + onlineUser.user.lastName}  src={onlineUser.user.profileImage !="" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
-              <Box w="20px" h="20px" bg="#E02828" fontSize={"10px"} fontFamily="body" display={"flex"}
-              justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-8px" left="32px">2</Box>
-             
               {
-                OpenAvater && (
-                  <div className='drop-down'>
-                    <Box display={"flex"} justifyContent="flex-end" color={"#000000"} fontSize={"22px"} onClick={AvatarOpen}>
-                      <AiOutlineClose />
-                    </Box>
-                    <Link to={"/notification"} >
-                     <Box pos={"relative"}>
-                     <Text  mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Notifications</Text>
-                     <Box w="18px" h="18px" bg="#E02828" fontSize={"8px"} fontFamily="body" display={"flex"}
-                     justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-12px" left="90px">2</Box>
-                     </Box>
-                    </Link>
-                    <Link to={"/my-profile"}>
-                      <Text mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>My Profile</Text>
-                    </Link>
-                    <Link to={"/change-password"}>
-                      <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Change Password</Text>
-                    </Link>
-                    <Link to={"/customer-support"}>
-                      <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Customer Support</Text>
-                    </Link>
-                   
-                      <Text onClick={logout} mt={"12px"} pl={"15px"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Logout</Text>
-                   
+                onlineUser.user.profileImage != "" && (
+                  <Box mr="10px">
+                    <Text textAlign={"right"} fontFamily="body" fontSize={"15px"} fontWeight="500">{onlineUser.user.firstName} </Text>
+                    <Text textAlign={"right"} fontFamily="body" fontSize={"15px"} fontWeight="500"> {onlineUser.user.lastName}</Text>
+                  </Box>
 
-                  </div>
                 )
               }
 
+              <Box pos={"relative"} cursor="pointer">
+
+                <Avatar pos={"relative"} name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src={onlineUser.user.profileImage != "" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
+                {
+                  Data.length >= 1 && (
+                    <Box w="20px" h="20px" bg="#E02828" fontSize={"10px"} fontFamily="body" display={"flex"}
+                      justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-8px" left="32px">{Data.length}</Box>
+
+                  )
+                }
+
+                {
+                  OpenAvater && (
+                    <div className='drop-down'>
+                      <Box display={"flex"} justifyContent="flex-end" color={"#000000"} fontSize={"22px"} onClick={AvatarOpen}>
+                        <AiOutlineClose />
+                      </Box>
+                      <Link to={"/notification"} >
+                        <Box pos={"relative"}>
+                          <Text mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Notifications</Text>
+                          {
+                            Data.length >= 1 && (
+                              <Box w="18px" h="18px" bg="#E02828" fontSize={"8px"} fontFamily="body" display={"flex"}
+                                justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-12px" left="90px">{Data.length}</Box>
+
+                            )
+                          }
+                        </Box>
+                      </Link>
+                      <Link to={"/my-profile"}>
+                        <Text mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>My Profile</Text>
+                      </Link>
+                      <Link to={"/change-password"}>
+                        <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Change Password</Text>
+                      </Link>
+                      <Link to={"/customer-support"}>
+                        <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Customer Support</Text>
+                      </Link>
+
+                      <Text onClick={logout} mt={"12px"} pl={"15px"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Logout</Text>
+
+
+                    </div>
+                  )
+                }
 
 
 
 
-            </Box>
+
+              </Box>
             </Flex>
 
           )
@@ -246,11 +255,11 @@ export default function NavBar() {
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
                       </Link>
 
-                   
-                      
-                     <Link to="/customer-support">
-                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                    </Link>
+
+
+                      <Link to="/customer-support">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                      </Link>
 
                     </Stack>
                   )
@@ -269,7 +278,7 @@ export default function NavBar() {
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
                       </Link>
 
-                   
+
 
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
@@ -290,10 +299,10 @@ export default function NavBar() {
                       <Link to="/manage-verify-id">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
                       </Link>
-                      
-                     <Link to="/customer-support">
-                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                    </Link>
+
+                      <Link to="/customer-support">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                      </Link>
                     </>
                   )
                 }
@@ -312,7 +321,7 @@ export default function NavBar() {
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Resident Request</Text>
                       </Link>
 
-                   
+
 
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
@@ -335,11 +344,11 @@ export default function NavBar() {
                       </Link>
 
                       <Link to="/full-report">
-                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Full Report</Text>
-                    </Link>
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Full Report</Text>
+                      </Link>
                       <Link to="/customer-support">
-                      <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                    </Link>
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                      </Link>
                     </>
                   )
                 }
@@ -356,7 +365,7 @@ export default function NavBar() {
 
 
 
-         
+
 
 
 

@@ -330,7 +330,7 @@ export default function VisitorsAccess() {
                 </ModalContent>
             </Modal>
 
-            <EventModal isOpen={isOpen2} onClose={()=>setisOpen2(false)}/>
+            <EventModal isOpen={isOpen2} onClose={()=>setisOpen2(false)} number={MultiplePayload.numbers > 20 ? "20": MultiplePayload.numbers}/>
 
         </MainLayout>
     );
