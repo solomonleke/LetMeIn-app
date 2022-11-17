@@ -92,7 +92,10 @@ export default function SignIn() {
                             nav("/landlord")
                         } else if (json.people.userType == "Estate manager") {
                             nav("/estate-admin")
-                        } else {
+                        } 
+                        else if (json.people.userType == "Super admin") {
+                            nav("/superAdmin")
+                        }else {
                             nav("/security-ops")
                         }
                     } else {
@@ -130,6 +133,9 @@ export default function SignIn() {
             nav("/landlord")
         } else if (onlineUser.user.userType == "Estate manager") {
             nav("/estate-admin")
+        }
+        else if (onlineUser.user.userType == "Super admin") {
+            nav("/superAdmin")
         }else if (onlineUser.user.userType == "Security operative") {
           nav("/security-ops")
       } else {
