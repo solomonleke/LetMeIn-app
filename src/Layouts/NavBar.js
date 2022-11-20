@@ -80,24 +80,23 @@ export default function NavBar() {
     nav("/home")
   }
 
-let Data = []
+  let Data = [];
+  // const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+  // // console.log('data', data, isLoading, isError);
+  // let Data = [];
 
-// const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
-// // console.log('data', data, isLoading, isError);
+  // if (!isLoading) {
 
-// let Data = [];
-// if (!isLoading) {
+  //   //filter the unread data
+  //   Data = data?.msg;
+  //   let newData = Data.filter((item, i) =>
+  //     item.unread == false
+  //   )
 
-//   //filter the unread data
-//   Data = data?.msg;
-//   let newData = Data.filter((item, i) =>
-//     item.unread == false
-//   )
-
-//   Data = newData;
+  //   Data = newData;
 
 
-// }
+  // }
 
   useEffect(() => {
    
@@ -302,6 +301,38 @@ let Data = []
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
                       </Link>
 
+                      <Link to="/customer-support">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
+                      </Link>
+                    </>
+                  )
+                }
+
+                {
+                  onlineUser.user.userType == "Super admin" && (
+                    <>
+                      <Link to="/newOffice">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>New Estate/Office</Text>
+                      </Link>
+                      <Link to="/verify-id">
+                      <Box pos={"relative"}>
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
+                        {
+                            <Text h={"18px"} w={"18px"}
+                              rounded={"100%"} bg="#E02828"
+                              boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                              pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
+                              fontFamily="body" fontWeight={"400"} color="#FFFFFF"
+                              fontSize={"12"}>3</Text>
+                        }
+                      </Box>
+                    </Link>
+
+                      <Link to="/newOffice">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>New Estate/Office</Text>
+                      </Link>
+
+                  
                       <Link to="/customer-support">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
                       </Link>
