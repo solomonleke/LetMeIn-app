@@ -80,23 +80,23 @@ export default function NavBar() {
     nav("/home")
   }
 
-  let Data = [];
-  // const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
-  // // console.log('data', data, isLoading, isError);
   // let Data = [];
+  const { data, isLoading, isError } = useQuery('notification', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+  // console.log('data', data, isLoading, isError);
+  let Data = [];
 
-  // if (!isLoading) {
+  if (!isLoading) {
 
-  //   //filter the unread data
-  //   Data = data?.msg;
-  //   let newData = Data.filter((item, i) =>
-  //     item.unread == false
-  //   )
+    //filter the unread data
+    Data = data?.msg;
+    let newData = Data.filter((item, i) =>
+      item.unread == false
+    )
 
-  //   Data = newData;
+    Data = newData;
 
 
-  // }
+  }
 
   useEffect(() => {
    
@@ -186,11 +186,7 @@ export default function NavBar() {
                       <Link to={"/change-password"}>
                         <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Change Password</Text>
                       </Link>
-                      <Link to={"/customer-support"}>
-                        <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Customer Support</Text>
-                      </Link>
-
-                      <Text onClick={logout} mt={"12px"} pl={"15px"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Logout</Text>
+                    
 
 
                     </div>
@@ -238,6 +234,8 @@ export default function NavBar() {
                       <Link to="/security-ops/uncheck-out-history">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Uncheck-Out History</Text>
                       </Link>
+                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+
 
                     </Stack>
                   )
@@ -261,6 +259,8 @@ export default function NavBar() {
                       <Link to="/customer-support">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
                       </Link>
+                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+
 
                     </Stack>
                   )
@@ -304,6 +304,8 @@ export default function NavBar() {
                       <Link to="/customer-support">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
                       </Link>
+                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+
                     </>
                   )
                 }
@@ -336,6 +338,8 @@ export default function NavBar() {
                       <Link to="/customer-support">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
                       </Link>
+                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+
                     </>
                   )
                 }
@@ -382,6 +386,9 @@ export default function NavBar() {
                       <Link to="/customer-support">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
                       </Link>
+                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+
+
                     </>
                   )
                 }

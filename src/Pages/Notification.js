@@ -18,7 +18,7 @@ export default function Notification() {
 
 //useQuery to get updated data every 10 seconds
 
-const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+const { data, isLoading, isError } = useQuery('notification', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
 // console.log('data', data, isLoading, isError);
 let Data = [];
 

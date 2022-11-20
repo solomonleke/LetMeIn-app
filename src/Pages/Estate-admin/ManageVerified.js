@@ -13,6 +13,8 @@ import Seo from '../../Utils/Seo';
 import moment from 'moment';
 import Divider from '../../Components/Divider';
 import Pagination from '../../Components/Pagination';
+import BackBtn from '../../Components/BackBtn';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function ManageVerified() {
 
@@ -28,7 +30,7 @@ export default function ManageVerified() {
     const [Reasons, setReasons] = useState("");
     // console.log("reason", CheckBox)
     // console.log("reason", Reasons)
-    
+    const navigate = useNavigate()
     const [ModalObj, setModalObj] = useState({
         id: "",
         firstName: "",
@@ -170,6 +172,11 @@ export default function ManageVerified() {
 
 
     }
+    const goBack = ()=>{
+
+ 
+        navigate("/estate-admin")
+    }
 
 
     useEffect(() => {
@@ -226,7 +233,7 @@ export default function ManageVerified() {
                                     {console.log("outside modal" ,item.disable_user)}
                                         <Box w={["50%", "70%"]}>
                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
-                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo} <Divider /> 0{item.phone} <Divider /> {moment(item.time).format("MMM Do ")}</Text>
+                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo} <Divider /> 0{item.phone} <Divider /> {moment(item.createdAt).format("MMM Do ")}</Text>
 
                                         </Box>
 
@@ -305,6 +312,8 @@ export default function ManageVerified() {
                         <Button mt="60px" onClick={Continue}>Continue</Button>
                     </Box>
                 </Center>
+
+                <BackBtn onclick={goBack}/>
             </Box>
 
 
