@@ -80,22 +80,24 @@ export default function NavBar() {
     nav("/home")
   }
 
-  const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
-  // console.log('data', data, isLoading, isError);
-  let Data = [];
+let Data = []
 
-  if (!isLoading) {
+// const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+// // console.log('data', data, isLoading, isError);
 
-    //filter the unread data
-    Data = data?.msg;
-    let newData = Data.filter((item, i) =>
-      item.unread == false
-    )
+// let Data = [];
+// if (!isLoading) {
 
-    Data = newData;
+//   //filter the unread data
+//   Data = data?.msg;
+//   let newData = Data.filter((item, i) =>
+//     item.unread == false
+//   )
+
+//   Data = newData;
 
 
-  }
+// }
 
   useEffect(() => {
    
@@ -154,7 +156,7 @@ export default function NavBar() {
 
                 <Avatar pos={"relative"} name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src={onlineUser.user.profileImage != "" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
                 {
-                  Data.length >= 1 && (
+                  Data?.length >= 1 && (
                     <Box w="20px" h="20px" bg="#E02828" fontSize={"10px"} fontFamily="body" display={"flex"}
                       justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-8px" left="32px">{Data.length}</Box>
 
@@ -171,7 +173,7 @@ export default function NavBar() {
                         <Box pos={"relative"}>
                           <Text mt="11px" pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Notifications</Text>
                           {
-                            Data.length >= 1 && (
+                            Data?.length >= 1 && (
                               <Box w="18px" h="18px" bg="#E02828" fontSize={"8px"} fontFamily="body" display={"flex"}
                                 justifyContent="center" rounded="100%" pos="absolute" color="#fff" p="3px" top="-12px" left="90px">{Data.length}</Box>
 

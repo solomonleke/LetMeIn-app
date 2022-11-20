@@ -39,7 +39,7 @@ export default function Index() {
 //useQuery to get updated data every 10 seconds
 
     const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
-    console.log('data', data, isLoading, isError);
+    console.log('dataaa', data, isLoading, isError);
     var Verified = onlineUser.user.Verified;
 
     if (!isLoading) {
