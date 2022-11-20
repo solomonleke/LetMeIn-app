@@ -48,6 +48,8 @@ export default function ResidentRequest() {
         })
         onOpen()
     }
+
+    
     //Proceed function approves each event Request
 
     const payload = {
