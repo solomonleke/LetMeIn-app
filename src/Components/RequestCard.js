@@ -2,7 +2,7 @@ import { Box, Flex, HStack, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { AiFillCopy } from 'react-icons/ai';
 
-export default function RequestCard({ name, address, phone, number, onClick }) {
+export default function RequestCard({ name, address, phone, number, onClick , approve }) {
 
     return (
         <Box bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"}  rounded='7px' px="13px" pb="30px" mt="50px">
@@ -29,9 +29,9 @@ export default function RequestCard({ name, address, phone, number, onClick }) {
                 </HStack>
 
                 <Flex justifyContent={"flex-end"} onClick={onClick}>
-                    <div className={`toggle "toggle-on"  `}>
+                    <div className={`toggle ${approve && "toggle-on" }  `}>
 
-                        <div className={`toggle-btn  "on" "off"`}>
+                        <div className={`toggle-btn  ${approve ? "on" :"off" } `}>
 
                         </div>
 

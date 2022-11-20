@@ -27,6 +27,8 @@ import SecurityOps from '../Pages/Security/Index'
 import UnCheckOutHistory from '../Pages/Security/UncheckOut'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
+import IndexAdmin from '../Pages/superAdmin/Index'
+import NewOffice from '../Pages/superAdmin/NewOffice'
 import TaxiAccess from '../Pages/TaxiAccess'
 import Verification from '../Pages/Verification'
 import VisitorsAccess from '../Pages/VisitorsAccess'
@@ -73,6 +75,11 @@ export default function IndexRoutes() {
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>
             <Route path='/verification' element={<Verification/>}/>
             <Route path='/full-report' element={<FullReport/>}/>
+            {
+                //SuperAdmin Routes
+            }
+            <Route path='/superAdmin' element={<IndexAdmin/>}/>
+            <Route path='/newOffice' element={<NewOffice/>}/>
            
         </Routes>
     </BrowserRouter>

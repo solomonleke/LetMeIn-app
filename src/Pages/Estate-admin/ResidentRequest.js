@@ -42,7 +42,7 @@ export default function ResidentRequest() {
     }
 
     const OpenModal = (id) => {
-        alert(id)
+        // alert(id)
         setModalObj({
             id: id
         })
@@ -69,13 +69,18 @@ export default function ResidentRequest() {
     }
     const Proceed = () => {
 
-        fetch(` ${apiLink.link}/user/approveMultiple `)
+        fetch(` ${apiLink.link}/user/approveMultiple `, payload)
 
             .then(response => response.json())
             .then(data => {
 
 
                 console.log("approveMultiple", data)
+                VerifyEvent()
+
+                onClose()
+
+
 
             })
 
@@ -108,6 +113,7 @@ export default function ResidentRequest() {
                                 Data.map((item, i) => (
 
                                     <RequestCard
+                                        approve={item.approve}
                                         name={"adeleke moyin"}
                                         address={"sxdh"}
                                         phone={"08033344729"}
