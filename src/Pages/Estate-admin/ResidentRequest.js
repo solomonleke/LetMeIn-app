@@ -118,6 +118,7 @@ export default function ResidentRequest() {
                                         address={"sxdh"}
                                         phone={"08033344729"}
                                         number={item.number_Visitors}
+                                        codeName={item.codeName}
                                         onClick={() => OpenModal(item.id)}
                                     />
                                 ))
