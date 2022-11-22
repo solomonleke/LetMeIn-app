@@ -11,7 +11,6 @@ import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 
 export default function Index() {
-    const queryClient = useQueryClient();
     const nav = useNavigate()
     const dispatch = useDispatch();
     const apiLink = useSelector((state) => state.apiLink);
