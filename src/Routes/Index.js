@@ -29,6 +29,7 @@ import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
 import IndexAdmin from '../Pages/superAdmin/Index'
 import NewOffice from '../Pages/superAdmin/NewOffice'
+import VerifyAdmin from '../Pages/superAdmin/VerifyAdmin'
 import TaxiAccess from '../Pages/TaxiAccess'
 import Verification from '../Pages/Verification'
 import VisitorsAccess from '../Pages/VisitorsAccess'
@@ -79,7 +80,8 @@ export default function IndexRoutes() {
                 //SuperAdmin Routes
             }
             <Route path='/superAdmin' element={<IndexAdmin/>}/>
-            <Route path='/newOffice' element={<NewOffice/>}/>
+            <Route path='/superAdmin/newOffice' element={<NewOffice/>}/>
+            <Route path='/superAdmin/verifyAdmin' element={<VerifyAdmin/>}/>
            
         </Routes>
     </BrowserRouter>

@@ -328,7 +328,7 @@ export default function NavBar() {
                       </Box>
                     </Link>
 
-                      <Link to="/newOffice">
+                      <Link to="/superAdmin/newOffice">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>New Estate/Office</Text>
                       </Link>
 
