@@ -313,25 +313,29 @@ export default function NavBar() {
                 {
                   onlineUser.user.userType == "Super admin" && (
                     <>
-                      <Link to="/newOffice">
+                      <Link to="/superAdmin/newOffice">
                         <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>New Estate/Office</Text>
                       </Link>
-                      <Link to="/verify-id">
+                      <Link to="/superAdmin/verifyAdmin">
                       <Box pos={"relative"}>
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify Estate Admin</Text>
                         {
                             <Text h={"18px"} w={"18px"}
                               rounded={"100%"} bg="#E02828"
                               boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                              pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
+                              pos="absolute" left="140px" top="-8px" textAlign={"center"} pt="1px"
                               fontFamily="body" fontWeight={"400"} color="#FFFFFF"
                               fontSize={"12"}>3</Text>
                         }
                       </Box>
                     </Link>
 
-                      <Link to="/superAdmin/newOffice">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>New Estate/Office</Text>
+                      <Link to="/superAdmin/manageEstate">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Estate/Office</Text>
+                      </Link>
+
+                      <Link to="">
+                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Full Report</Text>
                       </Link>
 
                   
