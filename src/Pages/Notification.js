@@ -26,10 +26,10 @@ if (!isLoading) {
 
      Data = data?.msg;
    
-     let newData = Data.filter((item,i) =>(
-      item.delete_state == false
-     ))
-
+    //  let newData = Data.filter((item,i) =>(
+    //   item.delete_state == false
+    //  ))
+  //  Data = newData
 }
 
 
@@ -42,6 +42,7 @@ const Copied = ()=>{
     setTimeout(() => {
         setShow(false)
     }, 5000);
+
 }
 
   const UpdateUnreadState = ()=>{
@@ -98,12 +99,14 @@ const Copied = ()=>{
   
   }
     
+  Data.splice(id,1)
     fetch(` ${apiLink.link}/user/deleteState`, payload)
 
     .then(response => response.json())
     .then(data => {
 
       console.log("deleted data", data)
+
     })
 
     .catch((error) => {

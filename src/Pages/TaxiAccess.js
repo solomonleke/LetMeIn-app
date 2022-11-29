@@ -53,8 +53,7 @@ export default function TaxiAccess() {
 
     const requestAccess = ()=>{
         setLoading(true)
-        onOpen()
-        
+       
         fetch(`${apiLink.link}/user/taxiAccess`, payload)
 
             .then(res => res.json())
