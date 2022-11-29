@@ -28,6 +28,7 @@ import UnCheckOutHistory from '../Pages/Security/UncheckOut'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
 import IndexAdmin from '../Pages/superAdmin/Index'
+import ManageEstate from '../Pages/superAdmin/ManageEstate'
 import NewOffice from '../Pages/superAdmin/NewOffice'
 import VerifyAdmin from '../Pages/superAdmin/VerifyAdmin'
 import TaxiAccess from '../Pages/TaxiAccess'
@@ -81,6 +82,7 @@ export default function IndexRoutes() {
             }
             <Route path='/superAdmin' element={<IndexAdmin/>}/>
             <Route path='/superAdmin/newOffice' element={<NewOffice/>}/>
+            <Route path='/superAdmin/manageEstate' element={<ManageEstate/>}/>
             <Route path='/superAdmin/verifyAdmin' element={<VerifyAdmin/>}/>
            
         </Routes>
