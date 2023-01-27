@@ -6,6 +6,8 @@ import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 import { useDispatch, useSelector } from 'react-redux';
 import GreetingText from '../../Components/GreetingText';
+import DelayMsg from '../../Components/DelayMsg';
+import DelayEstateMsg from '../../Components/DelayEstateMsg';
 
 export default function EstateAdmin() {
 
@@ -38,33 +40,33 @@ export default function EstateAdmin() {
         }
     }
 
-    const checkLength = ()=>{
+    const checkLength = () => {
 
         fetch(`${apiLink.link}/user/unVerified/${onlineUser.user.estateName}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status == 200) {
-                console.log("data len", data)
-                dispatch(
-                  // collect two parameters (type and payload)
-          
-                  { type: "VERIFIED_COUNT", payload: { data:  data.resident?.length + data.landlord?.length + data.security_OPs?.length} }
-                );
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 200) {
+                    console.log("data len", data)
+                    dispatch(
+                        // collect two parameters (type and payload)
 
-                dispatch(
-          
-                  { type: "VERIFIED_COUNT_LAN", payload: { data:  data.resident?.length } }
-                );
+                        { type: "VERIFIED_COUNT", payload: { data: data.resident?.length + data.landlord?.length + data.security_OPs?.length } }
+                    );
 
-            }else{
-                console.log("error", data)
-            }
-          
-        })
+                    dispatch(
 
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+                        { type: "VERIFIED_COUNT_LAN", payload: { data: data.resident?.length } }
+                    );
+
+                } else {
+                    console.log("error", data)
+                }
+
+            })
+
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     useEffect(() => {
@@ -78,28 +80,37 @@ export default function EstateAdmin() {
             <Seo title='Estate-Manager' description='Estate for LetMeIn' />
 
 
-            <Center mt={["100px", "131px"]}>
+            <Center mt={["100px", "131px"]} opacity={onlineUser.user.Verified == false && "0.4"}>
                 <Stack spacing={'15px'} cursor="pointer" w={["80%", "310px"]}>
-                   <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`}/>
+                    <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`} />
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
-                    <Button onClick={visitor_access}>Visitor Access</Button>
-                    <Button onClick={taxi_access}>Taxi Access</Button>
+                    <Button disabled={onlineUser.user.Verified == false ? true: false} onClick={visitor_access}>Visitor Access</Button>
+                    <Button onClick={taxi_access} disabled={onlineUser.user.Verified == false ? true: false}>Taxi Access</Button>
                     <Box pos={"relative"}>
-                        <Button onClick={verify_id} >Verify IDs</Button>
+                        <Button onClick={verify_id} disabled={onlineUser.user.Verified == false ? true: false}>Verify IDs</Button>
                         {
-                            verifiedLen >=1 && (
+                            verifiedLen >= 1 && (
                                 <Text h={"18px"} w={"18px"}
-                                rounded={"100%"} bg="#EDEDED"
-                                boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                fontFamily="body" fontWeight={"400"} color="#000000"
-                                fontSize={"12"}>{verifiedLen}</Text>
+                                    rounded={"100%"} bg="#EDEDED"
+                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                    fontFamily="body" fontWeight={"400"} color="#000000"
+                                    fontSize={"12"}>{verifiedLen}</Text>
                             )
                         }
-                       
+
                     </Box>
                 </Stack>
             </Center>
+
+            {
+                onlineUser.user.Verified == false && (
+                    <Center mt={"-100px"} zIndex="2">
+                        <DelayEstateMsg />
+                    </Center>
+                )
+            }
+
 
 
 

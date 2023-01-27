@@ -37,7 +37,24 @@ export default function FullReport() {
         })
     }
 
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
+    const isLogged = useSelector((state) => state.isLogged);
+
+
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+       
+            if(Verified == false){
+                nav("/home")
+            }
+        
+       
+    }
+
     useEffect(() => {
+        middleWare()
         fullReport()
     }, [])
 

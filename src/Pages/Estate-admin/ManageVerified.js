@@ -178,9 +178,27 @@ export default function ManageVerified() {
         navigate("/estate-admin")
     }
 
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
+    const isLogged = useSelector((state) => state.isLogged);
+    const nav = useNavigate();
+
+
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+       
+            if(Verified == false){
+                nav("/home")
+            }
+        
+       
+    }
+
 
     useEffect(() => {
         verifiedUser()
+        middleWare()
     }, [Category, Duration, Checked]);
 
     return (

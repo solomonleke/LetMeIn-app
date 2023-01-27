@@ -2,6 +2,7 @@ import { Box, Center, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../../Components/ConfirmationModal';
 import Headers from '../../Components/Headers';
 import NotificationCard from '../../Components/NotificationCard';
@@ -89,9 +90,27 @@ export default function ResidentRequest() {
             });
 
     }
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
+    const isLogged = useSelector((state) => state.isLogged);
+    const nav = useNavigate();
+
+
+    const middleWare = ()=>{
+        if(isLogged.isLogged !== true){
+            nav("/sign-in")
+        }
+       
+            if(Verified == false){
+                nav("/home")
+            }
+        
+       
+    }
+  
 
     useEffect(() => {
         VerifyEvent()
+        middleWare()
 
     }, [])
 

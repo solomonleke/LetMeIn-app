@@ -102,11 +102,11 @@ export default function RequestHistory() {
         if(isLogged.isLogged !== true){
             nav("/sign-in")
         }
-        if(onlineUser.user.userType !== "Estate manager"){
+       
             if(Verified == false){
                 nav("/home")
             }
-        }
+        
        
     }
     useEffect(() => {

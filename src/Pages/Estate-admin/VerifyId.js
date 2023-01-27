@@ -335,17 +335,28 @@ export default function VerifyId() {
         nav("/home")
     }
 
+    const [Verified, setVerified] = useState(onlineUser.user.Verified);
   
     const middleWare = () => {
         if (isLogged.isLogged !== true) {
             nav("/sign-in")
         }
+
+        if(Verified == false){
+            nav("/home")
+        }
+    
     }
+
+
+
+    
 
     useEffect(() => {
 
         checkLength()
         checkLengthRedux()
+        middleWare()
     }, [Checked]);
     
     return (

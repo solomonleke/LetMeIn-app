@@ -1,4 +1,4 @@
-import { Box, Center, Select, Stack } from '@chakra-ui/react'
+import { Box, Center, Select, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -15,8 +15,11 @@ export default function NewOffice() {
   const [Payload, setPayload] = useState({
     country: "",
     state: "",
-    name: ""
+    estateName: ""
   })
+
+  const [Loading, setLoading] = useState(false);
+  const [Success, setSuccess] = useState(false);
   const handlePayload = (e)=>{
 
     setPayload({...Payload, [e.target.id]: e.target.value})
@@ -35,19 +38,34 @@ export default function NewOffice() {
 }
 
   const SubmitNewForm = ()=>{
-
+    setLoading(true)
     console.log("Payload", Payload)
 
-  //   fetch(`${apiLink.link}/user/`, payload)
+    fetch(`${apiLink.link}/user/newEstate`, payload)
 
-  //   .then(res => res.json())
-  //   .then(json => {
-  //     console.log( "API-CHECK" , json)
+    .then(res => res.json())
+    .then(json => {
+
+      if(json.status == 200){
+        setLoading(false)
+        setSuccess(true)
+
+        setTimeout(() => {
+          setSuccess(false)  
+        }, 3000);
+
+        setPayload({
+          country: "",
+          state: "",
+          estateName: ""
+        })
+        console.log( "API-CHECK" , json)
+      }
     
-  //  })
-  //  .catch(error => {
-  //    console.log("error", error);
-  //   })
+   })
+   .catch(error => {
+     console.log("error", error);
+    })
   }
   return (
     <MainLayout>
@@ -60,19 +78,23 @@ export default function NewOffice() {
 
             <Select color={"00000"} onChange={handlePayload} id="country" value={Payload.country} rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"}  fontSize={"14px"} fontWeight={"400"} placeholder='Select Country' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"} mt="62px">
               <option value='Nigeria'>Nigeria</option>
-              <option value='Ghana'>Ghana</option>
               <option value='Usa'>Usa</option>
             </Select>
             <Select color={"00000"} onChange={handlePayload} id="state" value={Payload.state} rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"}  fontSize={"14px"} fontWeight={"400"} placeholder='Select State' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"} mt="62px">
               <option value='Lagos'>Lagos</option>
-              <option value='Oyo'>Oyo</option>
               <option value='Abuja'>Abuja</option>
             </Select>
 
-            <Input label='Name of Estate/Office' onChange={handlePayload} id="name" value={Payload.name} />
+            <Input label='Name of Estate/Office' onChange={handlePayload} id="estateName" value={Payload.estateName} />
           </Stack>
 
-          <Button onClick={SubmitNewForm} mt={"32px"}>Confirm</Button>
+          <Button onClick={SubmitNewForm} mt={"32px"} isLoading={Loading}>Confirm</Button>
+    {
+      Success && (
+
+          <Text textAlign={"center"} mt="20px" color="green">New Estate Added Successfully</Text>
+      )
+    }
 
         </Box>
       </Center>
