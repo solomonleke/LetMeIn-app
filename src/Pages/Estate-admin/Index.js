@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import GreetingText from '../../Components/GreetingText';
 import DelayMsg from '../../Components/DelayMsg';
 import DelayEstateMsg from '../../Components/DelayEstateMsg';
+import { useQuery } from 'react-query';
 
 export default function EstateAdmin() {
 
     const nav = useNavigate()
     const dispatch = useDispatch();
 
-    const [Verified, setVerified] = useState(true);
     const isLogged = useSelector((state) => state.isLogged);
     const apiLink = useSelector((state) => state.apiLink);
     const verifiedLen = useSelector((state) => state.verifiedCount.count);
@@ -69,10 +69,28 @@ export default function EstateAdmin() {
             });
     }
 
+    //useQuery to get updated data every 10 seconds
+
+    const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+    console.log('data', data, isLoading, isError);
+     var Verified = onlineUser.user.Verified;
+
+    if (!isLoading) {
+
+        var Verified = data?.msg.Verified;
+       
+
+    }
+
     useEffect(() => {
+        dispatch(
+        
+            { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
+          );
+
         middleWare()
         checkLength()
-    }, []);
+    }, [Verified]);
 
 
     return (
