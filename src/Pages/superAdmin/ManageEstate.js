@@ -17,9 +17,24 @@ export default function ManageEstate() {
   const [View, setView] = useState(false);
   const [EstateName, setEstateName] = useState("");
   const [EstateList, setEstateList] = useState([]);
+  const [EstateNumber, setEstateNumber] = useState();
   const [EstateAdmin, setEstateAdmin] = useState([]);
   const [Loading, setLoading] = useState(false);
   const apiLink = useSelector((state) => state.apiLink);
+
+  const getAllEstateNumber = () => {
+    fetch(`${apiLink.link}/user/estateAdmin`)
+
+      .then(res => res.json())
+      .then(json => {
+        setEstateNumber(json.msg)
+        console.log("estate Number", json)
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
+
+  }
 
   const getAllEstate = () => {
     fetch(`${apiLink.link}/user/getAllEstates`)
@@ -103,6 +118,7 @@ export default function ManageEstate() {
 
     getAllEstate
       ()
+      getAllEstateNumber()
   }, []);
 
 
@@ -120,7 +136,7 @@ export default function ManageEstate() {
             <Flex justifyContent="space-between" w="100%">
               <Text textAlign="center" pt="30px" pr="10px" w="60%" fontFamily="body" fontWeight={'400'} color="#424242" fontSize={"14px"} borderRight="1px solid #B7B7B7">Total no. of Estate Admin</Text>
 
-              <Text fontFamily="body" textAlign="center" w="50%" fontWeight={'700'} color="#CBCBCB" fontSize={"53px"}>50</Text>
+              <Text fontFamily="body" textAlign="center" w="50%" fontWeight={'700'} color="#CBCBCB" fontSize={"53px"}>{EstateNumber}</Text>
 
 
             </Flex>
