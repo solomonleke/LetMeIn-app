@@ -114,10 +114,11 @@ export default function VerifyAdmin() {
                                     }
 
 
+
                                 </Select>
 
 
-                                <Button mt={"32px"} onClick={Proceed} disabled={EstateName != "" ? false : true} isLoading={Loading}>Proceed</Button>
+                                <Button mt={"32px"} onClick={Proceed} disabled={EstateName != "" ? false : true} isLoading={Loading}>Proceed </Button>
                             </Box>
                         </Center>
                     ) : (
