@@ -89,7 +89,7 @@ export default function NavBar() {
 
     //filter the unread data
     Data = data?.msg;
-    let newData = Data.filter((item, i) =>
+    let newData = Data?.filter((item, i) =>
       item.unread == false
     )
 
