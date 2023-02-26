@@ -37,6 +37,7 @@ import { useQuery, useQueryClient } from 'react-query';
 export default function NavBar() {
   const [LoggedIn, setLoggedIn] = useState(false);
   const [OpenAvater, setOpenAvater] = useState(false);
+  const [Notification, setNotification] = useState();
   const initialFocusRef = React.useRef()
   const isLogged = useSelector((state) => state.isLogged);
   const onlineUser = useSelector((state) => state.onlineUser);
@@ -48,6 +49,23 @@ export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const apiLink = useSelector((state) => state.apiLink);
+
+  const getNotification = () => {
+    fetch(`${apiLink.link}/user/unverifiedEstateAdmin`)
+
+      .then(res => res.json())
+      .then(json => {
+        if(json.msg !== 0){
+          setNotification(json.msg)
+        }
+        setNotification(0);
+        console.log("number", json)
+      })
+      .catch(error => {
+        console.log("error", error);
+      })
+
+  }
 
 
   const logout = () => {
@@ -99,7 +117,7 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-   
+    getNotification()
   }, [])
 
   return (
@@ -325,7 +343,7 @@ export default function NavBar() {
                               boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
                               pos="absolute" left="140px" top="-8px" textAlign={"center"} pt="1px"
                               fontFamily="body" fontWeight={"400"} color="#FFFFFF"
-                              fontSize={"12"}>3</Text>
+                              fontSize={"12"}>{Notification}</Text>
                         }
                       </Box>
                     </Link>
