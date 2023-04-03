@@ -25,6 +25,7 @@ import CheckOutHistory from '../Pages/Security/CheckOutHistory'
 import GrantAccess from '../Pages/Security/GrantAccess'
 import SecurityOps from '../Pages/Security/Index'
 import UnCheckOutHistory from '../Pages/Security/UncheckOut'
+import VerifyID from '../Pages/Security/VerifyID'
 import SignIn from '../Pages/SignIn'
 import SignUp from '../Pages/SignUp'
 import IndexAdmin from '../Pages/superAdmin/Index'
@@ -73,6 +74,7 @@ export default function IndexRoutes() {
             <Route path='/security-ops/check-in-history' element={<CheckInHistory/>}/>        
             <Route path='/security-ops/check-out-history' element={<CheckOutHistory/>}/>        
             <Route path='/security-ops/uncheck-out-history' element={<UnCheckOutHistory/>}/>        
+            <Route path='/security-ops/verify-id' element={<VerifyID/>}/>        
             <Route path='/verify-id' element={<VerifyId/>}/>
             <Route path='/manage-verify-id' element={<ManageVerified/>}/>
             <Route path='/verification' element={<Verification/>}/>

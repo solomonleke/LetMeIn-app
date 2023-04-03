@@ -26,12 +26,15 @@ import {
 import React, { useState } from 'react'
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BsSearch } from "react-icons/bs";
 import { MdNotificationsActive } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
+import NavList from './NavList';
+import SingleList from '../Components/SingleList';
+import { isActive } from '../Authenticaation';
 
 
 export default function NavBar() {
@@ -46,6 +49,10 @@ export default function NavBar() {
 
   const dispatch = useDispatch();
   const nav = useNavigate()
+  const location = useLocation()
+
+
+  const navList = NavList(location.pathname)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const apiLink = useSelector((state) => state.apiLink);
@@ -55,7 +62,7 @@ export default function NavBar() {
 
       .then(res => res.json())
       .then(json => {
-        if(json.msg !== 0){
+        if (json.msg !== 0) {
           setNotification(json.msg)
         }
         setNotification(0);
@@ -87,6 +94,7 @@ export default function NavBar() {
 
   }
 
+  
 
   const AvatarOpen = () => {
 
@@ -115,6 +123,8 @@ export default function NavBar() {
 
 
   }
+
+
 
   useEffect(() => {
     getNotification()
@@ -204,7 +214,7 @@ export default function NavBar() {
                       <Link to={"/change-password"}>
                         <Text mt={"12px"} pl={"15px"} pb="14px" borderBottom={"0.5px solid #AFAFAF"} fontFamily={"body"} fontSize="14px" fontWeight={"400"} lineHeight="16px" color={"#424242"}>Change Password</Text>
                       </Link>
-                    
+
 
 
                     </div>
@@ -239,129 +249,41 @@ export default function NavBar() {
             <Box display="flex" flexDirection={"column"} >
 
               <Stack spacing={"19px"} mt="123px" cursor={"pointer"} flexGrow={1}>
+                <Link to="/">
+                  <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} p="10px" fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Homepage</Text>
+
+                </Link>
 
                 {
-                  onlineUser.user.userType == "Security operative" && (
-                    <Stack spacing={"19px"}>
-                      <Link to="/security-ops/check-in-history">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Check-in History</Text>
-                      </Link>
-                      <Link to="/security-ops/check-out-history">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Check-out History</Text>
-                      </Link>
-                      <Link to="/security-ops/uncheck-out-history">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Uncheck-Out History</Text>
-                      </Link>
-                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+                  navList.filter(item => item.display === true).map((item, i) => (
+                    <SingleList
+                      key={i}
+                      link={item.location}
+                      name={item.name}
+                      pageActive={item.active}
+                    />
+                  ))
 
-
-                    </Stack>
-                  )
-                }
-
-                {
-                  onlineUser.user.userType == "Resident" && (
-
-                    <Stack spacing={"19px"}>
-
-                      <Link to="/visitors-access">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
-                      </Link>
-
-                      <Link to="/request-access-history">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
-                      </Link>
-
-
-
-                      <Link to="/customer-support">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                      </Link>
-                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
-
-
-                    </Stack>
-                  )
-                }
-
-
-
-                {
-                  onlineUser.user.userType == "Landlord" && (
-                    <>
-                      <Link to="/visitors-access">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
-                      </Link>
-
-                      <Link to="/request-access-history">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
-                      </Link>
-
-
-
-                      <Link to="/verify-id">
-                        <Box pos={"relative"}>
-                          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
-                          {
-                            verifiedLan >= 1 && (
-                              <Text h={"18px"} w={"18px"}
-                                rounded={"100%"} bg="#E02828"
-                                boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
-                                fontFamily="body" fontWeight={"400"} color="#FFFFFF"
-                                fontSize={"12"}>{verifiedLan}</Text>
-                            )
-                          }
-                        </Box>
-                      </Link>
-
-                      <Link to="/manage-verify-id">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
-                      </Link>
-
-                      <Link to="/customer-support">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                      </Link>
-                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
-
-                    </>
-                  )
                 }
 
                 {
                   onlineUser.user.userType == "Super admin" && (
                     <>
-                      <Link to="/superAdmin/newOffice">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>New Estate/Office</Text>
-                      </Link>
+
                       <Link to="/superAdmin/verifyAdmin">
-                      <Box pos={"relative"}>
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify Estate Admin</Text>
-                        {
+                        <Box pos={"relative"}>
+                          <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} bg={isActive(location.pathname, "/superAdmin/verifyAdmin") ?
+                            "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : ""} p="10px" fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify Estate Admin</Text>
+                          {
                             <Text h={"18px"} w={"18px"}
                               rounded={"100%"} bg="#E02828"
                               boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
                               pos="absolute" left="140px" top="-8px" textAlign={"center"} pt="1px"
                               fontFamily="body" fontWeight={"400"} color="#FFFFFF"
                               fontSize={"12"}>{Notification}</Text>
-                        }
-                      </Box>
-                    </Link>
-
-                      <Link to="/superAdmin/manageEstate">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Estate/Office</Text>
+                          }
+                        </Box>
                       </Link>
-
-                      <Link to="">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Full Report</Text>
-                      </Link>
-
-                  
-                      <Link to="/customer-support">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                      </Link>
-                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
-
                     </>
                   )
                 }
@@ -369,22 +291,11 @@ export default function NavBar() {
                 {
                   onlineUser.user.userType == "Estate manager" && (
                     <>
-                      <Link to="/visitors-access">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access</Text>
-                      </Link>
-
-                      <Link to="/request-access-history">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Request Access History</Text>
-                      </Link>
-                      <Link to="/resident-request">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Resident Request</Text>
-                      </Link>
-
-
 
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
-                          <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
+                          <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} bg={isActive(location.pathname, "/verify-id") ?
+                            "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : ""} p="10px" fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Verify IDs</Text>
                           {
                             verifiedLen >= 1 && (
                               <Text h={"18px"} w={"18px"}
@@ -398,17 +309,6 @@ export default function NavBar() {
                         </Box>
                       </Link>
 
-                      <Link to="/manage-verify-id">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Manage Verified IDs</Text>
-                      </Link>
-
-                      <Link to="/full-report">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Full Report</Text>
-                      </Link>
-                      <Link to="/customer-support">
-                        <Text fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Customer Support</Text>
-                      </Link>
-                      <Text onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
 
 
                     </>
@@ -416,21 +316,9 @@ export default function NavBar() {
                 }
 
 
-
-
-
-
-
+                <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} p="10px" onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
 
               </Stack>
-
-
-
-
-
-
-
-
 
             </Box>
           </DrawerBody>

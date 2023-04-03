@@ -1,7 +1,7 @@
 import { Box, Center, Flex, HStack, Select, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BackBtn from '../../Components/BackBtn';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
@@ -10,6 +10,7 @@ import HistoryCard from '../../Components/HistoryCard';
 import Input from '../../Components/Input';
 import Pagination from '../../Components/Pagination';
 import MainLayout from '../../Layouts/Index';
+import SecurityNav from '../../Layouts/SecurityNav';
 import Seo from '../../Utils/Seo';
 
 export default function UnCheckOutHistory() {
@@ -72,6 +73,8 @@ export default function UnCheckOutHistory() {
 
 
   // }
+
+  const location = useLocation();
 
   const middleWare = () => {
     if (isLogged.isLogged !== true) {
@@ -168,7 +171,9 @@ export default function UnCheckOutHistory() {
           </Center>
         )
       }
-
+      <Box pos="fixed" bottom={"0"} width="100%" display={["block", "none"]}>
+      <SecurityNav path={location.pathname}/>
+      </Box>
     </MainLayout>
   );
 }

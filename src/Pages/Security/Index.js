@@ -1,13 +1,14 @@
 import { Alert, AlertIcon, AlertTitle, Box, Center, CloseButton, Flex, HStack, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button';
 import DelayMsg from '../../Components/DelayMsg';
 import Input from '../../Components/Input';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 import { useQuery, useQueryClient } from 'react-query';
+import SecurityNav from '../../Layouts/SecurityNav';
 
 
 export default function SecurityOps() {
@@ -35,7 +36,9 @@ export default function SecurityOps() {
 
   const dispatch = useDispatch();
 
+  const location = useLocation();
 
+  console.log("location", location)
   const handleCheckIn = () => {
     setCheckIn(true)
     setCheckOut(false)
@@ -415,7 +418,7 @@ useEffect(() => {
       
       {
         ShowAlert && (
-            <Center mt="32px" >
+            <Center mt="-25px" >
             <Alert status='success' mt="35px" color="#fff" w={["85%","83%","70%","57%","36%"]}>
                 <AlertIcon />
                 <AlertTitle mr={2} fontWeight="400" fontFamily={"body"} fontSize="16px">Congratulation, your account has been verified Successfully</AlertTitle>
@@ -426,6 +429,9 @@ useEffect(() => {
         )
     }   
 
+      <Box pos="fixed" bottom={"0"} width="100%" display={["block", "none"]}>
+      <SecurityNav path={location.pathname}/>
+      </Box>
     </MainLayout>
   );
 }

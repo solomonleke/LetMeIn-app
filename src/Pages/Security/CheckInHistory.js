@@ -1,7 +1,7 @@
 import { Box, Center, Flex, HStack, Select, SimpleGrid, Spacer, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BackBtn from '../../Components/BackBtn';
 import Button from '../../Components/Button';
 import CardList from '../../Components/CardList';
@@ -14,6 +14,7 @@ import TaxiCard from '../../Components/TaxiCard';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 import moment from 'moment';
+import SecurityNav from '../../Layouts/SecurityNav';
 
 export default function CheckInHistory() {
 
@@ -192,6 +193,8 @@ export default function CheckInHistory() {
     })
 
   }
+  const location = useLocation();
+
 
   useEffect(() => {
     checkLen()
@@ -339,7 +342,9 @@ export default function CheckInHistory() {
           </Center>
         )
       }
-
+      <Box pos="fixed" bottom={"0"} width="100%" display={["block", "none"]}>
+      <SecurityNav path={location.pathname}/>
+      </Box>
     </MainLayout>
   );
 }
