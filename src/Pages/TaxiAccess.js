@@ -85,9 +85,7 @@ export default function TaxiAccess() {
     }
 
     const middleWare = ()=>{
-        if(isLogged.isLogged !== true){
-            nav("/sign-in")
-        }
+      
         if(onlineUser.user.userType !== "Estate manager"){
             if(Verified == false || onlineUser.user.disable_user == true){
                 nav("/home")

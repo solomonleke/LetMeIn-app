@@ -70,16 +70,7 @@ export default function CheckInHistory() {
 
 
 
-  const middleWare = () => {
-    if (isLogged.isLogged !== true) {
-      nav("/sign-in")
-    }
-
-    if (onlineUser.user.userType !== "Security operative") {
-      nav("/home")
-    }
-  }
-
+  
   const Continue =()=>{
     setLoading(true)
 
@@ -198,7 +189,7 @@ export default function CheckInHistory() {
 
   useEffect(() => {
     checkLen()
-    middleWare()
+    
   }, []);
 
   return (

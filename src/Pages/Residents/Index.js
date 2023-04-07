@@ -28,11 +28,6 @@ export default function Index() {
 
     const isLogged = useSelector((state) => state.isLogged);
 
-    const middleWare = () => {
-        if (isLogged.isLogged !== true) {
-            nav("/sign-in")
-        }
-    }
 
 
 //useQuery to get updated data every 10 seconds
@@ -54,7 +49,7 @@ export default function Index() {
 
     useEffect(() => {
 
-        middleWare()
+    
         Verified === true? setShowAlert(true):setShowAlert(false);
         dispatch(
         

@@ -42,9 +42,7 @@ export default function FullReport() {
 
 
     const middleWare = ()=>{
-        if(isLogged.isLogged !== true){
-            nav("/sign-in")
-        }
+     
        
             if(Verified == false){
                 nav("/home")
@@ -54,7 +52,7 @@ export default function FullReport() {
     }
 
     useEffect(() => {
-        middleWare()
+     
         fullReport()
     }, [])
 

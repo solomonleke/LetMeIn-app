@@ -86,17 +86,7 @@ const Profile = () => {
 
 
 
-    const middleWare = () => {
-        if (isLogged.isLogged !== true) {
-            nav("/sign-in")
-        }
-    }
-
-
-    useEffect(() => {
-        middleWare()
-    }, []);
-
+  
 
 
 

@@ -211,15 +211,7 @@ export default function SecurityOps() {
    
   }
 
-  const middleWare = ()=>{
-    if(isLogged.isLogged !== true){
-        nav("/sign-in")
-    }
 
-    if(onlineUser.user.userType !== "Security operative"){
-      nav("/home")
-    }
-}
 
 // const checkVerification = ()=>{
 //   // window.location.reload()
@@ -273,7 +265,7 @@ useEffect(() => {
         
             { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
           );
-      middleWare()
+    
   }, [Verified]);
 
 

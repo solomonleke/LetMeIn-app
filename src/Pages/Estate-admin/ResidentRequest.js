@@ -96,9 +96,7 @@ export default function ResidentRequest() {
 
 
     const middleWare = ()=>{
-        if(isLogged.isLogged !== true){
-            nav("/sign-in")
-        }
+      
        
             if(Verified == false){
                 nav("/home")

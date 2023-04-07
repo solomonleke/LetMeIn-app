@@ -338,9 +338,7 @@ export default function VerifyId() {
     const [Verified, setVerified] = useState(onlineUser.user.Verified);
   
     const middleWare = () => {
-        if (isLogged.isLogged !== true) {
-            nav("/sign-in")
-        }
+      
 
         if(Verified == false){
             nav("/home")

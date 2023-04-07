@@ -34,11 +34,7 @@ export default function EstateAdmin() {
         nav("/taxi-access")
     }
 
-    const middleWare = () => {
-        if (isLogged.isLogged !== true) {
-            nav("/sign-in")
-        }
-    }
+
 
     const checkLength = () => {
 
@@ -88,7 +84,6 @@ export default function EstateAdmin() {
             { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
           );
 
-        middleWare()
         checkLength()
     }, [Verified]);
 

@@ -60,9 +60,7 @@ export default function LandLord() {
       }
 
     const middleWare = () => {
-        if (isLogged.isLogged !== true) {
-            nav("/sign-in")
-        }
+      
     }
 
     const checkLength = ()=>{

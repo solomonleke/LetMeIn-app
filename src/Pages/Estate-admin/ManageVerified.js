@@ -188,9 +188,7 @@ export default function ManageVerified() {
 
 
     const middleWare = () => {
-        if (isLogged.isLogged !== true) {
-            nav("/sign-in")
-        }
+      
 
         if (Verified == false) {
             nav("/home")

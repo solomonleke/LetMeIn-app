@@ -76,18 +76,6 @@ export default function UnCheckOutHistory() {
 
   const location = useLocation();
 
-  const middleWare = () => {
-    if (isLogged.isLogged !== true) {
-      nav("/sign-in")
-    }
-
-    if (onlineUser.user.userType !== "Security operative") {
-      nav("/home")
-    }
-  }
-  useEffect(() => {
-    middleWare()
-  }, []);
 
   return (
     <MainLayout bgColor={Verified == false && "#EEEEEE"} >

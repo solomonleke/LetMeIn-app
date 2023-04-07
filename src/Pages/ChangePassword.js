@@ -87,17 +87,12 @@ export default function ChangePassword() {
     }
 
   }
-  const middleWare = () => {
-    if (isLogged.isLogged !== true) {
-      nav("/sign-in")
-    }
-  }
 
 
 
 
   useEffect(() => {
-    middleWare()
+    
     checkRetypePassword()
   }, [Payload.reTypePassword])
 

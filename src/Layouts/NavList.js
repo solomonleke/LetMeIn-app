@@ -30,7 +30,7 @@ export default function NavList(path) {
             name: "Dashboard",
             location: "/estate-admin",
             active: isActive(path, "/estate-admin"),
-            display: isResident(onlineUser.user.userType)
+            display: isEstateAdmin(onlineUser.user.userType)
 
 
         }, 

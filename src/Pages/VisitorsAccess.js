@@ -174,9 +174,7 @@ export default function VisitorsAccess() {
     }
 
     const middleWare = ()=>{
-        if(isLogged.isLogged !== true){
-            nav("/sign-in")
-        }
+      
 
      
             if(Verified == false || onlineUser.user.disable_user == true ){

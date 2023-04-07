@@ -3,6 +3,12 @@ export const isActive = (path, location)=>{
 
  return result
 }
+export const isAuthenticated = (isLogged,onlineUser)=>{
+
+ let result = isLogged.isLogged === true && onlineUser !== null ? true : false;
+
+ return result
+}
 export const isSecurity = (type)=>{
  let result = type === "Security operative" ? true : false;
 
@@ -13,6 +19,12 @@ export const isResident = (type)=>{
 
  return result
 }
+export const isVerified = (type)=>{
+ let result = type === "Resident" || type === "Estate manager" ? true : false;
+
+ return result
+}
+
 export const isEstateAdmin = (type)=>{
  let result = type === "Estate manager" ? true : false;
 

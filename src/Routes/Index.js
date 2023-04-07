@@ -35,7 +35,12 @@ import VerifyAdmin from '../Pages/superAdmin/VerifyAdmin'
 import TaxiAccess from '../Pages/TaxiAccess'
 import Verification from '../Pages/Verification'
 import VisitorsAccess from '../Pages/VisitorsAccess'
-import { ProtectedRoute } from './Protected'
+import EstateAminRoutes from './EstateAdminRoutes'
+import ProtectedRoutes, { ProtectedRoute } from './ProtectedRoutes'
+import ResidentRoutes from './ResidentRoutes'
+import SecurityRoutes from './SecurityRoutes'
+import SuperAdminRoutes from './SuperAdminRoutes'
+import VerifiedPagesRoutes from './VerifiedPagesRoutes'
 
 
 
@@ -46,48 +51,68 @@ export default function IndexRoutes() {
 
   return (
     <BrowserRouter>
-        <Routes>
-          
-            <Route path='/home' element={<Home/>}/>
-            <Route path='/' element={<Homepage/>}/>
-            <Route path='/confirmation/:lastName/:prefix/:boolean' element={<Confirmation/>}/>
-            <Route path='/sign-up' element={<SignUp/>}/>
-            <Route path='/sign-in' element={<SignIn/>}/>
+      <Routes>
 
-            <Route path='/resident' element={<Index/>}/>
-            <Route path='/estate-admin' element={<EstateAdmin/>}/>
-            <Route path='/landlord' element={<LandLord/>}/>
-            <Route path='/security-ops' element={<SecurityOps/>}/>
-            <Route path='/security-ops/grant-access' element={<GrantAccess/>}/>
-            <Route path='/my-profile' element={<Profile/>}/>
-            <Route path='/notification' element={<Notification/>}/>
-            <Route path='/customer-support' element={<CustomerSupport/>}/>
-            <Route path='/change-password' element={<ChangePassword/>}/>
-            <Route path='/sign-in/forget-password' element={<ForgetPassword/>}/>
-            <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
+        <Route path='/home' element={<Home />} />
+        <Route path='/' element={<Homepage />} />
+        <Route path='/confirmation/:lastName/:prefix/:boolean' element={<Confirmation />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/sign-in/forget-password' element={<ForgetPassword />} />
+        <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
+        <Route path='/404' element={<Error404 />} />
+        <Route path='/verification' element={<Verification />} />
 
-            <Route path='/visitors-access' element={<VisitorsAccess/>}/>
-            <Route path='/resident-request' element={<ResidentRequest/>}/>
-            <Route path='/request-access-history' element={<RequestHistory/>}/>
-            <Route path='/404' element={<Error404/>}/>
-            <Route path='/taxi-access' element={<TaxiAccess/>}/>
-            <Route path='/security-ops/check-in-history' element={<CheckInHistory/>}/>        
-            <Route path='/security-ops/check-out-history' element={<CheckOutHistory/>}/>        
-            <Route path='/security-ops/uncheck-out-history' element={<UnCheckOutHistory/>}/>        
-            <Route path='/security-ops/verify-id' element={<VerifyID/>}/>        
-            <Route path='/verify-id' element={<VerifyId/>}/>
-            <Route path='/manage-verify-id' element={<ManageVerified/>}/>
-            <Route path='/verification' element={<Verification/>}/>
-            <Route path='/full-report' element={<FullReport/>}/>
-            {
-                //SuperAdmin Routes
-            }
-            <Route path='/superAdmin' element={<IndexAdmin/>}/>
-            <Route path='/superAdmin/newOffice' element={<NewOffice/>}/>
-            <Route path='/superAdmin/manageEstate' element={<ManageEstate/>}/>
-            <Route path='/superAdmin/verifyAdmin' element={<VerifyAdmin/>}/>
-           
-        </Routes>
+        <Route element={<ProtectedRoutes />}>
+
+          <Route element={<ResidentRoutes />}>
+
+            <Route path='/resident' element={<Index />} />
+          </Route>
+
+          <Route element={<EstateAminRoutes />}>
+            <Route path='/estate-admin' element={<EstateAdmin />} />
+            <Route path='/verify-id' element={<VerifyId />} />
+            <Route path='/manage-verify-id' element={<ManageVerified />} />
+            <Route path='/full-report' element={<FullReport />} />
+            <Route path='/resident-request' element={<ResidentRequest />} />
+
+          </Route>
+
+          <Route element={<VerifiedPagesRoutes />}>
+            <Route path='/visitors-access' element={<VisitorsAccess />} />
+            <Route path='/taxi-access' element={<TaxiAccess />} />
+            <Route path='/request-access-history' element={<RequestHistory />} />
+
+
+          </Route>
+
+          <Route element={<SecurityRoutes />}>
+            <Route path='/security-ops' element={<SecurityOps />} />
+            <Route path='/security-ops/grant-access' element={<GrantAccess />} />
+            <Route path='/security-ops/check-in-history' element={<CheckInHistory />} />
+            <Route path='/security-ops/check-out-history' element={<CheckOutHistory />} />
+            <Route path='/security-ops/uncheck-out-history' element={<UnCheckOutHistory />} />
+            <Route path='/security-ops/verify-id' element={<VerifyID />} />
+          </Route>
+
+          <Route element={<SuperAdminRoutes />}>
+            <Route path='/superAdmin' element={<IndexAdmin />} />
+            <Route path='/superAdmin/newOffice' element={<NewOffice />} />
+            <Route path='/superAdmin/manageEstate' element={<ManageEstate />} />
+            <Route path='/superAdmin/verifyAdmin' element={<VerifyAdmin />} />
+
+          </Route>
+
+          <Route path='/my-profile' element={<Profile />} />
+          <Route path='/notification' element={<Notification />} />
+          <Route path='/customer-support' element={<CustomerSupport />} />
+          <Route path='/change-password' element={<ChangePassword />} />
+
+        </Route>
+
+
+      </Routes>
     </BrowserRouter>
   )
 }
