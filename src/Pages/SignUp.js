@@ -69,6 +69,7 @@ export default function SignUp() {
 
     const payload = {
 
+        
         method: "POST",
 
         headers: { 

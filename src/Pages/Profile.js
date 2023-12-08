@@ -30,6 +30,7 @@ const Profile = () => {
         let file = e.target.files[0]
         setImage(file)
 
+
     }
 
 
