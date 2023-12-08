@@ -41,6 +41,7 @@ import ResidentRoutes from './ResidentRoutes'
 import SecurityRoutes from './SecurityRoutes'
 import SuperAdminRoutes from './SuperAdminRoutes'
 import VerifiedPagesRoutes from './VerifiedPagesRoutes'
+import Privacy from '../Pages/Privacy'
 
 
 
@@ -62,6 +63,7 @@ export default function IndexRoutes() {
         <Route path='/reset-password/:id/:token' element={<ResetPassword />} />
         <Route path='/404' element={<Error404 />} />
         <Route path='/verification' element={<Verification />} />
+        <Route path='/privacy' element={<Privacy />} />
 
         <Route element={<ProtectedRoutes />}>
 
