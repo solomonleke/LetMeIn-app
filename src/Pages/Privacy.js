@@ -27,6 +27,8 @@ const Privacy = () => {
           <Image src={privacy3} />
           <Image src={privacy4} />
         </Flex>
+
+        
       </Center>
     </Box>
   );
