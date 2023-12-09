@@ -36,7 +36,7 @@ export default function Homepage() {
   const updateApiLink = () => {
     dispatch({
       type: "API-LINK",
-      payload: { data: "https://testapi.letmein.ng" },
+      payload: { data: "https://api.letmein.ng" },
     });
   };
 
