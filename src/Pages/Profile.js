@@ -36,6 +36,9 @@ const Profile = () => {
 
 
     const upload = () => {
+
+        // var myHeaders = new Headers();
+        // myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiN2I2MGJiZjQtYmZmNy00ZTE0LWE0ZjEtZmNmMWI4YTE1YzI3IiwiZW1haWwiOiJ2ODExMTEzOTRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTI3NDY2fQ.JadOH-8vPVtZb_mVpw84U29h8MdeR2waanBpQA6xYMg");
         const formData = new FormData();
 
       
@@ -49,14 +52,14 @@ const Profile = () => {
         const payload = {
 
             method: "POST",
-            // Authorization: 'Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiN2I2MGJiZjQtYmZmNy00ZTE0LWE0ZjEtZmNmMWI4YTE1YzI3IiwiZW1haWwiOiJ2ODExMTEzOTRAZ21haWwuY29tIiwiaWF0IjoxNzAxOTI3NDY2fQ.JadOH-8vPVtZb_mVpw84U29h8MdeR2waanBpQA6xYMg',
-            body: formData
+            body: formData,
+        
+
 
         }
 
         setLoading(true)
         
-        // fetch(`https://fynd-app-d5c4611a1c58.herokuapp.com/api/v1/users/upload`, payload)
         fetch(`${apiLink.link}/user/profilePhoto`, payload)
         
         .then(res => res.json())
