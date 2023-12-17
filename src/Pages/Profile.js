@@ -27,6 +27,7 @@ import Button from "../Components/Button";
 import MainLayout from "../Layouts/Index";
 import Seo from "../Utils/Seo";
 import DeleteModal from "../Components/DeleteModal";
+import NavBar, { logout } from "../Layouts/NavBar";
 
 const Profile = () => {
   const nav = useNavigate();
@@ -40,8 +41,6 @@ const Profile = () => {
   const [Img, setImg] = useState();
   const [deleteModal, setDeleteModal] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
-
 
   const handleImg = (e) => {
     setImage(null);
@@ -82,15 +81,23 @@ const Profile = () => {
       });
   };
 
-  const handleDelete = async (id) => {
+  const logout = () => {
+    dispatch({ type: "SIGN_IN", payload: { isLogged: false } });
+
+    dispatch({ type: "ADD_USER", payload: { data: "" } });
+
+    nav("/");
+  };
+
+  const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://api.letmein.ng/user/delete-account/${id}`,
+        `https://api.letmein.ng/user/delete-account/${onlineUser.user.id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-           
+            // Add any additional headers if required
           },
         }
       );
@@ -102,13 +109,41 @@ const Profile = () => {
       const data = await response.json();
       console.log("User deleted successfully:", data);
       // You can trigger additional actions or update your component state as needed
-      
-      nav("/home")
-    
+
+      // nav("/");
+      logout();
     } catch (error) {
       console.error("Error deleting user:", error.message);
     }
   };
+
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://api.letmein.ng/user/delete-account/${id}`,
+  //       {
+  //         method: "DELETE",
+  //         headers: {
+  //           "Content-Type": "application/json",
+
+  //         },
+  //       }
+  //     );
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+  //     console.log("User deleted successfully:", data);
+  //     // You can trigger additional actions or update your component state as needed
+
+  //     nav("/home")
+
+  //   } catch (error) {
+  //     console.error("Error deleting user:", error.message);
+  //   }
+  // };
 
   return (
     <MainLayout>
