@@ -16,6 +16,7 @@ import Button from './Button';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function EventModal({ isOpen, onClose, number }) {
 
   const onlineUser = useSelector((state) => state.onlineUser);
@@ -39,6 +40,7 @@ export default function EventModal({ isOpen, onClose, number }) {
       });
 
   }
+  const nav = useNavigate()
 
   useEffect(() => {
     estateUser()
@@ -50,7 +52,7 @@ export default function EventModal({ isOpen, onClose, number }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader></ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton  onClick={()=>nav("/home")}/>
           <ModalBody>
             <Stack spacing={"19px"}>
               <Box  borderLeft={"7px solid #11C19E"} pl="8px" fontSize={"14px"} fontFamily="body" fontWeight={"300"} color="#424242" >Your multiple visitor access request has been sent to your estate administrator for approval.</Box>
