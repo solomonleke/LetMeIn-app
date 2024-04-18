@@ -49,7 +49,7 @@ export default function DelayMsgDisable() {
         disableMsg()
     }, [])
     return (
-        <Box mt={["-200px", "-200px", "-120px", "-100px", "-160px"]} opacity={"1"} w={["80%", "75%", "55%", "45%", "35%"]} bg="#fff" px="22px" py="17px" boxShadow={"1px 1px 18px rgba(0, 0, 0, 0.25)"} rounded="6px">
+        <Box mt={["-200px", "-200px", "-120px", "-100px", "-160px"]} zIndex={"1"} opacity={"0.75"} w={["80%", "75%", "55%", "45%", "35%"]} bg="#fff" px="22px" py="17px" boxShadow={"1px 1px 18px rgba(0, 0, 0, 0.25)"} rounded="6px">
             {
                 Show && (
                     <Box>

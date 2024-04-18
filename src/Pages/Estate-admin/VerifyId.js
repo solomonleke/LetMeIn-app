@@ -500,7 +500,7 @@ export default function VerifyId() {
                                                     <HStack id="verify" spacing="39px" border={item.Verified && "1.5px solid #00FFCD"} bg={item.Verified === true ? ("#EAF7F5") : ("#EEEEEE")} px={"15px"} py="5px" onClick={() => openModal(item.id, item.firstName, item.lastName, item.userType,item.Verified)}>
                                                         <Box w={["50%","70%"]}>
                                                             <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#000000">{item.firstName} {item.lastName}</Text>
-                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">no {item.houseNo} <Divider/> 0{item.phone} <Divider/> {moment(item.createdAt).format("MMM Do ")}</Text>
+                                                            <Text fontFamily={"body"} fontSize="10px" fontWeight={"300"} color="#000000">{item.houseNo} <Divider/> {item.phone} <Divider/> {moment(item.createdAt).format("MMM Do ")}</Text>
 
                                                         </Box>
 

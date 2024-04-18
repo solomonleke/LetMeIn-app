@@ -66,7 +66,7 @@ export default function Index() {
             <Seo title='Resident' description='Resident for LetMeIn' />
 
           
-            <Center mt={["60px", "90px"]} opacity={Verified == false || onlineUser.user.disable_user === true && "0.1"}>
+            <Center mt={["60px", "90px"]} opacity={Verified == false || onlineUser.user.disable_user === true && "0.4"}>
                 <Stack spacing={'15px'} cursor="pointer">
                     <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`} />
 

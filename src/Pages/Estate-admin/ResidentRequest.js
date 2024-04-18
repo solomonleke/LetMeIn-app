@@ -131,9 +131,9 @@ export default function ResidentRequest() {
 
                                     <RequestCard
                                         approve={item.approve}
-                                        name={"adeleke moyin"}
-                                        address={"sxdh"}
-                                        phone={"08033344729"}
+                                        name={`${item.User_visitors.lastName } ${item.User_visitors.firstName } `}
+                                        address={`${item.User_visitors.houseNo }`}
+                                        phone={`${item.User_visitors.phone }`}
                                         number={item.number_Visitors}
                                         codeName={item.codeName}
                                         onClick={() => OpenModal(item.id)}

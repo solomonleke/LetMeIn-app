@@ -12,6 +12,8 @@ import {
 import Button from './Button';
 
 export default function ConfirmationModal({isOpen, onClose, Proceed}) {
+
+  
   return (
 
     <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={true}>
