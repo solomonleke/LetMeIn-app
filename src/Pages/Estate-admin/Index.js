@@ -118,7 +118,7 @@ export default function EstateAdmin() {
 
             {
                 onlineUser.user.Verified == false && (
-                    <Center mt={"-100px"} zIndex="2">
+                    <Center mt={"-100px"} >
                         <DelayEstateMsg />
                     </Center>
                 )

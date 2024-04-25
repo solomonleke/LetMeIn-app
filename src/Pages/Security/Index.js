@@ -9,6 +9,7 @@ import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
 import { useQuery, useQueryClient } from 'react-query';
 import SecurityNav from '../../Layouts/SecurityNav';
+import BackBtn from '../../Components/BackBtn';
 
 
 export default function SecurityOps() {
@@ -62,210 +63,212 @@ export default function SecurityOps() {
     method: "POST",
 
     headers: {
-        "Content-Type": "application/JSON"
+      "Content-Type": "application/JSON"
     },
 
     body: JSON.stringify(
-      {  
+      {
         accessCode: AccessCode,
         estateName: onlineUser.user.estateName
-      
+
       }
     ),
 
-}
+  }
   const VerifyCode = () => {
 
     setLoading(true)
-  
 
-    fetch(`${apiLink.link}/user/verifyVisitor`,payload)
-    .then(response => response.json())
-    .then(data => {
+
+    fetch(`${apiLink.link}/user/verifyVisitor`, payload)
+      .then(response => response.json())
+      .then(data => {
         if (data.status == 200) {
           setTypeOf(data.msg.type_Request)
-          if(data.msg.type_Request == "Single"){
+          if (data.msg.type_Request == "Single") {
             setLoading(false)
             setUser(data.msg)
             setUsers(data.msg.users)
+            console.log("accessStatus", data.msg.users)
             setGrant(true)
-          }else if(data.msg.type_Request == "Multiple"){
+          } else if (data.msg.type_Request == "Multiple") {
             setLoading(false)
             setUser(data.msg)
             setUsers(data.msg.User_visitors)
+            console.log("accessStatus", data.msg)
             setGrant(true)
-          }else if(data.msg.type_Request == "Taxi"){
+          } else if (data.msg.type_Request == "Taxi") {
             setLoading(false)
             setUser(data.msg)
             setUsers(data.msg.User_taxis)
             setGrant(true)
           }
-         
-         
+
+
           console.log("data", data)
-        }else{  
+        } else {
           setSuccess(true)
           setMessage(data.msg)
           setLoading(false)
         }
 
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error('Error:', error);
-    });
-    
+      });
+
 
   }
 
 
   const grantAccess = () => {
     setLoading(true)
-    fetch(`${apiLink.link}/user/visitorCheckedIn`,{
+    fetch(`${apiLink.link}/user/visitorCheckedIn`, {
 
       method: "POST",
-  
+
       headers: {
-          "Content-Type": "application/JSON"
+        "Content-Type": "application/JSON"
       },
-  
+
       body: JSON.stringify(
         {
-          id: User.id, 
+          id: User.id,
           type_Request: User.type_Request
-         }
+        }
       ),
-  
-  })
-    .then(response => response.json())
-    .then(data => {
-      if(data.status === 200){
-
-        console.log(data);
-        nav("/security-ops/grant-access")
-        setLoading(false)
-
-      }else{
-        console.log("my error", data)
-        setSuccess(true)
-        setLoading(false)
-       
-      }
 
     })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-    
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 200) {
 
-   
+          console.log(data);
+          nav("/security-ops/grant-access")
+          setLoading(false)
+
+        } else {
+          console.log("my error", data)
+          setSuccess(true)
+          setLoading(false)
+
+        }
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+
+
   }
 
   const CheckOutVisitor = () => {
     setLoading(true)
 
-    fetch(`${apiLink.link}/user/visitorCheckedOut`,{
+    fetch(`${apiLink.link}/user/visitorCheckedOut`, {
 
       method: "POST",
-  
+
       headers: {
-          "Content-Type": "application/JSON"
+        "Content-Type": "application/JSON"
       },
-  
+
       body: JSON.stringify(
         {
           id: User.id,
           type_Request: User.type_Request
-         }
+        }
       ),
-  
-  })
-    .then(response => response.json())
-    .then(data => {
-      
-        if(data.status === 200){
+
+    })
+      .then(response => response.json())
+      .then(data => {
+
+        if (data.status === 200) {
 
           setTimeout(() => {
-           nav("/security-ops")
-           setGrant(false)
+            nav("/security-ops")
+            setGrant(false)
           }, 3000)
 
           setLoading(false)
           setSuccessOut(true)
-          
-        }else{
+
+        } else {
           setFailedCheckout(true)
           setLoading(false)
           setTimeout(() => {
             setFailedCheckout(false)
-            
+
           }, 3000);
           console.log(data);
         }
-      
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-    
 
-   
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+
+
   }
 
 
 
-// const checkVerification = ()=>{
-//   // window.location.reload()
+  // const checkVerification = ()=>{
+  //   // window.location.reload()
 
-//   fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
-//   .then(response => response.json())
-//   .then(data => {
-    
-//       if(data.status === 200){
-//         console.log("userrrrs", data)
-//         dispatch(
-        
-//           { type: "ADD_USER", payload: { data: data.msg } }
-//         );
+  //   fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`)
+  //   .then(response => response.json())
+  //   .then(data => {
 
-//         setVerified(data.msg.Verified)
-        
-//       //  nav('/home')
-//       }
-     
-//   })
-//   .catch((error) => {
-//       console.error('Error:', error);
-//   });
-  
+  //       if(data.status === 200){
+  //         console.log("userrrrs", data)
+  //         dispatch(
 
- 
-// }
+  //           { type: "ADD_USER", payload: { data: data.msg } }
+  //         );
 
-//useQuery to get updated data every 10 seconds
+  //         setVerified(data.msg.Verified)
 
-const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
-console.log('data', data, isLoading, isError);
-var Verified = onlineUser.user.Verified;
+  //       //  nav('/home')
+  //       }
 
-if (!isLoading) {
+  //   })
+  //   .catch((error) => {
+  //       console.error('Error:', error);
+  //   });
+
+
+
+  // }
+
+  //useQuery to get updated data every 10 seconds
+
+  const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+  console.log('data', data, isLoading, isError);
+  var Verified = onlineUser.user.Verified;
+
+  if (!isLoading) {
 
     var Verified = data?.msg.Verified;
-   
-
-}
-//alert modification 
-
-const [ShowAlert, setShowAlert] = useState(false)
 
 
+  }
+  //alert modification 
 
-useEffect(() => {
-    Verified === true? setShowAlert(true):setShowAlert(false);
-        dispatch(
-        
-            { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
-          );
-    
+  const [ShowAlert, setShowAlert] = useState(false)
+
+
+
+  useEffect(() => {
+    Verified === true ? setShowAlert(true) : setShowAlert(false);
+    dispatch(
+
+      { type: "ADD_USER", payload: { data: data ? data.msg : onlineUser.user } }
+    );
+
   }, [Verified]);
 
 
@@ -276,139 +279,155 @@ useEffect(() => {
 
       {
         Grant == false ? (
+
+
           <Center mt={"70px"} cursor="pointer" opacity={Verified == false && "0.03"}>
 
-          <Box w={["80%", "35%"]}>
-  
-            <Box>
-              <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} fontStyle="italic" color="#000000">Hello,</Text>
-              <Text fontSize={"24px"} fontFamily="body" fontWeight={"700"} color="#000000">Officer. {onlineUser.user.lastName}</Text>
+            <Box w={["80%", "35%"]}>
+
+              <Box>
+                <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} fontStyle="italic" color="#000000">Hello,</Text>
+                <Text fontSize={"24px"} fontFamily="body" fontWeight={"700"} color="#000000">Officer. {onlineUser.user.lastName}</Text>
+              </Box>
+
+              <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="25px">
+                <Text w={"50%"} onClick={handleCheckIn} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={CheckIn ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={CheckIn ? "#424242" : "#939393"}>Check in.</Text>
+                <Text w={"50%"} onClick={handleCheckOut} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={CheckOut ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={CheckOut ? "#424242" : "#939393"}>Check out.</Text>
+              </HStack>
+
+              <Box mt="38px" >
+                <Input isDisabled={Verified ? false : true} w={"100%"} val={AccessCode && true} isRequired label="Access code" value={AccessCode} type='number' onChange={handleAccess} />
+              </Box>
+              {
+                Success && (
+                  <Alert status='error' mt="15px" color="#00000" >
+                    <AlertIcon />
+                    <AlertTitle mr={2}>{Message}</AlertTitle>
+                    <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
+                  </Alert>
+                )
+              }
+
+
+              <Button w={"100%"} isLoading={Loading} mb="32px" mt="15px" disabled={AccessCode !== "" ? false : true} onClick={VerifyCode}>Verify</Button>
+
+
+
             </Box>
-  
-            <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="25px">
-              <Text w={"50%"} onClick={handleCheckIn} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={CheckIn ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={CheckIn ? "#424242": "#939393"}>Check in.</Text>
-              <Text w={"50%"} onClick={handleCheckOut} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={CheckOut ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={CheckOut ? "#424242" : "#939393"}>Check out.</Text>
-            </HStack>
-  
-            <Box mt="38px" >
-              <Input isDisabled={Verified ? false : true} w={"100%"} val={AccessCode && true} isRequired label="Access code" value={AccessCode} type='number' onChange={handleAccess} />
-            </Box>
-            {
-              Success && (
-                <Alert status='error' mt="15px"  color="#00000" >
-                <AlertIcon/>
-              <AlertTitle mr={2}>{Message}</AlertTitle>
-                <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
-                 </Alert>
-              )
-            }
-          
-  
-            <Button w={"100%"} isLoading={Loading} mb="32px" mt="15px" disabled={AccessCode !== "" ? false : true} onClick={VerifyCode}>Verify</Button>
 
+          </Center>
 
-           
-          </Box>
-  
-        </Center>
-
-        ):(
+        ) : (
+          <Box mx={["6%", "10%"]}>
             <Center>
-            <Box w={["80%","70%", "40%", "30%"]} mb="20px">
-            <Box  bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"} rounded='7px' px="13px" py="30px" mt="50px">
-            <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">
-            {TypeOf === "Single" ? "Visitor Details": TypeOf === "Multiple" ? "Multiple Visitor Details": "Taxi Details"}</Text>
+              <Box w={["80%", "70%", "50%", "40%"]} mb="20px">
+                <Box bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"} rounded='7px' px="13px" py="30px" mt="50px">
+                  <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">
+                    {TypeOf === "Single" ? "Visitor Details" : TypeOf === "Multiple" ? "Multiple Visitor Details" : "Taxi Details"}</Text>
 
-            <Stack mt="27px" spacing={"14px"}>
+                  <Stack mt="27px" spacing={"14px"}>
 
-            <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
-            {TypeOf === "Single" ? "Visitor Name": TypeOf === "Multiple" ? "No of User Access": "Taxi Name"}
-            </Text>
-           
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
-            {TypeOf === "Single" ? `${User.firstName||""}  ${User.lastName||""}`: TypeOf === "Multiple" ? `${User.number_Visitors}`: `${User.visitorName}`}</Text>
-            </HStack>
+                    <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                        {TypeOf === "Single" ? "Visitor Name" : TypeOf === "Multiple" ? "No of User Access" : "Drivers Name"}
+                      </Text>
 
-            <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"} >
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
-            {TypeOf === "Single" ? "Visitor  Gender": TypeOf === "Multiple" ? "Code Word": "Plate Number"}
-           </Text>
-           
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
-            {TypeOf === "Single" ? `${User.gender} `: TypeOf === "Multiple" ? `${User.codeName}`: `${User.plateNumber}`}</Text>
-            
-            
-            </HStack>
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
+                        {TypeOf === "Single" ? `${User.firstName || ""}  ${User.lastName || ""}` : TypeOf === "Multiple" ? `${User.number_Visitors}` : `${User.visitorName}`}</Text>
+                    </HStack>
 
-            <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident Name </Text>
-           
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.firstName} {Users.lastName}</Text>
-            </HStack>
+                    <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"} >
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                        {TypeOf === "Single" ? "Visitor  Gender" : TypeOf === "Multiple" ? "Code Word" : "Plate Number"}
+                      </Text>
 
-            <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident address </Text>
-           
-            <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.houseNo},  {Users.streetName},  {Users.estateName} </Text>
-            </HStack>
-             
-            </Stack>
-           
-         
-            </Box>
-            {
-              Success && (
-                <Alert status='info' mt="15px"  color="#00000" >
-                <AlertIcon/>
-                <AlertTitle mr={2}>User already Checked In</AlertTitle>
-                <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
-                 </Alert>
-              )
-            }
-
-            {
-              FailedCheckout && (
-                <Alert status='info' mt="15px"  color="#00000" >
-                <AlertIcon/>
-                <AlertTitle mr={2}>User already Checked out</AlertTitle>
-                <CloseButton onC lick={() => setFailedCheckout(false)} position='absolute' right='8px' top='8px' />
-                 </Alert>
-              )
-            }
-            
-            {
-              SuccessOut && (
-                <Alert status='success' mt="15px"  color="#fff" >
-                <AlertIcon/>
-                <AlertTitle mr={2}>User Checked out Successfully</AlertTitle>
-                <CloseButton onClick={() => setSuccessOut(false)} position='absolute' right='8px' top='8px' />
-                 </Alert>
-              )
-            }
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
+                        {TypeOf === "Single" ? `${User.gender} ` : TypeOf === "Multiple" ? `${User.codeName}` : `${User.plateNumber}`}</Text>
 
 
-              <Button w={"100%"} isLoading={Loading} mb="10px" mt="35px"  onClick={CheckOut ? CheckOutVisitor : grantAccess}>{CheckOut ? "Check Out": "Grant Access"}</Button>
-            </Box>
-            
+                    </HStack>
+
+                    <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident Name </Text>
+
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.firstName} {Users.lastName}</Text>
+                    </HStack>
+
+                    <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident address </Text>
+
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.houseNo},  {Users.streetName},  {Users.estateName} </Text>
+                    </HStack>
+                  {
+                    TypeOf === "Multiple" && (
+                      <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Checked In</Text>
+
+                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.checkedIn} of {User.number_Visitors} </Text>
+                    </HStack>
+                    )
+                  }
+                   
+
+                  </Stack>
+
+                 
+                </Box>
+                {
+                  Success && (
+                    <Alert status='info' mt="15px" color="#00000" >
+                      <AlertIcon />
+                      <AlertTitle mr={2}>Kindly generate a single access code or another multiple access code</AlertTitle>
+                      <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
+                    </Alert>
+                  )
+                }
+
+                {
+                  FailedCheckout && (
+                    <Alert status='info' mt="15px" color="#00000" >
+                      <AlertIcon />
+                      <AlertTitle mr={2}>User already Checked out</AlertTitle>
+                      <CloseButton onC lick={() => setFailedCheckout(false)} position='absolute' right='8px' top='8px' />
+                    </Alert>
+                  )
+                }
+
+                {
+                  SuccessOut && (
+                    <Alert status='success' mt="15px" color="#fff" >
+                      <AlertIcon />
+                      <AlertTitle mr={2}>User Checked out Successfully</AlertTitle>
+                      <CloseButton onClick={() => setSuccessOut(false)} position='absolute' right='8px' top='8px' />
+                    </Alert>
+                  )
+                }
+
+
+                <Button w={"100%"} isLoading={Loading} mb="10px" mt="35px" onClick={CheckOut ? CheckOutVisitor : grantAccess}>{CheckOut ? "Check Out" : "Grant Access"}</Button>
+              </Box>
+
 
             </Center>
+            <BackBtn onclick={() => window.history.back()} />
+          </Box>
+
         )
       }
 
-     
+
 
       {
         Verified == false && (
 
           <Center mt="-100px">
-            <DelayMsg/>
+            <DelayMsg />
           </Center>
         )
       }
 
-      
-      {
+
+      {/* {
         ShowAlert && (
             <Center mt="-25px" >
             <Alert status='success' mt="35px" color="#fff" w={["85%","83%","70%","57%","36%"]}>
@@ -419,10 +438,10 @@ useEffect(() => {
             </Alert>
         </Center>
         )
-    }   
+    }    */}
 
       <Box pos="fixed" bottom={"0"} width="100%" display={["block", "none"]}>
-      <SecurityNav path={location.pathname}/>
+        <SecurityNav path={location.pathname} />
       </Box>
     </MainLayout>
   );

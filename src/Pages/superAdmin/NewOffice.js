@@ -8,10 +8,13 @@ import Input from '../../Components/Input'
 import MainLayout from '../../Layouts/Index'
 import Seo from '../../Utils/Seo'
 import { Country, State, City } from 'country-state-city';
+import { useNavigate } from 'react-router-dom'
 
 export default function NewOffice() {
 
   const apiLink = useSelector((state) => state.apiLink);
+
+  const nav = useNavigate()
 
   const [countryCode, setCountryCode] = useState({});
 
@@ -62,9 +65,12 @@ export default function NewOffice() {
           setLoading(false)
           setSuccess(true)
 
+         
+
           setTimeout(() => {
+            nav("/superAdmin")
             setSuccess(false)
-          }, 3000);
+          }, 1500);
 
           setPayload({
             country: "",

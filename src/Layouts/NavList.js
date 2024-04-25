@@ -95,20 +95,7 @@ export default function NavList(path) {
             display: isResident(onlineUser.user.userType)
 
         },
-        {
-            name: "Request Access history",
-            location: "/request-access-history",
-            active: isActive(path, "/request-access-history"),
-            display: isEstateAdmin(onlineUser.user.userType)
-
-        },
-        {
-            name: "Resident Request",
-            location: "/resident-request",
-            active: isActive(path, "/resident-request"),
-            display: isEstateAdmin(onlineUser.user.userType)
-
-        },
+       
         {
             name: "Manage Verified IDs",
             location: "/manage-verify-id",
@@ -137,6 +124,14 @@ export default function NavList(path) {
             display: isSuperAdmin(onlineUser.user.userType)
 
         },
+        {
+            name: "Request Access history",
+            location: "/request-access-history",
+            active: isActive(path, "/request-access-history"),
+            display: isEstateAdmin(onlineUser.user.userType)
+
+        },
+   
         {
             name: "customer support",
             location: "/customer-support",

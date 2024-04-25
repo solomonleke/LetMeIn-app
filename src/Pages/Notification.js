@@ -7,6 +7,8 @@ import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 import { useQuery, useQueryClient } from 'react-query';
 import Headers from '../Components/Headers';
+import BackBtn from '../Components/BackBtn';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Notification() {
@@ -14,107 +16,109 @@ export default function Notification() {
   const apiLink = useSelector((state) => state.apiLink);
   const onlineUser = useSelector((state) => state.onlineUser);
 
+  const nav = useNavigate()
 
 
-//useQuery to get updated data every 10 seconds
 
-const { data, isLoading, isError } = useQuery('notification', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
-// console.log('data', data, isLoading, isError);
-let Data = [];
+  //useQuery to get updated data every 10 seconds
 
-if (!isLoading) {
+  const { data, isLoading, isError } = useQuery('notification', async () => await (await (fetch(`${apiLink.link}/user/residentEvent/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
+  // console.log('data', data, isLoading, isError);
+  let Data = [];
 
-     Data = data?.msg;
-   
+  if (!isLoading) {
+
+    Data = data?.msg;
+
     //  let newData = Data.filter((item,i) =>(
     //   item.delete_state == false
     //  ))
-  //  Data = newData
-}
+    //  Data = newData
+  }
 
 
-const [Show, setShow] = useState(false)
-    
-const Copied = ()=>{
-    
+  const [Show, setShow] = useState(false)
+
+  const Copied = () => {
+
     setShow(true)
 
     setTimeout(() => {
-        setShow(false)
+      setShow(false)
     }, 5000);
 
-}
+  }
 
-  const UpdateUnreadState = ()=>{
-    
-    Data.map((item,i)=>(
-      
-    fetch(`${apiLink.link}/user/unreadState `, {
+  const UpdateUnreadState = () => {
 
-      method: "POST",
+    Data.map((item, i) => (
 
-      headers: {
+      fetch(`${apiLink.link}/user/unreadState `, {
+
+        method: "POST",
+
+        headers: {
           "Content-Type": "application/JSON"
-      },
-  
-      body: JSON.stringify({
-  
+        },
+
+        body: JSON.stringify({
+
           id: item.id,
-  
-      }),
-    })
 
-    .then(res => res.json())
-    .then(json => {
+        }),
+      })
 
-     console.log("unread", Data)
-        
-    })
-    .catch(error => {
-      console.log("error", error);
-     
-  })
+        .then(res => res.json())
+        .then(json => {
+
+          console.log("unread", Data)
+
+        })
+        .catch(error => {
+          console.log("error", error);
+
+        })
 
     ))
 
- 
+
 
   }
 
 
-  const deleteCard = (id)=>{
+  const deleteCard = (id) => {
     const payload = {
 
       method: "POST",
-  
+
       headers: {
-          "Content-Type": "application/JSON"
+        "Content-Type": "application/JSON"
       },
-  
+
       body: JSON.stringify({
-  
-          id: id,
-  
+
+        id: id,
+
       }),
-  
-  }
-    
-  Data.splice(id,1)
+
+    }
+
+    Data.splice(id, 1)
     fetch(` ${apiLink.link}/user/deleteState`, payload)
 
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
 
-      console.log("deleted data", data)
+        console.log("deleted data", data)
 
-    })
+      })
 
-    .catch((error) => {
+      .catch((error) => {
         console.error('Error:', error);
-    });
+      });
 
   }
-  
+
 
   useEffect(() => {
     UpdateUnreadState()
@@ -125,38 +129,39 @@ const Copied = ()=>{
       <Seo title='Notification' description='LetmeIn Notification' />
 
       <Box px={["6%", "10%"]} pb="100px">
-      <Center>
-      <Box w={["90%", "85%", "65%", "49%", "35%"]} mb="20px" cursor={"pointer"}>
-      
-      <Headers mt={"32px"} text={"Verified Multiple Request Access"}/>
+        <Center>
+          <Box w={["90%", "85%", "65%", "49%", "35%"]} mb="20px" cursor={"pointer"}>
 
-           <Stack spacing={"20px"}>
-           {
+            <Headers mt={"32px"} text={"Verified Multiple Request Access"} />
 
-            Data != [] ? (
-              Data.map((item,i)=>(
+            <Stack spacing={"20px"}>
+              {
 
-                <NotificationCard
-                codeName={item.codeName}
-                accessCode={item.accessCode}
-                number={item.number_Visitors}
-                Show={Show}
-                Copied={Copied}
-                deleteCard={()=>deleteCard(item.id)}
-                />
-  
-              ))
-            ):(
+                Data != [] ? (
+                  Data.map((item, i) => (
 
-              <Text>No Record to Display</Text>
-            )
-           
-           }
-          
-          
-           </Stack>
+                    <NotificationCard
+                      codeName={item.codeName}
+                      accessCode={item.accessCode}
+                      number={item.number_Visitors}
+                      Show={Show}
+                      Copied={Copied}
+                      deleteCard={() => deleteCard(item.id)}
+                    />
+
+                  ))
+                ) : (
+
+                  <Text>No Record to Display</Text>
+                )
+
+              }
+
+
+            </Stack>
           </Box>
         </Center>
+        <BackBtn onclick={()=>nav("/home")}/>
       </Box>
     </MainLayout>
   );

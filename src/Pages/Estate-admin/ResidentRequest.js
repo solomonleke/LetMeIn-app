@@ -9,6 +9,7 @@ import NotificationCard from '../../Components/NotificationCard';
 import RequestCard from '../../Components/RequestCard';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
+import BackBtn from '../../Components/BackBtn';
 
 export default function ResidentRequest() {
 
@@ -50,7 +51,7 @@ export default function ResidentRequest() {
         onOpen()
     }
 
-    
+
     //Proceed function approves each event Request
 
     const payload = {
@@ -95,16 +96,16 @@ export default function ResidentRequest() {
     const nav = useNavigate();
 
 
-    const middleWare = ()=>{
-      
-       
-            if(Verified == false){
-                nav("/home")
-            }
-        
-       
+    const middleWare = () => {
+
+
+        if (Verified == false) {
+            nav("/home")
+        }
+
+
     }
-  
+
 
     useEffect(() => {
         VerifyEvent()
@@ -127,18 +128,23 @@ export default function ResidentRequest() {
                         <Stack spacing={"20px"}>
 
                             {
-                                Data.map((item, i) => (
+                                Data.length > 0 ? (
+                                    Data.map((item, i) => (
 
-                                    <RequestCard
-                                        approve={item.approve}
-                                        name={`${item.User_visitors.lastName } ${item.User_visitors.firstName } `}
-                                        address={`${item.User_visitors.houseNo }`}
-                                        phone={`${item.User_visitors.phone }`}
-                                        number={item.number_Visitors}
-                                        codeName={item.codeName}
-                                        onClick={() => OpenModal(item.id)}
-                                    />
-                                ))
+                                        <RequestCard
+                                            approve={item.approve}
+                                            name={`${item.User_visitors?.lastName} ${item.User_visitors?.firstName} `}
+                                            address={`${item.User_visitors?.houseNo}`}
+                                            phone={`${item.User_visitors?.phone}`}
+                                            number={item.number_Visitors}
+                                            codeName={item.codeName}
+                                            onClick={() => OpenModal(item.id)}
+                                        />
+                                    ))
+                                ) : (
+                                    <Text mt={"20px"} fontWeight="500" textAlign={"center"}>No record found</Text>
+                                )
+
                             }
 
 
@@ -149,6 +155,8 @@ export default function ResidentRequest() {
                         </Stack>
                     </Box>
                 </Center>
+
+                <BackBtn onclick={() => nav("/home")} />
             </Box>
             <ConfirmationModal isOpen={isOpen} onClose={onClose} Proceed={Proceed} />
         </MainLayout>

@@ -37,6 +37,7 @@ export default function Index() {
     var Verified = onlineUser.user.Verified;
 
     if (!isLoading) {
+        localStorage.setItem('user_verification_status',"1")
 
         var Verified = data?.msg.Verified;
        
@@ -49,8 +50,19 @@ export default function Index() {
 
     useEffect(() => {
 
-    
-        Verified === true? setShowAlert(true):setShowAlert(false);
+        //checking user verification status
+
+       
+
+        if(Verified === true && localStorage.getItem('user_verification_status') === '1'){
+            localStorage.setItem('user_verification_status',"0")
+            setShowAlert(true)
+        }else{
+            localStorage.setItem('user_verification_status',"0")
+            setShowAlert(false)
+        }
+
+        // Verified === true? setShowAlert(true):setShowAlert(false);
         dispatch(
         
             { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
@@ -60,7 +72,7 @@ export default function Index() {
         
 
 
-    }, [Verified]);
+    }, []);
     return (
         <MainLayout>
             <Seo title='Resident' description='Resident for LetMeIn' />
@@ -93,7 +105,7 @@ export default function Index() {
                 )
             }
 
-            {
+            {/* {
                 ShowAlert && (
                     <Center mt="32px" >
                     <Alert status='success' mt="35px" color="#fff" w={["85%","83%","70%","57%","36%"]}>
@@ -104,7 +116,7 @@ export default function Index() {
                     </Alert>
                 </Center>
                 )
-            }   
+            }    */}
 
 
         </MainLayout>

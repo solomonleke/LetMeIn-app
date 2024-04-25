@@ -41,6 +41,7 @@ export default function NavBar() {
   const [LoggedIn, setLoggedIn] = useState(false);
   const [OpenAvater, setOpenAvater] = useState(false);
   const [Notification, setNotification] = useState();
+  const [ResidentLen, setResidentLen] = useState([]);
   const initialFocusRef = React.useRef()
   const isLogged = useSelector((state) => state.isLogged);
   const onlineUser = useSelector((state) => state.onlineUser);
@@ -56,6 +57,27 @@ export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const apiLink = useSelector((state) => state.apiLink);
+
+  const VerifyEvent = () => {
+    fetch(`${apiLink.link}/user/getEventHistory/${onlineUser.user.estateName}`)
+
+        .then(response => response.json())
+        .then(data => {
+
+
+          if (data.status === 200) {
+            
+            let datalen = data.msg.filter((item)=> item.approve === false)
+            console.log("ResidentLen", datalen)
+              setResidentLen(datalen?.length)
+
+            }
+        })
+
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
 
   const getNotification = () => {
     fetch(`${apiLink.link}/user/unverifiedEstateAdmin`)
@@ -128,6 +150,7 @@ export default function NavBar() {
 
   useEffect(() => {
     getNotification()
+    VerifyEvent()
   }, [])
 
   return (
@@ -292,6 +315,32 @@ export default function NavBar() {
                   onlineUser.user.userType == "Estate manager" && (
                     <>
 
+                      <Link to="/resident-request">
+                        <Box pos={"relative"}>
+                          <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} bg={isActive(location.pathname, "/resident-request") ?
+                            "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : ""} p="10px" fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Resident Request</Text>
+                          {
+                            ResidentLen >= 1 && (
+                              <Text h={"18px"} w={"18px"}
+                                rounded={"100%"} bg="#E02828"
+                                boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                pos="absolute" right="0px" top="-8px" textAlign={"center"} pt="1px"
+                                fontFamily="body" fontWeight={"400"} color="#FFFFFF"
+                                fontSize={"12"}>{ResidentLen}</Text>
+                            )
+                          }
+                        </Box>
+                      </Link>
+
+
+
+                    </>
+                  )
+                }
+                {
+                  onlineUser.user.userType == "Estate manager" && (
+                    <>
+
                       <Link to="/verify-id">
                         <Box pos={"relative"}>
                           <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} bg={isActive(location.pathname, "/verify-id") ?
@@ -301,7 +350,7 @@ export default function NavBar() {
                               <Text h={"18px"} w={"18px"}
                                 rounded={"100%"} bg="#E02828"
                                 boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                pos="absolute" left="63px" top="-8px" textAlign={"center"} pt="1px"
+                                pos="absolute" right="0px" top="-8px" textAlign={"center"} pt="1px"
                                 fontFamily="body" fontWeight={"400"} color="#FFFFFF"
                                 fontSize={"12"}>{verifiedLen}</Text>
                             )

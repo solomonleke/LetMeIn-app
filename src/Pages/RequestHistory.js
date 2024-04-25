@@ -234,7 +234,7 @@ export default function RequestHistory() {
                     </Box>
                 </Center>
 
-                <BackBtn/>
+                <BackBtn onclick={()=>nav("/home")}/>
             </Box>
         </MainLayout>
     );
