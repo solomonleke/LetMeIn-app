@@ -44,17 +44,17 @@ export default function SignUp() {
 
     const [EstateList, setEstateList] = useState([]);
 
-    const getAllEstate = ()=>{
+    const getAllEstate = () => {
         fetch(`${apiLink.link}/user/getAllEstates`)
 
-        .then(res => res.json())
-        .then(json => {
-            setEstateList(json.msg)
-          console.log("estate list", json)
-        })
-        .catch(error => {
-            console.log("error", error);
-        })
+            .then(res => res.json())
+            .then(json => {
+                setEstateList(json.msg)
+                console.log("estate list", json)
+            })
+            .catch(error => {
+                console.log("error", error);
+            })
 
     }
 
@@ -85,7 +85,7 @@ export default function SignUp() {
 
     const payload = {
 
-        
+
         method: "POST",
 
         headers: {
@@ -252,34 +252,37 @@ export default function SignUp() {
 
             {
                 view == false ? (
-                    <Center>
-                        <Box w={["80%", "310px"]}>
-                            <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#939393" mt="42px">Enter Estate Name</Text>
+                    <Box mx={["6%", "10%"]}>
+                        <Center>
+                            <Box w={["80%", "310px"]}>
+                                <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#939393" mt="42px">Enter Estate Name</Text>
 
-                            <Select onChange={handleSignUp} color={"00000"} id="estateName" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.estateName} fontSize={Payload.estateName ? "16px" : "12px"} fontWeight={"400"} placeholder='Select Estate Name' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"} mt="12px">
-                               {
-                                EstateList?.map((item,i)=>(
-                                    <option value={`${item.estateName}`}>{item.estateName}</option>  
-                                ))
-                               }
-                               
-
-                            </Select>
+                                <Select onChange={handleSignUp} color={"00000"} id="estateName" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.estateName} fontSize={Payload.estateName ? "16px" : "12px"} fontWeight={"400"} placeholder='Select Estate Name' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"} mt="12px">
+                                    {
+                                        EstateList?.map((item, i) => (
+                                            <option value={`${item.estateName}`}>{item.estateName}</option>
+                                        ))
+                                    }
 
 
-                            <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#939393" mt="35px">Please who are you ?</Text>
+                                </Select>
 
-                            <Select color={"00000"} onChange={handleSignUp} id="userType" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.userType} fontSize={Payload.userType ? "16px" : "12px"} fontWeight={"400"} placeholder='I am a...................' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"} mt="12px">
-                                <option value='Resident'>Resident</option>
-                                {
-                                    // <option value='LandLord'>LandLord</option>
-                                }                <option value='Estate Manager'>Estate Manager</option>
-                                <option value='Security Operative'>Security Operative</option>
-                            </Select>
 
-                            <Button mt="65px" disabled={Payload.userType !== "" && Payload.estateName !== "" ? false : true} onClick={proceed}>Confirm</Button>
-                        </Box>
-                    </Center>
+                                <Text fontFamily={"body"} fontSize="14px" fontWeight={"400"} color="#939393" mt="35px">Please who are you ?</Text>
+
+                                <Select color={"00000"} onChange={handleSignUp} id="userType" rounded="0" _focus={{ borderColor: "#6AF3D8" }} fontFamily={"body"} value={Payload.userType} fontSize={Payload.userType ? "16px" : "12px"} fontWeight={"400"} placeholder='I am a...................' bg={"#fff"} _hover={{ bg: "#fff" }} w="100%" size={"lg"} mt="12px">
+                                    <option value='Resident'>Resident</option>
+                                    {
+                                        // <option value='LandLord'>LandLord</option>
+                                    }                <option value='Estate Manager'>Estate Manager</option>
+                                    <option value='Security Operative'>Security Operative</option>
+                                </Select>
+
+                                <Button mt="65px" disabled={Payload.userType !== "" && Payload.estateName !== "" ? false : true} onClick={proceed}>Confirm</Button>
+                            </Box>
+                        </Center>
+                        <BackBtn onclick={()=>nav("/home")} />
+                    </Box>
 
                 ) : (
 
