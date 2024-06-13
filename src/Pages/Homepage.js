@@ -9,6 +9,7 @@ import {
   SimpleGrid,
   Skeleton,
   Spinner,
+  Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
@@ -63,7 +64,7 @@ export default function Homepage() {
     updateApiLink();
     setTimeout(() => {
       setLoading(false);
-    }, 12000);
+    }, 5000);
   }, []);
   return (
     <Box w="100%">
@@ -567,6 +568,68 @@ export default function Homepage() {
           </Flex>
         </Flex>
       </Box>
+
+      {
+        //Download file
+      }
+      <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
+        <Text
+          as={"span"}
+          textTransform={"capitalize"}
+          fontFamily="body"
+          fontWeight={"500"}
+          fontSize="27px"
+          color="#E02828"
+        >
+          Download Mobile App
+        </Text>
+
+        <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+          <Box w={["100%", "100%", "100%", "48%"]}>
+            <Text fontWeight={"700"} fontSize={"20px"} mt="32px"> Android App</Text>
+            <Button
+              mb={["32px", "32px", "32px", "0"]}
+              _hover={{
+                bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
+              }}
+              boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)"
+              rounded="5px"
+              fontSize={["18px", "20px", "20px", "20px"]}
+              fontFamily="body"
+              fontWeight={"800"}
+              bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
+              mt="22px"
+              color="#000000"
+              py="14px"
+              px="37px"
+            >Download</Button>
+          </Box>
+          <Box w={["100%", "100%", "100%", "48%"]}>
+
+            <Text fontWeight={"700"} fontSize={"20px"} mt="32px"> IOS App</Text>
+            <Button
+              mb={["32px", "32px", "32px", "0"]}
+              _hover={{
+                bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
+              }}
+              boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)"
+              rounded="5px"
+              fontSize={["18px", "20px", "20px", "20px"]}
+              fontFamily="body"
+              fontWeight={"800"}
+              bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
+              mt="22px"
+              color="#000000"
+              py="14px"
+              px="37px"
+            >Coming Soon</Button>
+          </Box>
+
+        </Flex>
+
+
+
+      </Box>
       {
         // Team section start here
       }
@@ -676,7 +739,7 @@ export default function Homepage() {
                 Support@letmein.ng
               </Text>
             </HStack>
-           
+
           </Box>
 
           <Box w={["100%", "50%"]}>
@@ -772,8 +835,65 @@ export default function Homepage() {
         </Flex>
 
         {/* mainFooter */}
-        
+        <Image src="/logo.svg" />
+
+        <Flex flexWrap={"wrap"} justifyContent={"space-between"} color="#fff" mt="24px">
+
+          <Box w={["100%", "100%", "100%", "35%", "35%"]}>
+
+            <Text fontSize={"14px"} lineHeight={"16.8px"}> <Box as="span" fontWeight={"700"}>LETMEIN -</Box>is an access control software that enables it customers to manage access to thier living space.
+              It achieves this by creating a network of three application. </Text>
+            <Text fontSize={"14px"} lineHeight={"16.8px"}> <Box as="span" fontWeight={"700"}>Estate Manager / Admin application -</Box>this verifies the identity of everyone in the network and manages the entire
+              application while it is also enabled to perform functions of the Resident application.</Text>
+            <Text fontSize={"14px"} lineHeight={"16.8px"}> <Box as="span" fontWeight={"700"}>Resident / User Application -</Box> It enables it users to generate digital
+              identification and also generate unique codes for their visiting guests.</Text>
+            <Text fontSize={"14px"} lineHeight={"16.8px"}> <Box as="span" fontWeight={"700"}>Security Application -</Box>it enables the verification of digital identification
+              and unique codes when ever guests or residents need to be given access to a residential estate.</Text>
+          </Box>
+          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
+            <Stack spacing={"24px"}>
+              <Text fontWeight={"800"} fontSize={"18px"}>Product</Text>
+
+              <Text fontWeight={"400"} fontSize={"15px"}>Features</Text>
+              <Text fontWeight={"400"} fontSize={"15px"}>Benefits</Text>
+            </Stack>
+
+          </Box>
+          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
+            <Stack spacing={"24px"}>
+              <Text fontWeight={"800"} fontSize={"18px"}>Company</Text>
+
+              <Text fontWeight={"400"} fontSize={"15px"}>About Us</Text>
+              <Text fontWeight={"400"} fontSize={"15px"}>Contact</Text>
+            </Stack>
+          </Box>
+          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
+            <Stack spacing={"24px"}>
+              <Text fontWeight={"800"} fontSize={"18px"}>Resources</Text>
+
+              <Text fontWeight={"400"} fontSize={"15px"}>FAQs</Text>
+            </Stack>
+
+          </Box>
+          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
+            <Stack spacing={"24px"}>
+              <Text fontWeight={"800"} fontSize={"18px"}>Legal</Text>
+
+              <Text fontWeight={"400"} onClick={() => nav("/privacy")} fontSize={"15px"}>Terms of use</Text>
+              <Text fontWeight={"400"} onClick={() => nav("/privacy")} fontSize={"15px"}>Privacy Policy</Text>
+            </Stack>
+          </Box>
+        </Flex>
+
+        <HStack mt="24px" cursor={"pointer"}>
+          <Image src="/linkedin.svg" />
+          <Image src="/twitter.svg" />
+          <Image src="/instagram.svg" />
+        </HStack>
+
+        <Text textAlign={"center"} fontWeight={"400"} color={"#fff"} mt={"22px"} fontSize={"15px"}> &#9400; 2023 Letmein. All Rights Reserved.</Text>
       </Box>
+
     </Box>
   );
 }

@@ -63,7 +63,7 @@ export default function HomeNav() {
         <Box>
             <Flex justifyContent={"space-between"} alignItems="flex-start" >
 
-                <Image src="/logo.png" w="100.85px" />
+                <Image cursor={"pointer"} src="/logo.png" w="100.85px" onClick={()=>nav("/")} />
 
                 <Flex justifyContent={"space-between"} spacing="30px" w={"60%"} cursor="pointer" display={["none", "none", "none", "flex"]}>
                     {
