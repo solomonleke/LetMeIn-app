@@ -16,10 +16,7 @@ export default function HomeNav() {
             name: "Our product",
             link: "/#our-product"
         },
-        {
-            name: "Sign-up",
-            link: "/sign-up"
-        },
+    
         {
             name: "Our team",
             link: "/#our-team"
@@ -27,6 +24,10 @@ export default function HomeNav() {
         {
             name: "Contact us",
             link: "/#contact-us"
+        },
+        {
+            name: "Sign-in",
+            link: "/sign-in"
         },
     ]
 
@@ -77,7 +78,7 @@ export default function HomeNav() {
                         isLogged.isLogged ? 
                         <Button onClick={logout} textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#000" mt="-7px" pb="1px" _hover={{bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"}}>Logout </Button>:
 
-                        <Button onClick={()=>navigate("sign-in")} textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#000" mt="-7px" pb="1px" _hover={{bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"}} px="35px">Login </Button>
+                        <Button onClick={()=>navigate("sign-up")} textTransform={"capitalize"} fontSize={"16px"} fontFamily="body" fontWeight={"900"} color="#000" mt="-7px" pb="1px" _hover={{bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"}} px="35px">Sign Up </Button>
 
                     }
                 </Flex>

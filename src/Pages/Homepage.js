@@ -4,6 +4,7 @@ import {
   Flex,
   HStack,
   Image,
+  Img,
   Input,
   SimpleGrid,
   Skeleton,
@@ -94,25 +95,29 @@ export default function Homepage() {
       )}
 
       <Box
-        bg="url(/landing2.png)"
+        bg="url(/topBg.svg)"
         w="100%"
         h={["auto", "auto", "auto", "auto"]}
         minH="100vh"
         bgRepeat={"none"}
         bgSize="cover"
-        pb={"32px"}
+        pb={"0px"}
         pt="34.5px"
         px={["6%", "10%"]}
+        pos="relative"
       >
         <HomeNav />
 
+        <Img src="/landingSvg.svg" pos="absolute" left={"0"} />
+
         <Flex
+          zIndex={"10"}
           mt={["32px", "71px"]}
           justifyContent={"space-between"}
           flexDir={[
-            "column-reverse",
-            "column-reverse",
-            "column-reverse",
+            "column",
+            "column",
+            "column",
             "row",
             "row",
           ]}
@@ -120,8 +125,8 @@ export default function Homepage() {
         >
           <Box w={["100%", "100%", "100%", "50%"]}>
             <Text
-              mt={["0", "20px"]}
-              fontSize={["40px", "50px", "60px", "45px", "70px"]}
+              mt={["0", "50px"]}
+              fontSize={["40px", "50px", "60px", "45px", "60px"]}
               fontFamily="body"
               fontWeight={"800"}
               lineHeight={[
@@ -129,15 +134,15 @@ export default function Homepage() {
                 "62.03px",
                 "72.03px",
                 "67.03px",
-                "82.03px",
+                "69.03px",
               ]}
-              bg="linear-gradient(107.46deg, rgba(255, 255, 255, 0.0117) 6.95%, rgba(255, 255, 255, 0.0299) 95.17%)"
+              bg="rgb(190, 40, 44, 0.05)"
               boxShadow={"2px 4px 4px -1px rgba(0, 0, 0, 0.11)"}
               rounded="8px"
               pl="20px"
-              pr="10px"
-              pt="5px"
-              pb="10px"
+              pr="20px"
+              pt="25px"
+              pb="25px"
               borderTop={"0.5px solid #fff"}
               borderLeft="0.5px solid #fff"
               color="#ffffff"
@@ -158,7 +163,7 @@ export default function Homepage() {
               }}
               bg="#ffffff"
               transition={"1.3s ease"}
-              mt="69px"
+              mt="29px"
               color="#000000"
               py="22px"
               px="45px"
@@ -177,8 +182,12 @@ export default function Homepage() {
             ]}
           >
             <Image
-              src="/iphone1.png"
-              w={["100%", "70%", "70%", "90%", "70%"]}
+              src="/sideImage.svg"
+              w={["100%", "100%", "100%", "100%", "100%"]}
+              pos="relative"
+              left={["0%", "0%", "0%", "25%", "25%"]}
+              top="13px"
+
             />
           </Flex>
         </Flex>
@@ -221,7 +230,8 @@ export default function Homepage() {
                   >
                     Resident App
                   </Text>
-                  <Image w="186.3px" src="/left-iphone.png" />
+
+                  <Image w="100%" ml="-35px" src="/left-iphone.svg" />
 
                   <Box>
                     <Text
@@ -261,12 +271,12 @@ export default function Homepage() {
                     left={["-110%", "-110%", "-110%", "-24%", "-100%"]}
                     top="35%"
                     borderBottom="1px dashed #A4A4A4"
-                    w={["110%", "110%", "110%", "25%", "110%"]}
+                    w={["110%", "110%", "110%", "25%", "130%"]}
                   >
                     {" "}
                   </Box>
                   <Box zIndex={5}>
-                    <Image w="250px" src="/red-glow.jpg" />
+                    <Image w="250px" src="/red-glow.svg" />
                   </Box>
 
                   <Box
@@ -275,7 +285,7 @@ export default function Homepage() {
                     borderBottom="1px dashed #A4A4A4"
                     right={["-110%", "-110%", "-110%", "-16%", "-100%"]}
                     top="35%"
-                    w={["110%", "110%", "110%", "18%", "110%"]}
+                    w={["110%", "110%", "110%", "110%", "130%"]}
                   >
                     {" "}
                   </Box>
@@ -301,7 +311,7 @@ export default function Homepage() {
                     Security Operative App
                   </Text>
 
-                  <Image w="186.3px" src="/right-iphone.png" ml="16px" />
+                  <Image w="93%" src="/right-iphone.svg" ml="50px" />
                   <Box>
                     <Text
                       fontFamily="body"
@@ -357,11 +367,12 @@ export default function Homepage() {
           Product Offering
         </Text>
 
-        <SimpleGrid
-          columns={["1", "2", "2", "3", "4"]}
-          spacing={["30px", "60px", "70px", "60px", "70px"]}
+        <Flex
+          justifyContent={"space-between"}
+          flexWrap={"wrap"}
+          alignItems={"flex-start"}
           mt="48px"
-          pb
+
         >
           <ProductCard
             icon="simple"
@@ -383,7 +394,7 @@ export default function Homepage() {
             title="safe"
             text="Integrating the LetMeIn app into your Estate security protocol makes your estate significantly safer."
           />
-        </SimpleGrid>
+        </Flex>
       </Box>
 
       {
@@ -606,7 +617,7 @@ export default function Homepage() {
       }
       <Box
         id="contact-us"
-        bg="url(/footer_bg.png)"
+        bg="url(/footerBg.svg)"
         bgRepeat={"none"}
         bgSize="cover"
         px={["6%", "10%"]}
@@ -618,58 +629,54 @@ export default function Homepage() {
           as={"span"}
           textTransform={"capitalize"}
           fontFamily="body"
-          fontWeight={"500"}
-          fontSize="27px"
-          color="#ffffff"
+          fontWeight={"200"}
+          fontSize="25px"
+          color="#fff"
         >
-          Contact us
+          Looking For More Information ?
         </Text>
+
         <Flex
           justifyContent={"space-between"}
           pt="45px"
           flexDir={["column", "column", "row", "row", "row"]}
         >
           <Box w={["100%", "40%"]}>
-            <HStack spacing={"17px"}>
+            <Text
+              as={"span"}
+              textTransform={"capitalize"}
+              fontFamily="body"
+              fontWeight={"500"}
+              fontSize="22px"
+              color="#ffffff"
+            >
+              Contact us
+            </Text>
+            <HStack spacing={"17px"} mt="20px">
               <Image src="/phone-icon.png" />
 
               <Text
                 fontFamily="body"
-                fontWeight={"800"}
-                fontSize="20px"
+                fontWeight={"600"}
+                fontSize="18px"
                 color="#ffffff"
               >
-                08068840125
+                07023938420
               </Text>
             </HStack>
-            <HStack spacing={"17px"} mt="26px">
+            <HStack spacing={"17px"} mt="20px">
               <Image src="/email-icon.png" />
 
               <Text
                 fontFamily="body"
-                fontWeight={"800"}
-                fontSize="20px"
+                fontWeight={"600"}
+                fontSize="18px"
                 color="#ffffff"
               >
                 Support@letmein.ng
               </Text>
             </HStack>
-            <HStack spacing={"17px"} mt="26px">
-
-            <Box><MdOutlinePrivacyTip color={'white'} size={'2.5rem'}/></Box>
-              <Link to="/privacy">
-                <Text
-                  fontFamily="body"
-                  fontWeight={"800"}
-                  fontSize="20px"
-                  color="#ffffff"
-                //   pl={'3.5rem'}
-                //   mt={'1.5rem'}
-                >
-                  Our Privacy Policy
-                </Text>
-              </Link>
-            </HStack>
+           
           </Box>
 
           <Box w={["100%", "50%"]}>
@@ -732,13 +739,13 @@ export default function Homepage() {
               color={"#C9C9C9"}
             />
 
-            <Flex justifyContent={"flex-start"}>
+            <Flex justifyContent={"flex-end"}>
               <Button
                 onClick={SendMessage}
                 disabled={
                   Payload.name !== "" &&
-                  Payload.email !== "" &&
-                  Payload.message !== ""
+                    Payload.email !== "" &&
+                    Payload.message !== ""
                     ? false
                     : true
                 }
@@ -763,6 +770,9 @@ export default function Homepage() {
             </Flex>
           </Box>
         </Flex>
+
+        {/* mainFooter */}
+        
       </Box>
     </Box>
   );
