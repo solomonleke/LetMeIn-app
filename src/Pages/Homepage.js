@@ -109,7 +109,7 @@ export default function Homepage() {
       >
         <HomeNav />
 
-        <Img src="/landingSvg.svg" pos="absolute" left={"0"} />
+        <Img src="/landingSvg.svg" display={["none","none","block","block"]} pos="absolute" left={"0"} />
 
         <Flex
           zIndex={"10"}
@@ -157,7 +157,7 @@ export default function Homepage() {
               fontSize={["18px", "23px", "25px", "18px"]}
               fontFamily="body"
               fontWeight={"800"}
-              w="300px"
+              w={["100%","300px"]}
               rounded={"5px"}
               _hover={{
                 bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
