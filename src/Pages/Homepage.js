@@ -109,7 +109,7 @@ export default function Homepage() {
       >
         <HomeNav />
 
-        <Img src="/landingSvg.svg" display={["none","none","block","block"]} pos="absolute" left={"0"} />
+        <Img src="/landingSvg.svg" display={["none", "none", "block", "block"]} pos="absolute" left={"0"} />
 
         <Flex
           zIndex={"10"}
@@ -157,7 +157,7 @@ export default function Homepage() {
               fontSize={["18px", "23px", "25px", "18px"]}
               fontFamily="body"
               fontWeight={"800"}
-              w={["100%","300px"]}
+              w={["100%", "300px"]}
               rounded={"5px"}
               _hover={{
                 bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
@@ -232,7 +232,7 @@ export default function Homepage() {
                     Resident App
                   </Text>
 
-                  <Image w="100%" ml="-35px" src="/left-iphone.svg" />
+                  <Image rounded={"40px"} w="80%" ml="35px" src="/Resident.gif" />
 
                   <Box>
                     <Text
@@ -242,6 +242,7 @@ export default function Homepage() {
                       color="#B7B7B7"
                       textAlign={"center"}
                       pb="10px"
+                      mt={"10px"}
                     >
                       LetMeIn Resident App{" "}
                     </Text>
@@ -276,7 +277,7 @@ export default function Homepage() {
                   >
                     {" "}
                   </Box>
-                  <Box zIndex={5}>
+                  <Box zIndex={5} mt={["60px","60px","60px","16px","60px" ]}>
                     <Image w="250px" src="/red-glow.svg" />
                   </Box>
 
@@ -312,7 +313,7 @@ export default function Homepage() {
                     Security Operative App
                   </Text>
 
-                  <Image w="93%" src="/right-iphone.svg" ml="50px" />
+                  <Image rounded={"40px"} w="80%" src="/Security.gif" ml="30px" />
                   <Box>
                     <Text
                       fontFamily="body"
@@ -321,6 +322,7 @@ export default function Homepage() {
                       color="#B7B7B7"
                       textAlign={"center"}
                       pb="10px"
+                      mt={"10px"}
                     >
                       LetMeIn Security Operative App{" "}
                     </Text>
@@ -399,242 +401,10 @@ export default function Homepage() {
       </Box>
 
       {
-        // Sign up starts here
-      }
-      <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
-        <Text
-          as={"span"}
-          textTransform={"capitalize"}
-          fontFamily="body"
-          fontWeight={"500"}
-          fontSize="27px"
-          color="#E02828"
-        >
-          Sign Up
-        </Text>
-
-        <SimpleGrid
-          columns={[1, 1, 1, 2, 3]}
-          mt="40px"
-          spacingX={"30px"}
-          display={["block", "block", "block", "flex", "none"]}
-        >
-          <Flex
-            justifyContent={[
-              "center",
-              "center",
-              "center",
-              "flex-start",
-              "flex-start",
-            ]}
-          >
-            <Flex
-              onClick={comingSoon}
-              w={["400px", "400px", "400px", "300px", "400px"]}
-              bg="#404040"
-              h={["200px", "253px"]}
-              justifyContent={"center"}
-              alignItems="center"
-              cursor={"pointer"}
-            >
-              <Box>
-                <Image src="/btn.png" w="100px" />
-
-                {Coming && (
-                  <Text
-                    color="#fff"
-                    mt="4px"
-                    fontFamily={"body"}
-                    fontSize="14px"
-                  >
-                    Coming Soon
-                  </Text>
-                )}
-              </Box>
-            </Flex>
-          </Flex>
-
-          <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-            <Box pos={"relative"}>
-              <Image src="/laptop-phone.png" w="400px" />
-              <Image
-                src="/iphone2.png"
-                w={["50px", "55px", "59px", "45px", "70px"]}
-                pos={"absolute"}
-                right={["25px", "30px", "25px", "20px", "20px"]}
-                top={["88px", "87px", "105px", "69px", "87px"]}
-              />
-            </Box>
-          </Flex>
-
-          <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-            <Button
-              w="158px"
-              onClick={getStarted}
-              mb={["32px", "32px", "32px", "0"]}
-              _hover={{
-                bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
-              }}
-              boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)"
-              rounded="5px"
-              fontSize={["18px", "20px", "20px", "20px"]}
-              fontFamily="body"
-              fontWeight={"800"}
-              bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
-              mt="89px"
-              color="#000000"
-              py="14px"
-              px="37px"
-            >
-              Get Started{" "}
-            </Button>
-          </Flex>
-        </SimpleGrid>
-
-        <Flex
-          justifyContent={"space-between"}
-          mt="40px"
-          display={["none", "none", "none", "none", "flex"]}
-        >
-          <Flex
-            justifyContent={[
-              "center",
-              "center",
-              "center",
-              "flex-start",
-              "flex-start",
-            ]}
-          >
-            <Flex
-              onClick={comingSoon}
-              w={["400px", "400px", "400px", "300px", "400px"]}
-              bg="#404040"
-              h={["200px", "253px"]}
-              justifyContent={"center"}
-              alignItems="center"
-              cursor={"pointer"}
-            >
-              <Box>
-                <Image src="/btn.png" w="100px" />
-
-                {Coming && (
-                  <Text
-                    color="#fff"
-                    mt="4px"
-                    fontFamily={"body"}
-                    fontSize="14px"
-                  >
-                    Coming Soon
-                  </Text>
-                )}
-              </Box>
-            </Flex>
-          </Flex>
-
-          <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-            <Box pos={"relative"}>
-              <Image src="/laptop-phone.png" w="400px" />
-              <Image
-                src="/iphone2.png"
-                w={["45px", "45px", "45px", "45px", "70px"]}
-                pos={"absolute"}
-                right={["20px", "20px", "20px", "20px", "20px"]}
-                top={["85px", "87px", "87px", "87px", "87px"]}
-              />
-            </Box>
-          </Flex>
-
-          <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-            <Button
-              w="158px"
-              onClick={getStarted}
-              mb={["32px", "32px", "32px", "0"]}
-              _hover={{
-                bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
-              }}
-              boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)"
-              rounded="5px"
-              fontSize={["18px", "20px", "20px", "20px"]}
-              fontFamily="body"
-              fontWeight={"800"}
-              bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
-              mt="89px"
-              color="#000000"
-              py="14px"
-              px="37px"
-            >
-              Get Started{" "}
-            </Button>
-          </Flex>
-        </Flex>
-      </Box>
-
-      {
-        //Download file
-      }
-      <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
-        <Text
-          as={"span"}
-          textTransform={"capitalize"}
-          fontFamily="body"
-          fontWeight={"500"}
-          fontSize="27px"
-          color="#E02828"
-        >
-          Download Mobile App
-        </Text>
-
-        <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
-          <Box w={["100%", "100%", "100%", "48%"]}>
-            <Text fontWeight={"700"} fontSize={"20px"} mt="32px"> Android App</Text>
-            <Button
-              mb={["32px", "32px", "32px", "0"]}
-              _hover={{
-                bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
-              }}
-              boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)"
-              rounded="5px"
-              fontSize={["18px", "20px", "20px", "20px"]}
-              fontFamily="body"
-              fontWeight={"800"}
-              bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
-              mt="22px"
-              color="#000000"
-              py="14px"
-              px="37px"
-            >Download</Button>
-          </Box>
-          <Box w={["100%", "100%", "100%", "48%"]}>
-
-            <Text fontWeight={"700"} fontSize={"20px"} mt="32px"> IOS App</Text>
-            <Button
-              mb={["32px", "32px", "32px", "0"]}
-              _hover={{
-                bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
-              }}
-              boxShadow="2px 4px 6px 4px rgba(81, 252, 219, 0.32)"
-              rounded="5px"
-              fontSize={["18px", "20px", "20px", "20px"]}
-              fontFamily="body"
-              fontWeight={"800"}
-              bg="linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)"
-              mt="22px"
-              color="#000000"
-              py="14px"
-              px="37px"
-            >Coming Soon</Button>
-          </Box>
-
-        </Flex>
-
-
-
-      </Box>
-      {
         // Team section start here
       }
       <Box
-        display="none"
+        display="block"
         id="our-team"
         bg="url(/product-bg.png)"
         bgRepeat={"none"}
@@ -674,6 +444,65 @@ export default function Homepage() {
           />
         </SimpleGrid>
       </Box>
+
+
+      {
+        // Sign up starts here
+      }
+      <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
+        <Text
+          as={"span"}
+          textTransform={"capitalize"}
+          fontFamily="body"
+          fontWeight={"500"}
+          fontSize="27px"
+          color="#E02828"
+        >
+          Sign Up
+        </Text>
+
+
+        <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+
+          <Box pos={"relative"} w={["100%", "100%", "48%", "32%", "32%"]}>
+            <Image src="/laptopPhone.svg" w="100%" />
+
+          </Box>
+
+          <Box w={["100%", "100%", "48%", "60%", "60%"]}>
+            <Text textAlign={["center", "center", "center", "left", "left"]} fontSize={["30px", "30px", "40px", "50px"]} fontWeight={"100"} color={"#424242"} mt="10px">Download it now !!!</Text>
+
+            <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+              <Box w={["100%", "100%", "100%", "45%", "45%"]}>
+                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"}>
+                  <Image src="/andriod.svg" />
+                </Box>
+                <Text cursor="pointer" textAlign={["center", "center", "center", "left", "left"]} fontSize={"20px"} fontWeight={"400"} mt="8px" color={"#E02828"}>Click here to download</Text>
+
+              </Box>
+              <Box w={["100%", "100%", "100%", "45%", "45%"]}>
+                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"}>
+
+                  <Image src="/ios.svg" />
+                </Box>
+                <Text fontSize={"20px"} textAlign={["center", "center", "center", "left", "left"]} fontWeight={"400"} mt="-0.5px" ml="11.5px" color={"#E02828"}>Coming soon.</Text>
+
+
+              </Box>
+            </Flex>
+
+          </Box>
+
+
+
+
+        </Flex>
+
+       
+
+       
+      </Box>
+
 
       {
         // Footer starts here
@@ -773,6 +602,7 @@ export default function Homepage() {
                 _focus={{ border: "0" }}
                 color={"#C9C9C9"}
               />
+
               <Input
                 id="email"
                 onChange={handleChange}
@@ -850,7 +680,7 @@ export default function Homepage() {
             <Text fontSize={"14px"} lineHeight={"16.8px"}> <Box as="span" fontWeight={"700"}>Security Application -</Box>it enables the verification of digital identification
               and unique codes when ever guests or residents need to be given access to a residential estate.</Text>
           </Box>
-          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
+          <Box w={["100%", "100%", "100%", "13%", "13%"]} cursor={"pointer"}>
             <Stack spacing={"24px"}>
               <Text fontWeight={"800"} fontSize={"18px"}>Product</Text>
 
@@ -859,23 +689,7 @@ export default function Homepage() {
             </Stack>
 
           </Box>
-          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
-            <Stack spacing={"24px"}>
-              <Text fontWeight={"800"} fontSize={"18px"}>Company</Text>
-
-              <Text fontWeight={"400"} fontSize={"15px"}>About Us</Text>
-              <Text fontWeight={"400"} fontSize={"15px"}>Contact</Text>
-            </Stack>
-          </Box>
-          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
-            <Stack spacing={"24px"}>
-              <Text fontWeight={"800"} fontSize={"18px"}>Resources</Text>
-
-              <Text fontWeight={"400"} fontSize={"15px"}>FAQs</Text>
-            </Stack>
-
-          </Box>
-          <Box w={["100%", "100%", "100%", "10%", "10%"]} cursor={"pointer"}>
+          <Box w={["100%", "100%", "100%", "13%", "13%"]} cursor={"pointer"}>
             <Stack spacing={"24px"}>
               <Text fontWeight={"800"} fontSize={"18px"}>Legal</Text>
 
@@ -883,6 +697,15 @@ export default function Homepage() {
               <Text fontWeight={"400"} onClick={() => nav("/privacy")} fontSize={"15px"}>Privacy Policy</Text>
             </Stack>
           </Box>
+          <Box w={["100%", "100%", "100%", "13%", "13%"]} cursor={"pointer"}>
+            <Stack spacing={"24px"}>
+              <Text fontWeight={"800"} fontSize={"18px"}>Resources</Text>
+
+              <Text fontWeight={"400"} fontSize={"15px"}>FAQs</Text>
+            </Stack>
+
+          </Box>
+        
         </Flex>
 
         <HStack mt="24px" cursor={"pointer"}>

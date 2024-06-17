@@ -86,7 +86,7 @@ const Profile = () => {
 
     dispatch({ type: "ADD_USER", payload: { data: "" } });
 
-    nav("/");
+    nav("/sign-in");
   };
 
   const handleDelete = async () => {
@@ -117,34 +117,7 @@ const Profile = () => {
     }
   };
 
-  // const handleDelete = async (id) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://api.letmein.ng/user/delete-account/${id}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-
-  //         },
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     const data = await response.json();
-  //     console.log("User deleted successfully:", data);
-  //     // You can trigger additional actions or update your component state as needed
-
-  //     nav("/home")
-
-  //   } catch (error) {
-  //     console.error("Error deleting user:", error.message);
-  //   }
-  // };
-
+  
   return (
     <MainLayout>
       <Seo title="My Profile" description="Profile of user" />
@@ -376,28 +349,30 @@ const Profile = () => {
                     <Button onClick={onOpen}>Delete Profile</Button>
                   </Box>
                 </Center>
-                <Modal isOpen={isOpen} onClose={onClose}>
+                <Modal isOpen={isOpen} onClose={onClose} isCentered>
                   <ModalOverlay />
                   <ModalContent>
                     <ModalCloseButton />
-                    <ModalBody my={"2rem"}>
-                      <Text fontSize={"1.5rem"}>
+                    <ModalBody my="32px">
+                      <Text fontSize={"18px"} fontWeight={600}>
                         Do you wish to delete your profile
                       </Text>
-                    </ModalBody>
-                    <ModalFooter px={"4"}>
-                      <Center>
-                        <Flex justify={"space-between"}>
+
+                    
+                        <Flex justify={"space-between"} mt="32px" flexWrap={"wrap"} >
                           <Button
-                            w={"30%"}
+                            w={["100%","15%","15%","30%"]}
+                            mt={"12px"}
                             colorScheme="blue"
                             //   mr={3}
                             onClick={handleDelete}
                           >
                             Delete
                           </Button>
+
                           <Button
-                            w={"30%"}
+                           w={["100%","15%","15%","30%"]}
+                           mt={"12px"}
                             colorScheme="blue"
                             //   mr={3}
                             onClick={onClose}
@@ -405,8 +380,9 @@ const Profile = () => {
                             Close
                           </Button>
                         </Flex>
-                      </Center>
-                    </ModalFooter>
+                      
+                    </ModalBody>
+                   
                   </ModalContent>
                 </Modal>
               </Stack>
