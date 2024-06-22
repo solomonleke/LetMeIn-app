@@ -216,7 +216,7 @@ export default function Homepage() {
               flexDir={["column", "column", "column", "row"]}
             >
               <Flex
-                w={["100%", "100%", "100%", "35%"]}
+                w={["100%", "100%", "100%", "30%"]}
                 flexDir={"row"}
                 justifyContent={["center", "center", "center", "flex-start"]}
               >
@@ -231,8 +231,10 @@ export default function Homepage() {
                   >
                     Resident App
                   </Text>
+                  <Flex justifyContent={"center"}>
 
-                  <Image rounded={"40px"} w="80%" ml="35px" src="/Resident.gif" />
+                  <Image rounded={"30px"} w={["70%","70%","70%","65%"]}  src="/Resident.gif" />
+                  </Flex>
 
                   <Box>
                     <Text
@@ -265,20 +267,21 @@ export default function Homepage() {
               <Flex
                 flexDir={"row"}
                 justifyContent={["center", "center", "center", "flex-end"]}
+                alignItems={"flex-start"}
               >
                 <Box pos={"relative"} mt="90px">
                   <Box
                     display={["none", "none", "none", "flex"]}
                     pos="absolute"
                     left={["-110%", "-110%", "-110%", "-24%", "-100%"]}
-                    top="35%"
+                    top="60%"
                     borderBottom="1px dashed #A4A4A4"
                     w={["110%", "110%", "110%", "25%", "130%"]}
                   >
                     {" "}
                   </Box>
                   <Box zIndex={5} mt={["60px","60px","60px","16px","60px" ]}>
-                    <Image w="250px" src="/red-glow.svg" />
+                    <Image w="200px" src="/red-glow.svg" />
                   </Box>
 
                   <Box
@@ -286,7 +289,7 @@ export default function Homepage() {
                     pos="absolute"
                     borderBottom="1px dashed #A4A4A4"
                     right={["-110%", "-110%", "-110%", "-16%", "-100%"]}
-                    top="35%"
+                    top="60%"
                     w={["110%", "110%", "110%", "110%", "130%"]}
                   >
                     {" "}
@@ -295,7 +298,7 @@ export default function Homepage() {
               </Flex>
 
               <Flex
-                w={["100%", "100%", "100%", "35%"]}
+                w={["100%", "100%", "100%", "30%"]}
                 flexDir={"row"}
                 justifyContent={["center", "center", "center", "flex-end"]}
                 mt={["90px", "90px", "90px", "0"]}
@@ -313,7 +316,9 @@ export default function Homepage() {
                     Security Operative App
                   </Text>
 
-                  <Image rounded={"40px"} w="80%" src="/Security.gif" ml="30px" />
+                 <Flex justifyContent={"center"}>
+                 <Image rounded={"30px"} w={["70%","70%","70%","65%"]} src="/Security.gif"  />
+                 </Flex>
                   <Box>
                     <Text
                       fontFamily="body"
@@ -350,12 +355,9 @@ export default function Homepage() {
         //  product offering starts here
       }
       <Box
-        bg="url(/product-bg.png)"
         w="100%"
         px={["6%", "10%"]}
         pt="34px"
-        bgRepeat={"none"}
-        bgSize="cover"
         pb="32px"
       >
         <Text
@@ -406,9 +408,6 @@ export default function Homepage() {
       <Box
         display="block"
         id="our-team"
-        bg="url(/product-bg.png)"
-        bgRepeat={"none"}
-        bgSize="cover"
         w="100%"
         px={["6%", "10%"]}
         py="35px"
@@ -474,18 +473,16 @@ export default function Homepage() {
 
             <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
               <Box w={["100%", "100%", "100%", "45%", "45%"]}>
-                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"}>
-                  <Image src="/andriod.svg" />
+                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
+                  <Image src="/android.svg" />
                 </Box>
-                <Text cursor="pointer" textAlign={["center", "center", "center", "left", "left"]} fontSize={"20px"} fontWeight={"400"} mt="8px" color={"#E02828"}>Click here to download</Text>
 
               </Box>
               <Box w={["100%", "100%", "100%", "45%", "45%"]}>
-                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"}>
+                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
 
                   <Image src="/ios.svg" />
                 </Box>
-                <Text fontSize={"20px"} textAlign={["center", "center", "center", "left", "left"]} fontWeight={"400"} mt="-0.5px" ml="11.5px" color={"#E02828"}>Coming soon.</Text>
 
 
               </Box>
