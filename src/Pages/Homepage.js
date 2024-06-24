@@ -219,6 +219,7 @@ export default function Homepage() {
                 w={["100%", "100%", "100%", "30%"]}
                 flexDir={"row"}
                 justifyContent={["center", "center", "center", "flex-start"]}
+                position={"relative"}
               >
                 <Box zIndex={3}>
                   <Text
@@ -236,15 +237,23 @@ export default function Homepage() {
                   <Image rounded={"30px"} w={["70%","70%","70%","65%"]}  src="/Resident.gif" />
                   </Flex>
 
+                  <HStack transform={'rotate(-90deg)'} pos={"absolute"} top={["210px","210px","210px","160px","200px"]} left={"-150px"}   display={["none","none","none","flex","flex",]}>
+                  <Image src="/iconResident.svg" transform={'rotate(90deg)'}/>
+                    <Box pos={"relative"}>
+                    <Text fontWeight={"700"} fontSize={"40px"} color={"#B7B7B7"} opacity={"0.2"}>Resident App</Text>
+                  <Box borderColor={"#2D2D2D"} pos={"absolute"} bottom="0" left="120px" borderWidth={"2.5px"} w="110px" opacity="0.38"></Box>
+                    </Box>
+                  </HStack>
+
                   <Box>
                     <Text
                       fontFamily="body"
                       fontWeight={"700"}
-                      fontSize="12px"
-                      color="#B7B7B7"
+                      fontSize="18px"
+                      color="#424242"
                       textAlign={"center"}
                       pb="10px"
-                      mt={"10px"}
+                      mt={"32px"}
                     >
                       LetMeIn Resident App{" "}
                     </Text>
@@ -252,8 +261,8 @@ export default function Homepage() {
                       mt="-12px"
                       fontFamily="body"
                       fontWeight={"400"}
-                      fontSize="12px"
-                      color="#B7B7B7"
+                      fontSize="18px"
+                      color="#424242"
                       textAlign={"center"}
                       pb="10px"
                     >
@@ -274,13 +283,13 @@ export default function Homepage() {
                     display={["none", "none", "none", "flex"]}
                     pos="absolute"
                     left={["-110%", "-110%", "-110%", "-24%", "-100%"]}
-                    top="60%"
+                    top={["60%","60%","60%","45%","60%"]}
                     borderBottom="1px dashed #A4A4A4"
                     w={["110%", "110%", "110%", "25%", "130%"]}
                   >
                     {" "}
                   </Box>
-                  <Box zIndex={5} mt={["60px","60px","60px","16px","60px" ]}>
+                  <Box zIndex={5} mt={["60px","60px","60px","-10px","40px" ]}>
                     <Image w="200px" src="/red-glow.svg" />
                   </Box>
 
@@ -289,7 +298,7 @@ export default function Homepage() {
                     pos="absolute"
                     borderBottom="1px dashed #A4A4A4"
                     right={["-110%", "-110%", "-110%", "-16%", "-100%"]}
-                    top="60%"
+                    top={["60%","60%","60%","45%","60%"]}
                     w={["110%", "110%", "110%", "110%", "130%"]}
                   >
                     {" "}
@@ -303,6 +312,7 @@ export default function Homepage() {
                 justifyContent={["center", "center", "center", "flex-end"]}
                 mt={["90px", "90px", "90px", "0"]}
                 alignItems="flex-start"
+                pos={"relative"}
               >
                 <Box zIndex={3}>
                   <Text
@@ -317,17 +327,24 @@ export default function Homepage() {
                   </Text>
 
                  <Flex justifyContent={"center"}>
-                 <Image rounded={"30px"} w={["70%","70%","70%","65%"]} src="/Security.gif"  />
+                 <Image rounded={"30px"} w={["60%","60%","60%","65%"]} src="/Security.gif"  />
                  </Flex>
+                 <HStack transform={'rotate(90deg)'} pos={"absolute"} top={["210px","210px","210px","160px","200px"]} right={"-200px"}   display={["none","none","none","flex","flex",]}>
+                  <Image src="/iconSecurity.svg" transform={'rotate(-90deg)'}/>
+                    <Box pos={"relative"}>
+                    <Text fontWeight={"700"} fontSize={"40px"} color={"#B7B7B7"} opacity={"0.2"}>Security Ops. App</Text>
+                  <Box borderColor={"#2D2D2D"} pos={"absolute"} bottom="0" left="200px" borderWidth={"2.5px"} w="110px" opacity="0.38"></Box>
+                    </Box>
+                  </HStack>
                   <Box>
                     <Text
                       fontFamily="body"
                       fontWeight={"700"}
-                      fontSize="12px"
-                      color="#B7B7B7"
+                      fontSize="18px"
+                      color="#424242"
                       textAlign={"center"}
                       pb="10px"
-                      mt={"10px"}
+                      mt={"32px"}
                     >
                       LetMeIn Security Operative App{" "}
                     </Text>
@@ -335,12 +352,12 @@ export default function Homepage() {
                       mt="-12px"
                       fontFamily="body"
                       fontWeight={"400"}
-                      fontSize="12px"
-                      color="#B7B7B7"
+                      fontSize="18px"
+                      color="#424242"
                       textAlign={"center"}
                       pb="10px"
                     >
-                      uses the unique access code provided by <br /> Guests to
+                      uses the unique access code provided by  Guests to
                       permit residents into an Estate
                     </Text>
                   </Box>
