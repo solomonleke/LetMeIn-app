@@ -30,6 +30,7 @@ export default function SecurityOps() {
 
 
   const onlineUser = useSelector((state) => state.onlineUser);
+  console.log("onlineUser", onlineUser.user)
   const apiLink = useSelector((state) => state.apiLink);
   const isLogged = useSelector((state) => state.isLogged);
   // const [Verified, setVerified] = useState(onlineUser.user.Verified);
@@ -134,7 +135,10 @@ export default function SecurityOps() {
       body: JSON.stringify(
         {
           id: User.id,
-          type_Request: User.type_Request
+          type_Request: User.type_Request,
+          securityFullName: `${onlineUser.user.firstName} ${onlineUser.user.lastName}`,
+          securityPhone: onlineUser.user.phone
+
         }
       ),
 

@@ -68,11 +68,6 @@ export default function Home() {
 
 
 
-      <Box bgImage="url(/bg-img.png)" bgSize={'cover'}
-        bgRepeat={'repeat'}
-        height="30vh" mt="121" display={["block", "none"]}>
-
-      </Box>
     </MainLayout>
   )
 }

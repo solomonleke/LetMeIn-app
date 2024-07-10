@@ -114,7 +114,11 @@ export default function VerifyId() {
                 "Content-Type": "application/JSON"
             },
 
-            body: JSON.stringify({ id: id }),
+            body: JSON.stringify({ 
+                id: id, 
+                estateAdminFullName: `${onlineUser.user.firstName} ${onlineUser.user.lastName}`,
+                estateAdminPhone: onlineUser.user.phone
+            }),
 
         })
 

@@ -209,7 +209,7 @@ export default function Homepage() {
           >
             our product
           </Text>
-          <Box px={["0%", "7%"]}>
+          <Box>
             <Flex
               mt="68px"
               justifyContent={"space-between"}
@@ -274,6 +274,7 @@ export default function Homepage() {
               </Flex>
 
               <Flex
+              
                 flexDir={"row"}
                 justifyContent={["center", "center", "center", "flex-end"]}
                 alignItems={"flex-start"}
@@ -392,7 +393,7 @@ export default function Homepage() {
         <Flex
           justifyContent={"space-between"}
           flexWrap={"wrap"}
-          alignItems={"flex-start"}
+          alignItems={"stretch"}
           mt="48px"
 
         >
@@ -478,7 +479,7 @@ export default function Homepage() {
         </Text>
 
 
-        <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+        <Flex justifyContent={"space-between"} flexWrap={"wrap"} mt="32px">
 
           <Box pos={"relative"} w={["100%", "100%", "48%", "32%", "32%"]}>
             <Image src="/laptopPhone.svg" w="100%" />
@@ -486,9 +487,9 @@ export default function Homepage() {
           </Box>
 
           <Box w={["100%", "100%", "48%", "60%", "60%"]}>
-            <Text textAlign={["center", "center", "center", "left", "left"]} fontSize={["30px", "30px", "40px", "50px"]} fontWeight={"100"} color={"#424242"} mt="10px">Download it now !!!</Text>
+            <Text textAlign={["center", "center", "center", "left", "left"]} fontSize={["30px", "30px", "38px", "45px"]} fontFamily={"Roboto"} fontWeight={"100"} color={"#909090"} mt="10px">Download it now !!!</Text>
 
-            <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+            <Flex justifyContent={"space-between"} flexWrap={"wrap"} mt="28px">
               <Box w={["100%", "100%", "100%", "45%", "45%"]}>
                 <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
                   <Image src="/android.svg" />
@@ -683,7 +684,7 @@ export default function Homepage() {
 
         <Flex flexWrap={"wrap"} justifyContent={"space-between"} color="#fff" mt="24px">
 
-          <Box w={["100%", "100%", "100%", "35%", "35%"]}>
+          <Box w={["100%", "100%", "100%", "45%", "45%"]}>
 
             <Text fontSize={"14px"} lineHeight={"16.8px"}> <Box as="span" fontWeight={"700"}>LETMEIN -</Box>is an access control software that enables it customers to manage access to thier living space.
               It achieves this by creating a network of three application. </Text>
