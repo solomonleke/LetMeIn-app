@@ -22,6 +22,9 @@ import ProductCard from "../Components/ProductCard";
 import TeamCard from "../Components/TeamCard";
 import HomeNav from "../Layouts/HomeNav";
 import Privacy from "./Privacy";
+import { FaLinkedin } from "react-icons/fa6";
+import { BsTwitterX } from "react-icons/bs";
+import { FaInstagramSquare } from "react-icons/fa";
 
 export default function Homepage() {
   const [Coming, setComing] = useState(false);
@@ -489,14 +492,14 @@ export default function Homepage() {
           <Box w={["100%", "100%", "48%", "60%", "60%"]}>
             <Text textAlign={["center", "center", "center", "left", "left"]} fontSize={["30px", "30px", "38px", "45px"]} fontFamily={"Roboto"} fontWeight={"100"} color={"#909090"} mt="10px">Download it now !!!</Text>
 
-            <Flex justifyContent={"space-between"} flexWrap={"wrap"} mt="28px">
-              <Box w={["100%", "100%", "100%", "45%", "45%"]}>
+            <Flex justifyContent={"space-between"} flexWrap={"wrap"} >
+              <Box w={["100%", "100%", "100%", "45%", "45%"]} mt="28px">
                 <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
                   <Image src="/android.svg" />
                 </Box>
 
               </Box>
-              <Box w={["100%", "100%", "100%", "45%", "45%"]}>
+              <Box w={["100%", "100%", "100%", "45%", "45%"]} mt="28px">
                 <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
 
                   <Image src="/ios.svg" />
@@ -724,9 +727,11 @@ export default function Homepage() {
         </Flex>
 
         <HStack mt="24px" cursor={"pointer"}>
-          <Image src="/linkedin.svg" />
-          <Image src="/twitter.svg" />
-          <Image src="/instagram.svg" />
+         
+          <FaLinkedin color="#fff" fontSize={"23px"} rounded="8px" />
+          <BsTwitterX color="#fff" fontSize={"23px"} rounded="8px" />
+          <FaInstagramSquare color="#fff" fontSize={"23px"} rounded="8px" />
+         
         </HStack>
 
         <Text textAlign={"center"} fontWeight={"400"} color={"#fff"} mt={"22px"} fontSize={"15px"}> &#9400; 2023 Letmein. All Rights Reserved.</Text>
