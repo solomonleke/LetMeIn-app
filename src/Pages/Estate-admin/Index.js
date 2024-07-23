@@ -9,6 +9,7 @@ import GreetingText from '../../Components/GreetingText';
 import DelayMsg from '../../Components/DelayMsg';
 import DelayEstateMsg from '../../Components/DelayEstateMsg';
 import { useQuery } from 'react-query';
+import PartnershipStamp from '../../Components/PartnershipStamp';
 
 export default function EstateAdmin() {
 
@@ -69,20 +70,20 @@ export default function EstateAdmin() {
 
     const { data, isLoading, isError } = useQuery('users', async () => await (await (fetch(`${apiLink.link}/user/getOneUser/${onlineUser.user.id}`))).json(), { refetchInterval: 10000, refetchOnReconnect: false, refetchIntervalInBackground: true, cacheTime: 10000 });
     console.log('data', data, isLoading, isError);
-     var Verified = onlineUser.user.Verified;
+    var Verified = onlineUser.user.Verified;
 
     if (!isLoading) {
 
         var Verified = data?.msg.Verified;
-       
+
 
     }
 
     useEffect(() => {
         dispatch(
-        
-            { type: "ADD_USER", payload: { data: data? data.msg: onlineUser.user } }
-          );
+
+            { type: "ADD_USER", payload: { data: data ? data.msg : onlineUser.user } }
+        );
 
         checkLength()
     }, [Verified]);
@@ -92,29 +93,35 @@ export default function EstateAdmin() {
         <MainLayout>
             <Seo title='Estate-Manager' description='Estate for LetMeIn' />
 
+            <Box mx={["6%", "10%"]}>
 
-            <Center mt={["100px", "131px"]} opacity={onlineUser.user.Verified == false && "0.4"}>
-                <Stack spacing={'15px'} cursor="pointer" w={["80%", "310px"]}>
-                    <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`} />
-                    <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
-                    <Button disabled={onlineUser.user.Verified == false ? true: false} onClick={visitor_access}>Visitor Access</Button>
-                    <Button onClick={taxi_access} disabled={onlineUser.user.Verified == false ? true: false}>Taxi Access</Button>
-                    <Box pos={"relative"}>
-                        <Button onClick={verify_id} disabled={onlineUser.user.Verified == false ? true: false}>Verify IDs</Button>
-                        {
-                            verifiedLen >= 1 && (
-                                <Text h={"18px"} w={"18px"}
-                                    rounded={"100%"} bg="#EDEDED"
-                                    boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
-                                    pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
-                                    fontFamily="body" fontWeight={"400"} color="#000000"
-                                    fontSize={"12"}>{verifiedLen}</Text>
-                            )
-                        }
+                <Center mt={["100px", "131px"]} opacity={onlineUser.user.Verified == false && "0.4"}>
+                    <Stack spacing={'15px'} cursor="pointer" w={["80%", "310px"]}>
+                        <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`} />
+                        <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
+                        <Button disabled={onlineUser.user.Verified == false ? true : false} onClick={visitor_access}>Visitor Access</Button>
+                        <Button onClick={taxi_access} disabled={onlineUser.user.Verified == false ? true : false}>Taxi Access</Button>
+                        <Box pos={"relative"}>
+                            <Button onClick={verify_id} disabled={onlineUser.user.Verified == false ? true : false}>Verify IDs</Button>
+                            {
+                                verifiedLen >= 1 && (
+                                    <Text h={"18px"} w={"18px"}
+                                        rounded={"100%"} bg="#EDEDED"
+                                        boxShadow={"1px 1px 4px 1px rgba(84, 0, 0, 0.25);"}
+                                        pos="absolute" right="-8px" top="-8px" textAlign={"center"} pt="1px"
+                                        fontFamily="body" fontWeight={"400"} color="#000000"
+                                        fontSize={"12"}>{verifiedLen}</Text>
+                                )
+                            }
 
-                    </Box>
-                </Stack>
-            </Center>
+                        </Box>
+                    </Stack>
+                </Center>
+
+                <PartnershipStamp/>
+            </Box>
+
+
 
             {
                 onlineUser.user.Verified == false && (

@@ -20,6 +20,7 @@ import Seo from '../Utils/Seo';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import EventModal from '../Components/EventModal';
 import BackBtn from '../Components/BackBtn';
+import PartnershipStamp from '../Components/PartnershipStamp';
 
 export default function VisitorsAccess() {
     const [Success, setSuccess] = useState(false);
@@ -193,12 +194,12 @@ export default function VisitorsAccess() {
     return (
         <MainLayout>
 
-            <Seo title="Visitors Access" description='Grant visitors Access' />
+            <Seo title="Guest Access" description='Grant Guest Access' />
 
 
 
             <Box mt="40px">
-                <Headers text="Grant Visitor Access" />
+                <Headers text="Grant Guest Access" />
             </Box>
 
 
@@ -275,6 +276,9 @@ export default function VisitorsAccess() {
                 </Center>
 
                         <BackBtn onclick={() => nav("/home")} />
+
+                        
+            <PartnershipStamp/>
             </Box>
             <Modal motionPreset='slideInBottom' size={"xs"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
@@ -284,8 +288,8 @@ export default function VisitorsAccess() {
                     <ModalCloseButton onClick={() => nav("/home")} />
                     <ModalBody pb={6} >
                         {
-                            Single ? <Text textAlign={"center"}>Visitor Access Requested <br /> Successfully</Text> :
-                                <Text textAlign={"center"}>Multiple Visitor Access Requested Successfully</Text>
+                            Single ? <Text textAlign={"center"}>Guest Access Requested <br /> Successfully</Text> :
+                                <Text textAlign={"center"}>Multiple Guest Access Requested Successfully</Text>
                         }
 
 

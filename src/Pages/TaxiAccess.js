@@ -16,6 +16,8 @@ import Input from '../Components/Input';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
 import { useNavigate } from 'react-router-dom';
+import PartnershipStamp from '../Components/PartnershipStamp';
+import BackBtn from '../Components/BackBtn';
 
 export default function TaxiAccess() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -99,6 +101,7 @@ export default function TaxiAccess() {
   return (
     <MainLayout>
         <Seo title="Grant Taxi Access" description='Letmein Taxi Access'/>
+        <Box mx={["6%", "10%"]}>
 
         <Center>
 
@@ -123,6 +126,9 @@ export default function TaxiAccess() {
                 
         </Box>
         </Center>
+        <BackBtn onclick={() => nav("/home")} />
+        <PartnershipStamp/>
+        </Box>
 
         <Modal motionPreset='slideInBottom' size={"xs"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />

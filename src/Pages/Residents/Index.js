@@ -9,6 +9,7 @@ import DelayMsgDisable from '../../Components/DelayMsgDisble';
 import GreetingText from '../../Components/GreetingText';
 import MainLayout from '../../Layouts/Index';
 import Seo from '../../Utils/Seo';
+import PartnershipStamp from '../../Components/PartnershipStamp';
 
 export default function Index() {
     const nav = useNavigate()
@@ -77,16 +78,22 @@ export default function Index() {
         <MainLayout>
             <Seo title='Resident' description='Resident for LetMeIn' />
 
-          
-            <Center mt={["60px", "90px"]} opacity={Verified == false || onlineUser.user.disable_user === true && "0.4"}>
+          <Box mx={["6%", "10%"]}>
+          <Center mt={["60px", "90px"]} opacity={Verified == false || onlineUser.user.disable_user === true && "0.4"}>
                 <Stack spacing={'15px'} cursor="pointer">
                     <GreetingText name={`${onlineUser.user.prefix} ${onlineUser.user.lastName}`} />
 
                     <Text color={Verified ? "#939393" : "#dad9d9"}>What would you like to request for ?</Text>
                     <Button disabled={Verified ? false : true} onClick={visitor_access}>Visitor Access</Button>
                     <Button disabled={Verified ? false : true} onClick={taxi_access}>Taxi Access</Button>
+                    <Button disabled={Verified ? false : true} onClick={()=> nav("/temporary-pass")}>Temporary Pass</Button>
                 </Stack>
             </Center>
+
+            <PartnershipStamp/>
+
+          </Box>
+            
 
 
             {

@@ -42,6 +42,7 @@ import SecurityRoutes from './SecurityRoutes'
 import SuperAdminRoutes from './SuperAdminRoutes'
 import VerifiedPagesRoutes from './VerifiedPagesRoutes'
 import Privacy from '../Pages/Privacy'
+import TemporaryPass from '../Pages/TemporaryPass'
 
 
 
@@ -83,6 +84,7 @@ export default function IndexRoutes() {
 
           <Route element={<VerifiedPagesRoutes />}>
             <Route path='/visitors-access' element={<VisitorsAccess />} />
+            <Route path='/temporary-pass' element={<TemporaryPass />} />
             <Route path='/taxi-access' element={<TaxiAccess />} />
             <Route path='/request-access-history' element={<RequestHistory />} />
 

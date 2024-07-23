@@ -160,7 +160,7 @@ export default function Homepage() {
               fontSize={["18px", "23px", "25px", "18px"]}
               fontFamily="body"
               fontWeight={"800"}
-              w={["100%", "300px"]}
+              w={["100%","100%","100%", "300px"]}
               rounded={"5px"}
               _hover={{
                 bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)",
@@ -199,7 +199,7 @@ export default function Homepage() {
       {
         // Our product starts here
       }
-      <Box px={["6%", "10%"]} mt={["32px", "71px"]} pb="32px">
+      <Box px={["6%", "10%"]} mt={["32px", "104px"]} >
         <div id="our-product">
           <Text
             as={"span"}
@@ -378,8 +378,8 @@ export default function Homepage() {
       <Box
         w="100%"
         px={["6%", "10%"]}
-        pt="34px"
-        pb="32px"
+        mt="74px"
+        
       >
         <Text
           as={"span"}
@@ -430,8 +430,9 @@ export default function Homepage() {
         display="block"
         id="our-team"
         w="100%"
+        mt="104px"
         px={["6%", "10%"]}
-        py="35px"
+       
       >
         <Text
           as={"span"}
@@ -469,7 +470,7 @@ export default function Homepage() {
       {
         // Sign up starts here
       }
-      <Box w="100%" px={["6%", "10%"]} pt="34px" pb="32px">
+      <Box w="100%" px={["6%", "10%"]} pt="104px" pb="32px">
         <Text
           as={"span"}
           textTransform={"capitalize"}
@@ -493,10 +494,14 @@ export default function Homepage() {
             <Text textAlign={["center", "center", "center", "left", "left"]} fontSize={["30px", "30px", "38px", "45px"]} fontFamily={"Roboto"} fontWeight={"100"} color={"#909090"} mt="10px">Download it now !!!</Text>
 
             <Flex justifyContent={"space-between"} flexWrap={"wrap"} >
-              <Box w={["100%", "100%", "100%", "45%", "45%"]} mt="28px">
-                <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
+              <Box w={["100%", "100%", "100%", "45%", "45%"]} mt="28px" >
+
+              <Box as="a" href="https://drive.google.com/uc?export=download&id=19cAHkRr918g_vw4ttn7Qx9MHwp76XCUX" target="_blank">
+              <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
                   <Image src="/android.svg" />
                 </Box>
+              </Box>
+               
 
               </Box>
               <Box w={["100%", "100%", "100%", "45%", "45%"]} mt="28px">
@@ -551,7 +556,7 @@ export default function Homepage() {
           pt="45px"
           flexDir={["column", "column", "row", "row", "row"]}
         >
-          <Box w={["100%", "40%"]}>
+          <Box w={["100%","100%","100%", "40%"]}>
             <Text
               as={"span"}
               textTransform={"capitalize"}
@@ -589,7 +594,7 @@ export default function Homepage() {
 
           </Box>
 
-          <Box w={["100%", "50%"]}>
+          <Box w={["100%","100%","100%", "50%"]}>
             {Show && (
               <Text
                 mt={"-40px"}
@@ -603,6 +608,7 @@ export default function Homepage() {
               </Text>
             )}
             <Flex
+            mt={["10px","32px","32px","0px",]}
               justifyContent="space-between"
               flexDir={["column", "column", "column", "row", "row"]}
             >

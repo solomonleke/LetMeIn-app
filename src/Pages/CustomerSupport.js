@@ -7,6 +7,7 @@ import BackBtn from '../Components/BackBtn';
 import Headers from '../Components/Headers';
 import MainLayout from '../Layouts/Index';
 import Seo from '../Utils/Seo';
+import PartnershipStamp from '../Components/PartnershipStamp';
 
 export default function CustomerSupport() {
   const nav = useNavigate();
@@ -64,6 +65,8 @@ export default function CustomerSupport() {
         </Center>
 
         <BackBtn onclick={() => nav("/home")} />
+
+        <PartnershipStamp/>
 
       </Box>
     </MainLayout>

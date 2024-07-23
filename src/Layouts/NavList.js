@@ -95,6 +95,20 @@ export default function NavList(path) {
             display: isResident(onlineUser.user.userType)
 
         },
+        {
+            name: "Temporary Pass",
+            location: "/temporary-pass",
+            active: isActive(path, "/temporary-pass"),
+            display: isResident(onlineUser.user.userType)
+
+        },
+        {
+            name: "Temporary Pass",
+            location: "/temporary-pass",
+            active: isActive(path, "/temporary-pass"),
+            display: isEstateAdmin(onlineUser.user.userType)
+
+        },
        
         {
             name: "Manage Verified IDs",
