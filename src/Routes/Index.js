@@ -43,6 +43,8 @@ import SuperAdminRoutes from './SuperAdminRoutes'
 import VerifiedPagesRoutes from './VerifiedPagesRoutes'
 import Privacy from '../Pages/Privacy'
 import TemporaryPass from '../Pages/TemporaryPass'
+import ManageRequestHistory from '../Pages/Residents/ManageRequestHistory'
+import ManageRequestHistoryAdmin from '../Pages/Estate-admin/ManageRequestHistoryAdmin'
 
 
 
@@ -71,6 +73,7 @@ export default function IndexRoutes() {
           <Route element={<ResidentRoutes />}>
 
             <Route path='/resident' element={<Index />} />
+            <Route path='/manage-access-history' element={<ManageRequestHistory />} />
           </Route>
 
           <Route element={<EstateAminRoutes />}>
@@ -79,6 +82,7 @@ export default function IndexRoutes() {
             <Route path='/manage-verify-id' element={<ManageVerified />} />
             <Route path='/full-report' element={<FullReport />} />
             <Route path='/resident-request' element={<ResidentRequest />} />
+            <Route path='/manage-access-history-admin' element={<ManageRequestHistoryAdmin />} />
 
           </Route>
 
@@ -86,7 +90,7 @@ export default function IndexRoutes() {
             <Route path='/visitors-access' element={<VisitorsAccess />} />
             <Route path='/temporary-pass' element={<TemporaryPass />} />
             <Route path='/taxi-access' element={<TaxiAccess />} />
-            <Route path='/request-access-history' element={<RequestHistory />} />
+            
 
 
           </Route>

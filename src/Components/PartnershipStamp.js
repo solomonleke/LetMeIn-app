@@ -3,7 +3,7 @@ import React from 'react'
 
 function PartnershipStamp() {
   return (
-    <Flex justifyContent={"flex-end"} position={"sticky"} bottom={0} right={"0"} mt="100px">
+    <Flex justifyContent={"flex-end"} position={"relative"} bottom={0} right={"0"} mt="64px">
     <HStack>
         <Text fontWeight={"300"} fontSize={"10px"} color={"#939393"}>
          <Box as='span' fontWeight={"800"}>....Letmein</Box> 

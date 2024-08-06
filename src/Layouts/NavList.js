@@ -88,10 +88,11 @@ export default function NavList(path) {
             display: isEstateAdmin(onlineUser.user.userType)
 
         },
+      
         {
-            name: "Request Access history",
-            location: "/request-access-history",
-            active: isActive(path, "/request-access-history"),
+            name: "History",
+            location: "/manage-access-history",
+            active: isActive(path, "/manage-access-history"),
             display: isResident(onlineUser.user.userType)
 
         },
@@ -103,9 +104,16 @@ export default function NavList(path) {
 
         },
         {
-            name: "Temporary Pass",
+            name: "Manage Temporary Pass",
             location: "/temporary-pass",
             active: isActive(path, "/temporary-pass"),
+            display: isEstateAdmin(onlineUser.user.userType)
+
+        },
+        {
+            name: "History",
+            location: "/manage-access-history-admin",
+            active: isActive(path, "/manage-access-history-admin"),
             display: isEstateAdmin(onlineUser.user.userType)
 
         },
@@ -138,13 +146,7 @@ export default function NavList(path) {
             display: isSuperAdmin(onlineUser.user.userType)
 
         },
-        {
-            name: "Request Access history",
-            location: "/request-access-history",
-            active: isActive(path, "/request-access-history"),
-            display: isEstateAdmin(onlineUser.user.userType)
-
-        },
+       
    
         {
             name: "customer support",

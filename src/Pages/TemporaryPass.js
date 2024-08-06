@@ -21,6 +21,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import EventModal from '../Components/EventModal';
 import BackBtn from '../Components/BackBtn';
 import PartnershipStamp from '../Components/PartnershipStamp';
+import TemporaryPassHistoryCard from '../Components/TeporaryPassHistoryCard';
 
 export default function TemporaryPass() {
     const [Success, setSuccess] = useState(false);
@@ -31,6 +32,7 @@ export default function TemporaryPass() {
     const onlineUser = useSelector((state) => state.onlineUser);
     const [Verified, setVerified] = useState(onlineUser.user.Verified);
     const [Loading, setLoading] = useState(false);
+    const [HistoryPass, setHistoryPass] = useState([]);
     const [NewPass, setNewPass] = useState(true);
     const [History, setHistory] = useState(false);
     const apiLink = useSelector((state) => state.apiLink);
@@ -42,6 +44,8 @@ export default function TemporaryPass() {
         id: onlineUser.user.id,
 
     });
+
+    
 
     const handleChange = (e) => {
         setPayload({ ...Payload, [e.target.id]: e.target.value })
@@ -80,10 +84,13 @@ export default function TemporaryPass() {
 
         setLoading(true)
 
-        fetch(`${apiLink.link}/user/visitorRequest`, payload)
+        console.log("temporary pass", Payload)
+        fetch(`${apiLink.link}/user/temporaryPass`, payload)
 
             .then(res => res.json())
             .then(json => {
+
+                console.log("temporary pass", json)
 
 
                 if (json.status == 200) {
@@ -91,6 +98,8 @@ export default function TemporaryPass() {
                     setAccessCode(json.msg.accessCode)
                     onOpen()
 
+                    setLoading(false)
+                }else{
                     setLoading(false)
                 }
             })
@@ -130,66 +139,50 @@ export default function TemporaryPass() {
 
     }
 
-    const multiPayload = {
+   
+    const GetHistory = ()=>{
+      
+        fetch(`${apiLink.link}/user/accessHistory/${onlineUser.user.id}`)
+        .then(res => res.json())
+        .then(json => {
 
-        method: "POST",
 
-        headers: {
-            "Content-Type": "application/JSON"
-        },
+          console.log("accessHistory", json)
 
-        body: JSON.stringify(
-            {
-                numbers: HistoryPayload.numbers > 20 ? "20" : HistoryPayload.numbers,
-                codeWord: HistoryPayload.codeWord,
-                id: onlineUser.user.id,
-            }
-        ),
+          
+          if (json.status == 200) {
 
+              
+              
+              setHistoryPass(json.singleVisitor)
+              
+             
+
+
+           
+  
+          } else {
+            alert(json.message)
+            setLoading(false)
+          }
+        })
+        .catch(error => {
+          console.log("error", error);
+        })
     }
-
-    const EventAccess = () => {
-
-        setLoading(true)
-
-        fetch(`${apiLink.link}/user/HistoryVisitor`, multiPayload)
-
-            .then(res => res.json())
-            .then(json => {
-
-
-                if (json.status == 200) {
-
-                    // setMultiAccessCode(json.msg.accessCode)
-                    setisOpen2(true)
-                    setLoading(false)
-                    console.log("json", json)
-                }
-            })
-            .catch(error => {
-                console.log("error", error);
-                setLoading(false)
-            })
-
-    }
-    const HistoryAccess = () => {
-
-    }
+    
 
     const middleWare = () => {
-
 
 
         if (Verified == false || onlineUser.user.disable_user == true) {
             nav("/home")
         }
 
-
-
-
     }
     useEffect(() => {
         middleWare()
+        GetHistory()
     }, []);
 
     return (
@@ -213,7 +206,7 @@ export default function TemporaryPass() {
             <Box mx={["6%", "10%"]}>
 
                 <Center>
-                    <Box w={["85%", "320px"]}>
+                    <Box w={["100%","100%","60%","40%", "30%"]}>
 
                         <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="30px" cursor={"pointer"}>
                             <Text w={"50%"} onClick={handleNewPass} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={NewPass ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={NewPass ? "#424242" : "#939393"}>+ New Pass</Text>
@@ -237,9 +230,9 @@ export default function TemporaryPass() {
                                         <Box>
 
 
-                                            <Input val={Payload.numberOfDays && true} label="No. of Visitors" value={Payload.numberOfDays > 20 ? "20" : Payload.numberOfDays} id='numbers' type='number' onChange={handleHistoryChange} />
+                                            <Input val={Payload.numberOfDays && true} label="No. of Days" value={Payload.numberOfDays > 14 ? "14" : Payload.numberOfDays} id='numberOfDays' type='number' onChange={handleChange} />
 
-                                            <Text fontFamily={"body"} mt="4px" textAlign="center" fontSize="10px" fontWeight={"400"} color="#939393">Maximum no. of visitors is 20. For more visitors make another  request.</Text>
+                                            <Text fontFamily={"body"} mt="4px" textAlign="right" fontSize="10px" fontWeight={"400"} color="#939393">Temporary Pass has a Maximum Validity of 14 days</Text>
 
                                         </Box>
 
@@ -250,26 +243,45 @@ export default function TemporaryPass() {
 
                                 </Box>
                             ) : (
+
+
                                 <Box>
-                                    <Stack mt="44px" spacing="15px">
-                                        <Box>
+                                    <Stack mt="44px" spacing="32px">
 
 
-                                            <Input val={HistoryPayload.numbers && true} label="No. of Visitors" value={HistoryPayload.numbers > 20 ? "20" : HistoryPayload.numbers} id='numbers' type='number' onChange={handleHistoryChange} />
+                                    {
+                                        HistoryPass?.users?.filter(item => item.type_Request === "Temporary").length > 0 ? (
+                                            HistoryPass?.users?.filter(item => item.type_Request === "Temporary")
+                                            .map((item, i)=>(
 
-                                            <Text fontFamily={"body"} mt="4px" textAlign="center" fontSize="10px" fontWeight={"400"} color="#939393">Maximum no. of visitors is 20. For more visitors make another  request.</Text>
+                                             <TemporaryPassHistoryCard
+                                             key={i}
+                                             residentName={`${HistoryPass.firstName} ${HistoryPass.lastName}`}
+                                             residentPhone={HistoryPass.phone}
+                                             residentAddress={`No ${HistoryPass.houseNo}, ${HistoryPass.streetName} ${HistoryPass.estateName}`}
+                                             guestName={`${item.firstName} ${item.lastName}`}
+                                             gender={item.gender}
+                                             guestCreatedAt={item.createdAt}
+                                             securityName={item.approved_by}
 
-                                        </Box>
+                                             />
+                                            ))
 
-                                        <Input val={HistoryPayload.codeWord && true} label="Code Word" value={HistoryPayload.codeWord} id='codeWord' type='text' onChange={handleHistoryChange} />
+                                        ):(
+                                            <Text mt={"64px"} fontWeight={"700"} textAlign={"center"}>No Record Found</Text>
+                                        )
 
 
+                                           
+                                    }
+
+                                   
+                                   
+                                       
 
                                     </Stack>
 
-                                    <Button isLoading={Loading} disabled={HistoryPayload.codeWord !== "" && HistoryPayload.numbers !== "" ? false : true} mt="65px" px='60px' onClick={EventAccess}>Request Access</Button>
-                                    <Text mb="32px" textAlign="center" fontFamily={"body"} mt="4px" fontSize="10px" fontWeight={"400"} color="#939393">Your estate manager would be notified of this access request</Text>
-
+                                  
                                 </Box>
                             )
                         }
@@ -297,10 +309,10 @@ export default function TemporaryPass() {
 
                     <ModalCloseButton onClick={() => nav("/home")} />
                     <ModalBody pb={6} >
-                        {
-                            NewPass ? <Text textAlign={"center"}>Guest Access Requested <br /> Successfully</Text> :
-                                <Text textAlign={"center"}>History Guest Access Requested Successfully</Text>
-                        }
+                      
+                           <Text textAlign={"center"}>Temporary Pass Granted <br /> Successfully</Text> 
+                             
+                       
 
 
                         <Center>
@@ -322,10 +334,11 @@ export default function TemporaryPass() {
                                     <div>
                                         <Text fontWeight={"400"}>Please copy the access code and only share with  </Text>
                                         <Text fontWeight={"700"}> {Payload.firstName || ""} {Payload.lastName || ""}</Text>
+                                        <Text fontWeight={"400"}>This access code is only valid for {Payload.numberOfDays } days.</Text>
                                     </div>
                                 ) :
-                                    <Text fontWeight={"400"}>This access code is only valid for {HistoryPayload.numbers > 10 ? "10" : HistoryPayload.numbers} people.</Text>
 
+                                    <Text fontWeight={"400"}>This access code is only valid for {HistoryPayload.numbers > 10 ? "10" : HistoryPayload.numbers} people.</Text>
                             }
 
                         </Box>

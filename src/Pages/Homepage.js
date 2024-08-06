@@ -496,7 +496,7 @@ export default function Homepage() {
             <Flex justifyContent={"space-between"} flexWrap={"wrap"} >
               <Box w={["100%", "100%", "100%", "45%", "45%"]} mt="28px" >
 
-              <Box as="a" href="https://drive.google.com/uc?export=download&id=19cAHkRr918g_vw4ttn7Qx9MHwp76XCUX" target="_blank">
+              <Box as="a" href="/app.apk" >
               <Box display={["flex", "flex", "flex", "block", "block",]} justifyContent={"center"} cursor={"pointer"}>
                   <Image src="/android.svg" />
                 </Box>

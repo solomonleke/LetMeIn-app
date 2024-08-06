@@ -10,6 +10,7 @@ import Seo from '../../Utils/Seo';
 import { useQuery, useQueryClient } from 'react-query';
 import SecurityNav from '../../Layouts/SecurityNav';
 import BackBtn from '../../Components/BackBtn';
+import moment from 'moment';
 
 
 export default function SecurityOps() {
@@ -84,24 +85,31 @@ export default function SecurityOps() {
     fetch(`${apiLink.link}/user/verifyVisitor`, payload)
       .then(response => response.json())
       .then(data => {
+        console.log("verify data ", data)
         if (data.status == 200) {
           setTypeOf(data.msg.type_Request)
-          if (data.msg.type_Request == "Single") {
+          if (data.msg.type_Request === "Single") {
             setLoading(false)
             setUser(data.msg)
             setUsers(data.msg.users)
             console.log("accessStatus", data.msg.users)
             setGrant(true)
-          } else if (data.msg.type_Request == "Multiple") {
+          } else if (data.msg.type_Request === "Multiple") {
             setLoading(false)
             setUser(data.msg)
             setUsers(data.msg.User_visitors)
             console.log("accessStatus", data.msg)
             setGrant(true)
-          } else if (data.msg.type_Request == "Taxi") {
+          } else if (data.msg.type_Request === "Taxi") {
             setLoading(false)
             setUser(data.msg)
             setUsers(data.msg.User_taxis)
+            setGrant(true)
+          }
+          else if (data.msg.type_Request === "Temporary") {
+            setLoading(false)
+            setUser(data.msg)
+            setUsers(data.msg.users)
             setGrant(true)
           }
 
@@ -324,58 +332,122 @@ export default function SecurityOps() {
         ) : (
           <Box mx={["6%", "10%"]}>
             <Center>
-              <Box w={["80%", "70%", "50%", "40%"]} mb="20px">
+              <Box w={["85%", "80%", "60%", "50%"]} mb="20px">
                 <Box bg="#FAFAFA" boxShadow={"0px 2px 8px rgba(177, 177, 177, 0.25)"} rounded='7px' px="13px" py="30px" mt="50px">
                   <Text textAlign={"center"} fontSize={"24px"} fontFamily="body" fontWeight={"500"} color="#424242">
-                    {TypeOf === "Single" ? "Visitor Details" : TypeOf === "Multiple" ? "Multiple Visitor Details" : "Taxi Details"}</Text>
-
-                  <Stack mt="27px" spacing={"14px"}>
-
-                    <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
-                        {TypeOf === "Single" ? "Visitor Name" : TypeOf === "Multiple" ? "No of User Access" : "Drivers Name"}
-                      </Text>
-
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
-                        {TypeOf === "Single" ? `${User.firstName || ""}  ${User.lastName || ""}` : TypeOf === "Multiple" ? `${User.number_Visitors}` : `${User.visitorName}`}</Text>
-                    </HStack>
-
-                    <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"} >
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
-                        {TypeOf === "Single" ? "Visitor  Gender" : TypeOf === "Multiple" ? "Code Word" : "Plate Number"}
-                      </Text>
-
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
-                        {TypeOf === "Single" ? `${User.gender} ` : TypeOf === "Multiple" ? `${User.codeName}` : `${User.plateNumber}`}</Text>
+                    {TypeOf === "Single" ? "Visitor Details" : TypeOf === "Multiple" ? "Multiple Visitor Details" : TypeOf === "Taxi" ? "Taxi Details" : "Temporary Pass Details"}</Text>
 
 
-                    </HStack>
-
-                    <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident Name </Text>
-
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.firstName} {Users.lastName}</Text>
-                    </HStack>
-
-                    <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident address </Text>
-
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.houseNo},  {Users.streetName},  {Users.estateName} </Text>
-                    </HStack>
                   {
-                    TypeOf === "Multiple" && (
-                      <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Checked In</Text>
+                    TypeOf === "Temporary" ? (
+                      <Stack mt="27px" spacing={"14px"}>
 
-                      <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.checkedIn} of {User.number_Visitors} </Text>
-                    </HStack>
+                        <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                           Guest Name
+                          </Text>
+
+                          <Text fontSize={"14px"} textTransform={"capitalize"} fontFamily="body" fontWeight={"700"} color="#424242">
+                          {`${User.firstName || ""}  ${User.lastName || ""}`}
+                          </Text>
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                           Guest Gender
+                          </Text>
+
+                          <Text fontSize={"14px"} textTransform={"capitalize"} fontFamily="body" fontWeight={"700"} color="#424242">
+                            {User.gender}
+                          </Text>
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                          Resident Name
+                          </Text>
+
+                          <Text fontSize={"14px"} textTransform={"capitalize"} fontFamily="body" fontWeight={"700"} color="#424242">
+                          {`${Users.firstName || ""}  ${Users.lastName || ""}`}
+                          </Text>
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                          Resident Address
+                          </Text>
+
+                          <Text fontSize={"14px"} textTransform={"capitalize"} fontFamily="body" fontWeight={"700"} color="#424242">
+                            No {Users.houseNo},  {Users.streetName}  {Users.estateName} 
+                          </Text>
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                         Expiry Date
+                          </Text>
+
+                          <Text fontSize={"14px"} textTransform={"capitalize"} fontFamily="body" fontWeight={"700"} color="#424242">
+                          {moment(User.expires_At).format("LLL")}
+                          </Text>
+                        </HStack>
+
+                      
+                     
+
+
+                      </Stack>
+                    ) : (
+                      <Stack mt="27px" spacing={"14px"}>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} pt="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                            {TypeOf === "Single" ? "Visitor Name" : TypeOf === "Multiple" ? "No of User Access" : "Drivers Name"}
+                          </Text>
+
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
+                            {TypeOf === "Single" ? `${User.firstName || ""}  ${User.lastName || ""}` : TypeOf === "Multiple" ? `${User.number_Visitors}` : `${User.visitorName}`}</Text>
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"} >
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">
+                            {TypeOf === "Single" ? "Visitor  Gender" : TypeOf === "Multiple" ? "Code Word" : "Plate Number"}
+                          </Text>
+
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">
+                            {TypeOf === "Single" ? `${User.gender} ` : TypeOf === "Multiple" ? `${User.codeName}` : `${User.plateNumber}`}</Text>
+
+
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident Name </Text>
+
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{Users.firstName} {Users.lastName}</Text>
+                        </HStack>
+
+                        <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Resident address </Text>
+
+                          <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242"> {Users.houseNo},  {Users.streetName}  {Users.estateName} </Text>
+                        </HStack>
+                        {
+                          TypeOf === "Multiple" && (
+                            <HStack borderTop={"0.5px solid #A7A5A5"} py="18px" spacing={"20px"}>
+                              <Text fontSize={"14px"} fontFamily="body" fontWeight={"400"} color="#424242" w="30%">Checked In</Text>
+
+                              <Text fontSize={"14px"} fontFamily="body" fontWeight={"700"} color="#424242">{User.checkedIn} of {User.number_Visitors} </Text>
+                            </HStack>
+                          )
+                        }
+
+
+                      </Stack>
                     )
                   }
-                   
 
-                  </Stack>
 
-                 
+
                 </Box>
                 {
                   Success && (

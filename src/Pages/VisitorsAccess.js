@@ -212,7 +212,7 @@ export default function VisitorsAccess() {
             <Box mx={["6%", "10%"]}>
 
                 <Center>
-                    <Box w={["85%", "320px"]}>
+                    <Box w={["85%","85%","60%","40%", "35%"]}>
 
                         <HStack border="2px solid #36E7C4" bg={"#EEEEEE"} p="4px" mt="30px" cursor={"pointer"}>
                             <Text w={"50%"} onClick={handleSingle} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={Single ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={Single ? "#424242" : "#939393"}>Single Visitor</Text>
