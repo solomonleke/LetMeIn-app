@@ -35,6 +35,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import NavList from './NavList';
 import SingleList from '../Components/SingleList';
 import { isActive } from '../Authenticaation';
+import FooterNavList from './FooterNavList';
 
 
 export default function NavBar() {
@@ -54,6 +55,9 @@ export default function NavBar() {
 
 
   const navList = NavList(location.pathname)
+  const footerList = FooterNavList(location.pathname)
+
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const apiLink = useSelector((state) => state.apiLink);
@@ -271,12 +275,8 @@ export default function NavBar() {
           <DrawerBody>
             <Box display="flex" flexDirection={"column"} >
 
-              <Stack spacing={"19px"} mt="123px" cursor={"pointer"} flexGrow={1}>
-                <Link to="/">
-                  <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} p="10px" fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Homepage</Text>
-
-                </Link>
-
+              <Stack spacing={"10px"} mt="23px" cursor={"pointer"} flex={"1"}>
+             
                 {
                   navList.filter(item => item.display === true).map((item, i) => (
                     <SingleList
@@ -365,9 +365,34 @@ export default function NavBar() {
                 }
 
 
-                <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} p="10px" onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
 
               </Stack>
+
+              <Stack spacing={"10px"} mt="70px" >
+
+              {/* <Link to="/">
+                  <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} p="10px" fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Homepage</Text>
+
+                </Link> */}
+
+                {
+                  footerList.filter(item => item.display === true).map((item, i) => (
+                    <SingleList
+                      key={i}
+                      link={item.location}
+                      name={item.name}
+                      pageActive={item.active}
+                    />
+                  ))
+
+                }
+
+
+
+                <Text _hover={{ bg: "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" }} p="10px" onClick={logout} fontFamily={"body"} fontWeight={700} fontSize={"16px"} borderBottom={'0.5px solid #A7A5A5'}>Logout</Text>
+              </Stack>
+
+
 
             </Box>
           </DrawerBody>

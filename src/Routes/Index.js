@@ -45,6 +45,7 @@ import Privacy from '../Pages/Privacy'
 import TemporaryPass from '../Pages/TemporaryPass'
 import ManageRequestHistory from '../Pages/Residents/ManageRequestHistory'
 import ManageRequestHistoryAdmin from '../Pages/Estate-admin/ManageRequestHistoryAdmin'
+import ViewAllEstate from '../Pages/superAdmin/ViewAllEstate'
 
 
 
@@ -109,6 +110,7 @@ export default function IndexRoutes() {
             <Route path='/superAdmin/newOffice' element={<NewOffice />} />
             <Route path='/superAdmin/manageEstate' element={<ManageEstate />} />
             <Route path='/superAdmin/verifyAdmin' element={<VerifyAdmin />} />
+            <Route path='/superAdmin/view-all-estate' element={<ViewAllEstate />} />
 
           </Route>
 

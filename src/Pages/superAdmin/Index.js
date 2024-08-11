@@ -15,7 +15,8 @@ export default function IndexAdmin() {
         <Stack spacing={'15px'} cursor="pointer">
 
           <Text color="#939393" >What would you like to request for ?</Text>
-          <Button  onClick={()=>navigate("/superAdmin/newOffice")}>New Estate/Office</Button>
+          <Button  onClick={()=>navigate("/superAdmin/view-all-estate")}>Manage Estate/Office</Button>
+          {/* <Button  onClick={()=>navigate("/superAdmin/newOffice")}>New Estate/Office</Button> */}
           <Button  onClick={()=>navigate("/superAdmin/verifyAdmin")}>Verify Estate Admin</Button>
         </Stack>
 

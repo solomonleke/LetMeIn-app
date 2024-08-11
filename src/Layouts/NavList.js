@@ -133,6 +133,13 @@ export default function NavList(path) {
 
         },
         {
+            name: "View all Estate/Office",
+            location: "/superAdmin/view-all-estate",
+            active: isActive(path, "/superAdmin/view-all-estate"),
+            display: isSuperAdmin(onlineUser.user.userType)
+
+        },
+        {
             name: "New Estate/Office",
             location: "/superAdmin/newOffice",
             active: isActive(path, "/superAdmin/newOffice"),
@@ -148,13 +155,7 @@ export default function NavList(path) {
         },
        
    
-        {
-            name: "customer support",
-            location: "/customer-support",
-            active: isActive(path, "/customer-support"),
-            display: true
-
-        },
+      
     ]
 
   return list
