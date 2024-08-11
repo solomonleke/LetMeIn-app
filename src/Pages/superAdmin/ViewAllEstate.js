@@ -4,6 +4,21 @@ import Seo from '../../Utils/Seo'
 import { Box } from '@chakra-ui/react'
 
 function ViewAllEstate() {
+
+    // const getAllEstate = () => {
+    //     fetch(`${apiLink.link}/user/getAllEstates`)
+
+    //         .then(res => res.json())
+    //         .then(json => {
+    //             setEstateList(json.msg)
+    //             console.log("estate list", json)
+    //         })
+    //         .catch(error => {
+    //             console.log("error", error);
+    //         })
+
+    // }
+
   return (
   <MainLayout>
         <Seo title='LetMeIn SuperAdmin View all Estate' description='LetMeIn SuperAdmin Dashboard' />
