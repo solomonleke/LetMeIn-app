@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.table-row{
+  display: flex;
+  gap: 4rem;
+}
+
 .toggle{
   /* h="22px" bg="#fff" width={"48px"} rounded="22px" boxShadow={"inset 0px 0px 2px 1px rgba(23, 106, 90, 0.35)"} p="3px" */
 

@@ -207,7 +207,7 @@ export default function NavBar() {
               }
 
               <Box pos={"relative"} cursor="pointer">
-
+                
                 <Avatar pos={"relative"} name={onlineUser.user.firstName + " " + onlineUser.user.lastName} src={onlineUser.user.profileImage != "" && `${apiLink.link}/${onlineUser.user.profileImage}`} onClick={AvatarOpen} />
                 {
                   Data?.length >= 1 && (

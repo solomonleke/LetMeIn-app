@@ -16,7 +16,7 @@ import Seo from '../Utils/Seo';
 import TaxiAccess from './TaxiAccess';
 
 
-export default function RequestHistory() {
+export default function RequestHistory() { 
     const nav = useNavigate();
     const isLogged = useSelector((state) => state.isLogged);
     const [Duration, setDuration] = useState("")

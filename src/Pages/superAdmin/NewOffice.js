@@ -53,38 +53,44 @@ export default function NewOffice() {
   }
 
   const SubmitNewForm = () => {
-    setLoading(true)
-    console.log("Payload", Payload)
+    setLoading(true);
+    console.log("Payload", Payload);
 
     fetch(`${apiLink.link}/user/newEstate`, payload)
+        .then(res => res.json())
+        .then(json => {
+            if (json.status === 200) {
+                setLoading(false);
+                setSuccess(true);
+                
+                const savedEstates = JSON.parse(localStorage.getItem('estates')) || [];
+                const newEstate = {
+                    id: savedEstates.length + 1,
+                    name: Payload.estateName,
+                    country: Payload.country,
+                    state: Payload.state,
+                    createdAt: new Date().toISOString().split('T')[0],
+                };
+                savedEstates.push(newEstate);
+                localStorage.setItem('estates', JSON.stringify(savedEstates));
 
-      .then(res => res.json())
-      .then(json => {
+                setTimeout(() => {
+                    nav("/superAdmin");
+                    setSuccess(false);
+                }, 1500);
 
-        if (json.status == 200) {
-          setLoading(false)
-          setSuccess(true)
-
-         
-
-          setTimeout(() => {
-            nav("/superAdmin")
-            setSuccess(false)
-          }, 1500);
-
-          setPayload({
-            country: "",
-            state: "",
-            estateName: ""
-          })
-          console.log("API-CHECK", json)
-        }
-
-      })
-      .catch(error => {
-        console.log("error", error);
-      })
-  }
+                setPayload({
+                    country: "",
+                    state: "",
+                    estateName: ""
+                });
+                console.log("API-CHECK", json);
+            }
+        })
+        .catch(error => {
+            console.log("error", error);
+        });
+};
   return (
     <MainLayout>
       <Seo title='LetMeIn SuperAdmin Dashboard' description='LetMeIn SuperAdmin Dashboard' />
@@ -100,8 +106,6 @@ export default function NewOffice() {
 
                   <option value={`${item.name}`}>{item.name}</option>
                 ))
-
-
 
 
 
