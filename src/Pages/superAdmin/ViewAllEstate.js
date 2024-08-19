@@ -22,6 +22,7 @@ import {
   useDisclosure,
   Input,
   Select,
+  TableContainer,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Country, State } from 'country-state-city';
@@ -107,6 +108,9 @@ const ViewAllEstate = () => {
         <Container maxW="container.xl" p={4}>
           <Button backgroundColor='red' color='white' marginBottom='32px' onClick={() => nav("/superAdmin/newOffice")}>Create new estate</Button>
           <Heading mb={8} textAlign='center'>Estates Table</Heading>
+
+          <TableContainer>
+
           <Table variant="simple" size="md" width="full">
             <Thead>
               <Tr>
@@ -134,6 +138,7 @@ const ViewAllEstate = () => {
               ))}
             </Tbody>
           </Table>
+          </TableContainer>
 
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
