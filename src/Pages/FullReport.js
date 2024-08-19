@@ -15,7 +15,7 @@ export default function FullReport() {
     const apiLink = useSelector((state) => state.apiLink);
     const [FullData, setFullData] = useState("")
     const [Loading, setLoading] = useState(true)
-
+    
     const fullReport= ()=>{
 
         fetch(`${apiLink.link}/user/getAllusers/${onlineUser.user.estateName}`)

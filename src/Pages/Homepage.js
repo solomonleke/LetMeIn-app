@@ -44,7 +44,9 @@ export default function Homepage() {
       payload: { data: "https://api.letmein.ng" },
     });
   };
-
+  // Replace all visitor to guests on the visitor access page.
+  // Create a table for estates that shows all the list of estates
+  // The table head should contain serial numbers, name of estates, country, state, created at, edit button, delete button,
   const nav = useNavigate();
 
   const getStarted = () => {
