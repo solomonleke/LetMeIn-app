@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Country, State } from 'country-state-city';
+import ReusablePaginationControls from '../../Components/PaginatedComponent';
 
 const ViewAllEstate = () => {
   const initialEstates = [
@@ -105,7 +106,28 @@ const ViewAllEstate = () => {
     setSelectedState(e.target.value);
   };
 
-  const displayedEstates = showMore ? estates : estates.slice(0, 3);
+  // const displayedEstates = showMore ? estates : estates.slice(0, 3);
+// pagination Component
+  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const PreviousPage = () => {
+    setCurrentPage(1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const indexOfLastData = currentPage * rowsPerPage;
+  const indexOfFirstData = indexOfLastData - rowsPerPage;
+  const PaginatedData = estates?.slice(indexOfFirstData, indexOfLastData);
 
   return (
     <MainLayout>
@@ -128,7 +150,7 @@ const ViewAllEstate = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {displayedEstates.map((estate, index) => (
+              {PaginatedData.map((estate, index) => (
                 <Tr key={estate.id}>
                   <Td>{index + 1}</Td>
                   <Td>{estate.name}</Td>
@@ -144,6 +166,17 @@ const ViewAllEstate = () => {
             </Tbody>
           </Table>
           </TableContainer>
+
+          
+          <ReusablePaginationControls
+            currentPage={currentPage}
+            startIndex={startIndex}
+            endIndex={endIndex}
+            totalItems={Math.ceil(estates?.length / rowsPerPage)}
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+            PreviousPage={PreviousPage}
+          />
 
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
@@ -200,7 +233,7 @@ const ViewAllEstate = () => {
               </ModalFooter>
             </ModalContent>
           </Modal>
-          <Box textAlign="center" mt={4}>
+          {/* <Box textAlign="center" mt={4}>
             <Button
               onClick={() => setShowMore(!showMore)}
               transition="all 0.3s ease-in-out"
@@ -209,7 +242,7 @@ const ViewAllEstate = () => {
             >
               {showMore ? "See less" : "See more"}
             </Button>
-          </Box>
+          </Box> */}
         </Container>
       </Box>
     </MainLayout>
