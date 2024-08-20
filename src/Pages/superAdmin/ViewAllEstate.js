@@ -36,6 +36,7 @@ const ViewAllEstate = () => {
   ];
 
   const [estates, setEstates] = useState(initialEstates);
+  const [showMore, setShowMore] = useState(false);
   const [selectedEstate, setSelectedEstate] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalMode, setModalMode] = useState('edit');
@@ -74,19 +75,21 @@ const ViewAllEstate = () => {
 
   const handleSave = () => {
     if (modalMode === 'edit') {
-      setEstates(estates =>
-        estates.map(e =>
-          e.id === selectedEstate.id
-            ? { ...e, name: newName, country: selectedCountry, state: selectedState }
-            : e
-        )
-      );
+        setEstates(estates =>
+            estates.map(e =>
+                e.id === selectedEstate.id
+                    ? { ...e, name: newName, country: selectedCountry, state: selectedState }
+                    : e
+            )
+        );
     } else if (modalMode === 'delete') {
-      setEstates(estates => estates.filter(e => e.id !== selectedEstate.id));
+        const updatedEstates = estates.filter(e => e.id !== selectedEstate.id);
+        setEstates(updatedEstates);
+        
+        localStorage.setItem('estates', JSON.stringify(updatedEstates));
     }
     onClose();
-  };
-
+};
   const handleCountryChange = (e) => {
     const selectedCountry = e.target.value;
     setSelectedCountry(selectedCountry);
@@ -100,6 +103,8 @@ const ViewAllEstate = () => {
   const handleStateChange = (e) => {
     setSelectedState(e.target.value);
   };
+
+  const displayedEstates = showMore ? estates : estates.slice(0, 3);
 
   return (
     <MainLayout>
@@ -119,16 +124,16 @@ const ViewAllEstate = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {estates.map((estate) => (
+              {displayedEstates.map((estate, index) => (
                 <Tr key={estate.id}>
-                  <Td>{estate.id}</Td>
+                  <Td>{index + 1}</Td>
                   <Td>{estate.name}</Td>
                   <Td>{estate.country}</Td>
                   <Td>{estate.state}</Td>
                   <Td>{estate.createdAt}</Td>
                   <Td>
-                    <Button colorScheme="blue" onClick={() => handleEdit(estate)}>Edit</Button>
-                    <Button colorScheme="red" ml={2} onClick={() => handleDelete(estate)}>Delete</Button>
+                  <Button colorScheme="blue" onClick={() => handleEdit(estate)}>Edit</Button>
+                  <Button colorScheme="red" ml={2} onClick={() => handleDelete(estate)}>Delete</Button>
                   </Td>
                 </Tr>
               ))}
@@ -190,6 +195,16 @@ const ViewAllEstate = () => {
               </ModalFooter>
             </ModalContent>
           </Modal>
+          <Box textAlign="center" mt={4}>
+            <Button
+              onClick={() => setShowMore(!showMore)}
+              transition="all 0.3s ease-in-out"
+              bgColor='red'
+              textColor='white'
+            >
+              {showMore ? "See less" : "See more"}
+            </Button>
+          </Box>
         </Container>
       </Box>
     </MainLayout>
