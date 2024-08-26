@@ -88,7 +88,7 @@ export default function Verification() {
                         Success && (
                             <Alert status='success' my="15px" color="#fff" mb="22px">
                                 <AlertIcon />
-                                <AlertTitle mr={2} fontWeight={"400"}>A verification  email as been resent successfully </AlertTitle>
+                                <AlertTitle mr={2} fontWeight={"400"}>A verification  email has been resent successfully </AlertTitle>
                                 <CloseButton onClick={() => setSuccess(false)} position='absolute' right='8px' top='8px' />
                             </Alert>
                         )
@@ -100,7 +100,7 @@ export default function Verification() {
                         <Center fontSize={"60px"} mb="20px" color="#E02828"><MdEmail /></Center>
                         <Text fontSize={"20px"} fontFamily="body" fontWeight={"700"} >Verify your Email Address</Text>
                         <Text fontSize={"16px"} fontFamily="body" fontWeight={"400"} mt="12px">Almost there! We've sent a verification email to {NewUser} <br />
-                            You need to verify you email address to log into LetMeIn App
+                            You need to verify your email address to log into LetMeIn App
 
                         </Text>
                         <Button isLoading={Loading} mt={"32px"} onClick={Resend}>Resend Mail</Button>

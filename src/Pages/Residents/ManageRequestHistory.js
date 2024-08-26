@@ -41,10 +41,54 @@ export default function ManageRequestHistory() {
     const [PendingMultiple, setPendingMultiple] = useState([]);
     const [PendingTaxi, setPendingTaxi] = useState([]);
     const [PendingSingle, setPendingSingle] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(2);
+    const rowsPerPage = 2;
+
+    const historyData = [
+        { type: "Single" },
+        { type: "Taxi" },
+        { type: "Multiple" },
+        { type: "Temporary" },
+    ];
 
 
 
 
+        const allPendingRequests = [...PendingSingle, ...PendingTaxi, ...PendingMultiple];
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = allPendingRequests.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handleNextPages = () => {
+        if (currentPage < Math.ceil(allPendingRequests.length / itemsPerPage)) {
+        setCurrentPage(prevPage => prevPage + 1);
+        }
+    };
+
+    const handlePreviousPages = () => {
+        if (currentPage > 1) {
+        setCurrentPage(prevPage => prevPage - 1);
+        }
+    };
+
+    const indexOfLastData = currentPage * rowsPerPage;
+    const indexOfFirstData = indexOfLastData - rowsPerPage;
+    const paginatedData = historyData.slice(indexOfFirstData, indexOfLastData);
+
+    const totalPages = Math.ceil(historyData.length / rowsPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
 
 
@@ -178,93 +222,58 @@ export default function ManageRequestHistory() {
                             PendingRequest ? (
                                 <Box>
 
-                                    <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>Total - {PendingSingle?.length + PendingTaxi?.length + PendingMultiple?.length }</Text>
-                                    <Stack mt="44px" spacing="15px">
-
-                                        {
-                                            PendingSingle?.map((item, i) => (
-
-                                                <PendingCardGroup
-                                                    key={i}
-                                                    typeOf={item.type_Request}
-                                                    guestName={`${item.firstName} ${item.lastName}`}
-                                                    gender={item.gender}
-                                                    guestCreatedAt={item.createdAt}
-                                                    residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
-                                                    residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName} `}
-
-                                                />
-                                            ))
-
-                                        }
-
-                                        {
-                                            PendingTaxi?.map((item, i) => (
-
-                                                <PendingCardGroup
-                                                    key={i}
-                                                    typeOf={item.type_Request}
-                                                    guestName={`${item.visitorName}`}
-                                                    plateNo={item.plateNumber}
-                                                    guestCreatedAt={item.createdAt}
-                                                    residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
-                                                    residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName} `}
-
-                                                />
-                                            ))
-
-                                        }
-                                        {
-                                            PendingMultiple?.map((item, i) => (
-
-                                                <PendingCardGroup
-                                                    key={i}
-                                                    typeOf={item.type_Request}
-                                                    noOfGuest={item.number_Visitors}
-                                                    guestCreatedAt={item.createdAt}
-                                                    residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
-                                                    residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName} `}
-
-                                                />
-                                            ))
-
-                                        }
+<Text mt="32px" fontWeight="400" fontSize="16px">
+              Total - {allPendingRequests.length}
+            </Text>
 
 
+            <Stack mt="44px" spacing="15px">
+              {currentItems.map((item, index) => (
+                <PendingCardGroup
+                  key={index}
+                  typeOf={item.type_Request || item.typeOf}
+                  guestName={`${item.firstName || ''} ${item.lastName || ''}`}
+                  gender={item.gender}
+                  guestCreatedAt={item.createdAt}
+                  residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
+                  residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName}`}
+                />
+              ))}
+            </Stack>
 
-
-                                    </Stack>
-
+            <HStack mt="20px" justifyContent="center">
+              <Button onClick={handlePreviousPages} isDisabled={currentPage === 1}>
+                Previous
+              </Button>
+              <Text>{currentPage}</Text>
+              <Button onClick={handleNextPages} isDisabled={currentPage >= Math.ceil(allPendingRequests.length / itemsPerPage)}>
+                Next
+              </Button>
+            </HStack>
 
                                 </Box>
                             ) : (
 
 
                                 <Box>
+                                <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>
+                                    Total - {historyData.length}
+                                </Text>
+                                <Stack mt="44px" spacing="15px">
+                                    {paginatedData.map((item, index) => (
+                                        <HistoryCardGroup key={index} typeOf={item.type} />
+                                    ))}
+                                </Stack>
 
-                                    <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>Total - 10</Text>
-                                    <Stack mt="44px" spacing="15px">
-
-
-                                        <HistoryCardGroup
-                                            typeOf="Single"
-                                        />
-
-
-
-                                        <HistoryCardGroup
-                                            typeOf="Taxi"
-                                        />
-                                        <HistoryCardGroup
-                                            typeOf="Multiple"
-                                        />
-                                        <HistoryCardGroup
-                                            typeOf="Temporary"
-                                        />
-
-
-                                    </Stack>
-
+                                    <HStack justifyContent="center" mt="20px">
+                                <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
+                                    Previous
+                                </Button>
+                                <Text>{currentPage}</Text>
+                                <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
+                                    Next
+                                </Button>
+                            </HStack>
 
                                 </Box>
                             )
