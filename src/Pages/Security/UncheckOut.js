@@ -118,6 +118,7 @@ export default function UnCheckOutHistory() {
               <option value='Last-30'>Last 30</option>
 
             </Select>
+            
             <Box>
 
               <Stack spacing={"15px"} mt="32px">
@@ -131,14 +132,12 @@ export default function UnCheckOutHistory() {
                   Adebola Adeniran | Male | 08-May-22 | 5:45 pm
                 </Text>
               </Stack>
-
-              <Box mt={"20px"}>
-                <Pagination />
-              </Box>
-
-
-
+            
             </Box>
+
+             {/* <Box mt={"20px"}>
+                <Pagination />
+              </Box> */}
 
           </Box>
 

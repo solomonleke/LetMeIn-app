@@ -38,7 +38,6 @@ const ViewAllEstate = () => {
   ];
 
   const [estates, setEstates] = useState(initialEstates);
-  const [showMore, setShowMore] = useState(false);
   const [selectedEstate, setSelectedEstate] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalMode, setModalMode] = useState('edit');
@@ -106,7 +105,6 @@ const ViewAllEstate = () => {
     setSelectedState(e.target.value);
   };
 
-  // const displayedEstates = showMore ? estates : estates.slice(0, 3);
 // pagination Component
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);

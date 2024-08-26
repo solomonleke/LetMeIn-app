@@ -7,6 +7,7 @@ import {
     ModalBody,
     ModalCloseButton,
     Image, AlertIcon, Alert, AlertTitle, CloseButton, HStack,
+    Flex,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -44,6 +45,9 @@ export default function TemporaryPass() {
         id: onlineUser.user.id,
 
     });
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 2;
 
     
 
@@ -185,6 +189,25 @@ export default function TemporaryPass() {
         GetHistory()
     }, []);
 
+
+    const indexOfLastData = currentPage * rowsPerPage;
+    const indexOfFirstData = indexOfLastData - rowsPerPage;
+    const paginatedData = HistoryPass?.users?.filter(item => item.type_Request === "Temporary").slice(indexOfFirstData, indexOfLastData);
+    const totalPages = Math.ceil(HistoryPass?.users?.filter(item => item.type_Request === "Temporary").length / rowsPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+
     return (
         <MainLayout>
 
@@ -249,25 +272,20 @@ export default function TemporaryPass() {
                                     <Stack mt="44px" spacing="32px">
 
 
-                                    {
-                                        HistoryPass?.users?.filter(item => item.type_Request === "Temporary").length > 0 ? (
-                                            HistoryPass?.users?.filter(item => item.type_Request === "Temporary")
-                                            .map((item, i)=>(
-
-                                             <TemporaryPassHistoryCard
-                                             key={i}
-                                             residentName={`${HistoryPass.firstName} ${HistoryPass.lastName}`}
-                                             residentPhone={HistoryPass.phone}
-                                             residentAddress={`No ${HistoryPass.houseNo}, ${HistoryPass.streetName} ${HistoryPass.estateName}`}
-                                             guestName={`${item.firstName} ${item.lastName}`}
-                                             gender={item.gender}
-                                             guestCreatedAt={item.createdAt}
-                                             securityName={item.approved_by}
-
-                                             />
-                                            ))
-
-                                        ):(
+                                    {paginatedData && paginatedData.length > 0 ? (
+                                        paginatedData.map((item, i) => (
+                                            <TemporaryPassHistoryCard
+                                                key={i}
+                                                residentName={`${HistoryPass.firstName} ${HistoryPass.lastName}`}
+                                                residentPhone={HistoryPass.phone}
+                                                residentAddress={`No ${HistoryPass.houseNo}, ${HistoryPass.streetName} ${HistoryPass.estateName}`}
+                                                guestName={`${item.firstName} ${item.lastName}`}
+                                                gender={item.gender}
+                                                guestCreatedAt={item.createdAt}
+                                                securityName={item.approved_by}
+                                            />
+                                        ))
+                                    ):(
                                             <Text mt={"64px"} fontWeight={"700"} textAlign={"center"}>No Record Found</Text>
                                         )
 
@@ -282,6 +300,16 @@ export default function TemporaryPass() {
                                     </Stack>
 
                                   
+                                    <HStack justifyContent="center" mt="20px">
+                                    <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
+                                        Previous
+                                    </Button>
+                                    <Text>{currentPage}</Text>
+                                    <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
+                                        Next
+                                    </Button>
+                                </HStack>
+
                                 </Box>
                             )
                         }
