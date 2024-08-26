@@ -24,6 +24,8 @@ import PartnershipStamp from '../../Components/PartnershipStamp';
 import TemporaryPassHistoryCard from '../../Components/TeporaryPassHistoryCard';
 import PendingCardGroup from '../../Components/PendingCardGroup';
 import HistoryCardGroup from '../../Components/HistoryCardGroup';
+import ReusablePaginationControls from '../../Components/PaginatedComponent';
+import { rolesPerPage } from '../../Utils/Helpers';
 
 export default function ManageRequestHistory() {
     const [Success, setSuccess] = useState(false);
@@ -41,9 +43,10 @@ export default function ManageRequestHistory() {
     const [PendingMultiple, setPendingMultiple] = useState([]);
     const [PendingTaxi, setPendingTaxi] = useState([]);
     const [PendingSingle, setPendingSingle] = useState([]);
+    const [rowsPerPage, setRowsPerPage] = useState(rolesPerPage);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(2);
-    const rowsPerPage = 2;
+    
 
     const historyData = [
         { type: "Single" },
@@ -55,40 +58,35 @@ export default function ManageRequestHistory() {
 
 
 
-        const allPendingRequests = [...PendingSingle, ...PendingTaxi, ...PendingMultiple];
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = allPendingRequests.slice(indexOfFirstItem, indexOfLastItem);
-
-    const handleNextPages = () => {
-        if (currentPage < Math.ceil(allPendingRequests.length / itemsPerPage)) {
-        setCurrentPage(prevPage => prevPage + 1);
-        }
-    };
-
-    const handlePreviousPages = () => {
-        if (currentPage > 1) {
-        setCurrentPage(prevPage => prevPage - 1);
-        }
-    };
-
+    const allPendingRequests = [...PendingSingle, ...PendingTaxi, ...PendingMultiple];
     const indexOfLastData = currentPage * rowsPerPage;
     const indexOfFirstData = indexOfLastData - rowsPerPage;
+    const PaginatedData = allPendingRequests?.slice(indexOfFirstData, indexOfLastData);
+
+
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => prevPage + 1);
+      };
+    
+      const PreviousPage = () => {
+        setCurrentPage(1);
+      };
+    
+      const handlePreviousPage = () => {
+        setCurrentPage((prevPage) => prevPage - 1);
+      };
+    
+
+   
     const paginatedData = historyData.slice(indexOfFirstData, indexOfLastData);
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+
+  
 
     const totalPages = Math.ceil(historyData.length / rowsPerPage);
 
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePreviousPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
 
 
 
@@ -222,58 +220,78 @@ export default function ManageRequestHistory() {
                             PendingRequest ? (
                                 <Box>
 
-<Text mt="32px" fontWeight="400" fontSize="16px">
-              Total - {allPendingRequests.length}
-            </Text>
+                                    <Text mt="32px" fontWeight="400" fontSize="16px">
+                                        Total - {allPendingRequests.length}
+                                    </Text>
 
 
-            <Stack mt="44px" spacing="15px">
-              {currentItems.map((item, index) => (
-                <PendingCardGroup
-                  key={index}
-                  typeOf={item.type_Request || item.typeOf}
-                  guestName={`${item.firstName || ''} ${item.lastName || ''}`}
-                  gender={item.gender}
-                  guestCreatedAt={item.createdAt}
-                  residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
-                  residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName}`}
-                />
-              ))}
-            </Stack>
+                                    <Stack mt="44px" spacing="15px">
+                                        {PaginatedData.map((item, index) => (
+                                            <PendingCardGroup
+                                                key={index}
+                                                typeOf={item.type_Request || item.typeOf}
+                                                guestName={`${item.firstName || ''} ${item.lastName || ''}`}
+                                                gender={item.gender}
+                                                guestCreatedAt={item.createdAt}
+                                                residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
+                                                residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName}`}
+                                            />
+                                        ))}
+                                    </Stack>
 
-            <HStack mt="20px" justifyContent="center">
-              <Button onClick={handlePreviousPages} isDisabled={currentPage === 1}>
-                Previous
-              </Button>
-              <Text>{currentPage}</Text>
-              <Button onClick={handleNextPages} isDisabled={currentPage >= Math.ceil(allPendingRequests.length / itemsPerPage)}>
-                Next
-              </Button>
-            </HStack>
+                                    {/* <HStack mt="20px" justifyContent="center">
+                                        <Button onClick={handlePreviousPages} isDisabled={currentPage === 1}>
+                                            Previous
+                                        </Button>
+                                        <Text>{currentPage}</Text>
+                                        <Button onClick={handleNextPages} isDisabled={currentPage >= Math.ceil(allPendingRequests.length / itemsPerPage)}>
+                                            Next
+                                        </Button>
+                                    </HStack> */}
+
+                                    <ReusablePaginationControls
+                                        currentPage={currentPage}
+                                        startIndex={startIndex}
+                                        endIndex={endIndex}
+                                        totalItems={Math.ceil(allPendingRequests?.length / rowsPerPage)}
+                                        handlePreviousPage={handlePreviousPage}
+                                        handleNextPage={handleNextPage}
+                                        PreviousPage={PreviousPage}
+                                    />
 
                                 </Box>
                             ) : (
 
 
                                 <Box>
-                                <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>
-                                    Total - {historyData.length}
-                                </Text>
-                                <Stack mt="44px" spacing="15px">
-                                    {paginatedData.map((item, index) => (
-                                        <HistoryCardGroup key={index} typeOf={item.type} />
-                                    ))}
-                                </Stack>
+                                    <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>
+                                        Total - {historyData.length}
+                                    </Text>
+                                    <Stack mt="44px" spacing="15px">
+                                        {paginatedData.map((item, index) => (
+                                            <HistoryCardGroup key={index} typeOf={item.type} />
+                                        ))}
+                                    </Stack>
 
                                     <HStack justifyContent="center" mt="20px">
-                                <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
-                                    Previous
-                                </Button>
-                                <Text>{currentPage}</Text>
-                                <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
-                                    Next
-                                </Button>
-                            </HStack>
+                                        <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
+                                            Previous
+                                        </Button>
+                                        <Text>{currentPage}</Text>
+                                        <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
+                                            Next
+                                        </Button>
+                                    </HStack>
+
+                                    <ReusablePaginationControls
+                                        currentPage={currentPage}
+                                        startIndex={startIndex}
+                                        endIndex={endIndex}
+                                        totalItems={Math.ceil(allPendingRequests?.length / rowsPerPage)}
+                                        handlePreviousPage={handlePreviousPage}
+                                        handleNextPage={handleNextPage}
+                                        PreviousPage={PreviousPage}
+                                    />
 
                                 </Box>
                             )
