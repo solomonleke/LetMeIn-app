@@ -50,6 +50,46 @@ export default function TemporaryPass() {
 
     const [rowsPerPage, setRowsPerPage] = useState(rolesPerPage);
     const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(2);
+    const [PendingMultiple, setPendingMultiple] = useState([]);
+    const [PendingTaxi, setPendingTaxi] = useState([]);
+    const [PendingSingle, setPendingSingle] = useState([]);
+    const allPendingRequests = [...PendingSingle, ...PendingTaxi, ...PendingMultiple];
+    const indexOfLastData = currentPage * rowsPerPage;
+    const indexOfFirstData = indexOfLastData - rowsPerPage;
+    const PaginatedData = allPendingRequests?.slice(indexOfFirstData, indexOfLastData);
+
+
+    const historyData = [
+        { type: "Single" },
+        { type: "Taxi" },
+        { type: "Multiple" },
+        { type: "Temporary" },
+    ];
+
+
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => prevPage + 1);
+      };
+    
+      const PreviousPage = () => {
+        setCurrentPage(1);
+      };
+    
+      const handlePreviousPage = () => {
+        setCurrentPage((prevPage) => prevPage - 1);
+      };
+    
+
+   
+    const paginatedData = historyData.slice(indexOfFirstData, indexOfLastData);
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+
+  
+
+    const totalPages = Math.ceil(historyData.length / rowsPerPage);
 
     
 
@@ -192,27 +232,6 @@ export default function TemporaryPass() {
     }, []);
 
 
-    const indexOfLastData = currentPage * rowsPerPage;
-    const indexOfFirstData = indexOfLastData - rowsPerPage;
-    const paginatedData = HistoryPass?.users?.filter(item => item.type_Request === "Temporary").slice(indexOfFirstData, indexOfLastData);
-    // const totalPages = Math.ceil(HistoryPass?.users?.filter(item => item.type_Request === "Temporary").length / rowsPerPage);
-
-    const startIndex = (currentPage - 1) * rowsPerPage;
-    const endIndex = startIndex + rowsPerPage;
-
-    const handleNextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-      };
-    
-      const PreviousPage = () => {
-        setCurrentPage(1);
-      };
-    
-      const handlePreviousPage = () => {
-        setCurrentPage((prevPage) => prevPage - 1);
-      };
-
-
     return (
         <MainLayout>
 
@@ -274,9 +293,11 @@ export default function TemporaryPass() {
 
 
                                 <Box>
-                                        <Stack mt="44px" spacing="32px">
-                                        {paginatedData && paginatedData.length > 0 ? (
-                                            paginatedData.map((item, i) => (
+                                    <Stack mt="44px" spacing="32px">
+
+
+
+                                       {paginatedData.map((item, i) => (
                                             <TemporaryPassHistoryCard
                                                 key={i}
                                                 residentName={`${HistoryPass.firstName} ${HistoryPass.lastName}`}
@@ -287,21 +308,23 @@ export default function TemporaryPass() {
                                                 guestCreatedAt={item.createdAt}
                                                 securityName={item.approved_by}
                                             />
-                                            ))
-                                        ) : (
-                                            <Text mt={"64px"} fontWeight={"700"} textAlign={"center"}>
-                                            No Record Found
-                                            </Text>
-                                        )}
-                                        </Stack>
+                                        ))}
+                                    ):(
+                                            <Text mt={"64px"} fontWeight={"700"} textAlign={"center"}>No Record Found</Text>
+                                        )
 
+                                   
+                                   
+                                       
+
+                                    </Stack>
 
                                   
                                     <ReusablePaginationControls
                                         currentPage={currentPage}
                                         startIndex={startIndex}
                                         endIndex={endIndex}
-                                        totalItems={rowsPerPage}
+                                        totalItems={Math.ceil(allPendingRequests?.length / rowsPerPage)}
                                         handlePreviousPage={handlePreviousPage}
                                         handleNextPage={handleNextPage}
                                         PreviousPage={PreviousPage}
