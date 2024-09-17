@@ -62,6 +62,8 @@ export default function ManageRequestHistory() {
     const indexOfLastData = currentPage * rowsPerPage;
     const indexOfFirstData = indexOfLastData - rowsPerPage;
     const PaginatedData = allPendingRequests?.slice(indexOfFirstData, indexOfLastData);
+    const paginatedHistoryData = historyData.slice(indexOfFirstData, indexOfLastData);
+    const totalHistoryPages = Math.ceil(historyData.length / rowsPerPage);
 
 
     const handleNextPage = () => {
@@ -215,106 +217,77 @@ export default function ManageRequestHistory() {
                             <Text w={"50%"} onClick={handleHistory} fontSize={"14px"} py="10px" fontFamily="body" fontWeight={"700"} textAlign={"center"} bg={History ? "linear-gradient(269.11deg, #50FCDA 19.49%, #12CDA8 87.44%)" : "#EEEEEE"} color={History ? "#424242" : "#939393"}>History</Text>
                         </HStack>
 
-                        {
+                        {PendingRequest ? (
+            <Box>
+              <Text mt="32px" fontWeight="400" fontSize="16px">
+                Total - {allPendingRequests.length}
+              </Text>
+              <Stack mt="44px" spacing="15px">
+                {PaginatedData.map((item, index) => (
+                  <PendingCardGroup
+                    key={index}
+                    typeOf={item.type_Request || item.typeOf}
+                    guestName={`${item.firstName || ""} ${item.lastName || ""}`}
+                    gender={item.gender}
+                    guestCreatedAt={item.createdAt}
+                    residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
+                    residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName}`}
+                  />
+                ))}
+              </Stack>
 
-                            PendingRequest ? (
-                                <Box>
-
-                                    <Text mt="32px" fontWeight="400" fontSize="16px">
-                                        Total - {allPendingRequests.length}
-                                    </Text>
-
-
-                                    <Stack mt="44px" spacing="15px">
-                                        {PaginatedData.map((item, index) => (
-                                            <PendingCardGroup
-                                                key={index}
-                                                typeOf={item.type_Request || item.typeOf}
-                                                guestName={`${item.firstName || ''} ${item.lastName || ''}`}
-                                                gender={item.gender}
-                                                guestCreatedAt={item.createdAt}
-                                                residentName={`${onlineUser.user.firstName} ${onlineUser.user.lastName}`}
-                                                residentAddress={`${onlineUser.user.houseNo}, ${onlineUser.user.streetName} ${onlineUser.user.estateName}`}
-                                            />
-                                        ))}
-                                    </Stack>
-
-                                    {/* <HStack mt="20px" justifyContent="center">
-                                        <Button onClick={handlePreviousPages} isDisabled={currentPage === 1}>
-                                            Previous
-                                        </Button>
-                                        <Text>{currentPage}</Text>
-                                        <Button onClick={handleNextPages} isDisabled={currentPage >= Math.ceil(allPendingRequests.length / itemsPerPage)}>
-                                            Next
-                                        </Button>
-                                    </HStack> */}
-
-                                    <ReusablePaginationControls
-                                        currentPage={currentPage}
-                                        startIndex={startIndex}
-                                        endIndex={endIndex}
-                                        totalItems={Math.ceil(allPendingRequests?.length / rowsPerPage)}
-                                        handlePreviousPage={handlePreviousPage}
-                                        handleNextPage={handleNextPage}
-                                        PreviousPage={PreviousPage}
-                                    />
-
-                                </Box>
-                            ) : (
-
-
-                                <Box>
-                                    <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>
-                                        Total - {historyData.length}
-                                    </Text>
-                                    <Stack mt="44px" spacing="15px">
-                                        {paginatedData.map((item, index) => (
-                                            <HistoryCardGroup key={index} typeOf={item.type} />
-                                        ))}
-                                    </Stack>
-
-                                    <HStack justifyContent="center" mt="20px">
-                                        <Button onClick={handlePreviousPage} isDisabled={currentPage === 1}>
-                                            Previous
-                                        </Button>
-                                        <Text>{currentPage}</Text>
-                                        <Button onClick={handleNextPage} isDisabled={currentPage === totalPages}>
-                                            Next
-                                        </Button>
-                                    </HStack>
-
-                                    <ReusablePaginationControls
-                                        currentPage={currentPage}
-                                        startIndex={startIndex}
-                                        endIndex={endIndex}
-                                        totalItems={Math.ceil(allPendingRequests?.length / rowsPerPage)}
-                                        handlePreviousPage={handlePreviousPage}
-                                        handleNextPage={handleNextPage}
-                                        PreviousPage={PreviousPage}
-                                    />
-
-                                </Box>
-                            )
-                        }
-
-
-                        {
-                            Copied && (
-
-                                <Text fontSize={"12px"} textAlign="center" fontWeight="700" fontStyle={"italic"} fontFamily="body" color="#249421">Access Code has been copied to your clip board</Text>
-                            )
-                        }
-
-                    </Box>
-                </Center>
-
-                <BackBtn onclick={() => nav("/home")} />
-
-
-                <PartnershipStamp />
+              <ReusablePaginationControls
+                currentPage={currentPage}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                totalItems={Math.ceil(allPendingRequests.length / rowsPerPage)}
+                handlePreviousPage={handlePreviousPage}
+                handleNextPage={handleNextPage}
+                PreviousPage={PreviousPage}
+              />
             </Box>
+          ) : (
+            <Box>
+              <Text mt="32px" fontWeight={"400"} fontSize={"16px"}>
+                Total - {historyData.length}
+              </Text>
+              <Stack mt="44px" spacing="15px">
+                {paginatedHistoryData.map((item, index) => (
+                  <HistoryCardGroup key={index} typeOf={item.type} />
+                ))}
+              </Stack>
 
+              <ReusablePaginationControls
+                currentPage={currentPage}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                totalItems={totalHistoryPages}
+                handlePreviousPage={handlePreviousPage}
+                handleNextPage={handleNextPage}
+                PreviousPage={PreviousPage}
+              />
+            </Box>
+          )}
 
-        </MainLayout>
-    );
+          {Copied && (
+            <Text
+              fontSize={"12px"}
+              textAlign="center"
+              fontWeight="700"
+              fontStyle={"italic"}
+              fontFamily="body"
+              color="#249421"
+            >
+              Access Code has been copied to your clipboard
+            </Text>
+          )}
+        </Box>
+      </Center>
+
+      <BackBtn onclick={() => nav("/home")} />
+
+      <PartnershipStamp />
+    </Box>
+  </MainLayout>
+);
 }
