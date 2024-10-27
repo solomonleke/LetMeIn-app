@@ -29,50 +29,176 @@ export default function UnCheckOutHistory() {
   const nav = useNavigate();
 
 
-  //   const payload = {
+    const payload = {
 
-  //     method: "POST",
+      method: "POST",
 
-  //     headers: {
-  //         "Content-Type": "application/JSON"
-  //     },
+      headers: {
+          "Content-Type": "application/JSON"
+      },
 
-  //     body: JSON.stringify(
-  //       {accessCode: AccessCode }
-  //     ),
+      body: JSON.stringify(
+        {accessCode: AccessCode }
+      ),
 
-  // }
-
-
-
-
-  // const CheckOutVisitor = () => {
-
-  //   fetch('https://api.solomonleke.com.ng/user/CheckedIn',{
-
-  //     method: "POST",
-
-  //     headers: {
-  //         "Content-Type": "application/JSON"
-  //     },
-
-  //     body: JSON.stringify(
-  //       {_id: User._id }
-  //     ),
-
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //       console.log(data);
-  //       nav("/security-ops/grant-access")
-  //   })
-  //   .catch((error) => {
-  //       console.error('Error:', error);
-  //   });
+  }
 
 
 
-  // }
+
+  const CheckOutVisitor = () => {
+
+    //https://api.letmein.ng/user/UncheckHistory_Single/:estateName
+    //https://api.letmein.ng/user/UncheckHistory_Taxi/:estateName
+    //https://api.letmein.ng/user/UncheckHistory_Multiple/:estateName
+
+    // const Continue =()=>{
+    //   setLoading(true)
+  
+    //   if(RequestType  == "Single Access"){
+  
+    //     fetch(`${apiLink.link}/user/checkInHistory/${onlineUser.user.estateName}`)
+    //     .then(res => res.json())
+    //     .then(json => {
+          
+    //       console.log("checkHistory", json)
+    //       if (json.status == 200) {
+    //         setSingleLen(json.checkedIn_visitor.length)
+    //         setLoading(false)
+    //         setData(json.checkedIn_visitor)
+    //         setShow(true)
+    //       } else {
+    //         alert(json.message)
+    //         setLoading(false)
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log("error", error);
+    //     })
+  
+    //   }else if(RequestType  == "Multiple Access"){
+  
+    //     fetch(`${apiLink.link}/user/checkedInMultiple/${onlineUser.user.estateName}`)
+    //     .then(res => res.json())
+    //     .then(json => {
+          
+    //       console.log("checkHistory", json)
+    //       if (json.status == 200) {
+    //         setMultipleLen(json.checkedIn_Multiple.length)
+    //         setLoading(false)
+    //         setData(json.checkedIn_Multiple)
+    //         setShow(true)
+    //       } else {
+    //         alert(json.message)
+    //         setLoading(false)
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log("error", error);
+    //     })
+    //   } else if(RequestType  == "Taxi Access"){
+  
+    //     fetch(`${apiLink.link}/user/checkInHistory_Taxi/${onlineUser.user.estateName}`)
+    //     .then(res => res.json())
+    //     .then(json => {
+          
+    //       console.log("checkHistory", json)
+    //       if (json.status == 200) {
+    //         setMultipleLen(json.checkedIn_Taxi.length)
+    //         setLoading(false)
+    //         setData(json.checkedIn_Taxi)
+    //         setShow(true)
+    //       } else {
+    //         alert(json.message)
+    //         setLoading(false)
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log("error", error);
+    //     })
+    //   }
+  
+        
+  
+  
+    // }
+
+    // const checkLen = ()=>{
+    //   fetch(`${apiLink.link}/user/checkOutHistory_Single/${onlineUser.user.estateName}`)
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     if (json.status == 200) {
+    //       setSingleLen(json.checkedOut_visitor.length)
+    //     } else {
+    //      console.log("json error", json)
+    //       setLoading(false)
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log("error", error);
+    //   })
+    //   fetch(`${apiLink.link}/user/checkOutHistory_Multiple/${onlineUser.user.estateName}`)
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     if (json.status == 200) {
+    //       setMultipleLen(json.checkedOut_Multiple.length)
+    //     } else {
+    //      console.log("json error", json)
+    //       setLoading(false)
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log("error", error);
+    //   })
+    //   fetch(`${apiLink.link}/user/checkOutHistory_Taxi/${onlineUser.user.estateName}`)
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     if (json.status == 200) {
+    //       setTaxiLen(json.checkedOut_Taxi.length)
+    //     } else {
+    //      console.log("json error", json)
+    //       setLoading(false)
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log("error", error);
+    //   })
+  
+    // }
+  
+  
+  
+  
+    // useEffect(() => {
+    //   checkLen()
+    
+    // }, []);
+
+    fetch('https://api.solomonleke.com.ng/user/CheckedIn',{
+
+      method: "POST",
+
+      headers: {
+          "Content-Type": "application/JSON"
+      },
+
+      body: JSON.stringify(
+        {_id: User._id }
+      ),
+
+  })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        nav("/security-ops/grant-access")
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+
+
+  }
 
   const location = useLocation();
 
